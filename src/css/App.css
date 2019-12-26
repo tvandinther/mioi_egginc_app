@@ -1,0 +1,237 @@
+:root {
+    --background-colour: rgb(33, 33, 33);
+    --colour-1: rgb(216, 57, 57);
+    --colour-2: rgb(70, 48, 156);
+    --colour-3: rgb(63, 63, 63);
+    --colour-4: rgb(101, 199, 255);
+    --accent-colour-1: rgb(250, 250, 250);
+    --accent-colour-2: rgb(247, 193, 16);
+    --accent-colour-3: rgb(14, 247, 52);
+    --accent-colour-4: rgb(231, 117, 9);
+
+    --header-height: 50px;
+    --footer-height: 0px;
+}
+
+/* @font-face {
+    font-family: "CustomFont";
+    src: url(../../public/fonts/airborne.ttf) format('truetype')
+} */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--background-colour);
+    margin: 0;
+    color: var(--accent-colour-1);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.App {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.Page {
+    height: inherit;
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+.Window {
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+}
+
+.Navbar {
+    background-color: var(--colour-1);
+    height: var(--header-height);
+    width: 100vw;
+    grid-template-columns: auto;
+}
+
+.NavbarText {
+    text-align: center;
+    color: var(--accent-colour-1);
+    font-size: 28px;
+    margin: auto;
+}
+
+.MenuButton {
+    position: absolute;
+    display: grid;
+    top: 0px;
+    right: 0px;
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    z-index: 99;
+    cursor: pointer;
+    transition: all 300ms ease-out;
+}
+
+.MenuButton:hover {
+    filter: brightness(0.8);
+}
+
+.MenuButton>div {
+    margin: auto;
+}
+
+.SidebarMenu {
+    position: absolute;
+    z-index: 98;
+    top: 0px;
+    right: 0px;
+    background-color: var(--colour-2);
+    height: 100vh;
+    max-width: 400px;
+    width: 100vw;
+    transition: all 200ms ease-out;
+}
+
+.SidebarMenu.hidden {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.SidebarMenuHeader {
+    background-color: var(--colour-3);
+    height: var(--header-height);
+    color: var(--accent-colour-1);
+    font-size: 28px;
+}
+
+.SidebarMenuItem {
+    position: relative;
+    width: 100%;
+    height: 80px;
+    border-bottom: 0px solid var(--colour-2);
+    color: var(--accent-colour-1);
+    font-size: 24px;
+}
+
+a:hover>.SidebarMenuItem,
+a.active>.SidebarMenuItem {
+    background-color: var(--colour-1);
+    border-color: var(--accent-colour-2);
+}
+
+a:hover>.SidebarMenuItem {
+    filter: brightness(1.2);
+}
+
+.bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 4px;
+    border-radius: 2px;
+    background-color: var(--accent-colour-1);
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+/* Rotate first bar */
+.change .bar1 {
+    -webkit-transform: translate(0%, 250%) rotate(-45deg);
+    transform: translate(0%, 250%) rotate(-45deg);
+}
+  
+/* Fade out the second bar */
+.change .bar2 {
+    opacity: 0;
+}
+  
+/* Rotate last bar */
+.change .bar3 {
+    -webkit-transform: translate(0%, 250%) rotate(-45deg);
+    transform: translate(0%, -250%) rotate(45deg);
+}
+
+/* UTILITY */
+.gridCenter {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.MenuButton.left,
+    .SidebarMenu.left{
+        left: 0px;
+        right: unset;
+    }
+    .SidebarMenu.hidden.left {
+        transform: translateX(-100%);
+    }
+
+/* @media only screen and (min-width: 720px) {
+    
+} */
+
+/* CONTRACTAPP */
+
+.ContractList {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.ContractListItem {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: 
+        "image title"
+        "image subtitle";
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 180px;
+    transition: transform 200ms ease;
+    cursor: pointer;
+}
+
+.ContractListItem:hover {
+    /* transform: translateX(-50px); */
+    /* transform: scale(1.05); */
+}
+
+.ContractListItem>img {
+    grid-area: image;
+    max-height: 90%;
+    max-width: 90%;
+    justify-self: left;
+}
+
+.ContractListItem>.title {
+    grid-area: title;
+    align-self: end;
+    margin: 5px;
+}
+
+.ContractListItem>.subtitle {
+    grid-area: subtitle;
+    align-self: start;
+    margin: 5px;
+}
+
+.ContractSummary {
+    min-height: 100%;
+    background-color: var(--colour-2);
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.column-2 {
+    display: grid;
+    grid-template-columns: 700px 1fr;
+}

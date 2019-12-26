@@ -1,0 +1,7 @@
+/*
+/*/
+
+!/public/
+!app.yaml
+!package.json
+!server.js
