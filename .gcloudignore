@@ -5,3 +5,5 @@
 !app.yaml
 !package.json
 !server.js
+!/graphql/
+!/eggIncAPI/

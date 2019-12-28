@@ -11,7 +11,7 @@ import * as UIActions from "./actions/UIActions"
 // RESOURCES
 import "../css/App.css";
 import Pages from "./pages/pageRoutes"
-import PageNotFound from "./pages/404"
+import PageNotFound from "./pages/_404"
 // COMPONENTS
 import SidebarMenu from "./components/SidebarMenu"
 import MenuButton from "./components/MenuButton"
@@ -48,6 +48,7 @@ function App(props) {
 				<Switch>
 					<Route exact path="/" component={Pages.Home} />
 					<Route path="/contract" component={Pages.ContractApp} />
+					<Route path="/guide" component={Pages.GameGuide} />
 					<Route component={PageNotFound} />
 				</Switch>
 			</Router>

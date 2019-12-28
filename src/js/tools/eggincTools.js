@@ -1,5 +1,4 @@
 export function contractNameFormat(value) {
-    console.log("new")
     return value.replace(" ", "-").toLowerCase()
 }
 

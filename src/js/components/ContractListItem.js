@@ -3,11 +3,11 @@ import * as eiTools from "../tools/eggincTools"
 
 export default function ContractListItem(props) {
     const colours = [
-        "#226621",
-        "#215e66",
-        "#272166",
-        "#66213e",
-        "#664f21",
+        "#f5675d",
+        "#f5cf5d",
+        "#a1f55d",
+        "#5dcaf5",
+        "#f55da6",
     ]
     const colour = colours[props.index % colours.length]
     useEffect(() => {
@@ -15,6 +15,7 @@ export default function ContractListItem(props) {
             [props.contract.name]: {
                 index: props.index,
                 colour: colour,
+                searchValue: "",
             },
         })
     }, [])

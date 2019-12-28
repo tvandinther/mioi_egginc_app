@@ -10,7 +10,6 @@ export default function SidebarMenu(props) {
     useClickAway((evt) => {
         if(props.sidebarIsVisible) {
             evt.stopImmediatePropagation()
-            console.log(evt, "STOP")
             props.hideSidebar()
         }
     }, ref)
@@ -24,7 +23,8 @@ export default function SidebarMenu(props) {
     }
     const menuItems = {
         "Home": "/",
-        "Contract" : "/contract"
+        "Contract" : "/contract",
+        "Game Guide" : "/guide"
     }
     const sidebarMenuItemComponents = Object.entries(menuItems).map(([text, path]) => {
         return <SidebarMenuItem text={text} href={path} key={path} onClick={props.hideSidebar}/>

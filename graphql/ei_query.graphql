@@ -1,0 +1,215 @@
+"A single co-op belonging to a contract"
+type Coop {
+    "The contract the co-op is working on"
+    contract: String
+    "The co-op code/name"
+    coop: String
+    "The total eggs laid by the co-op"
+    eggs: Float
+    "The cumulative egg laying rate of all members in the co-op"
+    totalRate: Float
+    "The time left in the contract in seconds since epoch"
+    timeLeft: Float
+    "An array of all members belonging to the co-op"
+    members: [Member]
+}
+
+"A single member of a co-op object"
+type Member {
+    "The name of the member"
+    name: String
+    "The member's game ID"
+    id: String
+    "The total number of eggs the member has laid in the co-op"
+    eggs: Float
+    "The last reported egg laying rate of the member"
+    rate: Float
+}
+
+type PlayerData {
+    userId: String
+    userName: String
+    version: Int
+    stats: Stats
+    game: Game
+    farmsList: [Simulation]
+    mission: Mission
+    contracts: MyContracts
+}
+
+type Stats {
+    eggTotalsList: [Float]
+    numPrestiges: Int
+    numPiggyBreaks: Int
+    lostPiggyIncrements: Int
+    boostsUsed: Int
+    droneTakedowns: Int
+    droneTakedownsElite: Int
+}
+
+type Game {
+    currentFarm: Int
+    maxEggReached: Int
+    goldenEggsEarned: Int
+    goldenEggsSpent: Int
+    soulEggsD: Float
+    eggsOfProphecy: Int
+    prestigeCashEarned: Float
+    lifetimeCashEarned: Float
+    piggyBank: Int
+    piggyBankFullAlertShown: Boolean
+    permitLevel: Int
+    epicResearchList: [ResearchItem]
+    hyperLoopStation: Boolean
+    nextDailyGiftTime: Float
+    lastDailyGiftCollectedDay: Int
+    numDailyGiftsCollected: Int
+    currentMultiplier: Int
+    currentMultiplierExpiration: Float
+    achievementsList: [AchievementInfo]
+    maxFarmSizeReachedList: [Float]
+    eggMedalLevelList: [Int]
+    boostsList: [OwnedBoost]
+}
+
+type ResearchItem {
+    id: String
+    level: Int
+}
+
+type AchievementInfo {
+    id: String
+    achieved: Boolean
+}
+
+type OwnedBoost {
+    boostId: String
+    count: Int
+}
+
+type Simulation {
+    eggType: Int
+    farmType: Int
+    contractId: String
+    cashEarned: Float
+    cashSpend: Float
+    unclaimedCash: Float
+    lastStepTime: Float
+    numChickens: Float
+    eggsLaid: Float
+    eggsPaidFor: Float
+    silosOwned: Int
+    habsList: [Int]
+    habPopulation: [Float]
+    hatcheryPopulation: Int
+    vehiclesList: [Int]
+    trainLengthList: [Int]
+    commonResearchList: [ResearchItem]
+    activeBoostsList: [ActiveBoost]
+    timeCheatsDetected: Float
+    timeCheatDebt: Float
+}
+
+type ActiveBoost {
+    boostId: String
+    timeRemaining: Float
+    referenceValue: Float
+}
+
+type Mission {
+    currentMission: String
+    referenceValue: Float
+    missionsList: [MissionInfo]
+}
+
+type MissionInfo {
+    id: String
+    complete: Boolean
+}
+type MyContracts {
+    contractIdsSeenList: [String]
+    contractsList: [LocalContract]
+    archiveList: [LocalContract]
+}
+
+type LocalContract {
+    contract: Contract
+    coopIdentifier: String
+    accepted: Boolean
+    timeAccepted: Float
+    cancelled: Boolean
+    new: Boolean
+    coopSharedEndTime: Float
+    coopGracePeriodEndTime: Float
+    coopContributionFinalized: Boolean
+    coopLastUploadedContribution: Float
+    lastAmountWhenRewardGiven: Float
+    boostsUsed: Int
+}
+
+type Contract {
+    identifier: String
+    name: String
+    description: String
+    egg: Int
+    goalsList: [Goal]
+    coopAllowed: Boolean
+    maxCoopSize: Int
+    maxBoosts: Int
+    expirationTime: Float
+    lengthSeconds: Float
+    maxSoulEggs: Float
+    minClientVersion: Int
+}
+
+type Goal {
+    type: Int
+    targetAmount: Float
+    rewardType: Int
+    rewardSubType: String
+    rewardAmount: Float
+    targetSoulEggs: Float
+}
+
+type Periodicals {
+    sales: SalesInfo
+    events: CurrentEvents
+    contracts: ContractsResponse
+    gifts: Gift
+}
+
+type SalesInfo {
+    salesList: [Sale]
+}
+
+type Sale {
+    productId: String
+    secondsRemaining: Float
+    discountString: String
+    saleId: String
+}
+
+type CurrentEvents {
+    eventsList: [Event]
+}
+
+type Event {
+    identifier: String
+    secondsRemaining: Float
+    type: String
+    multiplier: Float
+    subtitle: String
+}
+
+type ContractsResponse {
+    contractsList: [Contract]
+    serverTime: Float
+    maxEop: Int
+}
+
+type Gift {
+    userId: String
+    rewardType: Int
+    rewardSubType: String
+    rewardAmount: Float
+}

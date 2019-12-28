@@ -1,0 +1,20 @@
+# import * from 'ei_query.graphql'
+
+type Query {
+    eggInc: EggIncQuery
+}
+
+"The root mioi Query"
+type MioiQuery {
+    generateAPIKey(currentUser: String!): String
+}
+
+"The root EggInc Query"
+type EggIncQuery {
+    "Returns a co-op data for a given contract"
+    coop(coopName: String!, contractName: String!): Coop
+    "Returns player data"
+    playerData(playerID: String!): PlayerData
+    "Returns current periodicals"
+    periodicals: Periodicals
+}

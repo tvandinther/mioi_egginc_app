@@ -3,7 +3,7 @@ const initialState = {
         fetching: false,
         fetched: false,
         error: null,
-        contractsList: []
+        contractsList: [],
     },
     shownContracts: {},
     viewContract: null,
@@ -18,19 +18,29 @@ export default function reducer(state=initialState, action) {
             }}
         }
         case "GET_ACTIVE_CONTRACTS_FULFILLED": {
+            const contractsList = action.payload.data.activeContracts.map(contract => {
+                return {...contract,
+                    coopSearch: {
+                        searchString: "",
+                        searchFailed: false,
+                        failedSearches: [],
+                    },
+                    coopData: {},
+                }
+            })
             return {...state, 
-                    activeContracts: {
+                activeContracts: {
                     ...state.activeContracts,
                     fetching: false,
                     fetched: true,
-                    contractsList: action.payload.data.activeContracts,
+                    contractsList: contractsList,
                 }
             }
         }
         case "GET_ACTIVE_CONTRACTS_REJECTED": {
             return {...state, activeContracts: {
-                ...state.activeContracts,
-                error: action.payload,
+                    ...state.activeContracts,
+                    error: action.payload,
             }}
         }
         case "SHOW_CONTRACT": {
@@ -49,6 +59,20 @@ export default function reducer(state=initialState, action) {
                     ...state.shownContracts,
                     ...action.payload,
                 }
+            }
+        }
+        case "UPDATE_CONTRACT_COOP_SEARCH_STRING": {
+            const updatedContractsList = state.activeContracts.contractsList.map(contract => {
+                if (contract.name === action.payload.contractId) {
+                    contract.coopSearch.searchString = action.payload.searchString
+                }
+                return contract
+            })
+            return {...state,
+                activeContracts: {
+                    contractsList: updatedContractsList,
+                }
+
             }
         }
         default: {

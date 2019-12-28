@@ -10,7 +10,10 @@ module.exports = merge(common, {
         historyApiFallback: true,
         port: 3000,
         publicPath: "/",
-        hotOnly: true
+        hotOnly: true,
+        proxy: {
+            '/api': 'http://localhost:8080/api'
+        }
     },
     plugins: [new webpack.HotModuleReplacementPlugin()]
 })

@@ -1,8 +1,9 @@
 import Home from "./Home"
 import ContractApp from "./ContractApp"
-import _404 from "./404"
+import GameGuide from "./GameGuide"
 
 export default {
     Home,
     ContractApp,
+    GameGuide,
 }

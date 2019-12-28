@@ -1,6 +1,7 @@
-import React, { Component } from "react"
+import React, { useEffect } from "react"
 import { withRouter } from "react-router-dom"
 
+import siteMetaData from "../siteMetadata.json"
 import contractNameFormat from "../tools/eggincTools"
 
 import Navbar from "../components/Navbar"
@@ -11,6 +12,11 @@ function Home(props) {
         title: "Welcome to Home",
         shortTitle: "Home",
     }
+
+    useEffect(() => {
+        document.title = [siteMetaData.siteTitle].join(" | ")
+        return () => document.title = siteMetaData.siteTitle
+    }, [])
     
     return (
         <div>
@@ -18,7 +24,6 @@ function Home(props) {
             <p>
                 This is the home page.
             </p>
-            <ValidatedInput validatorFunction={value => value.replace(" ", "-").toLowerCase()}/>
         </div>
     )
 }

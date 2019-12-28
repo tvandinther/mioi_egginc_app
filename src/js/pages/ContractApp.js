@@ -5,7 +5,7 @@ import { Switch, Route } from "react-router-dom"
 // ACTIONS
 import * as contractActions from "../actions/contractActions"
 // RESOURCES
-
+import siteMetaData from "../siteMetadata.json"
 // COMPONENTS
 import Navbar from "../components/Navbar"
 import MultiColumn from "../components/MultiColumn"
@@ -17,6 +17,10 @@ function ContractApp(props) {
         title: "Welcome to Home",
         shortTitle: "Contract",
     }
+    useEffect(() => {
+        document.title = [siteMetaData.siteTitle, "Contracts"].join(" | ")
+        return () => document.title = siteMetaData.siteTitle
+    }, [])
 
     useEffect(() => {props.getActiveContracts()}, [])
     return (

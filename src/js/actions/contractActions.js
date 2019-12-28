@@ -25,3 +25,13 @@ export function updateShownContracts(contractInfo) {
         payload: contractInfo,
     }
 }
+
+export function updateContractCoopSearchString(contractId, searchString) {
+    return {
+        type: "UPDATE_CONTRACT_COOP_SEARCH_STRING",
+        payload: {
+            contractId: contractId,
+            searchString: searchString,
+        }
+    }
+}

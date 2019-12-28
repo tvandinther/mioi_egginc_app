@@ -1,11 +1,14 @@
 import React, { useEffect } from "react"
 import { useParams, useHistory, Link } from "react-router-dom"
 import { useSwipeable, Swipeable } from "react-swipeable"
+import ValidatedInput from "./ValidatedInput"
+import { contractNameFormat } from "../tools/eggincTools"
 
 export default function ContractSummary(props) {
     let { contractId } = useParams()
     useEffect(() => {
         props.showContract()
+        return props.hideContract
     }, [])
     const history = useHistory()
     const goBack = () => {
@@ -33,7 +36,6 @@ export default function ContractSummary(props) {
             }
             return null
         }
-
         return (
             <div {...swipeHandlers} className="ContractSummary" style={{backgroundColor: bgColour}}>
                 <BackButton />
@@ -43,6 +45,9 @@ export default function ContractSummary(props) {
                 <span>Co-op allowed: {contract.coopAllow ? "Yes" : "No"}</span><br/>
                 <span>Co-op size: {contract.coopSize}</span><br/>
                 <span>Boosts allowed: {contract.boostsAllowed}</span><br/>
+                <br/>
+                <ValidatedInput {...contract.coopSearch} updateContractCoopSearchString={props.updateContractCoopSearchString} contractId={contractId} validatorFunction={contractNameFormat}/>
+                <br/>
                 <br/>
                 <span>Rewards: {JSON.stringify(contract.rewards, null, '\t')}</span>
                 

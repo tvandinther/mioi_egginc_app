@@ -1,47 +1,44 @@
-import React, { Component } from "react"
+import React, { useState, useEffect } from "react"
 
-export default class ValidatedInput extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            contractName: ""
+export default function ValidatedInput(props) {
+    const [coopSearchString, setCoopSearchString] = useState(props.searchString)
+    useEffect(() => {
+        console.log("STATE", props.contractId)
+        setCoopSearchString(props.searchString);
+        return () => {
+            console.log("stored state: ", props.searchString)
+            console.log("local state: ", coopSearchString)
+            if (props.searchString !== coopSearchString) {
+                props.updateContractCoopSearchString(props.contractId, coopSearchString)
+            }
         }
+    }, [props.contractId])
 
-        this.handleChange = this.handleChange.bind(this)
-        this.handlePaste = this.handlePaste.bind(this)
-    }
-
-    validate(value) {
-        if (typeof this.props.validatorFunction === "function") {
-            value = this.props.validatorFunction(value)
+    const validate = (value) => {
+        if (typeof props.validatorFunction === "function") {
+            value = props.validatorFunction(value)
         }
         return value
     }
 
-    handleChange(event) {
-        let { name, value } = event.target
-        value = this.validate(value)
-        this.setState({
-            [name] : value
-        })
+    const handleChange = (event) => {
+        let { value } = event.target
+        value = validate(value)
+        setCoopSearchString(value)
     }
 
-    handlePaste(event) {
-        let { name, value, selectionStart, selectionEnd } = event.target
+    const handlePaste = (event) => {
+        let { value, selectionStart, selectionEnd } = event.target
         let pastedValue = event.clipboardData.getData("text")
         let pre = value.substring(0, selectionStart)
         let post = value.substring(selectionEnd, value.length)
         value = (pre + pastedValue + post).trim()
-        value = this.validate(value)
+        value = validate(value)
         event.preventDefault()
-        this.setState({
-            [name] : value
-        })
+        setCoopSearchString(value)
     }
 
-    render() {
-        return (
-            <input type="text" name="contractName" value={this.state.contractName} onChange={this.handleChange} onPaste={this.handlePaste}></input>
-        )
-    }
+    return (
+        <input type="text" name="contractName" value={coopSearchString} onChange={handleChange} onPaste={handlePaste}></input>
+    )
 }
