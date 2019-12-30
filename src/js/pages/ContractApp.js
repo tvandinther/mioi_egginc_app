@@ -25,6 +25,7 @@ function ContractApp(props) {
     useEffect(() => {props.getActiveContracts()}, [])
     return (
         <div className="Page">
+            <Navbar title={pageDetails.shortTitle}/>
             
             <MultiColumn scrolled={props.contractApp.viewContract} sizeFormat={props.UI.sizeFormat}>
                 <ContractList {...props} activeContracts={props.contractApp.activeContracts.contractsList}/>

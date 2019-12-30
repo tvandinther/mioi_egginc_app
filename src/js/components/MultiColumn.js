@@ -10,7 +10,7 @@ export default function MultiColumn(props) {
         display: "grid",
         gridTemplateColumns: Array.from({length: 2}, () => columnSize).join(" "),
         overflow: "visible",
-        height: "inherit",
+        height: "100%",
         transform: isSingleColumnView && props.scrolled ? "translateX(-100vw)" : null,
         transition: "transform 200ms ease"
     }
