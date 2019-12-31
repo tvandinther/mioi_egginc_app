@@ -1,7 +1,7 @@
 import React from "react"
 
 import { Link } from "react-router-dom"
-import ContractListItem from "./ContractListItem"
+import ContractCard from "./ContractCard"
 
 export default function ContractList(props) {
     if (!props.activeContracts.length) {
@@ -17,10 +17,14 @@ export default function ContractList(props) {
         coopSize: (a, b) => a.coopSize > b.coopSize,
     }
     const sortedContracts = props.activeContracts.sort(sortFunctions["validUntil"])
+    const reversed = true
+    if (reversed) {
+        sortedContracts.reverse()
+    }
     const contractListItems = sortedContracts.map((contract, index) => {
         return (
             <Link onClick={props.showContract} to={`${props.match.url}/${contract.name}`} key={index}>
-                <ContractListItem updateShownContracts={props.updateShownContracts} contract={contract} index={index} />
+                <ContractCard updateShownContracts={props.updateShownContracts} contract={contract} index={index} />
             </Link>
         )
     })

@@ -3,7 +3,7 @@ import * as eiTools from "../tools/eggincTools"
 import ContractCardProgressBar from "./ContractCardProgressBar"
 import ContractCardDetails from "./ContractCardDetails"
 
-export default function ContractListItem(props) {
+export default function ContractCard(props) {
     useEffect(() => {
         props.updateShownContracts({
             [props.contract.name]: {
@@ -14,13 +14,14 @@ export default function ContractListItem(props) {
     }, [])
     const contractLength = (60 * 60 * 24 * 21)
     const barProgress = ((new Date() / 1000) - (props.contract.validUntil - contractLength)) / contractLength
-    const timeLeft = eiTools.getExpireETA(props.contract.validUntil)
+    const progressBarHoverText = eiTools.getExpireETA(props.contract.validUntil)
+    console.log(progressBarHoverText)
     return (
-        <div className="ContractListItem" id={props.contract.name}>
+        <div className="ContractCard card" id={props.contract.name}>
             <div className="ContractCardHeader">
                 <h2 className="ContractTitle">{props.contract.title}</h2>
             </div>
-            <ContractCardProgressBar progress={barProgress}/>
+            <ContractCardProgressBar progress={barProgress} hoverText={progressBarHoverText}/>
             <div className="ContractCardBody">
                 <div className="ContractImageContainer">
                     <img src={`/images/egg${props.contract.egg}.png`}></img>

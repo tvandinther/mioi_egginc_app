@@ -37,7 +37,7 @@ export default function ContractSummary(props) {
             return null
         }
         return (
-            <div {...swipeHandlers} className="ContractSummary" style={{backgroundColor: bgColour}}>
+            <div {...swipeHandlers} className="ContractSummary card" style={{backgroundColor: bgColour}}>
                 <BackButton />
                 <h1>{contract.title}</h1>
                 <span>{contract.description}</span><br/>
