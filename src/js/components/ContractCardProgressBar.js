@@ -37,10 +37,10 @@ export default function ContractCardProgressBar(props) {
         width: `${progress * 100}%`,
         background: `rgb(${fillColour[0]},${fillColour[1]},${fillColour[2]})`,
     }
-
+    const hoverText = hovered ? props.hoverText : null
     return (
         <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="ContractCardProgressBar" style={barStyle}>
-            {props.hoverText}
+            {hoverText}
             <div className="filled" style={filledStyle}></div>
         </div>
     )

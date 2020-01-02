@@ -14,7 +14,8 @@ export default function ContractCard(props) {
     }, [])
     const contractLength = (60 * 60 * 24 * 21)
     const barProgress = ((new Date() / 1000) - (props.contract.validUntil - contractLength)) / contractLength
-    const progressBarHoverText = eiTools.getExpireETA(props.contract.validUntil)
+    const expireString = eiTools.getExpireETA(props.contract.validUntil, true)
+    const progressBarHoverText =  expireString <= 0 ? "Expired!" : "Expires in " + expireString
     console.log(progressBarHoverText)
     return (
         <div className="ContractCard card" id={props.contract.name}>
