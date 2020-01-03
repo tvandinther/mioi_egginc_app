@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@material-ui/core": "^4.8.2",
+    "@material-ui/icons": "^4.5.1",
     "axios": "^0.19.0",
     "base64-arraybuffer": "^0.2.0",
     "express": "^4.17.1",
@@ -27,6 +29,7 @@
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.2",
+    "babel-plugin-import": "^1.13.0",
     "css-loader": "^1.0.0",
     "redux-logger": "^3.0.6",
     "style-loader": "^0.23.0",
@@ -40,7 +43,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "local": "start webpack-dev-server --open --hotOnly --config webpack.dev.js && start node server",
+    "local": "concurrently \"webpack-dev-server --open --hotOnly --config webpack.dev.js\" \"node server\"",
     "build": "webpack --config webpack.prod.js"
   },
   "author": "",

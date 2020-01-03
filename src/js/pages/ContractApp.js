@@ -5,12 +5,12 @@ import { Switch, Route } from "react-router-dom"
 // ACTIONS
 import * as contractActions from "../actions/contractActions"
 // RESOURCES
-import siteMetaData from "../siteMetadata.json"
+
 // COMPONENTS
 import Navbar from "../components/Navbar"
 import MultiColumn from "../components/MultiColumn"
 import ContractList from "../components/ContractList"
-import ContractSummary from "../components/ContractSummary"
+import ContractSummary from "../components/ContractSummary/ContractSummary"
 
 function ContractApp(props) {
     const pageDetails = {
@@ -18,8 +18,9 @@ function ContractApp(props) {
         shortTitle: "Contract",
     }
     useEffect(() => {
-        document.title = [siteMetaData.siteTitle, "Contracts"].join(" | ")
-        return () => document.title = siteMetaData.siteTitle
+        const oldTitle = document.title
+        document.title = [oldTitle, "Contracts"].join(" | ")
+        return () => document.title = oldTitle
     }, [])
 
     useEffect(() => {props.getActiveContracts()}, [])
@@ -28,13 +29,13 @@ function ContractApp(props) {
             <Navbar title={pageDetails.shortTitle}/>
             
             <MultiColumn scrolled={props.contractApp.viewContract} sizeFormat={props.UI.sizeFormat}>
-                <ContractList {...props} activeContracts={props.contractApp.activeContracts.contractsList}/>
+                <ContractList {...props} activeContracts={props.contractApp.activeContracts.contracts}/>
                 <Switch>
                     <Route exact path={`${props.match.path}`}>
                         <div>Select a contract to view more information</div>
                     </Route>
                     <Route path={`${props.match.path}/:contractId`}>
-                        <ContractSummary {...props} showContract={props.showContract} activeContracts={props.contractApp.activeContracts.contractsList}/>
+                        <ContractSummary {...props}/>
                     </Route>
                 </Switch>
             </MultiColumn>

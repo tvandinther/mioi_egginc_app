@@ -1,0 +1,104 @@
+[
+    {
+        "name": "None",
+        "capacity": 0,
+        "cost": 0
+    },
+    {
+        "name": "Coop",
+        "capacity": 250,
+        "cost": [63.51, 79.72, 99.89, 124]
+    },
+    {
+        "name": "Shack",
+        "capacity": 500,
+        "cost": [557, 905, 1414, 2139]
+    },
+    {
+        "name": "Super Shack",
+        "capacity": 1000,
+        "cost": [12837, 27088, 52275, 93923]
+    },
+    {
+        "name": "Short House",
+        "capacity": 2000,
+        "cost": [313078, 862531, 2025474, 4230815]
+    },
+    {
+        "name": "The Standard",
+        "capacity": 5000,
+        "cost": []
+    },
+    {
+        "name": "Long House",
+        "capacity": 10000,
+        "cost": []
+    },
+    {
+        "name": "Double Decker",
+        "capacity": 20000,
+        "cost": []
+    },
+    {
+        "name": "Warehouse",
+        "capacity": 50000,
+        "cost": []
+    },
+    {
+        "name": "Center",
+        "capacity": 100000,
+        "cost": []
+    },
+    {
+        "name": "Bunker",
+        "capacity": 200000,
+        "cost": []
+    },
+    {
+        "name": "Eggkea",
+        "capacity": 500000,
+        "cost": []
+    },
+    {
+        "name": "HAB 1000",
+        "capacity": 1000000,
+        "cost": []
+    },
+    {
+        "name": "Hangar",
+        "capacity": 2000000,
+        "cost": []
+    },
+    {
+        "name": "Tower",
+        "capacity": 5000000,
+        "cost": []
+    },
+    {
+        "name": "HAB 10,000",
+        "capacity": 10000000,
+        "cost": []
+    },
+    {
+        "name": "Eggtopia",
+        "capacity": 25000000,
+        "cost": []
+    },
+    {
+        "name": "Monolith",
+        "capacity": 50000000,
+        "cost": []
+    },
+    {
+        "name": "Planet Portal",
+        "capacity": 100000000,
+        "tag": "portalHab",
+        "cost": []
+    },
+    {
+        "name": "Chicken Universe",
+        "capacity": 600000000,
+        "tag": "portalHab",
+        "cost": []
+    }
+]

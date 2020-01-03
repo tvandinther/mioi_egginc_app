@@ -1,9 +1,16 @@
 import React from "react"
+import { useTheme } from "@material-ui/core/styles"
+import { Typography } from "@material-ui/core"
 
 export default function Navbar(props) {
+    const theme = useTheme()
+    const style = {
+        backgroundColor: theme.palette.primary["700"]
+    }
+    console.log(theme)
     return (
-        <div style={{backgroundColor: props.colour || null}} className="Navbar gridCenter">
-            <span className="NavbarText">{props.title}</span>
+        <div style={style} className="Navbar gridCenter">
+            <Typography color="textPrimary" variant="h4">{props.title}</Typography>
         </div>
     )
 }

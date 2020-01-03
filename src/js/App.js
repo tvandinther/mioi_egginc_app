@@ -15,10 +15,16 @@ import PageNotFound from "./pages/_404"
 // COMPONENTS
 import SidebarMenu from "./components/SidebarMenu"
 import MenuButton from "./components/MenuButton"
+import { useTheme } from "@material-ui/core/styles";
 
 function App(props) {
+	const theme = useTheme()
+	const style = {
+		backgroundColor: theme.palette.grey["200"],
+	}
+	
 	window.addEventListener("resize", props.resizePage)
-
+	
 	const handleSwipe = event => {
 		if (event.absX > 100) {
 			if (event.dir === "Left") {
@@ -41,18 +47,18 @@ function App(props) {
 	}
 
 	return (
-		<Swipeable className="App" onSwiped={handleSwipe}>
-			<Router>
-				<MenuButton onClick={props.toggleSidebar} sidebarIsVisible={props.UI.isSidebarVisible} menuOnLeft={props.UI.menuOnLeft}/>
-				<SidebarMenu sidebarIsVisible={props.UI.isSidebarVisible} menuOnLeft={props.UI.menuOnLeft} hideSidebar={props.hideSidebar}/>
-				<Switch>
-					<Route exact path="/" component={Pages.Home} />
-					<Route path="/contract" component={Pages.ContractApp} />
-					<Route path="/guide" component={Pages.GameGuide} />
-					<Route component={PageNotFound} />
-				</Switch>
-			</Router>
-		</Swipeable>
+			<Swipeable style={style} className="App" onSwiped={handleSwipe}>
+				<Router>
+					<MenuButton onClick={props.toggleSidebar} sidebarIsVisible={props.UI.isSidebarVisible} menuOnLeft={props.UI.menuOnLeft}/>
+					<SidebarMenu sidebarIsVisible={props.UI.isSidebarVisible} menuOnLeft={props.UI.menuOnLeft} hideSidebar={props.hideSidebar}/>
+					<Switch>
+						<Route exact path="/" component={Pages.Home} />
+						<Route path="/contract" component={Pages.ContractApp} />
+						<Route path="/guide" component={Pages.GameGuide} />
+						<Route component={PageNotFound} />
+					</Switch>
+				</Router>
+			</Swipeable>
 	)
 }
 

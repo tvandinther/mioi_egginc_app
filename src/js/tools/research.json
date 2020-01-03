@@ -1,0 +1,679 @@
+[
+	{	
+		"tier": 1,
+		"title": "Tier 1",
+		"research": [{
+			"name": "Comfortable Nests",
+			"description": "Increase egg laying rate by 10%",
+			"parameter": "layingRate",
+			"factorType": "multiplier",
+			"factor": 0.1,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 50
+		},
+		{
+			"name": "Nutritional Supplements",
+			"description": "Increase egg value by 25%",
+			"parameter": "eggValue",
+			"factorType": "multiplier",
+			"factor": 0.25,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 40
+		},
+		{
+			"name": "Better Incubators",
+			"description": "Hatchery will refill 10% faster",
+			"parameter": "hatchRefill",
+			"factorType": "multiplier",
+			"factor": 0.1,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 15
+		},
+		{
+			"name": "Excitable Chickens",
+			"description": "+0.1% egg value bonus for each running chicken",
+			"parameter": "runningBonus",
+			"factorType": "sum",
+			"factor": 0.001,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 25
+		}]			
+	},
+	{
+		"tier": 2,
+		"title": "Tier 2",
+		"research": [{
+			"name": "Hen House Remodel",
+			"description": "Increase capacity of all habs by 5%",
+			"parameter": "habCapacity",
+			"factorType": "multiplier",
+			"factor": 0.05,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 8
+		},
+		{
+			"name": "Internal Hatcheries",
+			"description": "Each hen house adds 2 additional chickens per minute",
+			"parameter": "hatchRate",
+			"factorType": "sum",
+			"factor": 2,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 10
+		},
+		{
+			"name": "Padded Packaging",
+			"description": "Increases earnings per egg by 25%",
+			"parameter": "eggValue",
+			"factorType": "multiplier",
+			"factor": 0.25,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 30
+		},
+		{
+			"name": "Hatchery Expansion",
+			"description": "Increases Hatchery capacity by 10",
+			"parameter": "hatchCapacity",
+			"factorType": "sum",
+			"factor": 10,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 10
+		},
+		{
+			"name": "Bigger Eggs",
+			"description": "Doubles egg value",
+			"parameter": "eggValue",
+			"factorType": "power",
+			"factor": 2,
+			"baseCost": "300",
+			"costMultiplier": 1,
+			"maxLevel": 1
+		}]
+	},
+	{
+		"tier": 3,
+		"title": "Tier 3",
+		"research": [{
+			"name": "Internal Hatchery Upgrades",
+			"description": "Each hen house adds an additional 5 chickens/min",
+			"parameter": "hatchRate",
+			"factorType": "sum",
+			"factor": 5,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 10
+		},
+		{
+			"name": "Improved Leafsprings",
+			"description": "Increase vehicle capacity by 5%",
+			"parameter": "vehicleCapacityMultiplier",
+			"factorType": "multiplier",
+			"factor": 0.05,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 30
+		},
+		{
+			"name": "Vehicle Reliability",
+			"description": "Increase fleet size by 1",
+			"parameter": "maxFleetSize",
+			"factorType": "sum",
+			"factor": 1,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 2
+		},
+		{
+			"name": "Rooster Booster",
+			"description": "Hatchery will 'refill' 5% faster",
+			"parameter": "hatchRefill",
+			"factorType": "multiplier",
+			"factor": 0.05,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 25
+		},
+		{
+			"name": "Coordinated Clucking",
+			"description": "Max running chicken bonus increased by 0.1x",
+			"parameter": "maxRunningBonus",
+			"factorType": "sum",
+			"factor": 0.2,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 50
+		}]
+	},
+	{
+		"tier": 4,
+		"title": "Tier 4",
+		"research": [{
+			"name": "Hatchery Rebuild",
+			"description": "Increases Hatchery capacity by 50",
+			"parameter": "hatchCapacity",
+			"factorType": "sum",
+			"factor": 5,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 1
+		},
+		{
+			"name": "USDE Prime Certification",
+			"description": "TRIPLES egg value",
+			"parameter": "eggValue",
+			"factorType": "power",
+			"factor": 3,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 1
+		},
+		{
+			"name": "Hen House A/C",
+			"description": "Increase egg laying rate by 5%",
+			"parameter": "layingRate",
+			"factorType": "multiplier",
+			"factor": 0.05,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 50
+		},
+		{
+			"name": "Super-Feed\u2122 Diet",
+			"description": "Increase egg value by 25%",
+			"parameter": "eggValue",
+			"factorType": "multiplier",
+			"factor": 0.25,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 35
+		},
+		{
+			"name": "Microlux\u2122 Chicken Suites",
+			"description": "Increase capacity of all habs by 5%",
+			"parameter": "habCapacity",
+			"factorType": "multiplier",
+			"factor": 0.05,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 10
+		}]
+	},
+	{
+		"tier": 5,
+		"title": "Tier 5",
+		"research": [{
+			"name": "Compact Incubators",
+			"description": "Increases Hatchery capacity by 10",
+			"parameter": "hatchCapacity",
+			"factorType": "sum",
+			"factor": 10,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 10
+		},
+		{
+			"name": "Lightweight Boxes",
+			"description": "Increase vehicle capacity by 10%",
+			"parameter": "vehicleCapacityMultiplier",
+			"factorType": "multiplier",
+			"factor": 0.1,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 40
+		},
+		{
+			"name": "Depot Worker Exoskeletons",
+			"description": "Increase maximum fleet size by 1",
+			"parameter": "maxFleetSize",
+			"factorType": "sum",
+			"factor": 1,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 2
+		},
+		{
+			"name": "Internal Hatchery Expansion",
+			"description": "Each hen house adds an additional 10 chickens/min",
+			"parameter": "hatchRate",
+			"factorType": "sum",
+			"factor": 10,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 15
+		},
+		{
+			"name": "Improved Genetics",
+			"description": "Increase egg laying rate AND egg value by 15%",
+			"parameter": ["layingRate", "eggValue"],
+			"factorType": "multiplier",
+			"factor": 0.15,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 30
+		}]
+	},
+	{
+		"tier": 6,
+		"title": "Tier 6",
+		"research": [{
+			"name": "Traffic Management",
+			"description": "Increase vehicle fleet size by 1",
+			"parameter": "maxFleetSize",
+			"factorType": "sum",
+			"factor": 1,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 2
+		},
+		{
+			"name": "Motivational Clucking",
+			"description": "Max running chicken bonus increased by 0.1x",
+			"parameter": "maxRunningBonus",
+			"factorType": "sum",
+			"factor": 0.5,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 80
+		},
+		{
+			"name": "Driver Training",
+			"description": "Increase vehicle speed by 5%",
+			"parameter": "vehicleCapacityMultiplier",
+			"factorType": "multiplier",
+			"factor": 0.05,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 30
+		},
+		{
+			"name": "Shell Fortification",
+			"description": "Increase egg value by 15%",
+			"parameter": "eggValue",
+			"factorType": "multiplier",
+			"factor": 0.15,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 60
+		}]
+	},
+	{
+		"tier": 7,
+		"title": "Tier 7",
+		"research": [{
+			"name": "Egg Loading Bots",
+			"description": "Increase fleet size by 1",
+			"parameter": "maxFleetSize",
+			"factorType": "sum",
+			"factor": 1,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 2
+		},
+		{
+			"name": "Super Alloy Frames",
+			"description": "Increase vehicle capacity by 5%",
+			"parameter": "vehicleCapacityMultiplier",
+			"factorType": "multiplier",
+			"factor": 0.05,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 50
+		},
+		{
+			"name": "Even Bigger Eggs",
+			"description": "DOUBLES egg value",
+			"parameter": "eggValue",
+			"factorType": "power",
+			"factor": 2,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 5
+		},
+		{
+			"name": "Internal Hatchery Expansion",
+			"description": "Each hen house adds an additional 25 chickens/min",
+			"parameter": "hatchRate",
+			"factorType": "sum",
+			"factor": 25,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 30
+		}]
+	},
+	{
+		"tier": 8,
+		"title": "Tier 8",
+		"research": [{
+			"name": "Quantum Egg Storage",
+			"description": "Increase vehicle capacity by 5%",
+			"parameter": "vehicleCapacityMultiplier",
+			"factorType": "multiplier",
+			"factor": 0.05,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 20
+		},
+		{
+			"name": "Genetic Purification",
+			"description": "Increases egg value by 10%",
+			"parameter": "eggValue",
+			"factorType": "multiplier",
+			"factor": 0.1,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 100
+		},
+		{
+			"name": "Machine Learning Incubators",
+			"description": "Each hen house adds an additional 5 chickens/min",
+			"parameter": "hatchRate",
+			"factorType": "sum",
+			"factor": 5,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 250
+		},
+		{
+			"name": "Time Compression",
+			"description": "Increase egg laying rate by 10%",
+			"parameter": "layingRate",
+			"factorType": "multiplier",
+			"factor": 0.1,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 20
+		}]
+	},
+	{
+		"tier": 9,
+		"title": "Tier 9",
+		"research": [{
+			"name": "Hover Upgrades",
+			"description": "Increase hover vehicle capacity by 5%",
+			"parameter": "hoverVehicleCapacityMultiplier",
+			"factorType": "multiplier",
+			"factor": 0.05,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 25
+		},
+		{
+			"name": "Graviton Coating",
+			"description": "DOUBLES egg density and thus egg value",
+			"parameter": "eggValue",
+			"factorType": "power",
+			"factor": 2,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 7
+		},
+		{
+			"name": "Grav Plating",
+			"description": "Increase capacity of all habs by 2%",
+			"parameter": "habCapacity",
+			"factorType": "multiplier",
+			"factor": 0.02,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 25
+		},
+		{
+			"name": "Crystalline Shelling",
+			"description": "Increases egg value by 25%",
+			"parameter": "eggValue",
+			"factorType": "multiplier",
+			"factor": 0.25,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 100
+		}]
+	},
+	{
+		"tier": 10,
+		"title": "Tier 10",
+		"research": [{
+			"name": "Autonomous Vehicles",
+			"description": "Increase fleet size by 1",
+			"parameter": "maxFleetSize",
+			"factorType": "sum",
+			"factor": 1,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 5
+		},
+		{
+			"name": "Neural Linking",
+			"description": "Each hen house adds an additional 50 chickens/min",
+			"parameter": "hatchRate",
+			"factorType": "sum",
+			"factor": 50,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 30
+		},
+		{
+			"name": "Telepathic Will",
+			"description": "Increase egg quality (value) by 25%",
+			"parameter": "eggValue",
+			"factorType": "multiplier",
+			"factor": 0.25,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 50
+		},
+		{
+			"name": "Enlightened Chickens",
+			"description": "Double running chicken bonus!",
+			"parameter": "runningBonus",
+			"factorType": "sum",
+			"factor": 2,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 100
+		}]
+	},
+	{
+		"tier": 11,
+		"title": "Tier 11",
+		"research": [{
+			"name": "Dark Containment",
+			"description": "Increase vehicle capacity by 5%",
+			"parameter": "vehicleCapacityMultiplier",
+			"factorType": "multiplier",
+			"factor": 0.05,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 25
+		},
+		{
+			"name": "Atomic Purification",
+			"description": "Increase egg value by 10%",
+			"parameter": "eggValue",
+			"factorType": "multiplier",
+			"factor": 0.1,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 50
+		},
+		{
+			"name": "Multiversal Layering",
+			"description": "10x egg value",
+			"parameter": "eggValue",
+			"factorType": "power",
+			"factor": 10,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 3
+		},
+		{
+			"name": "Timeline Diversion",
+			"description": "Increase egg laying rate by 2%",
+			"parameter": "layingRate",
+			"factorType": "multiplier",
+			"factor": 0.02,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 50
+		}]
+	},
+	{
+		"tier": 12,
+		"title": "Tier 12",
+		"research": [{
+			"name": "Wormhole Dampening",
+			"description": "Increase capacity of portal habs by 2%",
+			"parameter": "habCapacity",
+			"tag": "portalHab",
+			"factorType": "multiplier",
+			"factor": 0.02,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 25
+		},
+		{
+			"name": "Eggsistor Miniturization",
+			"description": "Increase egg value by 5%",
+			"parameter": "eggValue",
+			"factorType": "multiplier",
+			"factor": 0.05,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 100
+		},
+		{
+			"name": "Graviton Coupling",
+			"description": "Increase max hyperloop train length by 1.",
+			"parameter": "trainLength",
+			"factorType": "sum",
+			"factor": 1,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 5
+		},
+		{
+			"name": "Neural Net Replacement",
+			"description": "Increase vechile speed by 5%",
+			"parameter": "vehicleCapacityMultiplier",
+			"factorType": "multiplier",
+			"factor": 0.05,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 25
+		}]
+	},
+	{
+		"tier": 13,
+		"title": "Tier 13",
+		"research": [{
+			"name": "Matter Reconfiguration",
+			"description": "Increase egg value by 1%",
+			"parameter": "eggValue",
+			"factorType": "multiplier",
+			"factor": 0.01,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 500
+		},
+		{
+			"name": "Timeline Splicing",
+			"description": "10x egg value",
+			"parameter": "eggValue",
+			"factorType": "power",
+			"factor": 10,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 1
+		},
+		{
+			"name": "Hyper Portalling",
+			"description": "Increase hyperloop car capacity by 5%",
+			"parameter": "trainCapacityMultiplier",
+			"factorType": "multiplier",
+			"factor": 0.05,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 25
+		},
+		{
+			"name": "Relativity Optimization",
+			"description": "Increase egg laying rate by 10%",
+			"parameter": "layingRate",
+			"factorType": "multiplier",
+			"factor": 0.1,
+			"baseCost": "300",
+			"costMultiplier": 1.3,
+			"maxLevel": 10
+		}]
+	},
+	{
+		"tier": 14,
+		"title": "Epic Research",
+		"research": [{
+			"name": "Epic Int. Hatcheries",
+			"description": "Increase internal hatchery rate by 5%",
+			"parameter": "hatchRate",
+			"factorType": "multiplier",
+			"factor": 0.05,
+			"baseCost": null,
+			"costMultiplier": null,
+			"maxLevel": 20
+		},
+		{
+			"name": "Accounting Tricks",
+			"description": "Increase farm valuation by 5%",
+			"parameter": "accTricks",
+			"factorType": "sum",
+			"factor": 0.05,
+			"baseCost": null,
+			"costMultiplier": null,
+			"maxLevel": 20
+		},
+		{
+			"name": "Soul Food",
+			"description": "Increase bonus per Soul Egg by +1%",
+			"parameter": "soulFood",
+			"factorType": "multiplier",
+			"factor": 0.05,
+			"baseCost": null,
+			"costMultiplier": null,
+			"maxLevel": 140
+		},
+		{
+			"name": "Epic Comfy Nests",
+			"description": "Increase egg laying rate by 5%",
+			"parameter": "layingRate",
+			"factorType": "multiplier",
+			"factor": 0.05,
+			"baseCost": null,
+			"costMultiplier": null,
+			"maxLevel": 20
+		},
+		{
+			"name": "Transportation Lobbyists",
+			"description": "Increase vehicle capacity by 5%",
+			"parameter": "vehicleCapacityMultiplier",
+			"factorType": "multiplier",
+			"factor": 0.05,
+			"baseCost": null,
+			"costMultiplier": null,
+			"maxLevel": 30
+		},
+		{
+			"name": "Prophecy Bonus",
+			"description": "Increase bonus per egg of prophecy by 1% (compounding)",
+			"parameter": "prophecyBonus",
+			"factorType": "multiplier",
+			"factor": 0.05,
+			"baseCost": null,
+			"costMultiplier": null,
+			"maxLevel": 5
+		}]
+	}
+]

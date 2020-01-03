@@ -1,5 +1,9 @@
+import orders from "./orders.json"
+
 export function contractNameFormat(value) {
-    return value.replace(" ", "-").toLowerCase()
+    value = value.replace(" ", "-").toLowerCase()
+    value = value.replace(/[^A-Za-z0-9\-]/, "")
+    return value
 }
 
 export function getExpireETA(validUntil, string=false) {
@@ -37,4 +41,87 @@ export function convertEpoch(epochTime) {
     else {
         return timeString.slice(0, timeString.length - 1);
     }
+}
+
+export function timeConvert(time) { 
+    //return 'Roughly ' + String(Math.floor(time/24/60) + " days, " + Math.floor(time/60%24) + ' hours and ' + Math.ceil(time%60) + ' minutes');
+    var units = {
+        year: 24*60*365,
+        month: 24*60*30,
+        week: 24*60*7,
+        day: 24*60,
+        hour: 60,
+        minute: 1
+    }
+    var result = []
+    for(var name in units) {
+      var p =  Math.floor(time/units[name]);
+      if(p == 1) result.push(' ' + p + ' ' + name);
+      if(p >= 2) result.push(' ' + p + ' ' + name + 's');
+      time %= units[name]
+    
+    }
+    return 'Roughly ' + result;
+}
+
+export function magnitudeGet(str) {
+    var key = String(str.match(/([A-z]{1,2})$/g));
+    for(var i = 0; i < orders.length; i++) {
+        if(orders[i].symbol === key) {
+            return orders[i].magnitude;
+        }
+    }
+    return 0;
+}
+
+export function convertName(n) { //converting the format of unreadable number into the game's name format
+    if (isNaN(n)) {
+        return 'Need More Info';
+    }
+    else if (levelOf(n) < 1){
+        return Math.floor(n);
+    }
+    else if (levelOf(n) <= orders.length) {
+        return Math.round((n / cutoffOf(n)) * 1000) / 1000 + ' ' + (orders[levelOf(n)-1].name);
+    }
+    else {
+        return Math.round((n / cutoffOf(n)) * 1000) / 1000 + '[e' + ((levelOf(n) + 1) * 3) + ']';
+    }
+}
+
+export function convertSymbol(n) { //converting the format of unreadable number into the game's symbol format
+    if (n < 1000000) {
+        return n.toLocaleString();
+    }
+    else if (levelOf(n) < 1){
+        return Math.floor(n);
+    }
+    else if (levelOf(n) <= orders.length) {
+        return Math.round((n / cutoffOf(n)) * 1000) / 1000 + (orders[levelOf(n)-1].symbol);
+    }
+    else {
+        return Math.round((n / cutoffOf(n)) * 1000) / 1000 + 'e' + ((levelOf(n) + 1) * 3)
+    }
+}
+
+export function round(n, precision) {
+    return Math.round(n * Math.pow(10, precision)) / Math.pow(10, precision);
+}
+
+export function percentString(n, precision) {
+    return (n * 100).toFixed(precision) + '%';
+}
+
+function orderOf(n) {
+    return Math.floor(Math.log(n) / Math.LN10 + 0.000000001) / 3;
+}
+
+function levelOf(n) {
+    // Returns an integer representing its order of magnitude where 1 = million and 2 = billion etc.
+    return Math.floor(orderOf(n) - 1);
+}
+
+function cutoffOf(n) {
+    // Returns the floor of n's "illion". E.g. 28 million returns 1 million, 794 billion returns 1 billion
+    return Math.pow(10, Math.floor(orderOf(n)) * 3);
 }

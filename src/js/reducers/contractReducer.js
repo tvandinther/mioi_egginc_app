@@ -3,10 +3,11 @@ const initialState = {
         fetching: false,
         fetched: false,
         error: null,
-        contractsList: [],
+        contracts: {},
     },
-    shownContracts: {},
+    coopSearch: {},
     viewContract: null,
+    coops: {},
 }
 
 export default function reducer(state=initialState, action) {
@@ -18,23 +19,32 @@ export default function reducer(state=initialState, action) {
             }}
         }
         case "GET_ACTIVE_CONTRACTS_FULFILLED": {
-            const contractsList = action.payload.data.activeContracts.map(contract => {
-                return {...contract,
-                    coopSearch: {
-                        searchString: "",
-                        searchFailed: false,
-                        failedSearches: [],
-                    },
-                    coopData: {},
+            const contractIds = action.payload.data.activeContracts.map(contract => contract.name)
+            const contracts = action.payload.data.activeContracts.reduce((obj, contract) => {
+                obj[contract.name] = contract
+                return obj
+            }, {})
+            const coopSearches = contractIds.reduce((obj, contractId) => {
+                obj[contractId] = {
+                    searchString: "",
+                    searchFailed: false,
+                    failedSearches: [],
                 }
-            })
+                return obj
+            }, {})
+            const coops = contractIds.reduce((obj, contractId) => {
+                obj[contractId] = null
+                return obj
+            }, {})
             return {...state, 
                 activeContracts: {
                     ...state.activeContracts,
                     fetching: false,
                     fetched: true,
-                    contractsList: contractsList,
-                }
+                    contracts: contracts,
+                },
+                coopSearch: coopSearches,
+                coops: coops,
             }
         }
         case "GET_ACTIVE_CONTRACTS_REJECTED": {
@@ -53,26 +63,52 @@ export default function reducer(state=initialState, action) {
                 viewContract: false
             }
         }
-        case "UPDATE_SHOWN_CONTRACTS": {
+        case "UPDATE_CONTRACT_COOP_SEARCH_STRING": {
             return {...state,
-                shownContracts: {
-                    ...state.shownContracts,
-                    ...action.payload,
+                coopSearch: {
+                    ...state.coopSearch,
+                    [action.payload.contractId]: {
+                        ...state.coopSearch[action.payload.contractId],
+                        searchString: action.payload.searchString,
+                    }
                 }
             }
         }
-        case "UPDATE_CONTRACT_COOP_SEARCH_STRING": {
-            const updatedContractsList = state.activeContracts.contractsList.map(contract => {
-                if (contract.name === action.payload.contractId) {
-                    contract.coopSearch.searchString = action.payload.searchString
-                }
-                return contract
-            })
+        case "GET_COOP_PENDING": {
+            console.log(action.payload)
             return {...state,
-                activeContracts: {
-                    contractsList: updatedContractsList,
+                coops: {
+                    ...state.coops,
+                    [action.meta.contractId]: {
+                        ...state.coops[action.meta.contractId],
+                        fetching: true,
+                        error: null,
+                    }
                 }
-
+            }
+        }
+        case "GET_COOP_FULFILLED": {
+            return {...state,
+                coops: {
+                    ...state.coops,
+                    [action.meta.contractId]: {
+                        ...action.payload.data.data.eggInc.coop,
+                        fetching: false,
+                        fetched: true,
+                    }
+                }
+            }
+        }
+        case "GET_COOP_REJECTED": {
+            return {...state,
+                coops: {
+                    ...state.coops,
+                    [action.meta.contractId]: {
+                        ...state.coops[action.meta.contractId],
+                        fetching: false,
+                        error: action.payload,
+                    }
+                }
             }
         }
         default: {

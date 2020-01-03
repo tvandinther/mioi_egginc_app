@@ -1,10 +1,10 @@
 import React, { useEffect } from "react"
-import siteMetaData from "../siteMetadata.json"
 
 export default function _404(props) {
     useEffect(() => {
-        document.title = [siteMetaData.siteTitle, "Page Not Found"].join(" | ")
-        return () => document.title = siteMetaData.siteTitle
+        const oldTitle = document.title
+        document.title = [oldTitle, "Page Not Found"].join(" | ")
+        return () => document.title = oldTitle
     }, [])
 
     return (

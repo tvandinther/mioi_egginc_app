@@ -1,11 +1,8 @@
 import React, { useEffect } from "react"
 import { withRouter } from "react-router-dom"
 
-import siteMetaData from "../siteMetadata.json"
-import contractNameFormat from "../tools/eggincTools"
 
 import Navbar from "../components/Navbar"
-import ValidatedInput from "../components/ValidatedInput"
 
 function Home(props) {
     const pageDetails = {
@@ -14,8 +11,9 @@ function Home(props) {
     }
 
     useEffect(() => {
-        document.title = [siteMetaData.siteTitle].join(" | ")
-        return () => document.title = siteMetaData.siteTitle
+        const oldTitle = document.title
+        document.title = [oldTitle].join(" | ")
+        return () => document.title = oldTitle
     }, [])
     
     return (

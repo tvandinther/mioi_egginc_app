@@ -1,0 +1,134 @@
+[
+	{
+		"level": 1,
+		"name": "Million",
+		"symbol": "M",
+		"magnitude": 6
+	},
+	{
+		"level": 2,
+		"name": "Billion",
+		"symbol": "B",
+		"magnitude": 9
+	},
+	{
+		"level": 3,
+		"name": "Trillion",
+		"symbol": "T",
+		"magnitude": 12
+	},
+	{
+		"level": 4,
+		"name": "Quadrillion",
+		"symbol": "q",
+		"magnitude": 15
+	},
+	{
+		"level": 5,
+		"name": "Quintillion",
+		"symbol": "Q",
+		"magnitude": 18
+	},
+	{
+		"level": 6,
+		"name": "Sextillion",
+		"symbol": "s",
+		"magnitude": 21
+	},
+	{
+		"level": 7,
+		"name": "Septillion",
+		"symbol": "S",
+		"magnitude": 24
+	},
+	{
+		"level": 8,
+		"name": "Octillion",
+		"symbol": "o",
+		"magnitude": 27
+	},
+	{
+		"level": 9,
+		"name": "Nonillion",
+		"symbol": "N",
+		"magnitude": 30
+	},
+	{
+		"level": 10,
+		"name": "Decillion",
+		"symbol": "d",
+		"magnitude": 33
+	},
+	{
+		"level": 11,
+		"name": "Undecillion",
+		"symbol": "U",
+		"magnitude": 36
+	},
+	{
+		"level": 12,
+		"name": "Duodecillion",
+		"symbol": "D",
+		"magnitude": 39
+	},
+	{
+		"level": 13,
+		"name": "Tredecillion",
+		"symbol": "Td",
+		"magnitude": 42
+	},
+	{
+		"level": 14,
+		"name": "Quattuordecillion",
+		"symbol": "qd",
+		"magnitude": 45
+	},
+	{
+		"level": 15,
+		"name": "Quindecillion",
+		"symbol": "Qd",
+		"magnitude": 48
+	},
+	{
+		"level": 16,
+		"name": "Sexdecillion",
+		"symbol": "sd",
+		"magnitude": 51
+	},
+	{
+		"level": 17,
+		"name": "Septendecillion",
+		"symbol": "Sd",
+		"magnitude": 54
+	},
+	{
+		"level": 18,
+		"name": "Octodecillion",
+		"symbol": "Od",
+		"magnitude": 57
+	},
+	{
+		"level": 19,
+		"name": "Novemdecillion",
+		"symbol": "Nd",
+		"magnitude": 60
+	},
+	{
+		"level": 20,
+		"name": "Vigintillion",
+		"symbol": "V",
+		"magnitude": 63
+	},
+	{
+		"level": 21,
+		"name": "Unvigintillion",
+		"symbol": "uV",
+		"magnitude": 66
+	},
+	{
+		"level": 22,
+		"name": "Duovigintillion",
+		"symbol": "dV",
+		"magnitude": 69
+	}
+]

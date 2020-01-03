@@ -1,10 +1,10 @@
 import React from "react"
 
 import { Link } from "react-router-dom"
-import ContractCard from "./ContractCard"
+import ContractCard from "./ContractCard/ContractCard"
 
 export default function ContractList(props) {
-    if (!props.activeContracts.length) {
+    if (!props.activeContracts) {
         return (
             <p>Loading...</p>
         )
@@ -16,7 +16,8 @@ export default function ContractList(props) {
         duration: (a, b) => a.duration - b.duration,
         coopSize: (a, b) => a.coopSize > b.coopSize,
     }
-    const sortedContracts = props.activeContracts.sort(sortFunctions["validUntil"])
+    const contractList = Object.values(props.activeContracts)
+    const sortedContracts = contractList.sort(sortFunctions["validUntil"])
     const reversed = true
     if (reversed) {
         sortedContracts.reverse()

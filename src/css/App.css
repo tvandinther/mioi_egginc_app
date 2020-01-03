@@ -23,9 +23,7 @@
 }
 
 body {
-    background-color: var(--background-colour);
     margin: 0;
-    color: var(--accent-colour-1);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -277,6 +275,7 @@ a:hover>.SidebarMenuItem {
     width: 100%;
     z-index: 4;
     transition: all 200ms ease;
+    overflow: hidden;
 }
 
 .ContractCardProgressBar>* {
@@ -313,7 +312,6 @@ a:hover>.SidebarMenuItem {
 }
 
 .ContractSummary {
-    min-height: 100%;
     background-color: whitesmoke;
     margin: 25px;
     padding: 20px;

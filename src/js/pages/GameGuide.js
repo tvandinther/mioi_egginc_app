@@ -1,11 +1,11 @@
 import React, { useEffect } from "react"
-import siteMetaData from "../siteMetadata.json"
 import Navbar from "../components/Navbar.js"
 
 export default function GameGuide(props) {
     useEffect(() => {
-        document.title = [siteMetaData.siteTitle, "Game Guide"].join(" | ")
-        return () => document.title = siteMetaData.siteTitle
+        const oldTitle = document.title
+        document.title = [oldTitle, "Game Guide"].join(" | ")
+        return () => document.title = oldTitle
     }, [])
 
     return (

@@ -1,4 +1,5 @@
 import axios from "axios"
+import * as queries from "../tools/gqlQueries"
 
 export function getActiveContracts() {
     return {
@@ -19,13 +20,6 @@ export function hideContract() {
     }
 }
 
-export function updateShownContracts(contractInfo) {
-    return {
-        type: "UPDATE_SHOWN_CONTRACTS",
-        payload: contractInfo,
-    }
-}
-
 export function updateContractCoopSearchString(contractId, searchString) {
     return {
         type: "UPDATE_CONTRACT_COOP_SEARCH_STRING",
@@ -33,5 +27,24 @@ export function updateContractCoopSearchString(contractId, searchString) {
             contractId: contractId,
             searchString: searchString,
         }
+    }
+}
+
+export function getCoop(coopName, contractId) {
+    console.log(coopName, contractId)
+    return {
+        type: "GET_COOP",
+        meta: {
+            coopName: coopName,
+            contractId: contractId,
+        },
+        payload: axios.post("/api", {
+            operation: "getCoop",
+            query: queries.getCoop,
+            variables: {
+                coopName: coopName,
+                contractName: contractId,
+            },
+        })
     }
 }
