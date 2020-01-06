@@ -38,7 +38,7 @@ export default function ContractSummary(props) {
     const coop = props.contractApp.coops[contractId]
     if (contract) {
         const BackButton = () => {
-            if (props.UI.sizeFormat === "small") {
+            if (props.sizeFormat === "small") {
                 return (
                     <Link to={props.match.url}>
                         <span onClick={goBack} style={{textDecoration: "underline", cursor: "pointer"}} onClick={props.hideContract}>Back</span>

@@ -28,7 +28,7 @@ function ContractApp(props) {
         <div className="Page">
             <Navbar title={pageDetails.shortTitle}/>
             
-            <MultiColumn scrolled={props.contractApp.viewContract} sizeFormat={props.UI.sizeFormat}>
+            <MultiColumn scrolled={props.contractApp.viewContract} sizeFormat={props.sizeFormat}>
                 <ContractList {...props} activeContracts={props.contractApp.activeContracts.contracts}/>
                 <Switch>
                     <Route exact path={`${props.match.path}`}>
@@ -44,9 +44,10 @@ function ContractApp(props) {
 }
 
 const mapStateToProps = store => {
+    const { contract: contractApp, UI: {sizeFormat} } = store;
 	return {
-        contractApp: store.contract,
-        UI: store.UI,
+        contractApp,
+        sizeFormat,
 	}
 }
 

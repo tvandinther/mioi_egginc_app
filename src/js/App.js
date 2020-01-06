@@ -1,5 +1,5 @@
 // FRAMEWORK
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import { hot } from "react-hot-loader";
 import { useSwipeable, Swipeable } from 'react-swipeable'
@@ -23,7 +23,11 @@ function App(props) {
 		backgroundColor: theme.palette.grey["200"],
 	}
 	
-	window.addEventListener("resize", props.resizePage)
+	useEffect(() => {
+		window.addEventListener("resize", props.resizePage)
+		return () => window.removeEventListener("resize", props.resizePage)
+	}, [])
+	
 	
 	const handleSwipe = event => {
 		if (event.absX > 100) {

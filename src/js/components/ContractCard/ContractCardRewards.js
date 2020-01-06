@@ -18,7 +18,6 @@ export default function ContractCardRewards(props) {
 }
 
 function RewardItem(props) {
-    const text = eiTools.convertSymbol(props.reward.quantity)
     const style = {
         display: "grid",
         gridTemplateColumns: "28px 1fr",
@@ -27,16 +26,21 @@ function RewardItem(props) {
         width: "100%",
         height: "auto",
     }
-    const imageName = (reward => {
+    const [imageName, text] = (reward => {
         switch (reward.type) {
             case "BOOST": {
-                return "b_icon_" + reward.subtype
+                return ["b_icon_" + reward.subtype, `+${reward.quantity}`]
             }
-            case "RESEARCH": {
-                return reward.subtype
+            case "RESEARCH":
+            case "PIGGY_LEVEL": {
+                return [reward.subtype, `+${reward.quantity}`]
             }
+            case "PIGGY_MULTIPLY": {
+                return [reward.type, `x${reward.quantity}`]
+            }
+            case "PIGGY_BANK":
             default: {
-                return reward.type
+                return [reward.type, eiTools.convertSymbol(reward.quantity)]
             }
         }
     })(props.reward)

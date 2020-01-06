@@ -15,5 +15,6 @@ module.exports = merge(common, {
             '/api': 'http://localhost:8080/api'
         }
     },
-    plugins: [new webpack.HotModuleReplacementPlugin()]
+    plugins: [new webpack.HotModuleReplacementPlugin()],
+    devtool: "eval-source-map",
 })
