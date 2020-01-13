@@ -16,7 +16,7 @@ export default function IconLabel(props) {
 
     return (
         <div style={style}>
-            <SvgIcon style={iconStyle} fontSize="48px" color="secondary" component={props.icon}/>
+            <SvgIcon style={iconStyle} fontSize="large" color="secondary" component={props.icon}/>
             <Typography>{props.label}</Typography>
         </div>
     )

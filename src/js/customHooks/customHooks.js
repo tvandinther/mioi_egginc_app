@@ -3,7 +3,7 @@ import { useEffect } from "react"
 export function useClickAway(func, ref) {
     const handleClickAway = evt => {
         if (ref.current && !ref.current.contains(evt.target)) {
-            evt.preventDefault()
+            // evt.preventDefault()
             func(evt)
         }
     }

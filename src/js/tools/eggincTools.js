@@ -54,14 +54,15 @@ export function timeConvert(time) {
         minute: 1
     }
     var result = []
+    time = time / 1000
     for(var name in units) {
-      var p =  Math.floor(time/units[name]);
+      var p =  Math.floor(time / units[name]);
       if(p == 1) result.push(' ' + p + ' ' + name);
       if(p >= 2) result.push(' ' + p + ' ' + name + 's');
       time %= units[name]
     
     }
-    return 'Roughly ' + result;
+    return result;
 }
 
 export function magnitudeGet(str) {

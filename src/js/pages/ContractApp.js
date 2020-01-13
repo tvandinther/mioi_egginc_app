@@ -7,6 +7,7 @@ import * as contractActions from "../actions/contractActions"
 // RESOURCES
 
 // COMPONENTS
+import { Container } from "@material-ui/core"
 import Navbar from "../components/Navbar"
 import MultiColumn from "../components/MultiColumn"
 import ContractList from "../components/ContractList"
@@ -35,7 +36,9 @@ function ContractApp(props) {
                         <div>Select a contract to view more information</div>
                     </Route>
                     <Route path={`${props.match.path}/:contractId`}>
-                        <ContractSummary {...props}/>
+                        <Container style={{overflowY: "auto"}}>
+                            <ContractSummary {...props}/>
+                        </Container>
                     </Route>
                 </Switch>
             </MultiColumn>
@@ -44,10 +47,11 @@ function ContractApp(props) {
 }
 
 const mapStateToProps = store => {
-    const { contract: contractApp, UI: {sizeFormat} } = store;
+    const { contract: contractApp, UI: {sizeFormat, isSidebarVisible} } = store;
 	return {
         contractApp,
         sizeFormat,
+        isSidebarVisible,
 	}
 }
 

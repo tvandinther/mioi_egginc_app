@@ -8,7 +8,7 @@ export default function ContractCardImage(props) {
     }
 
     return (
-        <div style={style} className="ContractImageContainer">
+        <div style={style} className="ContractImageContainer gridCenter">
             <img src={props.src}></img>
         </div>
     )

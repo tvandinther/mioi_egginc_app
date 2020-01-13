@@ -10,7 +10,7 @@ export default function Navbar(props) {
     console.log(theme)
     return (
         <div style={style} className="Navbar gridCenter">
-            <Typography color="textPrimary" variant="h4">{props.title}</Typography>
+            <Typography color="textPrimary" align="center" variant="h4">{props.title}</Typography>
         </div>
     )
 }

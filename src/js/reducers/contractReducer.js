@@ -75,7 +75,6 @@ export default function reducer(state=initialState, action) {
             }
         }
         case "GET_COOP_PENDING": {
-            console.log(action.payload)
             return {...state,
                 coops: {
                     ...state.coops,

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { TextField } from "@material-ui/core"
 
 export default function ValidatedInput(props) {
 
@@ -26,7 +27,13 @@ export default function ValidatedInput(props) {
         props.setValue(value)
     }
 
+    const handleKeyUp = (event) => {
+        if (event.key === "Enter") {
+            props.onEnter()
+        }
+    }
+
     return (
-        <input type="text" name="contractName" value={props.value} onChange={handleChange} onPaste={handlePaste}></input>
+        <TextField autoFocus onKeyUp={handleKeyUp} placeholder="Search a Co-op" fullWidth variant="outlined" value={props.value} onChange={handleChange} onPaste={handlePaste} />
     )
 }

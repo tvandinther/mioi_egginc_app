@@ -2,6 +2,13 @@ import React from "react"
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles"
 import { blueGrey, deepOrange } from "@material-ui/core/colors"
 
+const headLineFontFamily = [
+    "Raleway",
+    "Helvetica",
+    "Arial",
+    "sans-serif",
+].join(",")
+
 const lightTheme = createMuiTheme({
     palette: {
         type: 'light',
@@ -10,6 +17,32 @@ const lightTheme = createMuiTheme({
     },
     status: {
         danger: 'red',
+    },
+    typography: {
+        fontFamily: [
+            "Open Sans",
+            "Helvetica",
+            "Arial",
+            "sans-serif",
+        ].join(","),
+        h1: {
+            fontFamily: headLineFontFamily,
+        },
+        h2: {
+            fontFamily: headLineFontFamily,
+        },
+        h3: {
+            fontFamily: headLineFontFamily,
+        },
+        h4: {
+            fontFamily: headLineFontFamily,
+        },
+        h5: {
+            fontFamily: headLineFontFamily,
+        },
+        h6: {
+            fontFamily: headLineFontFamily,
+        },
     }
 })
 

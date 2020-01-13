@@ -7,8 +7,9 @@ import IconLabel from "../IconLabel"
 import { Timer, PeopleAlt } from '@material-ui/icons'
 import FlexContainer from "../FlexContainer"
 import ContractRewards from "./ContractRewards"
+import CoopExpiry from "./CoopExpiry"
 import CoopMembers from "./CoopMembers"
-import { Typography } from "@material-ui/core"
+import { Typography, Card, Button } from "@material-ui/core"
 import { useTheme } from "@material-ui/core/styles"
 
 export default function ContractSummary(props) {
@@ -29,7 +30,7 @@ export default function ContractSummary(props) {
     }
     const swipeHandlers = useSwipeable({
         onSwipedRight: () => {
-            if (!props.UI.isSidebarVisible) goBack() // Ideally want to prevent additonal handlers from firing but this will do the trick
+            if (!props.isSidebarVisible) goBack() // Ideally want to prevent additonal handlers from firing but this will do the trick
         },
         delta: 100,
     })
@@ -41,7 +42,7 @@ export default function ContractSummary(props) {
             if (props.sizeFormat === "small") {
                 return (
                     <Link to={props.match.url}>
-                        <span onClick={goBack} style={{textDecoration: "underline", cursor: "pointer"}} onClick={props.hideContract}>Back</span>
+                        <Button variant="outlined" onClick={goBack} onClick={props.hideContract}>❮ Back</Button>
                     </Link>
                 )
             }
@@ -56,9 +57,12 @@ export default function ContractSummary(props) {
             memberTable = <CoopMembers coop={coop}/>
         }
         return (
-            <div style={style} {...swipeHandlers} className="ContractSummary card">
+            <Card style={style} {...swipeHandlers} className="ContractSummary">
                 <BackButton />
-                <Typography variant="h1">{contract.title}</Typography>
+                <div style={{display: "flex", alignItems: "center", margin: 10}}>
+                    <img style={{height: "6rem"}} src={`/images/egg${contract.egg}.png`}></img>
+                    <Typography variant="h3">{contract.title}</Typography>
+                </div>
                 <Typography variant="subtitle1">{contract.description}</Typography>
                 <br/>
                 <FlexContainer>
@@ -66,16 +70,16 @@ export default function ContractSummary(props) {
                     <IconLabel icon={PeopleAlt} label={contract.coopSize ? contract.coopSize : 0}/>
                     <span>Boost Token Interval: {contract.boostsAllowed}</span><br/>
                 </FlexContainer>
-                <Typography variant="subtitle2">Search a Co-op:</Typography>
                 {coopSearch}
                 <br/>
                 <br/>
                 <ContractRewards coop={coop} rewards={contract.rewards}/>
                 <br/>
+                <CoopExpiry duration={contract.duration} timeLeft={coop ? coop.timeLeft : null}/>
                 <br/>
                 {memberTable}
                 
-            </div>
+            </Card>
         )
     }
     return null

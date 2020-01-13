@@ -10,12 +10,12 @@ export default function CoopMembers(props) {
     }
     const headCells = [
         {id: 0, numeric: false, disablePadding: false, label: "Name"},
-        {id: 0, numeric: false, disablePadding: false, label: "Eggs Laid"},
-        {id: 0, numeric: false, disablePadding: false, label: "Laying Rate"},
-        {id: 0, numeric: false, disablePadding: false, label: "Contribution"},
+        {id: 1, numeric: false, disablePadding: false, label: "Eggs Laid"},
+        {id: 2, numeric: false, disablePadding: false, label: "Laying Rate"},
+        {id: 3, numeric: false, disablePadding: false, label: "Contribution"},
     ]
     return (
-        <Paper style={style}>
+        <Paper style={style} onTouchStart={e => e.stopPropagation()}>
             <Table size="small">
                 <TableHead>
                     <TableRow>
@@ -34,9 +34,9 @@ export default function CoopMembers(props) {
                     {props.coop.members.map(member => (
                         <TableRow key={member.id}>
                             <TableCell>{member.name}</TableCell>
-                            <TableCell numeric>{convertSymbol(member.eggs)}</TableCell>
-                            <TableCell numeric>{convertSymbol(member.rate)}</TableCell>
-                            <TableCell numeric>{percentString(member.eggs / props.coop.eggs, 2)}</TableCell>
+                            <TableCell numeric="true">{convertSymbol(member.eggs)}</TableCell>
+                            <TableCell numeric="true">{convertSymbol(member.rate)}</TableCell>
+                            <TableCell numeric="true">{percentString(member.eggs / props.coop.eggs, 2)}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
