@@ -1,7 +1,7 @@
 import React from "react"
 import { Typography } from "@material-ui/core"
 import { useTheme } from "@material-ui/core/styles"
-import * as eiTools from "../../tools/eggincTools"
+import { getImageSrc } from "../../tools/eggincTools"
 
 export default function ContractCardRewards(props) {
     const theme = useTheme()
@@ -26,28 +26,11 @@ function RewardItem(props) {
         width: "100%",
         height: "auto",
     }
-    const [imageName, text] = (reward => {
-        switch (reward.type) {
-            case "BOOST": {
-                return ["b_icon_" + reward.subtype, `+${reward.quantity}`]
-            }
-            case "RESEARCH":
-            case "PIGGY_LEVEL": {
-                return [reward.subtype, `+${reward.quantity}`]
-            }
-            case "PIGGY_MULTIPLY": {
-                return [reward.type, `x${reward.quantity}`]
-            }
-            case "PIGGY_BANK":
-            default: {
-                return [reward.type, eiTools.convertSymbol(reward.quantity)]
-            }
-        }
-    })(props.reward)
+    const { path, quantity } = getImageSrc(props.reward)
     return (
         <div style={style}>
-            <img style={imgStyle} src={`/images/${imageName}.png`}></img>
-            <Typography>{text}</Typography>
+            <img style={imgStyle} src={path}></img>
+            <Typography>{quantity}</Typography>
         </div>
     )
 }

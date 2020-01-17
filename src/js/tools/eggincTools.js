@@ -109,8 +109,9 @@ export function round(n, precision) {
     return Math.round(n * Math.pow(10, precision)) / Math.pow(10, precision);
 }
 
-export function percentString(n, precision) {
-    return (n * 100).toFixed(precision) + '%';
+export function percentString(n, precision, limit=false) {
+    let value = limit ? Math.min(Math.max(0, n), 1) : n
+    return (value * 100).toFixed(precision) + '%';
 }
 
 function orderOf(n) {
@@ -125,4 +126,38 @@ function levelOf(n) {
 function cutoffOf(n) {
     // Returns the floor of n's "illion". E.g. 28 million returns 1 million, 794 billion returns 1 billion
     return Math.pow(10, Math.floor(orderOf(n)) * 3);
+}
+
+export function getImageSrc(reward) {
+    const imageRootSrc = "/images"
+    let path = null
+    let quantity = null
+    switch (reward.type) {
+        case "BOOST": {
+            path = "b_icon_" + reward.subtype,
+            quantity = `+${reward.quantity}`
+            break
+        }
+        case "RESEARCH":
+        case "PIGGY_LEVEL": {
+            path = reward.subtype 
+            quantity = `+${reward.quantity}`
+            break
+        }
+        case "PIGGY_MULTIPLY": {
+            path = reward.type
+            quantity = `x${reward.quantity}`
+            break
+        }
+        case "PIGGY_BANK":
+        default: {
+            path = reward.type
+            quantity = convertSymbol(reward.quantity)
+            break
+        }
+    }
+    return {
+        path: `${imageRootSrc}/${path}.png`,
+        quantity: quantity,
+    }
 }

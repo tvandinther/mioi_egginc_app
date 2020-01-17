@@ -1,6 +1,7 @@
 import React from "react"
+import { connect } from "react-redux"
 
-export default function MultiColumn(props) {
+function MultiColumn(props) {
     let columnSize = "100vw"
     if (props.sizeFormat == "large" || props.sizeFormat == "medium") {
         columnSize = "1fr"
@@ -21,3 +22,12 @@ export default function MultiColumn(props) {
         </div>
     )
 }
+
+const mapStateToProps = store => {
+    const { UI: { sizeFormat } } = store
+    return {
+        sizeFormat,
+    }
+}
+
+export default connect(mapStateToProps)(MultiColumn)

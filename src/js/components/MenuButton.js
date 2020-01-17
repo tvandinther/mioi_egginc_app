@@ -10,7 +10,7 @@ export default function MenuButton(props) {
         backgroundColor: theme.palette.primary.contrastText,
     }
     const classNames = ["MenuButton"]
-    if (props.sidebarIsVisible) {
+    if (props.isSidebarVisible) {
         classNames.push("change")
     }
     if (props.menuOnLeft) {

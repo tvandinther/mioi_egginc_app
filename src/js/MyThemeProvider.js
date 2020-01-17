@@ -1,6 +1,6 @@
 import React from "react"
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles"
-import { blueGrey, deepOrange } from "@material-ui/core/colors"
+import { indigo, deepOrange, deepPurple } from "@material-ui/core/colors"
 
 const headLineFontFamily = [
     "Raleway",
@@ -12,7 +12,7 @@ const headLineFontFamily = [
 const lightTheme = createMuiTheme({
     palette: {
         type: 'light',
-        primary: blueGrey,
+        primary: indigo,
         secondary: deepOrange,
     },
     status: {

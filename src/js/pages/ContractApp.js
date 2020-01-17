@@ -29,15 +29,15 @@ function ContractApp(props) {
         <div className="Page">
             <Navbar title={pageDetails.shortTitle}/>
             
-            <MultiColumn scrolled={props.contractApp.viewContract} sizeFormat={props.sizeFormat}>
-                <ContractList {...props} activeContracts={props.contractApp.activeContracts.contracts}/>
+            <MultiColumn scrolled={props.viewContract}>
+                <ContractList match={props.match} />
                 <Switch>
                     <Route exact path={`${props.match.path}`}>
                         <div>Select a contract to view more information</div>
                     </Route>
                     <Route path={`${props.match.path}/:contractId`}>
-                        <Container style={{overflowY: "auto"}}>
-                            <ContractSummary {...props}/>
+                        <Container disableGutters style={{overflowY: "auto"}}>
+                            <ContractSummary match={props.match}/>
                         </Container>
                     </Route>
                 </Switch>
@@ -47,11 +47,9 @@ function ContractApp(props) {
 }
 
 const mapStateToProps = store => {
-    const { contract: contractApp, UI: {sizeFormat, isSidebarVisible} } = store;
+    const { contract: { viewContract } } = store;
 	return {
-        contractApp,
-        sizeFormat,
-        isSidebarVisible,
+        viewContract,
 	}
 }
 

@@ -202,6 +202,8 @@ a:hover>.SidebarMenuItem {
     overflow-y: auto;
     overflow-x: hidden;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 .card {

@@ -31,7 +31,6 @@ export function updateContractCoopSearchString(contractId, searchString) {
 }
 
 export function getCoop(coopName, contractId) {
-    console.log(coopName, contractId)
     return {
         type: "GET_COOP",
         meta: {

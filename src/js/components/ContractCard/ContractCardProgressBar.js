@@ -40,8 +40,8 @@ export default function ContractCardProgressBar(props) {
     }
 
     const altgradient = [
-        hexToRGB(theme.palette.primary.main),
-        hexToRGB(theme.palette.secondary.main),
+        hexToRGB(theme.palette.primary.light),
+        hexToRGB(theme.palette.secondary.light),
     ]
 
     const pickColour = (colour1, colour2, weight) => {
@@ -55,7 +55,7 @@ export default function ContractCardProgressBar(props) {
         return rgb
     }
 
-    const fillColour = pickColour(gradient[1], gradient[0], progress)
+    const fillColour = pickColour(altgradient[1], altgradient[0], progress)
     const filledStyle = {
         width: `${progress * 100}%`,
         background: `rgb(${fillColour[0]},${fillColour[1]},${fillColour[2]})`,

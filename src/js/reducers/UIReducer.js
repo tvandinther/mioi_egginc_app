@@ -26,6 +26,29 @@ export default function reducer(state=initialState, action) {
         case "RESIZE_PAGE": {
             return {...state, menuOnLeft: determineMenuPlacement(), sizeFormat: determineSizeFormat()}
         }
+        case "PAGE_SWIPE": {
+            let showSidebar = false
+            const event = action.payload
+            if (event.absX > 100) {
+                if (event.dir === "Left") {
+                    if (!state.menuOnLeft && !state.isSidebarVisible) { // menu on right and sidebar not visible
+                        showSidebar = true
+                    }
+                    else if (state.menuOnLeft && state.isSidebarVisible) { // menu on left and sidebar visible
+                        showSidebar = false
+                    }
+                }
+                else if (event.dir === "Right") {
+                    if (state.menuOnLeft && !state.isSidebarVisible) { // menu on left and sidebar not visible
+                        showSidebar = true
+                    }
+                    else if (!state.menuOnLeft && state.isSidebarVisible) { // menu on right and sidebar visible
+                        showSidebar = false
+                    }
+                }
+            }
+            return {...state, isSidebarVisible: showSidebar }
+        }
         default: {
             return state
         }

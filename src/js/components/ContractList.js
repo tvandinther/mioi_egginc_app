@@ -1,10 +1,12 @@
 import React from "react"
-
+import { conenct, connect } from "react-redux"
 import { Link } from "react-router-dom"
 import ContractCard from "./ContractCard/ContractCard"
+import { showContract } from "../actions/contractActions"
+import { getExpireETA } from "../tools/eggincTools"
 
-export default function ContractList(props) {
-    if (!props.activeContracts) {
+function ContractList(props) {
+    if (!props.activeContracts.contracts) {
         return (
             <p>Loading...</p>
         )
@@ -16,16 +18,18 @@ export default function ContractList(props) {
         duration: (a, b) => a.duration - b.duration,
         coopSize: (a, b) => a.coopSize > b.coopSize,
     }
-    const contractList = Object.values(props.activeContracts)
+    const contractList = Object.values(props.activeContracts.contracts)
     const sortedContracts = contractList.sort(sortFunctions["validUntil"])
     const reversed = true
     if (reversed) {
         sortedContracts.reverse()
     }
     const contractListItems = sortedContracts.map((contract, index) => {
+        // Anything valid for more than 30 days from now is put to the bottom
+        let order = getExpireETA(contract.validUntil) < 60 * 60 * 24 * 30 ? index : 100 + index
         return (
-            <Link onClick={props.showContract} to={`${props.match.url}/${contract.name}`} key={index}>
-                <ContractCard updateShownContracts={props.updateShownContracts} contract={contract} index={index} />
+            <Link style={{order: order}} onClick={props.showContract} to={`${props.match.url}/${contract.name}`} key={index}>
+                <ContractCard contract={contract} index={index} />
             </Link>
         )
     })
@@ -35,3 +39,16 @@ export default function ContractList(props) {
         </div>
     )
 }
+
+const mapStateToProps = store => {
+    const { contract: { activeContracts } } = store
+    return {
+        activeContracts,
+    }
+}
+
+const mapDispatchToProps = {
+    showContract
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContractList)

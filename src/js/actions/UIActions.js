@@ -16,6 +16,14 @@ export function hideSidebar() {
     }
 }
 
+export function pageSwipe(event) {
+    console.log(event)
+    return {
+        type: "PAGE_SWIPE",
+        payload: event,
+    }
+}
+
 export function setPage(options) {
     return {
         type: "SET_PAGE",

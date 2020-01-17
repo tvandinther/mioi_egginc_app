@@ -7,7 +7,7 @@ export default function Navbar(props) {
     const style = {
         backgroundColor: theme.palette.primary["700"]
     }
-    console.log(theme)
+    console.log("THEME: ", theme)
     return (
         <div style={style} className="Navbar gridCenter">
             <Typography color="textPrimary" align="center" variant="h4">{props.title}</Typography>

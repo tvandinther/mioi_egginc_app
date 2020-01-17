@@ -34,6 +34,16 @@ export default function ValidatedInput(props) {
     }
 
     return (
-        <TextField autoFocus onKeyUp={handleKeyUp} placeholder="Search a Co-op" fullWidth variant="outlined" value={props.value} onChange={handleChange} onPaste={handlePaste} />
+        <TextField 
+            error={props.error} 
+            autoFocus onKeyUp={handleKeyUp} 
+            type={props.type}
+            label={props.label}
+            fullWidth 
+            variant="outlined" 
+            value={props.value} 
+            onChange={handleChange} 
+            onPaste={handlePaste} 
+        />
     )
 }

@@ -27,34 +27,11 @@ function App(props) {
 		window.addEventListener("resize", props.resizePage)
 		return () => window.removeEventListener("resize", props.resizePage)
 	}, [])
-	
-	
-	const handleSwipe = event => {
-		if (event.absX > 100) {
-			if (event.dir === "Left") {
-				if (!props.UI.menuOnLeft && !props.UI.isSidebarVisible) { // menu on right and sidebar not visible
-					props.showSidebar()
-				}
-				else if (props.UI.menuOnLeft && props.UI.isSidebarVisible) { // menu on left and sidebar visible
-					props.hideSidebar()
-				}
-			}
-			else if (event.dir === "Right") {
-				if (props.UI.menuOnLeft && !props.UI.isSidebarVisible) { // menu on left and sidebar not visible
-					props.showSidebar()
-				}
-				else if (!props.UI.menuOnLeft && props.UI.isSidebarVisible) { // menu on right and sidebar visible
-					props.hideSidebar()
-				}
-			}
-		}
-	}
 
 	return (
-			<Swipeable style={style} className="App" onSwiped={handleSwipe}>
+			<Swipeable style={style} className="App" onSwiped={props.pageSwipe}>
 				<Router>
-					<MenuButton onClick={props.toggleSidebar} sidebarIsVisible={props.UI.isSidebarVisible} menuOnLeft={props.UI.menuOnLeft}/>
-					<SidebarMenu sidebarIsVisible={props.UI.isSidebarVisible} menuOnLeft={props.UI.menuOnLeft} hideSidebar={props.hideSidebar}/>
+					<SidebarMenu />
 					<Switch>
 						<Route exact path="/" component={Pages.Home} />
 						<Route path="/contract" component={Pages.ContractApp} />
@@ -66,16 +43,11 @@ function App(props) {
 	)
 }
 
-const mapStateToProps = store => {
-	return {
-		UI: store.UI
-	}
-}
-
 const mapDispatchToProps = {
 	...UIActions
 }
 
-const connectedApp = connect(mapStateToProps, mapDispatchToProps)(App)
+const connectedApp = connect(null, mapDispatchToProps)(App)
 
+// export default hot(module)(App)
 export default hot(module)(connectedApp);
