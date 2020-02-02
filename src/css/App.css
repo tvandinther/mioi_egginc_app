@@ -36,9 +36,8 @@ a {
 
 .App {
     position: relative;
-    width: 100vw;
+    /* width: 100vw; */
     height: 100vh;
-    overflow: hidden;
 }
 
 .Page {
@@ -107,11 +106,6 @@ a {
     border-bottom-right-radius: 40px; */
 }
 
-.SidebarMenu.hidden {
-    opacity: 0;
-    transform: translateX(100%);
-}
-
 .SidebarMenuHeader {
     background-color: var(--colour-3);
     height: var(--header-height);
@@ -171,7 +165,7 @@ a:hover>.SidebarMenuItem {
   
 /* Rotate last bar */
 .change .bar3 {
-    -webkit-transform: translate(0%, 250%) rotate(-45deg);
+    -webkit-transform: translate(0%, -250%) rotate(45deg);
     transform: translate(0%, -250%) rotate(45deg);
 }
 
@@ -182,15 +176,6 @@ a:hover>.SidebarMenuItem {
     align-items: center;
     grid-template: 1fr / 1fr;
 }
-
-.MenuButton.left,
-    .SidebarMenu.left{
-        left: 0px;
-        right: unset;
-    }
-    .SidebarMenu.hidden.left {
-        transform: translateX(-100%);
-    }
 
 /* @media only screen and (min-width: 720px) {
     

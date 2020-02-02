@@ -25,23 +25,42 @@ function ContractApp(props) {
     }, [])
 
     useEffect(() => {props.getActiveContracts()}, [])
+
+    // // OLD HYBRID VIEW - COMPLEX AND BORKEN
+    // return (
+    //     <div className="Page">
+    //         <Navbar title={pageDetails.shortTitle} />
+    //         <MultiColumn scrolled={props.viewContract}>
+    //             <ContractList match={props.match} />
+    //             <Switch>
+    //                 <Route exact path={`${props.match.path}`}>
+    //                     <div>Select a contract to view more information</div>
+    //                 </Route>
+    //                 <Route path={`${props.match.path}/:contractId`}>
+    //                     <Container disableGutters style={{overflowY: "auto"}}>
+    //                         <ContractSummary match={props.match}/>
+    //                     </Container>
+    //                 </Route>
+    //             </Switch>
+    //         </MultiColumn>
+    //     </div>
+    // )
+
+
+    // MOBILE VIEW - SIMPLE
     return (
-        <div className="Page">
-            <Navbar title={pageDetails.shortTitle}/>
-            
-            <MultiColumn scrolled={props.viewContract}>
-                <ContractList match={props.match} />
-                <Switch>
-                    <Route exact path={`${props.match.path}`}>
-                        <div>Select a contract to view more information</div>
-                    </Route>
-                    <Route path={`${props.match.path}/:contractId`}>
-                        <Container disableGutters style={{overflowY: "auto"}}>
-                            <ContractSummary match={props.match}/>
-                        </Container>
-                    </Route>
-                </Switch>
-            </MultiColumn>
+        <div>
+            <Navbar title={pageDetails.shortTitle} />
+            <Switch>
+                <Route exact path={`${props.match.path}`}>
+                    <ContractList match={props.match} />
+                </Route>
+                <Route path={`${props.match.path}/:contractId`}>
+                    <Container disableGutters style={{overflowY: "auto"}}>
+                        <ContractSummary match={props.match}/>
+                    </Container>
+                </Route>
+            </Switch>
         </div>
     )
 }

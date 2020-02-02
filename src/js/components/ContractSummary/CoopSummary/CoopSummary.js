@@ -1,11 +1,12 @@
 import React from "react"
 import { useSelector } from "react-redux"
-import { Route, useRouteMatch, Redirect } from "react-router-dom"
+import { Route, useRouteMatch, Redirect, useParams } from "react-router-dom"
 import { Typography } from "@material-ui/core"
 
 import CoopExpiry from "./CoopExpiry"
 import CoopEstimate from "./CoopEstimate"
 import CoopMembers from "./CoopMembers"
+import CoopExpiryEstimate from "./CoopExpiryEstimate"
 
 export default function CoopSummary(props) {
     const contract = props.contract
@@ -23,14 +24,14 @@ export default function CoopSummary(props) {
         gap: 10,
         
     }
+
     if (coop && coop.fetched && !coop.error) {
         return (
             <div style={style}>
                 <Redirect to={`${currentRoute.url}/${coop.coop}`} />
                 <Route path={`${currentRoute.path}/:coopId`}>
-                    <CoopExpiry coop={coop} />
-                    <CoopEstimate contract={contract} coop={coop} />
-                    <Typography variant="h5">Members</Typography>
+                    <CoopExpiryEstimate contract={contract} coop={coop}/>
+                    <Typography variant="h5">Members ({coop.members.length}/{contract.coopSize})</Typography>
                     <CoopMembers coop={coop} />
                 </Route>
             </div>

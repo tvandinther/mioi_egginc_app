@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react"
+import React from "react"
 import { useTheme } from "@material-ui/core/styles"
 import "react-step-progress-bar/styles.css"
 import { ProgressBar, Step } from "react-step-progress-bar"
@@ -16,7 +16,8 @@ export default function ContractRewards(props) {
         progress = Math.min(Math.max(0, eggsLaid / finalGoal * 100), 100)
     }
     const style = {
-        ...props.style
+        ...props.style,
+        borderRadius: 10,
     }
     
     // const fill = `linear-gradient(to right, #5498ff, #ff5454)`
@@ -40,7 +41,9 @@ export default function ContractRewards(props) {
                             placement="top"
                             enterTouchDelay={400}
                         >
-                            <img width={40} src={getImageSrc(reward).path} style={stepStyle}></img>
+                            <div>
+                                <img width={40} src={getImageSrc(reward).path} style={stepStyle}></img>
+                            </div>
                         </Tooltip>
                     )
                 }}

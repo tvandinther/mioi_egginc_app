@@ -1,28 +1,44 @@
-import React, { useContext, useReducer } from "react"
-import { useTheme } from "@material-ui/core/styles"
+import React from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { makeStyles } from "@material-ui/core/styles"
+import { toggleSidebar } from "../actions/UIActions"
+import { IconButton } from "@material-ui/core"
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        padding: "0px 12px",
+    },
+    MenuButton: {
+        transition: "all 300ms ease-out",
+
+        "& div": {
+            backgroundColor: theme.palette.primary.contrastText,
+        },
+    }
+}))
 
 export default function MenuButton(props) {
-    const theme = useTheme()
-    const style = {
-        
+    const dispatch = useDispatch()
+    const classes = useStyles()
+    const barActiveStyles ={
+        bar1: {
+            transform: "translate(0%, 250%) rotate(-45deg)",
+        },
+        bar2: {
+            opacity: 0,
+        },
+        bar3: {
+            transform: "translate(0%, -250%) rotate(45deg)",
+        },
     }
-    const barStyle = {
-        backgroundColor: theme.palette.primary.contrastText,
-    }
-    const classNames = ["MenuButton"]
-    if (props.isSidebarVisible) {
-        classNames.push("change")
-    }
-    if (props.menuOnLeft) {
-        classNames.push("left")
-    }
+
     return (
-        <div onClick={props.onClick} className={classNames.join(" ")}>
-            <div>
-                <div style={barStyle} className="bar1"></div>
-                <div style={barStyle} className="bar2"></div>
-                <div style={barStyle} className="bar3"></div>
+        <IconButton className={classes.root} onClick={() => dispatch(toggleSidebar())} edge={props.left ? "start" : "end"}>
+            <div className={classes.MenuButton}>
+                <div style={props.active ? barActiveStyles.bar1 : null} className="bar1"></div>
+                <div style={props.active ? barActiveStyles.bar2 : null} className="bar2"></div>
+                <div style={props.active ? barActiveStyles.bar3 : null} className="bar3"></div>
             </div>
-        </div>
+        </IconButton>
     )
 }

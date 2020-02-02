@@ -4,7 +4,9 @@ import ContractCardRewards from "./ContractCardRewards"
 import IconLabel from "../IconLabel"
 
 import * as eiTools from "../../tools/eggincTools"
-import { Timer, PeopleAlt } from '@material-ui/icons'
+// import { Timer, PeopleAlt } from '@material-ui/icons'
+import Timer from '@material-ui/icons/Timer'
+import PeopleAlt from '@material-ui/icons/PeopleAlt'
 
 export default function ContractCardDetails(props) {
     const theme = useTheme()

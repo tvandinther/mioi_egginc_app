@@ -4,25 +4,26 @@ import ValidatedInput from "../ValidatedInput"
 import { updateContractCoopSearchString, getCoop } from "../../actions/contractActions"
 import { contractNameFormat } from "../../tools/eggincTools"
 import { Typography, Button, CircularProgress } from "@material-ui/core"
-import { useTheme } from "@material-ui/core/styles"
+import { useTheme, makeStyles } from "@material-ui/core/styles"
 
-export default function CoopSearch(props) {
-    const theme = useTheme()
-    const dispatch = useDispatch()
-    const search = useSelector(store => store.contract.coopSearch[props.contractId])
-    let loading = useSelector(store => store.contract.coops[props.contractId])
-    loading = loading ? loading.fetching : false
-    const style = {
-        ...props.style,
+const useStyle = makeStyles(theme => ({
+    root: {
         display: "grid",
         margin: "5px",
         gridTemplate: "1fr / 1fr 100px",
         gridGap: "10px",
-    }
-    const progressCircleStyle = {
+    },
+    progress: {
         position: "absolute",
-
     }
+}))
+
+export default function CoopSearch(props) {
+    const dispatch = useDispatch()
+    const classes = useStyle()
+    const search = useSelector(store => store.contract.coopSearch[props.contractId])
+    const coop = useSelector(store => store.contract.coops[props.contractId])
+    let loading = coop ? coop.fetching : false
     let [coopSearchString, setCoopSearchString] = useState(search.searchString)
     let [disableSearch, setDisableSearch] = useState(search.disabled)
     
@@ -36,18 +37,22 @@ export default function CoopSearch(props) {
         }
         dispatch(updateContractCoopSearchString(props.contractId, value))
     }
-
     const handleSubmit = () => {
         if (!loading) {
             dispatch(getCoop(coopSearchString, props.contractId))
         }
     }
+    
+    useEffect(() => {
+        if (!coop && !search.searchFailed && search.searchString) handleSubmit()
+    }, [])
+    
     return (
-            <div style={style}>
-                <ValidatedInput label="Search a Co-op" type="search" error={disableSearch} onEnter={handleSubmit} value={coopSearchString} setValue={setReduxSearchString} validatorFunction={contractNameFormat}/>
+            <div style={props.style} className={classes.root}>
+                <ValidatedInput pasteSubmit={false} label="Search a Co-op" type="search" error={disableSearch} onEnter={handleSubmit} value={coopSearchString} setValue={setReduxSearchString} validatorFunction={contractNameFormat}/>
                 <Button onClick={handleSubmit} variant="outlined" disabled={loading || disableSearch}>
                     Search
-                    {loading && <CircularProgress style={progressCircleStyle}/>}
+                    {loading && <CircularProgress className={classes.progress}/>}
                 </Button>
             </div>
         

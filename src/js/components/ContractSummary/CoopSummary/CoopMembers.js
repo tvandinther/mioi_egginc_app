@@ -4,7 +4,6 @@ import { convertSymbol, percentString } from "../../../tools/eggincTools"
 
 export default function CoopMembers(props) {
     const style = {
-        maxHeight: "300px",
         overflowX: "auto",
         overflowY: "auto",
     }

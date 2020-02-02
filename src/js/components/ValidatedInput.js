@@ -25,6 +25,7 @@ export default function ValidatedInput(props) {
         value = validate(value)
         event.preventDefault()
         props.setValue(value)
+        if (props.pasteSubmit) props.onEnter()
     }
 
     const handleKeyUp = (event) => {

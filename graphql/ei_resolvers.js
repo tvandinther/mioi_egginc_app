@@ -1,7 +1,7 @@
 const eggincAPI = require('../eggIncAPI');
 
 var getCoop = function(args) {
-    return eggincAPI.getContract(args.contractName.toLowerCase(), args.coopName.toLowerCase());
+    return eggincAPI.getContract(args.contractName, args.coopName);
 }
 
 var getPlayerData = function(args) {

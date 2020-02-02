@@ -6,7 +6,10 @@ import * as eiTools from "../../tools/eggincTools"
 import CoopSearch from "./CoopSearch"
 import IconLabel from "../IconLabel"
 import { Timer, PeopleAlt, AcUnit } from '@material-ui/icons'
-import { showContract, hideContract } from "../../actions/contractActions"
+// import Timer from '@material-ui/icons/Timer'
+// import PeopleAlt from '@material-ui/icons/PeopleAlt'
+// import AcUnit from '@material-ui/icons/AcUnit'
+import { showContract, hideContract, updateContractCoopSearchString } from "../../actions/contractActions"
 import FlexContainer from "../FlexContainer"
 import ContractRewards from "./ContractRewards"
 import CoopSummary from "./CoopSummary"
@@ -40,6 +43,7 @@ function ContractSummary(props) {
         props.showContract()
         return props.hideContract
     }, [])
+
     const history = useHistory()
     const goBack = () => {
         history.push(props.match.url)
@@ -54,16 +58,29 @@ function ContractSummary(props) {
 
     const contract = props.activeContracts.contracts[contractId]
     const coop = props.coops[contractId]
+
+    const pathArray = window.location.pathname.split('/')
+    let coopId = pathArray[pathArray.findIndex(item => item === contractId) + 1]
+    if (coopId && !coop && props.activeContracts.fetched) props.updateContractCoopSearchString(contractId, coopId)
+
     if (contract) {
+        const coopIconText = (() => {
+            if (contract.coopSize) {
+                let string = contract.coopSize
+                if (coop && coop.members) return coop.members.length + "/" + string
+            }
+            return "0"
+        })()
+
         return (
-            <Card style={style} {...swipeHandlers} className="ContractSummary">
+            <Card style={style} className="ContractSummary">
                 <BackButton style={{gridArea: "back-button"}} onClick={goBack} to={props.match.url} />
                 <img style={{gridArea: "image", maxWidth: "100%", maxHeight: "100px", margin: "auto"}} src={`/images/egg${contract.egg}.png`}></img>
                 <Typography style={{gridArea: "title"}} variant="h3">{contract.title}</Typography>
                 <Typography style={{gridArea: "description"}} variant="subtitle1">{contract.description}</Typography>
                 <FlexContainer style={{gridArea: "icons"}}>
                     <IconLabel icon={Timer} label={eiTools.convertEpoch(contract.duration, true)}/>
-                    <IconLabel icon={PeopleAlt} label={contract.coopSize ? contract.coopSize : 0}/>
+                    <IconLabel icon={PeopleAlt} label={coopIconText}/>
                     <IconLabel icon={AcUnit} label={contract.boostsAllowed}/>
                 </FlexContainer>
                 {contract.coopAllow && <CoopSearch style={{gridArea: "search"}} {...contract.coopSearch} contractId={contractId}/>}
@@ -88,6 +105,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     showContract,
     hideContract,
+    updateContractCoopSearchString,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContractSummary)

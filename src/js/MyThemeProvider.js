@@ -1,6 +1,17 @@
 import React from "react"
-import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles"
-import { indigo, deepOrange, deepPurple } from "@material-ui/core/colors"
+import { StylesProvider, ThemeProvider, createMuiTheme, makeStyles } from "@material-ui/core/styles"
+import { indigo, deepOrange } from "@material-ui/core/colors"
+import { create } from "jss"
+
+const jss = create()
+jss.createStyleSheet({
+    gridCenter: {
+        display: "grid",
+        justifyContent: "center",
+        alignItems: "center",
+        gridTemplate: "1fr / 1fr",
+    }
+})
 
 const headLineFontFamily = [
     "Raleway",
@@ -48,8 +59,10 @@ const lightTheme = createMuiTheme({
 
 export default function MyThemeProvider(props) {
     return (
-        <ThemeProvider theme={lightTheme}>
-            {props.children}
-        </ThemeProvider>
+        <StylesProvider>
+            <ThemeProvider theme={lightTheme}>
+                {props.children}
+            </ThemeProvider>
+        </StylesProvider>
     )
 }

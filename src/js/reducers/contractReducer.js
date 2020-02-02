@@ -1,14 +1,27 @@
+
+const defaultCoopSearch = {
+    searchString: "",
+    searchFailed: false,
+    failedSearches: [],
+    disabled: false,
+}
+
+
+const defaultActiveContractsRoot = {
+    fetching: false,
+    fetched: false,
+    error: null,
+    contracts: {},
+}
+
 const initialState = {
-    activeContracts: {
-        fetching: false,
-        fetched: false,
-        error: null,
-        contracts: {},
-    },
+    activeContracts: defaultActiveContractsRoot,
     coopSearch: {},
     viewContract: null,
     coops: {},
 }
+
+
 
 export default function reducer(state=initialState, action) {
     switch(action.type) {
@@ -20,23 +33,17 @@ export default function reducer(state=initialState, action) {
         }
         case "GET_ACTIVE_CONTRACTS_FULFILLED": {
             const contractIds = action.payload.data.activeContracts.map(contract => contract.name)
-            const contracts = action.payload.data.activeContracts.reduce((obj, contract) => {
-                obj[contract.name] = contract
-                return obj
-            }, {})
-            const coopSearches = contractIds.reduce((obj, contractId) => {
-                obj[contractId] = {
-                    searchString: "",
-                    searchFailed: false,
-                    failedSearches: [],
-                    disabled: false,
-                }
-                return obj
-            }, {})
-            const coops = contractIds.reduce((obj, contractId) => {
-                obj[contractId] = null
-                return obj
-            }, {})
+            // const contracts = action.payload.data.activeContracts.reduce((obj, contract) => {
+            //     obj[contract.name] = contract
+            //     return obj
+            // }, {})
+            let contracts = Object.fromEntries(action.payload.data.activeContracts.map(contract => [contract.name, contract]))
+            let coopSearches = {}
+            let coops = {}
+            for (let contractId of contractIds) {
+                Object.assign(coopSearches, {[contractId]: defaultCoopSearch})
+                Object.assign(coops, {[contractId]: null})
+            }
             return {...state, 
                 activeContracts: {
                     ...state.activeContracts,
@@ -48,7 +55,10 @@ export default function reducer(state=initialState, action) {
                     ...coopSearches,
                     ...state.coopSearch,
                 },
-                coops: coops,
+                coops: {
+                    ...state.coops,
+                    coops,
+                },
             }
         }
         case "GET_ACTIVE_CONTRACTS_REJECTED": {
@@ -74,7 +84,7 @@ export default function reducer(state=initialState, action) {
                 searchString: action.payload.searchString,
             }
             return {...state,
-                newCoopSearch
+                coopSearch: newCoopSearch
             }
         }
         case "GET_COOP_PENDING": {
@@ -84,7 +94,6 @@ export default function reducer(state=initialState, action) {
                     [action.meta.contractId]: {
                         ...state.coops[action.meta.contractId],
                         fetching: true,
-                        fetched: false,
                         error: null,
                     }
                 }

@@ -13,15 +13,18 @@ import "../css/App.css";
 import Pages from "./pages/pageRoutes"
 import PageNotFound from "./pages/_404"
 // COMPONENTS
-import SidebarMenu from "./components/SidebarMenu"
-import MenuButton from "./components/MenuButton"
-import { useTheme } from "@material-ui/core/styles";
+import SidebarMenu from "./components/SidebarMenu/SidebarMenu"
+import { useTheme, makeStyles } from "@material-ui/core/styles";
+
+const useStyle = makeStyles(theme => ({
+	root: {
+		backgroundColor: theme.palette.grey["200"],
+	},
+	toolbar: theme.mixins.toolbar,
+}))
 
 function App(props) {
-	const theme = useTheme()
-	const style = {
-		backgroundColor: theme.palette.grey["200"],
-	}
+	const classes = useStyle()
 	
 	useEffect(() => {
 		window.addEventListener("resize", props.resizePage)
@@ -29,13 +32,15 @@ function App(props) {
 	}, [])
 
 	return (
-			<Swipeable style={style} className="App" onSwiped={props.pageSwipe}>
+			<Swipeable className={classes.root + " App"}>
 				<Router>
 					<SidebarMenu />
+					<div className={classes.toolbar}></div>
 					<Switch>
 						<Route exact path="/" component={Pages.Home} />
 						<Route path="/contract" component={Pages.ContractApp} />
 						<Route path="/guide" component={Pages.GameGuide} />
+						<Route path="/settings" component={Pages.Settings} />
 						<Route component={PageNotFound} />
 					</Switch>
 				</Router>

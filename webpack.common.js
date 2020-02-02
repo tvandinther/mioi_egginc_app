@@ -16,20 +16,18 @@ module.exports = {
             [
               'babel-plugin-import',
               {
-                'libraryName': '@material-ui/core',
-                // Use "'libraryDirectory': ''," if your bundler does not support ES modules
-                'libraryDirectory': '',
-                'camel2DashComponentName': false
+                libraryName: '@material-ui/core',
+                libraryDirectory: '',
+                camel2DashComponentName: false
               },
               'core'
             ],
             [
               'babel-plugin-import',
               {
-                'libraryName': '@material-ui/icons',
-                // Use "'libraryDirectory': ''," if your bundler does not support ES modules
-                'libraryDirectory': '',
-                'camel2DashComponentName': false
+                libraryName: '@material-ui/icons',
+                libraryDirectory: '',
+                camel2DashComponentName: false
               },
               'icons'
             ]
@@ -38,7 +36,8 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: ["style-loader", "css-loader"],
+        sideEffects: true,
       },
       {
         test: /\.(png|jpg|gif)$/i,
@@ -61,5 +60,9 @@ module.exports = {
     path: path.resolve(__dirname, "public/"),
     publicPath: "/",
     filename: "bundle.js"
+  },
+  optimization: {
+    usedExports: true,
+    minimize: true,
   }
 };

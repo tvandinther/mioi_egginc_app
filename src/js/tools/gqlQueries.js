@@ -17,3 +17,17 @@ export const getCoop = `
         }
     }
 `
+
+export const getUser = `
+    query getCoop($playerId: String!) {
+        eggInc {
+            playerData(playerID: $playerId) {
+                userName
+                game {
+                    soulEggsD
+                    eggsOfProphecy
+                }
+            }
+        }
+    }
+`

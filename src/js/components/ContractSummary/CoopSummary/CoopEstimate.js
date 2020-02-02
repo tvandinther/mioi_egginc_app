@@ -15,9 +15,11 @@ export default function CoopEstimate(props) {
         let epochTime =  eggsRemaining / totalRate
         let timeString = convertEpoch(epochTime)
         let auxString = " left until completion at the current laying rate."
-        if (eggsRemaining <= 0 || epochTime < props.coop.timeLeft) {
-            timeString = "Contract Completed!"
-            auxString = null
+        if (epochTime < props.coop.timeLeft || eggsRemaining <= 0) {
+            if (eggsRemaining <= 0) {
+                timeString = "Contract Completed!"
+                auxString = null
+            }
             timeStringStyle.color = theme.palette.success.dark
         }
         else {
