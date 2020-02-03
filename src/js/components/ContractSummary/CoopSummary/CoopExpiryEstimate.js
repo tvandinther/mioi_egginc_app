@@ -2,17 +2,18 @@ import React from "react"
 import { convertEpoch, convertSymbol } from "../../../tools/eggincTools"
 import { ProgressBar } from "react-step-progress-bar"
 import "react-step-progress-bar/styles.css"
-import { Typography, Paper } from "@material-ui/core"
+import { Typography, Paper, Divider } from "@material-ui/core"
 import { makeStyles, useTheme } from "@material-ui/core/styles"
 
 const useStyle = makeStyles(theme => ({
     root: {
-        backgroundColor: theme.palette.common.white,
+        backgroundColor: theme.palette.background.paper,
         border: 1,
         borderStyle: "none",
         borderColor: theme.palette.grey[300],
         borderRadius: 10,
         display: "grid",
+        margin: "20px 0px",
         gridTemplateColumns: "1fr 2px 1fr",
         gridTemplateRows: "auto 30px auto",
         gridTemplateAreas: `
@@ -53,7 +54,7 @@ const useStyle = makeStyles(theme => ({
         gridColumn: "1 / -1",
         gridRow: "1 / -1",
         borderRadius: "inherit",
-        backgroundColor: "rgba(255, 255, 255, 0.8)",
+        backgroundColor: theme.palette.background.offOverlay,
         zIndex: 99,
         display: "grid",
         alignItems: "center",
@@ -112,7 +113,7 @@ export default function CoopExpiryEstimate(props) {
             <div className={classes.divider}/>
 
             <div className={classes.progress}>
-                <ProgressBar height="100%" percent={progress} unfilledBackground={theme.palette.grey[200]} filledBackground={fill}/>
+                <ProgressBar height="100%" percent={progress} unfilledBackground={theme.palette.background.off} filledBackground={fill}/>
             </div>
 
             <Typography variant="body2" className={classes.expiry} style={{gridArea: "expiryTitle"}}>
@@ -123,6 +124,7 @@ export default function CoopExpiryEstimate(props) {
                 {convertEpoch(props.coop.timeLeft)}
             </Typography>
 
+            {(progress > 50) && <Divider/>}
             <Typography align="center" variant="body2" style={{gridArea: "note"}}>
                 {progress > 50 ? `Tip: ${convertSymbol(eggsRemaining / props.coop.timeLeft)}/s required to reach success threshold.` : null}
             </Typography>

@@ -3,7 +3,8 @@ import Navbar from "../components/Navbar"
 import PlayerIDInput from "../components/appSettings/PlayerIDInput"
 import { Container, Card, Typography, Divider, Switch, List, ListItem, TextField, ListItemText, ListItemSecondaryAction } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import * as settingsActions from "../actions/settingsActions"
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -11,12 +12,13 @@ const useStyle = makeStyles(theme => ({
     },
     card: {
         margin: "20px 0px",
-        padding: "10px 0px",
+        padding: "16px",
     }
 }))
 
 export default function AppSettings(props) {
     const classes = useStyle()
+    const dispatch = useDispatch()
     const settings = useSelector(store => store.settings)
     const pageDetails = {
         title: "App Settings",
@@ -42,8 +44,8 @@ export default function AppSettings(props) {
                             <PlayerIDInput/>
                         </ListItem>
                         <ListItem>
-                            <Switch/>
-                            <ListItemText primary="Detonate"/>
+                            <Switch checked={settings.darkTheme} onChange={event => dispatch(settingsActions.setDarkTheme(event.target.checked))}/>
+                            <ListItemText primary="Dark Theme"/>
                         </ListItem>
                     </List>
                     

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react"
+import React from "react"
 import { useTheme } from "@material-ui/core/styles"
 import "react-step-progress-bar/styles.css"
 import { ProgressBar, Step } from "react-step-progress-bar"
@@ -16,7 +16,7 @@ export default function RewardsBar(props) {
     return (
         <ProgressBar 
             percent={value} 
-            unfilledBackground={theme.palette.grey[200]}
+            unfilledBackground={theme.palette.background.off}
             filledBackground={fill}
         >
             {steps}

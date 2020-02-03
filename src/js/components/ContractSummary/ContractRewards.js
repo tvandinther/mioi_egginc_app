@@ -56,7 +56,7 @@ export default function ContractRewards(props) {
             <ProgressBar 
                 height={20}
                 percent={progress} 
-                unfilledBackground={theme.palette.grey[200]}
+                unfilledBackground={theme.palette.background.off}
                 filledBackground={fill}
                 stepPositions={rewards.map(reward => reward.goal / finalGoal * 100)}
             >

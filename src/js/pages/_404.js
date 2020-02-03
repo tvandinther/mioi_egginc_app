@@ -1,4 +1,5 @@
 import React, { useEffect } from "react"
+import Navbar from "../components/Navbar"
 
 export default function _404(props) {
     useEffect(() => {
@@ -9,6 +10,7 @@ export default function _404(props) {
 
     return (
         <div>
+            <Navbar title="Page Not Found"/>
             <p>
                 Cannot find the requested page
             </p>

@@ -38,7 +38,7 @@ export default function Navbar(props) {
             <AppBar className={classes.root} position="fixed">
                 <Toolbar style={{flexDirection: UI.menuOnLeft? "row" : "row-reverse"}}>
                     <MenuButton active={UI.isSidebarVisible} left={UI.menuOnLeft}/>
-                    <Typography variant="h6" className={classes.title}>
+                    <Typography variant="h6" align="center" className={classes.title}>
                         {props.title}
                     </Typography>
                     <div></div>

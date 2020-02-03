@@ -23,10 +23,17 @@ export function validatePlayerId(playerId) {
         },
         payload: axios.post("/api", {
             operation: "getUser",
-            query: queries.getUser,
+            query: queries.getPlayerData,
             variables: {
                 playerId: playerId,
             },
         })
+    }
+}
+
+export function setDarkTheme(bool) {
+    return {
+        type: "SET_DARK_THEME",
+        payload: bool,
     }
 }

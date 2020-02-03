@@ -18,14 +18,64 @@ export const getCoop = `
     }
 `
 
-export const getUser = `
-    query getCoop($playerId: String!) {
+export const getPlayerData = `
+    query getPlayerData($playerId: String!) {
         eggInc {
             playerData(playerID: $playerId) {
+                userId
                 userName
                 game {
                     soulEggsD
                     eggsOfProphecy
+                    epicResearchList {
+                        id
+                        level
+                    }
+                    piggyBank
+                    boostsList {
+                        boostId
+                        count
+                    }
+                }
+                contracts {
+                    contractsList {
+                        contract {
+                            identifier
+                        }
+                        accepted
+                        coopIdentifier
+                    }
+                }
+                farmsList {
+                    eggType
+                    farmType
+                    contractId
+                    numChickens
+                    eggsLaid
+                    eggsPaidFor
+                    silosOwned
+                    habsList
+                    habPopulation
+                    commonResearchList {
+                        id
+                        level
+                    }
+                    vehiclesList
+                    trainLengthList
+                    activeBoostsList {
+                        boostId
+                        timeRemaining
+                        referenceValue
+                    }
+                }
+                stats {
+                    eggTotalsList
+                    numPrestiges
+                    lostPiggyIncrements
+                    droneTakedowns
+                    droneTakedownsElite
+                    boostsUsed
+                    numPiggyBreaks
                 }
             }
         }

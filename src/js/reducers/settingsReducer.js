@@ -2,7 +2,8 @@ const initialState = {
     playerId: null,
     playerData: {
         error: false,
-    }
+    },
+    darkTheme: false,
 }
 
 export default function reducer(state=initialState, action) {
@@ -32,6 +33,12 @@ export default function reducer(state=initialState, action) {
                     ...state.playerData,
                     error: true,
                 }
+            }
+        }
+        case "SET_DARK_THEME": {
+            return {
+                ...state,
+                darkTheme: action.payload
             }
         }
         default: {

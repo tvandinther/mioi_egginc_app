@@ -25,7 +25,7 @@ const useStyle = makeStyles(theme => ({
     drawerPaper: {
         maxWidth: "280px",
         width: "100vw",
-        backgroundColor: theme.palette.grey[100],
+        backgroundColor: theme.palette.background.paper,
     },
     toolbar: theme.mixins.toolbar,
 }))

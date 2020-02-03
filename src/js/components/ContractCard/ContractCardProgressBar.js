@@ -1,9 +1,37 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import { useTheme } from "@material-ui/core/styles"
+
+const useStyle = makeStyles(theme => ({
+    unfilled: {
+        gridArea: "progressBar",
+        backgroundColor: theme.palette.background.off,
+        position: "relative",
+        textAlign: "center",
+        height: "100%",
+        width: "100%",
+        zIndex: 4,
+        transition: "all 200ms ease",
+        overflow: "hidden",
+
+        "& *": {
+            transition: "inherit",
+        }
+    },
+    filled: {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        zIndex: -1,
+        width: "100%",
+        height: "100%",
+    }
+}))
 
 export default function ContractCardProgressBar(props) {
     const theme = useTheme()
+    const classes = useStyle()
 
     const progress = Math.min(Math.max(0, props.progress), 1)
     let [hovered, setHovered] = useState(false)
@@ -60,11 +88,11 @@ export default function ContractCardProgressBar(props) {
         width: `${progress * 100}%`,
         background: `rgb(${fillColour[0]},${fillColour[1]},${fillColour[2]})`,
     }
-    const hoverText = hovered ? <Typography>{props.hoverText}</Typography> : null
+    const hoverText = hovered ? <Typography variant="subtitle2">{props.hoverText}</Typography> : null
     return (
-        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="ContractCardProgressBar" style={barStyle}>
+        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className={classes.unfilled} style={barStyle}>
             {hoverText}
-            <div className="filled" style={filledStyle}></div>
+            <div className={classes.filled} style={filledStyle}></div>
         </div>
     )
 }

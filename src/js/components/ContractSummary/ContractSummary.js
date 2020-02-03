@@ -20,7 +20,6 @@ import { useTheme } from "@material-ui/core/styles"
 function ContractSummary(props) {
     const theme = useTheme()
     const style = {
-        backgroundColor: theme.palette.common.white,
         display: "grid",
         gridTemplateColumns: "1fr 1fr 1fr",
         gridTemplateAreas: `
@@ -76,7 +75,7 @@ function ContractSummary(props) {
             <Card style={style} className="ContractSummary">
                 <BackButton style={{gridArea: "back-button"}} onClick={goBack} to={props.match.url} />
                 <img style={{gridArea: "image", maxWidth: "100%", maxHeight: "100px", margin: "auto"}} src={`/images/egg${contract.egg}.png`}></img>
-                <Typography style={{gridArea: "title"}} variant="h3">{contract.title}</Typography>
+                <Typography style={{gridArea: "title"}} variant="h4">{contract.title}</Typography>
                 <Typography style={{gridArea: "description"}} variant="subtitle1">{contract.description}</Typography>
                 <FlexContainer style={{gridArea: "icons"}}>
                     <IconLabel icon={Timer} label={eiTools.convertEpoch(contract.duration, true)}/>

@@ -4,8 +4,25 @@ import { Link } from "react-router-dom"
 import ContractCard from "./ContractCard/ContractCard"
 import { showContract } from "../actions/contractActions"
 import { getExpireETA } from "../tools/eggincTools"
+import { Container } from "@material-ui/core"
+import { makeStyles } from "@material-ui/core/styles"
+
+const useStyle = makeStyles(theme => ({
+    root: {
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        justifyContent: "space-evenly",
+        padding: 0,
+    },
+    listItem: {
+        maxWidth: 550,
+        width: "100%",
+    }
+}))
 
 function ContractList(props) {
+    const classes = useStyle()
     if (!props.activeContracts.contracts) {
         return (
             <p>Loading...</p>
@@ -28,15 +45,15 @@ function ContractList(props) {
         // Anything valid for more than 30 days from now is put to the bottom
         let order = getExpireETA(contract.validUntil) < 60 * 60 * 24 * 30 ? index : 100 + index
         return (
-            <Link style={{order: order}} onClick={props.showContract} to={`${props.match.url}/${contract.name}`} key={index}>
+            <Link style={{order: order}} className={classes.listItem} onClick={props.showContract} to={`${props.match.url}/${contract.name}`} key={index}>
                 <ContractCard contract={contract} index={index} />
             </Link>
         )
     })
     return (
-        <div className="ContractList">
+        <Container maxWidth="lg" className={classes.root}>
             {contractListItems}
-        </div>
+        </Container>
     )
 }
 
