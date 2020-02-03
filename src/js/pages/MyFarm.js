@@ -7,8 +7,8 @@ import { Card, Typography, Container } from "@material-ui/core"
 
 function Home(props) {
     const pageDetails = {
-        title: "Welcome to Home",
-        shortTitle: "Home",
+        title: "My Farm",
+        shortTitle: "My Farm",
     }
 
     useEffect(() => {

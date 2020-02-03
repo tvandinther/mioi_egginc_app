@@ -44,7 +44,7 @@ function App(props) {
 					<SidebarMenu />
 					<div className={classes.toolbar}></div>
 					<Switch>
-						<Route exact path="/" component={Pages.Home} />
+						<Route exact path="/" component={Pages.MyFarm} />
 						<Route path="/contract" component={Pages.ContractApp} />
 						<Route path="/guide" component={Pages.GameGuide} />
 						<Route path="/settings" component={Pages.Settings} />
