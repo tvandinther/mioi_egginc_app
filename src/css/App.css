@@ -227,14 +227,6 @@ a:hover>.SidebarMenuItem {
     z-index: 3;
 }
 
-.ContractImageContainer>img {
-    max-height: 90%;
-    max-width: 90%;
-    display: block;
-    margin: auto;
-    transition: all 200ms ease;
-}
-
 .ContractCardHeader {
     grid-area: title;
     background-color: var(--colour-3);
@@ -286,14 +278,6 @@ a:hover>.SidebarMenuItem {
     height: 100%;
     border-top: unset;
     border-bottom-left-radius: inherit;
-    border-bottom-right-radius: inherit;
-}
-
-.ContractCardDetails {
-    grid-area: details;
-    background-color: whitesmoke;
-    height: 100%;
-    width: 100%;
     border-bottom-right-radius: inherit;
 }
 
