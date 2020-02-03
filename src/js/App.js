@@ -15,16 +15,22 @@ import PageNotFound from "./pages/_404"
 // COMPONENTS
 import SidebarMenu from "./components/SidebarMenu/SidebarMenu"
 import { useTheme, makeStyles } from "@material-ui/core/styles";
+import { CssBaseline } from "@material-ui/core";
 
 const useStyle = makeStyles(theme => ({
 	root: {
-		backgroundColor: theme.palette.grey["200"],
+		backgroundColor: null, //theme.palette.background.base,
 	},
 	toolbar: theme.mixins.toolbar,
 }))
 
 function App(props) {
 	const classes = useStyle()
+	const theme = useTheme()
+	useEffect(() => {
+		let metaThemeColor = document.querySelector("meta[name=theme-color]")
+    	metaThemeColor.setAttribute("content", theme.palette.primary.main)
+	}, [theme.palette.primary.main])
 	
 	useEffect(() => {
 		window.addEventListener("resize", props.resizePage)
@@ -33,6 +39,7 @@ function App(props) {
 
 	return (
 			<Swipeable className={classes.root + " App"}>
+				<CssBaseline/>
 				<Router>
 					<SidebarMenu />
 					<div className={classes.toolbar}></div>
