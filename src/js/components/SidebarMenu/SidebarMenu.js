@@ -36,11 +36,11 @@ function SidebarMenu(props) {
     const classes = useStyle()
 
     const menuItems = {
-        "Home" : {
+        "My Farms" : {
             path: "/",
             icon: HomeIcon,
         },
-        "Contract" : {
+        "Contracts" : {
             path: "/contract",
             icon: ReceiptIcon,
         },
