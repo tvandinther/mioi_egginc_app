@@ -30,12 +30,13 @@ export function updateContractCoopSearchString(contractId, searchString) {
     }
 }
 
-export function getCoop(coopName, contractId) {
+export function getCoop(coopName, contractId, player=false) {
     return {
         type: "GET_COOP",
         meta: {
             coopName: coopName,
             contractId: contractId,
+            player: player,
         },
         payload: axios.post("/api", {
             operation: "getCoop",

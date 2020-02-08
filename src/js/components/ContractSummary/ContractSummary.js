@@ -84,7 +84,7 @@ function ContractSummary(props) {
                 </FlexContainer>
                 {contract.coopAllow && <CoopSearch style={{gridArea: "search"}} {...contract.coopSearch} contractId={contractId}/>}
                 {coop && <Typography style={{gridArea: "coop-title"}} align="center" variant="h4">{coop.coop}</Typography>}
-                <ContractRewards style={{gridArea: "rewards"}} coop={coop} rewards={contract.rewards}/>
+                <ContractRewards style={{gridArea: "rewards"}} eggsLaid={(coop && coop.eggsLaid)} rewards={contract.rewards}/>
                 <CoopSummary style={{gridArea: "coop"}} contract={contract}/>
             </Card>
         )

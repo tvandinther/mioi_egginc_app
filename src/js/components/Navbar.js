@@ -41,7 +41,7 @@ export default function Navbar(props) {
                     <Typography variant="h6" align="center" className={classes.title}>
                         {props.title}
                     </Typography>
-                    <div></div>
+                    <div style={{width: "50px"}}/>
                 </Toolbar>
             </AppBar>
         </HideOnScroll>

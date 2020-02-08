@@ -16,15 +16,13 @@ import ContractSummary from "../components/ContractSummary/ContractSummary"
 function ContractApp(props) {
     const pageDetails = {
         title: "Welcome to Home",
-        shortTitle: "Contract",
+        shortTitle: "Contracts",
     }
     useEffect(() => {
         const oldTitle = document.title
         document.title = [oldTitle, "Contracts"].join(" | ")
         return () => document.title = oldTitle
     }, [])
-
-    useEffect(() => {props.getActiveContracts()}, [])
 
     // // OLD HYBRID VIEW - COMPLEX AND BORKEN
     // return (

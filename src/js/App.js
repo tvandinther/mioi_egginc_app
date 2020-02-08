@@ -3,11 +3,11 @@ import React, { useRef, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import { hot } from "react-hot-loader";
 import { useSwipeable, Swipeable } from 'react-swipeable'
-import { connect } from "react-redux"
+import { connect, useSelector } from "react-redux"
 
 import { useClickAway } from "./customHooks/customHooks"
 // ACTIONS
-import * as UIActions from "./actions/UIActions"
+import actions from "./actions"
 // RESOURCES
 import "../css/App.css";
 import Pages from "./pages/pageRoutes"
@@ -27,6 +27,7 @@ const useStyle = makeStyles(theme => ({
 function App(props) {
 	const classes = useStyle()
 	const theme = useTheme()
+	const settings = useSelector(state => state.settings)
 	useEffect(() => {
 		let metaThemeColor = document.querySelector("meta[name=theme-color]")
     	metaThemeColor.setAttribute("content", theme.palette.primary.main)
@@ -36,6 +37,9 @@ function App(props) {
 		window.addEventListener("resize", props.resizePage)
 		return () => window.removeEventListener("resize", props.resizePage)
 	}, [])
+
+	useEffect(() => {props.getActiveContracts()}, [])
+	useEffect(() => {props.validatePlayerId(settings.playerId)}, [])
 
 	return (
 			<Swipeable className={classes.root + " App"}>
@@ -56,7 +60,7 @@ function App(props) {
 }
 
 const mapDispatchToProps = {
-	...UIActions
+	...actions
 }
 
 const connectedApp = connect(null, mapDispatchToProps)(App)

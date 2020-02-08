@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux"
 export default function PlayerIDInput(props) {
     const dispatch = useDispatch()
     const playerId = useSelector(store => store.settings.playerId)
-    const error = useSelector(store => store.settings.playerData.error)
+    const error = useSelector(store => store.playerData.error)
     let [value, setValue] = useState(playerId || "")
 
     const handleChange = event => {

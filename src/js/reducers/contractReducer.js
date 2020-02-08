@@ -19,6 +19,7 @@ const initialState = {
     coopSearch: {},
     viewContract: null,
     coops: {},
+    playerCoops: {},
 }
 
 
@@ -101,6 +102,18 @@ export default function reducer(state=initialState, action) {
         }
         case "GET_COOP_FULFILLED": {
             if (!action.payload.data.errors) {
+                if (action.meta.player) {
+                    return {...state,
+                        playerCoops: {
+                            ...state.playerCoops,
+                            [action.meta.contractId]: {
+                                ...action.payload.data.data.eggInc.coop,
+                                fetching: false,
+                                fetched: true,
+                            }
+                        }
+                    }
+                }
                 return {...state,
                     coops: {
                         ...state.coops,

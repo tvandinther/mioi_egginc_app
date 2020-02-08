@@ -5,8 +5,7 @@
 - Have graphql return HTTP error code for no response
     - or handle it in code
 - Continue to clean up App.css
-- Add "My Farms" page 
-- Populate the home page
-    - Maybe "My Farms" is home page?
+- Continue work on Dashboard
+    - Prompt user to enter player ID on home screen if null
 - Populate the game guide
 - Introduce new app settings?

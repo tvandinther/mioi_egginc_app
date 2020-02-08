@@ -41,8 +41,10 @@ export const getPlayerData = `
                     contractsList {
                         contract {
                             identifier
+                            lengthSeconds
                         }
                         accepted
+                        timeAccepted
                         coopIdentifier
                     }
                 }

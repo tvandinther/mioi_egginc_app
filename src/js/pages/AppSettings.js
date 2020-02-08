@@ -19,6 +19,7 @@ const useStyle = makeStyles(theme => ({
 export default function AppSettings(props) {
     const classes = useStyle()
     const dispatch = useDispatch()
+    const playerData = useSelector(store => store.playerData)
     const settings = useSelector(store => store.settings)
     const pageDetails = {
         title: "App Settings",
@@ -37,7 +38,7 @@ export default function AppSettings(props) {
                     <List>
                         <ListItem>
                             <Typography>
-                                {settings.playerData.userName ? `Hello ${settings.playerData.userName}!` : `Hello mystery user! Enter your Player ID to access personalised features.`}
+                                {(playerData && playerData.userName) ? `Hello ${playerData.userName}!` : `Hello mystery user! Enter your Player ID to access personalised features.`}
                             </Typography>
                         </ListItem>
                         <ListItem>

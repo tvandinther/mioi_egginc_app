@@ -36,7 +36,7 @@ function SidebarMenu(props) {
     const classes = useStyle()
 
     const menuItems = {
-        "My Farm" : {
+        "Dashboard" : {
             path: "/",
             icon: HomeIcon,
         },

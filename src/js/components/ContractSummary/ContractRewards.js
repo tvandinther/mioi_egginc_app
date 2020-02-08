@@ -8,15 +8,13 @@ import { Paper, Tooltip } from "@material-ui/core"
 export default function ContractRewards(props) {
     const theme = useTheme()
     const rewards = props.rewards
-    let progress = 0
-    let eggsLaid = 0
+    let eggsLaid = props.eggsLaid || 0
     const finalGoal = rewards[rewards.length - 1].goal
-    if (props.coop) {
-        eggsLaid = props.coop.eggs
-        progress = Math.min(Math.max(0, eggsLaid / finalGoal * 100), 100)
-    }
+    let progress = Math.min(Math.max(0, eggsLaid / finalGoal * 100), 100)    
+
     const style = {
         ...props.style,
+        margin: "5px 15px",
         borderRadius: 10,
     }
     

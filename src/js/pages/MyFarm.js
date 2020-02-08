@@ -4,11 +4,12 @@ import { withRouter } from "react-router-dom"
 
 import Navbar from "../components/Navbar"
 import { Card, Typography, Container } from "@material-ui/core"
+import Dashboard from "../components/Dashboard"
 
 function Home(props) {
     const pageDetails = {
-        title: "My Farm",
-        shortTitle: "My Farm",
+        title: "Dashboard",
+        shortTitle: "Dashboard",
     }
 
     useEffect(() => {
@@ -17,15 +18,13 @@ function Home(props) {
         return () => document.title = oldTitle
     }, [])
     
+
+
     return (
         <div>
             <Navbar title={pageDetails.shortTitle}/>
             <Container>
-                <Card>
-                    <Typography variant="h4">
-                        Welcome to mioi.io's Egg, Inc. Companion App
-                    </Typography>
-                </Card>
+                <Dashboard/>
             </Container>
         </div>
     )

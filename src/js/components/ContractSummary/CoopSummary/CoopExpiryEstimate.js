@@ -81,10 +81,24 @@ function Overlay(props) {
 export default function CoopExpiryEstimate(props) {
     const classes = useStyle()
     const theme = useTheme()
-    let totalRate = props.coop.members.reduce((acc, member) => acc + member.rate, 0)
-    let eggsRemaining = (props.contract.rewards[props.contract.rewards.length - 1].goal - props.coop.eggs)
+    let totalRate, eggsRemaining, timeLeft
+    if (props.coop) {
+        totalRate = props.coop.members.reduce((acc, member) => acc + member.rate, 0)
+        eggsRemaining = (props.contract.rewards[props.contract.rewards.length - 1].goal - props.coop.eggs)
+        timeLeft = props.coop.timeLeft
+    }
+    else if (props.data) {
+        totalRate = props.data.layingRate
+        eggsRemaining = (props.contract.rewards[props.contract.rewards.length - 1].goal - props.data.eggsLaid)
+        timeLeft =  props.data.timeLeft
+    }
+    else {
+        return null
+    }
+
+
     let estimate =  eggsRemaining / totalRate
-    let progress = estimate / (estimate + props.coop.timeLeft) * 100
+    let progress = estimate / (estimate + timeLeft) * 100
 
     let fill = theme.palette.warning.main
     if (progress > 65) fill = theme.palette.error.main
@@ -94,13 +108,13 @@ export default function CoopExpiryEstimate(props) {
         completed = true
         progress = 0
     }
-    else if (props.coop.timeLeft <= 0) {
+    else if (timeLeft <= 0) {
         completed = false
         progress = 0
     }
 
     return (
-        <Paper className={classes.root}>
+        <Paper style={props.style} className={classes.root}>
             <Overlay completed={completed}/>
             <Typography variant="body2" className={classes.estimate} style={{gridArea: "estimateTitle"}}>
                     Estimate
@@ -121,12 +135,12 @@ export default function CoopExpiryEstimate(props) {
             </Typography>
 
             <Typography variant="body2" className={classes.expiry} style={{gridArea: "expiryValue"}}>
-                {convertEpoch(props.coop.timeLeft)}
+                {convertEpoch(timeLeft)}
             </Typography>
 
             {(progress > 50) && <Divider/>}
             <Typography align="center" variant="body2" style={{gridArea: "note"}}>
-                {progress > 50 ? `Tip: ${convertSymbol(eggsRemaining / props.coop.timeLeft)}/s required to reach success threshold.` : null}
+                {progress > 50 ? `Tip: ${convertSymbol(eggsRemaining / timeLeft)}/s required to reach success threshold.` : null}
             </Typography>
         </Paper>
     )

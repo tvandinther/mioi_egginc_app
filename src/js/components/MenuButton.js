@@ -7,6 +7,7 @@ import { IconButton } from "@material-ui/core"
 const useStyles = makeStyles(theme => ({
     root: {
         padding: "0px 12px",
+        width: "50px",
     },
     MenuButton: {
         transition: "all 300ms ease-out",
