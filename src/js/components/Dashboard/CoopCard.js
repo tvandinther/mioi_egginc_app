@@ -6,17 +6,12 @@ import { getActiveContracts } from "../../actions/contractActions"
 import ContractRewards from "../ContractSummary/ContractRewards"
 import CoopExpiryEstimate from "../ContractSummary/CoopSummary/CoopExpiryEstimate"
 import { NavLink } from "react-router-dom"
+import DashboardCard from "./DashboardCard"
 
 const useStyle = makeStyles(theme => ({
-    root: {
-        maxWidth: 550,
-        margin: 10,
-        flexGrow: 1,
-    },
     card: {
         display: "grid",
-        padding: 10,
-        gridTemplateColumns: "1fr 1fr 1fr",
+        gridTemplateColumns: "70px 1fr 1fr",
         gridTemplateAreas: `
             "image title title"
             "image subtitle subtitle"
@@ -49,13 +44,13 @@ export default function CoopCard(props) {
     
     return (
         <NavLink className={classes.root} to={link}>
-            <Card raised={raised} onMouseOver={toggleRaised} onMouseOut={toggleRaised} className={classes.card}>
-                <Typography style={{gridArea: "image / image / title / title"}} align="center" variant="h4">{(coop && coop.title) || contract.title}</Typography>
-                <Typography style={{gridArea: "subtitle / image / subtitle / subtitle"}} align="center" variant="h6">Co-op: {(coop && coop.coop) || "None"}</Typography>
+            <DashboardCard className={classes.card}>
+                <Typography style={{gridArea: "title"}} align="center" variant="h4">{(coop && coop.title) || contract.title}</Typography>
+                <Typography style={{gridArea: "subtitle"}} align="center" variant="h6">Co-op: {(coop && coop.coop) || "None"}</Typography>
                 <img className={classes.image} src={`/images/egg${contract.egg}.png`}/>
                 <ContractRewards style={{gridArea: "rewards"}}  eggsLaid={(coop && coop.eggsLaid) || playerContractFarm.eggsLaid} rewards={contract.rewards} />
                 <CoopExpiryEstimate style={{gridArea: "estimate"}} contract={contract} data={{eggsLaid: playerContractFarm.eggsLaid, layingRate: 1e12, timeLeft: metaContract.timeAccepted + metaContract.contract.lengthSeconds - (new Date() / 1000)}}/>
-            </Card>
+            </DashboardCard>
         </NavLink>
     )
 }

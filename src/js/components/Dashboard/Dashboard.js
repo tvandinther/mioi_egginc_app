@@ -1,28 +1,27 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import CoopCard from "./CoopCard"
 import * as ContractActions from "../../actions/contractActions"
-import { LocalDining } from "@material-ui/icons"
-import { makeStyles } from "@material-ui/core/styles"
+import { makeStyles, useTheme } from "@material-ui/core/styles"
+import PlayerIDPromptCard from "./PlayerIDPromptCard"
+import QuickLinkCard from "./QuickLinkCard"
+import NewsCard from "./NewsCard"
 
 const useStyle = makeStyles(theme => ({
     root: {
-        display: "flex",
-        flexWrap: "wrap",
-        margin: "20px 0px",
-        justifyContent: "space-evenly",
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        gridGap: 20,
+        padding: "20px 0px",
     }
 }))
 
-export default function Dashboard(props) {
+function dashboardContentManager(data) {
+    const coopIds = data.playerData.fetched ? data.playerData.contracts.contractsList : null
     const dispatch = useDispatch()
-    const classes = useStyle()
-    const playerData = useSelector(store => store.playerData)
-    const activeContracts = useSelector(store => store.contract.activeContracts)
-    const coopIds = playerData.fetched ? playerData.contracts.contractsList : null
 
     useEffect(() => {
-        if (playerData.fetched) {
+        if (data.playerData.fetched) {
             for (let item of coopIds) {
                 let contractId = item.contract.identifier
                 let coopId = item.coopIdentifier
@@ -30,22 +29,55 @@ export default function Dashboard(props) {
             }
         }
     }, [])
-    
-    if (activeContracts.fetched && playerData.fetched) {
-        const coopCards = coopIds.map((metaContract, index) => (
-            <CoopCard key={index} metaContract={metaContract} contract={activeContracts.contracts[metaContract.contract.identifier]}/>
+
+    let content = []
+    // PLAYER CONTRACTS
+    if (data.activeContracts.fetched && data.playerData.fetched) {
+        coopIds.forEach((metaContract, index) => content.push(
+            <CoopCard key={index} metaContract={metaContract} contract={data.activeContracts.contracts[metaContract.contract.identifier]}/>
         ))
-        return (
-            <div className={classes.root}>
-                {coopCards}
-            </div>
+    }
+    // PLAYER ID PROMPT
+    if (!data.playerData.fetched && !data.playerId) {
+        content.push(
+            <PlayerIDPromptCard/>
         )
     }
-    else {
-        return (
-            <div className={classes.root}>
-                Loading...
-            </div>
-        )
-    }
+    // NEWS
+    content.push(
+        <NewsCard/>
+    )
+    // QUICK LINKS
+    content.push(
+        <QuickLinkCard key="contractLink" link="/contract" title="Contracts" body="Click to see all of the current contracts!"/>,
+    )
+    return (
+        content || "Loading..."
+    )
+}
+
+export default function Dashboard(props) {
+    const classes = useStyle()
+    const playerData = useSelector(store => store.playerData)
+    const activeContracts = useSelector(store => store.contract.activeContracts)
+    const playerId = useSelector(store => store.settings.playerId)
+    const UI = useSelector(store => store.UI)
+
+    const theme = useTheme()
+    let [gridStyle, setGridStyle] = useState(null)
+    useEffect(() => {
+        if (window.innerWidth > theme.breakpoints.values.lg) setGridStyle({gridTemplateColumns: "1fr 1fr 1fr",})
+        else if (window.innerWidth > theme.breakpoints.values.md) setGridStyle({gridTemplateColumns: "1fr 1fr",})
+        else setGridStyle({gridTemplateColumns: "1fr",})
+    }, UI.width)
+    
+    return (
+        <div className={classes.root} style={gridStyle}>
+            {dashboardContentManager({
+                activeContracts,
+                playerData,
+                playerId,
+            })}
+        </div>
+    )
 }

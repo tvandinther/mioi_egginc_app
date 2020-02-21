@@ -24,7 +24,7 @@ export default function reducer(state=initialState, action) {
             return {...state, activePage: {...action.payload}}
         }
         case "RESIZE_PAGE": {
-            return {...state, menuOnLeft: determineMenuPlacement(), sizeFormat: determineSizeFormat()}
+            return {...state, menuOnLeft: determineMenuPlacement(), sizeFormat: determineSizeFormat(), width: window.innerWidth}
         }
         case "PAGE_SWIPE": {
             return state

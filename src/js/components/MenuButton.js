@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { makeStyles } from "@material-ui/core/styles"
 import { toggleSidebar } from "../actions/UIActions"
 import { IconButton } from "@material-ui/core"
+import { useTheme } from "@material-ui/core/styles"
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -21,6 +22,10 @@ const useStyles = makeStyles(theme => ({
 export default function MenuButton(props) {
     const dispatch = useDispatch()
     const classes = useStyles()
+    const theme = useTheme()
+    const styles = {
+        visibility: window.innerWidth < theme.breakpoints.values.md ? "visible" : "hidden",
+    }
     const barActiveStyles ={
         bar1: {
             transform: "translate(0%, 250%) rotate(-45deg)",
@@ -34,7 +39,7 @@ export default function MenuButton(props) {
     }
 
     return (
-        <IconButton className={classes.root} onClick={() => dispatch(toggleSidebar())} edge={props.left ? "start" : "end"}>
+        <IconButton className={classes.root} style={null} onClick={() => dispatch(toggleSidebar())} edge={props.left ? "start" : "end"}>
             <div className={classes.MenuButton}>
                 <div style={props.active ? barActiveStyles.bar1 : null} className="bar1"></div>
                 <div style={props.active ? barActiveStyles.bar2 : null} className="bar2"></div>

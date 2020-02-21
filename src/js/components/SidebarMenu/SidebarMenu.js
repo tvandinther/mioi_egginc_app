@@ -9,7 +9,7 @@ import { useClickAway } from "../../customHooks/customHooks"
 import MenuButton from "../MenuButton"
 import SidebarMenuHeader from "./SidebarMenuHeader"
 import SidebarMenuItem from "./SidebarMenuItem"
-import { SwipeableDrawer, List } from "@material-ui/core"
+import { SwipeableDrawer, List, Drawer } from "@material-ui/core"
 // ICONS
 // import { HomeIcon, ReceiptIcon, HelpIcon, SettingsIcon } from "@material-ui/icons"
 import HomeIcon from '@material-ui/icons/Home';
@@ -34,6 +34,7 @@ function SidebarMenu(props) {
     const UI = useSelector(state => state.UI)
     const dispatch = useDispatch()
     const classes = useStyle()
+    const theme = useTheme()
 
     const menuItems = {
         "Dashboard" : {
@@ -56,25 +57,46 @@ function SidebarMenu(props) {
     const sidebarMenuItemComponents = Object.entries(menuItems).map(([text, { path, icon }]) => {
         return <SidebarMenuItem text={text} href={path} key={path} onClick={props.hideSidebar} icon={icon}/>
     })
-
+    let DynamicDrawer = (props) => {
+        if (true || window.innerWidth < theme.breakpoints.values.md) {
+            return (
+                <SwipeableDrawer 
+                    hysteresis={0.42} 
+                    minFlingVelocity={300} 
+                    anchor={UI.menuOnLeft ? "left" : "right"} 
+                    className={classes.drawer}
+                    classes={{paper: classes.drawerPaper}}
+                    open={UI.isSidebarVisible}
+                    onOpen={() => dispatch(UIActions.showSidebar())} 
+                    onClose={() => dispatch(UIActions.hideSidebar())}
+                >
+                    {props.children}
+                </SwipeableDrawer>
+            )
+        }
+        else {
+            return (
+                <Drawer
+                    variant="permanent"
+                    anchor={UI.menuOnLeft ? "left" : "right"} 
+                    className={classes.drawer}
+                    classes={{paper: classes.drawerPaper}}
+                >
+                    {props.children}
+                </Drawer>
+            )
+        }
+    }
+    
     return (
-        <SwipeableDrawer 
-            hysteresis={0.42} 
-            minFlingVelocity={300} 
-            anchor={UI.menuOnLeft ? "left" : "right"} 
-            className={classes.drawer}
-            classes={{paper: classes.drawerPaper}}
-            open={UI.isSidebarVisible} 
-            onOpen={() => dispatch(UIActions.showSidebar())} 
-            onClose={() => dispatch(UIActions.hideSidebar())}
-        >
+        <DynamicDrawer>
             <div>
                 <SidebarMenuHeader left={UI.menuOnLeft}/>
                 <List>
                     {sidebarMenuItemComponents}
                 </List>
             </div>
-        </SwipeableDrawer>
+        </DynamicDrawer>
     )
 }
 
