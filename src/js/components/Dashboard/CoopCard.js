@@ -7,18 +7,21 @@ import ContractRewards from "../ContractSummary/ContractRewards"
 import CoopExpiryEstimate from "../ContractSummary/CoopSummary/CoopExpiryEstimate"
 import { NavLink } from "react-router-dom"
 import DashboardCard from "./DashboardCard"
+import ContractIcons from "../ContractSummary/ContractIcons"
+import Loading from "../Loading"
 
 const useStyle = makeStyles(theme => ({
     card: {
         display: "grid",
         gridTemplateColumns: "70px 1fr 1fr",
         gridTemplateAreas: `
-            "image title title"
             "image subtitle subtitle"
+            "icons icons icons"
             "rewards rewards rewards"
             "estimate estimate estimate"
         `,
         gridGap: 10,
+        alignItems: "center",
     },
     image: {
         gridArea: "image",
@@ -30,26 +33,32 @@ export default function CoopCard(props) {
     const classes = useStyle()
     const contract = props.contract
     const metaContract = props.metaContract
+    const coopId = metaContract.coopIdentifier
     const coop = useSelector(store => store.contract.playerCoops[contract.name])
     const playerContractFarm = useSelector(store => store.playerData.farmsList.find(item => item.contractId === contract.name))
+    let loadingCoop
+    if (coop) loadingCoop = coop.fetching
     
     let link = "/contract"
     if (contract) link += "/" + contract.name
-    if (coop) link += "/" + coop.coop
-
-    let [raised, setRaised] = useState(false)
-    const toggleRaised = () => {
-        setRaised(!raised)
-    }
+    if (coopId) link += "/" + coopId
     
+    const loadingContent = [
+                <Loading style={{gridArea: "rewards / estimate / rewards / estimate"}} key="loading" />,
+    ]
+    
+    const coopContent = [
+        <Typography key="coop" style={{gridArea: "subtitle"}} align="center" variant="h4">{(coop && coop.coop) || "No Co-op"}</Typography>,
+        <ContractRewards key="rewards" style={{gridArea: "rewards"}}  eggsLaid={(coop && coop.eggs) || playerContractFarm.eggsLaid} rewards={contract.rewards} />,
+        <CoopExpiryEstimate key="estimate" style={{gridArea: "estimate"}} contract={contract} data={(coop && {eggsLaid: coop.eggs, layingRate: coop.totalRate, timeLeft: coop.timeLeft} ) || {eggsLaid: playerContractFarm.eggsLaid, layingRate: 1e12, timeLeft: metaContract.timeAccepted + metaContract.contract.lengthSeconds - (new Date() / 1000)}}/>,
+    ]
+
     return (
         <NavLink className={classes.root} to={link}>
-            <DashboardCard className={classes.card}>
-                <Typography style={{gridArea: "title"}} align="center" variant="h4">{(coop && coop.title) || contract.title}</Typography>
-                <Typography style={{gridArea: "subtitle"}} align="center" variant="h6">Co-op: {(coop && coop.coop) || "None"}</Typography>
-                <img className={classes.image} src={`/images/egg${contract.egg}.png`}/>
-                <ContractRewards style={{gridArea: "rewards"}}  eggsLaid={(coop && coop.eggsLaid) || playerContractFarm.eggsLaid} rewards={contract.rewards} />
-                <CoopExpiryEstimate style={{gridArea: "estimate"}} contract={contract} data={{eggsLaid: playerContractFarm.eggsLaid, layingRate: 1e12, timeLeft: metaContract.timeAccepted + metaContract.contract.lengthSeconds - (new Date() / 1000)}}/>
+            <DashboardCard hoverable title={`${contract.title}`} className={classes.card}>
+                <img key="image" className={classes.image} src={`/images/egg${contract.egg}.png`}/>
+                <ContractIcons style={{gridArea: "icons"}} contract={contract} coop={coop} />
+                {loadingCoop ? loadingContent : coopContent}
             </DashboardCard>
         </NavLink>
     )

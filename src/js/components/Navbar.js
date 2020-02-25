@@ -3,6 +3,7 @@ import { useTheme, makeStyles } from "@material-ui/core/styles"
 import { Typography, AppBar, Toolbar, Slide, useScrollTrigger } from "@material-ui/core"
 import MenuButton from "./MenuButton"
 import { useSelector } from "react-redux"
+import { NavLink } from "react-router-dom"
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -38,9 +39,11 @@ export default function Navbar(props) {
             <AppBar className={classes.root} position="fixed">
                 <Toolbar style={{flexDirection: UI.menuOnLeft? "row" : "row-reverse"}}>
                     <MenuButton active={UI.isSidebarVisible} left={UI.menuOnLeft}/>
-                    <Typography variant="h6" align="center" className={classes.title}>
-                        {props.title}
-                    </Typography>
+                    <NavLink to="/" style={{width: "100%", margin: "0px 40px"}}>
+                        <Typography variant="h6" align="center" className={classes.title}>
+                            {props.title}
+                        </Typography>
+                    </NavLink>
                     <div style={{width: "50px"}}/>
                 </Toolbar>
             </AppBar>

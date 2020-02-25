@@ -13,7 +13,7 @@ const useStyle = makeStyles(theme => ({
         borderColor: theme.palette.grey[300],
         borderRadius: 10,
         display: "grid",
-        margin: "20px 0px",
+        margin: "10px 0px",
         gridTemplateColumns: "1fr 2px 1fr",
         gridTemplateRows: "auto 30px auto",
         gridTemplateAreas: `

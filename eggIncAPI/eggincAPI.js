@@ -78,5 +78,5 @@ exports.getPlayerData = async function(identifier) {
 // });
 
 // exports.getContractAll().then( x => {
-    // console.log(x)
+//     console.log(x)
 // })

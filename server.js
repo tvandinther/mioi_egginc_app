@@ -10,7 +10,7 @@ const app = express();
 
 const eggincAPILimiter = rateLimit({
     windowMS : 60 * 1000, // 1 minute
-    max: 7,
+    max: 20,
     message : "Too many requests to the Egg, Inc. API. Please try again in 1 minute."
 });
 

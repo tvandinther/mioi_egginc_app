@@ -6,78 +6,80 @@ import { makeStyles, useTheme } from "@material-ui/core/styles"
 import PlayerIDPromptCard from "./PlayerIDPromptCard"
 import QuickLinkCard from "./QuickLinkCard"
 import NewsCard from "./NewsCard"
+import Loading from "../Loading"
+import DashboardContentManager from "../../tools/DashboardContentManager"
 
 const useStyle = makeStyles(theme => ({
     root: {
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
         gridGap: 20,
         padding: "20px 0px",
+    },
+    column: {
+        display: "flex",
+        flexDirection: "column",
+        "& >*": {
+            margin: "10px 0px"
+        },
     }
 }))
 
-function dashboardContentManager(data) {
-    const coopIds = data.playerData.fetched ? data.playerData.contracts.contractsList : null
+export default function Dashboard(props) {
+    const classes = useStyle()
     const dispatch = useDispatch()
+    const playerData = useSelector(store => store.playerData)
+    const activeContracts = useSelector(store => store.contract.activeContracts)
+    const playerCoops = useSelector(store => store.contract.playerCoops)
+    const playerId = useSelector(store => store.settings.playerId)
+    const theme = useTheme()
+    let [columnCount, setColumnCount] = useState(null)
+    const coopIds = playerData.fetched ? playerData.contracts.contractsList : null
+
+    function fetchPlayerCoops() {
+        for (let item of coopIds) {
+            let contractId = item.contract.identifier
+            let coopId = item.coopIdentifier
+            if (coopId) dispatch(ContractActions.getCoop(coopId, contractId, true))
+        }
+    }
 
     useEffect(() => {
-        if (data.playerData.fetched) {
-            for (let item of coopIds) {
-                let contractId = item.contract.identifier
-                let coopId = item.coopIdentifier
-                if (coopId) dispatch(ContractActions.getCoop(coopId, contractId, true))
-            }
+        if (playerData.fetched && (Object.keys(playerCoops).length === 0 && playerCoops.constructor === Object)) {
+            console.log("IM GOIJNG")
+            fetchPlayerCoops()
         }
-    }, [])
+    }, [playerData.userId]) 
 
-    let content = []
+    let dcm = new DashboardContentManager({
+        rootClass: classes.root,
+        columnClass: classes.column,
+    })
+    // NEWS
+    dcm.addItem(
+        <NewsCard priority={2} key="post"/>
+    )
+    // QUICK LINKS
+    dcm.addItem(
+        <QuickLinkCard key="contractLink" priority={3} link="/contract" title="Contracts" body="Click to see all of the current contracts!"/>
+    )
     // PLAYER CONTRACTS
-    if (data.activeContracts.fetched && data.playerData.fetched) {
-        coopIds.forEach((metaContract, index) => content.push(
-            <CoopCard key={index} metaContract={metaContract} contract={data.activeContracts.contracts[metaContract.contract.identifier]}/>
+    if (activeContracts.fetched && playerData.fetched) {
+        coopIds.forEach((metaContract, index) => dcm.addItem(
+            <CoopCard key={index} priority={1} metaContract={metaContract} contract={activeContracts.contracts[metaContract.contract.identifier]}/>
         ))
     }
     // PLAYER ID PROMPT
-    if (!data.playerData.fetched && !data.playerId) {
-        content.push(
-            <PlayerIDPromptCard/>
+    if (!playerId) {
+        dcm.addItem(
+            <PlayerIDPromptCard priority={0} key="idPrompt"/>
         )
     }
-    // NEWS
-    content.push(
-        <NewsCard/>
-    )
-    // QUICK LINKS
-    content.push(
-        <QuickLinkCard key="contractLink" link="/contract" title="Contracts" body="Click to see all of the current contracts!"/>,
-    )
-    return (
-        content || "Loading..."
-    )
-}
-
-export default function Dashboard(props) {
-    const classes = useStyle()
-    const playerData = useSelector(store => store.playerData)
-    const activeContracts = useSelector(store => store.contract.activeContracts)
-    const playerId = useSelector(store => store.settings.playerId)
-    const UI = useSelector(store => store.UI)
-
-    const theme = useTheme()
-    let [gridStyle, setGridStyle] = useState(null)
     useEffect(() => {
-        if (window.innerWidth > theme.breakpoints.values.lg) setGridStyle({gridTemplateColumns: "1fr 1fr 1fr",})
-        else if (window.innerWidth > theme.breakpoints.values.md) setGridStyle({gridTemplateColumns: "1fr 1fr",})
-        else setGridStyle({gridTemplateColumns: "1fr",})
-    }, UI.width)
+        if (window.innerWidth > theme.breakpoints.values.lg) setColumnCount(3)
+        else if (window.innerWidth > theme.breakpoints.values.md) setColumnCount(2)
+        else setColumnCount(1)
+    }, [window.innerWidth])
     
     return (
-        <div className={classes.root} style={gridStyle}>
-            {dashboardContentManager({
-                activeContracts,
-                playerData,
-                playerId,
-            })}
-        </div>
+            dcm.render(columnCount)
     )
 }

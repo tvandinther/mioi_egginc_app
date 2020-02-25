@@ -1,10 +1,14 @@
 # MIOI Egg, Inc. App
 
 ## To Do:
-- Error control for coop search
-- Have graphql return HTTP error code for no response
-    - or handle it in code
+
+- Change DashboardContentManager to not use "repeat()" for css compatibility.
+- Create a loader component
+- Build farm calculator logic
+- Create farm calculator page
+- Create news post system
 - Continue to clean up App.css
-- Continue work on Dashboard
 - Populate the game guide
-- Introduce new app settings?
+- ~~Error control for coop search~~
+- ~~Have graphql return HTTP error code for no response~~
+    - ~~or handle it in code~~

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { setPlayerId, validatePlayerId } from "../../actions/settingsActions"
 import { TextField } from "@material-ui/core"
 import { useSelector, useDispatch } from "react-redux"
@@ -9,14 +9,16 @@ import { useSelector, useDispatch } from "react-redux"
 export default function PlayerIDInput(props) {
     const dispatch = useDispatch()
     const playerId = useSelector(store => store.settings.playerId)
-    const error = useSelector(store => store.playerData.error)
+    const playerDataError = useSelector(store => store.playerData.error)
+    let [error, setError] = useState(playerId ? playerDataError : false)
     let [value, setValue] = useState(playerId || "")
 
     const handleChange = event => {
         setValue(event.target.value)
+        setError(false)
     }
     const handleBlur = event => {
-        if (value !== playerId) {
+        if (value !== "" && value !== playerId) {
             dispatch(validatePlayerId(value))
             dispatch(setPlayerId(value))
         }

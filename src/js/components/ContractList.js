@@ -6,6 +6,7 @@ import { showContract } from "../actions/contractActions"
 import { getExpireETA } from "../tools/eggincTools"
 import { Container } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
+import Loading from "./Loading"
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -25,7 +26,7 @@ function ContractList(props) {
     const classes = useStyle()
     if (!props.activeContracts.contracts) {
         return (
-            <p>Loading...</p>
+            <Loading />
         )
     }
 

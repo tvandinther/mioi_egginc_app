@@ -18,7 +18,6 @@ export default function reducer(state=initialState, action) {
         case "VALIDATE_GAMEID_REJECTED": {
             return {
                 ...state,
-                ...data,
                 error: true,
             }
         }

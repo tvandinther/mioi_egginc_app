@@ -57,8 +57,8 @@ export default function reducer(state=initialState, action) {
                     ...state.coopSearch,
                 },
                 coops: {
+                    ...coops,
                     ...state.coops,
-                    coops,
                 },
             }
         }
@@ -89,11 +89,12 @@ export default function reducer(state=initialState, action) {
             }
         }
         case "GET_COOP_PENDING": {
+            let targetLocation = action.meta.player ? "playerCoops" : "coops"
             return {...state,
-                coops: {
-                    ...state.coops,
+                [targetLocation]: {
+                    ...state[targetLocation],
                     [action.meta.contractId]: {
-                        ...state.coops[action.meta.contractId],
+                        ...state[targetLocation][action.meta.contractId],
                         fetching: true,
                         error: null,
                     }
@@ -102,27 +103,23 @@ export default function reducer(state=initialState, action) {
         }
         case "GET_COOP_FULFILLED": {
             if (!action.payload.data.errors) {
-                if (action.meta.player) {
-                    return {...state,
-                        playerCoops: {
-                            ...state.playerCoops,
-                            [action.meta.contractId]: {
-                                ...action.payload.data.data.eggInc.coop,
-                                fetching: false,
-                                fetched: true,
-                            }
-                        }
-                    }
-                }
+                let targetLocation = action.meta.player ? "playerCoops" : "coops"
                 return {...state,
-                    coops: {
-                        ...state.coops,
+                    [targetLocation]: {
+                        ...state[targetLocation],
                         [action.meta.contractId]: {
                             ...action.payload.data.data.eggInc.coop,
                             fetching: false,
                             fetched: true,
                         }
-                    }
+                    },
+                    coopSearch: {
+                        ...state.coopSearch,
+                        [action.meta.contractId]: {
+                            ...state.coopSearch[action.meta.contractId],
+                            searchFailed: false,
+                        }
+                    },
                 }
             }
             // continues to REJECTED if above block check doesn't pass
@@ -136,12 +133,31 @@ export default function reducer(state=initialState, action) {
                         fetching: false,
                         error: action.payload,
                     }
-                }
-                
+                },
+                coopSearch: {
+                    ...state.coopSearch,
+                    [action.meta.contractId]: {
+                        ...state.coopSearch[action.meta.contractId],
+                        searchFailed: true,
+                        failedSearches: [...state.coopSearch[action.meta.contractId].failedSearches, action.meta.coopName],
+                    }
+                },
             }
         }
         default: {
             return state
+        }
+        case "SET_PLAYER_COOP_TO_COOP": {
+            return {...state,
+                coops: {
+                    ...state.coops,
+                    [action.payload.contractId]: {
+                        ...action.payload.coop,
+                        fetching: false,
+                        fetched: true,
+                    }
+                }
+            }
         }
     }
 }

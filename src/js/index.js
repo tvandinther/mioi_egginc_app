@@ -3,6 +3,7 @@ import ReactDOM from "react-dom"
 import { Provider } from "react-redux"
 import { PersistGate } from "redux-persist/integration/react"
 import MyThemeProvider from "./MyThemeProvider"
+import Loading from "./components/Loading"
 
 import App from "./App.js"
 import store, { persistor } from "./store"
@@ -21,7 +22,7 @@ if ('serviceWorker' in navigator) {
 
 ReactDOM.render(
     <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
+        <PersistGate loading={<Loading />} persistor={persistor}>
             <MyThemeProvider>
                 <App/>
             </MyThemeProvider>

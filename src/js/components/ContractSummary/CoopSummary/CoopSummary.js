@@ -25,7 +25,7 @@ export default function CoopSummary(props) {
         
     }
 
-    if (coop && coop.fetched && !coop.error) {
+    if (coop && coop.fetched) {
         return (
             <div style={style}>
                 <Redirect to={`${currentRoute.url}/${coop.coop}`} />

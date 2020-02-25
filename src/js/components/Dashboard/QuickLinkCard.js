@@ -8,7 +8,7 @@ export default function QuickLinkCard(props) {
 
     return (
         <NavLink to={props.link} style={{height: "fit-content"}}>
-            <DashboardCard>
+            <DashboardCard hoverable title="Link">
                 <Typography variant="h3" align="center">{props.title}</Typography>
                 <br/>
                 <Typography variant="body1">{props.body}</Typography>

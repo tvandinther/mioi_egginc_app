@@ -13,7 +13,7 @@ export default function CoopMembers(props) {
         {id: 2, numeric: false, disablePadding: false, label: "Laying Rate"},
         {id: 3, numeric: false, disablePadding: false, label: "Contribution"},
     ]
-    if (props.coop && props.coop.fetched && !props.coop.error) {
+    if (props.coop && props.coop.fetched) {
         return (
             <Paper style={style} onTouchStart={e => e.stopPropagation()}>
                 <Table size="small">

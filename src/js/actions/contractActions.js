@@ -48,3 +48,13 @@ export function getCoop(coopName, contractId, player=false) {
         })
     }
 }
+
+export function setPlayerCoopToCoop(coop, contractId) {
+    return {
+        type: "SET_PLAYER_COOP_TO_COOP",
+        payload: {
+            contractId: contractId,
+            coop: coop,
+        }
+    }
+}

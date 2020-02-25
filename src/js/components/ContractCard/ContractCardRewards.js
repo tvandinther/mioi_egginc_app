@@ -8,6 +8,7 @@ export default function ContractCardRewards(props) {
     const style = {
         display: "grid",
         flex: "1 1 0px",
+        gridAutoRows: 36,
     }
     const rewards = props.rewards.map((reward, index) => <RewardItem key={index} reward={reward}/>)
     return (
@@ -20,17 +21,18 @@ export default function ContractCardRewards(props) {
 function RewardItem(props) {
     const style = {
         display: "grid",
-        gridTemplateColumns: "28px 1fr",
+        gridGap: 10,
+        gridTemplateColumns: "auto 1fr",
     }
     const imgStyle = {
-        width: "100%",
-        height: "auto",
+        width: "auto",
+        height: "100%",
     }
     const { path, quantity } = getImageSrc(props.reward)
     return (
         <div style={style}>
             <img style={imgStyle} src={path}></img>
-            <Typography>{quantity}</Typography>
+            <Typography variant="h6">{quantity}</Typography>
         </div>
     )
 }

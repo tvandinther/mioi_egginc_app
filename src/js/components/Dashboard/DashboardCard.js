@@ -1,26 +1,37 @@
 import React, { useState } from "react"
 import { NavLink } from "react-router-dom"
 import { makeStyles } from "@material-ui/core/styles"
-import { Card } from "@material-ui/core"
+import { Card, Typography } from "@material-ui/core"
 
 const useStyle = makeStyles(theme => ({
     card: {
-        padding: 10,
         minHeight: 150,
     },
+    header: {
+        backgroundColor: theme.palette.primary.main,
+        height: 32,
+    },
+    cardBody: {
+        padding: 10,
+    }
 }))
 
 export default function DashboardCard(props) {
     const classes = useStyle()
-
+    const hoverable = props.hoverable || false
     let [raised, setRaised] = useState(false)
     const toggleRaised = () => {
         setRaised(!raised)
     }
 
     return (
-        <Card raised={raised} onMouseOver={toggleRaised} onMouseOut={toggleRaised} className={`${classes.card} ${props.className}`}>
-            {props.children}
+        <Card raised={hoverable && raised} onMouseOver={toggleRaised} onMouseOut={toggleRaised} className={`${classes.card}`}>
+            <div className={classes.header}>
+                <Typography variant="h5" align="center" style={{color: "white"}}>{props.title}</Typography>
+            </div>
+            <div className={`${props.className} ${classes.cardBody}`}>
+                {props.children}
+            </div>
         </Card>
     )
 }

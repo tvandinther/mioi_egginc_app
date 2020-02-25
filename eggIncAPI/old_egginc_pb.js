@@ -13872,12 +13872,11 @@ proto.ei.Contract.toObject = function(includeInstance, msg) {
     proto.ei.Contract.Goal.toObject, includeInstance),
     coopAllowed: (f = jspb.Message.getBooleanField(msg, 4)) == null ? undefined : f,
     maxCoopSize: (f = jspb.Message.getField(msg, 5)) == null ? undefined : f,
+    maxBoosts: (f = jspb.Message.getField(msg, 12)) == null ? undefined : f,
     expirationTime: (f = jspb.Message.getOptionalFloatingPointField(msg, 6)) == null ? undefined : f,
     lengthSeconds: (f = jspb.Message.getOptionalFloatingPointField(msg, 7)) == null ? undefined : f,
-    maxBoosts: (f = jspb.Message.getField(msg, 12)) == null ? undefined : f,
     maxSoulEggs: (f = jspb.Message.getOptionalFloatingPointField(msg, 13)) == null ? undefined : f,
     minClientVersion: (f = jspb.Message.getField(msg, 14)) == null ? undefined : f,
-    boostTokenInterval: (f = jspb.Message.getOptionalFloatingPointField(msg, 15)) == null ? undefined : f,
     debug: (f = jspb.Message.getBooleanField(msg, 11)) == null ? undefined : f
   };
 
@@ -13944,6 +13943,10 @@ proto.ei.Contract.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {number} */ (reader.readUint32());
       msg.setMaxCoopSize(value);
       break;
+    case 12:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setMaxBoosts(value);
+      break;
     case 6:
       var value = /** @type {number} */ (reader.readDouble());
       msg.setExpirationTime(value);
@@ -13952,10 +13955,6 @@ proto.ei.Contract.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {number} */ (reader.readDouble());
       msg.setLengthSeconds(value);
       break;
-    case 12:
-      var value = /** @type {number} */ (reader.readUint32());
-      msg.setMaxBoosts(value);
-      break;
     case 13:
       var value = /** @type {number} */ (reader.readDouble());
       msg.setMaxSoulEggs(value);
@@ -13963,10 +13962,6 @@ proto.ei.Contract.deserializeBinaryFromReader = function(msg, reader) {
     case 14:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setMinClientVersion(value);
-      break;
-    case 15:
-      var value = /** @type {number} */ (reader.readDouble());
-      msg.setBoostTokenInterval(value);
       break;
     case 11:
       var value = /** @type {boolean} */ (reader.readBool());
@@ -14051,6 +14046,13 @@ proto.ei.Contract.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
+  f = /** @type {number} */ (jspb.Message.getField(message, 12));
+  if (f != null) {
+    writer.writeUint32(
+      12,
+      f
+    );
+  }
   f = /** @type {number} */ (jspb.Message.getField(message, 6));
   if (f != null) {
     writer.writeDouble(
@@ -14065,13 +14067,6 @@ proto.ei.Contract.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = /** @type {number} */ (jspb.Message.getField(message, 12));
-  if (f != null) {
-    writer.writeUint32(
-      12,
-      f
-    );
-  }
   f = /** @type {number} */ (jspb.Message.getField(message, 13));
   if (f != null) {
     writer.writeDouble(
@@ -14083,13 +14078,6 @@ proto.ei.Contract.serializeBinaryToWriter = function(message, writer) {
   if (f != null) {
     writer.writeUint32(
       14,
-      f
-    );
-  }
-  f = /** @type {number} */ (jspb.Message.getField(message, 15));
-  if (f != null) {
-    writer.writeDouble(
-      15,
       f
     );
   }
@@ -14694,6 +14682,38 @@ proto.ei.Contract.prototype.hasMaxCoopSize = function() {
 
 
 /**
+ * optional uint32 max_boosts = 12;
+ * @return {number}
+ */
+proto.ei.Contract.prototype.getMaxBoosts = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 12, 0));
+};
+
+
+/** @param {number} value */
+proto.ei.Contract.prototype.setMaxBoosts = function(value) {
+  jspb.Message.setField(this, 12, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ */
+proto.ei.Contract.prototype.clearMaxBoosts = function() {
+  jspb.Message.setField(this, 12, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.ei.Contract.prototype.hasMaxBoosts = function() {
+  return jspb.Message.getField(this, 12) != null;
+};
+
+
+/**
  * optional double expiration_time = 6;
  * @return {number}
  */
@@ -14758,38 +14778,6 @@ proto.ei.Contract.prototype.hasLengthSeconds = function() {
 
 
 /**
- * optional uint32 max_boosts = 12;
- * @return {number}
- */
-proto.ei.Contract.prototype.getMaxBoosts = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 12, 0));
-};
-
-
-/** @param {number} value */
-proto.ei.Contract.prototype.setMaxBoosts = function(value) {
-  jspb.Message.setField(this, 12, value);
-};
-
-
-/**
- * Clears the field making it undefined.
- */
-proto.ei.Contract.prototype.clearMaxBoosts = function() {
-  jspb.Message.setField(this, 12, undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.ei.Contract.prototype.hasMaxBoosts = function() {
-  return jspb.Message.getField(this, 12) != null;
-};
-
-
-/**
  * optional double max_soul_eggs = 13;
  * @return {number}
  */
@@ -14850,38 +14838,6 @@ proto.ei.Contract.prototype.clearMinClientVersion = function() {
  */
 proto.ei.Contract.prototype.hasMinClientVersion = function() {
   return jspb.Message.getField(this, 14) != null;
-};
-
-
-/**
- * optional double boost_token_interval = 15;
- * @return {number}
- */
-proto.ei.Contract.prototype.getBoostTokenInterval = function() {
-  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 15, 0.0));
-};
-
-
-/** @param {number} value */
-proto.ei.Contract.prototype.setBoostTokenInterval = function(value) {
-  jspb.Message.setField(this, 15, value);
-};
-
-
-/**
- * Clears the field making it undefined.
- */
-proto.ei.Contract.prototype.clearBoostTokenInterval = function() {
-  jspb.Message.setField(this, 15, undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.ei.Contract.prototype.hasBoostTokenInterval = function() {
-  return jspb.Message.getField(this, 15) != null;
 };
 
 
