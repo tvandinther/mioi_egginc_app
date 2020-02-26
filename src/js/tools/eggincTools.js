@@ -1,4 +1,7 @@
 import orders from "./orders.json"
+import calculateFarmStats from "./farmStatTools"
+
+export { calculateFarmStats }
 
 export function contractNameFormat(value) {
     value = value.replace(" ", "-").toLowerCase()

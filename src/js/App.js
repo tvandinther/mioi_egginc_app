@@ -50,6 +50,7 @@ function App(props) {
 					<Switch>
 						<Route exact path="/" component={Pages.MyFarm} />
 						<Route path="/contract" component={Pages.ContractApp} />
+						<Route path="/farmvalue" component={Pages.FarmValue} />
 						<Route path="/guide" component={Pages.GameGuide} />
 						<Route path="/settings" component={Pages.Settings} />
 						<Route component={PageNotFound} />

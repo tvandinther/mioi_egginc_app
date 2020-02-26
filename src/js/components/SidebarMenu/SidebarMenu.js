@@ -45,6 +45,10 @@ function SidebarMenu(props) {
             path: "/contract",
             icon: ReceiptIcon,
         },
+        "Farm Value" : {
+            path: "/farmvalue",
+            icon: HomeIcon,
+        },
         "Game Guide" : {
             path: "/guide",
             icon: HelpIcon,
