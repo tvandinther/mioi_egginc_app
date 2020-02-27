@@ -1,5 +1,5 @@
 import React from "react"
-import DashboardCard from "./DashboardCard"
+import HeadedCard from "../HeadedCard"
 import { Typography } from "@material-ui/core"
 
 export default function NewsCard(props) {
@@ -14,7 +14,7 @@ export default function NewsCard(props) {
     }
 
     return (
-        <DashboardCard title="News">
+        <HeadedCard title="News">
             <Typography variant="overline" align="right">
                 {new Date(data.timePosted * 1000).toLocaleString(undefined, {
                     dateStyle: "medium",
@@ -26,6 +26,6 @@ export default function NewsCard(props) {
             <Typography variant="subtitle2">by {data.author}</Typography>
             <br/>
             <Typography paragraph style={{whiteSpace: "pre-line"}} display="inline" variant="body2">{data.body}</Typography>
-        </DashboardCard>
+        </HeadedCard>
     )
 }

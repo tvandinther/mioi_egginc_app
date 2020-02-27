@@ -6,7 +6,7 @@ import { getActiveContracts } from "../../actions/contractActions"
 import ContractRewards from "../ContractSummary/ContractRewards"
 import CoopExpiryEstimate from "../ContractSummary/CoopSummary/CoopExpiryEstimate"
 import { NavLink } from "react-router-dom"
-import DashboardCard from "./DashboardCard"
+import HeadedCard from "../HeadedCard"
 import ContractIcons from "../ContractSummary/ContractIcons"
 import Loading from "../Loading"
 
@@ -55,11 +55,11 @@ export default function CoopCard(props) {
 
     return (
         <NavLink className={classes.root} to={link}>
-            <DashboardCard hoverable title={`${contract.title}`} className={classes.card}>
+            <HeadedCard hoverable title={`${contract.title}`} className={classes.card}>
                 <img key="image" className={classes.image} src={`/images/egg${contract.egg}.png`}/>
                 <ContractIcons style={{gridArea: "icons"}} contract={contract} coop={coop} />
                 {loadingCoop ? loadingContent : coopContent}
-            </DashboardCard>
+            </HeadedCard>
         </NavLink>
     )
 }

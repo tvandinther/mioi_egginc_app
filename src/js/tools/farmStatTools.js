@@ -7,7 +7,15 @@ export default function calculateFarmStats(farm, game) {
         common: {},
         epic: {},
     }
-    let parameters = {
+
+    for (let item of farm.commonResearchList) {
+        Object.assign(playerResearch.common, {[item.id]: item.level})
+    }
+    for (let item of game.epicResearchList) {
+        Object.assign(playerResearch.epic, {[item.id]: item.level})
+    }
+
+    let initialParameters = {
         population: farm.numChickens,
         eggTypeValue: eggTypes[farm.eggType-1].value, // -1 to offset index 0000000000 ???
         eggMultiplier: 1 + (0.5 * farm.eggType),
@@ -24,20 +32,76 @@ export default function calculateFarmStats(farm, game) {
         vehicleCapacityMultiplier: 1, // base multiplier
         maxFleetSize: 4, // base value
         silos: farm.silosOwned,
-        meBonus: 0, // base value
+        meBonus: mysticalBonusFormula(game.soulEggsD, game.eggsOfProphecy, playerResearch), // base value
         accTricks: 1, // base value
     }
 
-    for (let item of farm.commonResearchList) {
-        Object.assign(playerResearch.common, {[item.id]: item.level})
-    }
-    for (let item of game.epicResearchList) {
-        Object.assign(playerResearch.epic, {[item.id]: item.level})
-    }
+    let updatedParameters = iterateResearch(playerResearch, initialParameters, farm) // mutates parameters
+
+    updatedParameters.farmValue = farmValueFormula(updatedParameters)
+
     return {
-        test: "complete",
-        parameters: parameters,
+        earningsBonus: updatedParameters.meBonus,
+        eggValue: updatedParameters.eggTypeValue * updatedParameters.eggValue,
+        layingRate: updatedParameters.layingRate * updatedParameters.population,
+        hatchRate: updatedParameters.hatchRate,
+        maxHabCapacity: updatedParameters.maxHabCapacity * updatedParameters.habCapacity,
+        soulEggBonus: game.soulEggsD * (10 + (1 * playerResearch.epic["soul_eggs"])) / 100,
+        farmValue: updatedParameters.farmValue,
     }
+}
+
+function iterateResearch(playerResearch, parameters, farm) {
+    let newParameters = Object.assign({}, parameters)
+    let researchTierArray = [...research.common, research.epic]
+    let flattenedPlayerResearch = { ...playerResearch.common, ...playerResearch.epic }
+    for (let tier of researchTierArray) {
+        var subParametersSum = {} // for parameters that simply add on previous tiers (not compounding)
+        var subParametersMultiplier = {} // for parameters that are compounding on previous tiers
+        var subParametersPower = {} // for parameters that have final priority on compounding
+
+        for (let researchItem of tier.research) {
+            if (!(researchItem.parameter instanceof Array)) researchItem.parameter = [researchItem.parameter]
+            let level = flattenedPlayerResearch[researchItem.id]
+            let value = researchItem.factor * level
+            if (researchItem.tag) { // special cases requiring conditional value alteration
+                switch (researchItem.tag) {
+                    case "portalHab": { // some research improves the capacity of portal habs specifically
+                        let count = farm.habsList.reduce((acc, habIndex) => habs[habIndex+1].tag === "portalHab" ? acc + 1 : acc, 0)
+                        value = (count / farm.habsList.length) * value
+                    }
+                    break
+                }
+            }
+            for (let parameter of researchItem.parameter) {
+                switch (researchItem.factorType) {
+                    case "sum": {
+                        subParametersSum[parameter] = (subParametersSum[parameter] || 0) + value
+                        break
+                    }
+                    case "multiplier": {
+                        subParametersMultiplier[parameter] = (subParametersMultiplier[parameter] || 1) + value
+                        break
+                    }
+                    case "power": {
+                        subParametersPower[parameter] = (subParametersPower[parameter] || 1) * Math.pow(researchItem.factor, level)
+                        // newParameters[parameter] *= (subParametersMultiplier[parameter] || 1) * Math.pow(researchItem.factor, level) // is this one wrong?? looks weird
+                    }
+                }
+            }
+        }
+        // Combine subParameters with main parameter object
+        for (let [key, value] of Object.entries(subParametersSum)) { // Combine the sums into the main object by addition
+            newParameters[key] += value
+        }
+        for (let [key, value] of Object.entries(subParametersMultiplier)) { // Combine the multipliers into the main object by multiplication
+            newParameters[key] *= value
+        }
+        for (let [key, value] of Object.entries(subParametersPower)) { // Combine the powers into the main object by multiplication
+            newParameters[key] *= value
+        }
+    }
+    return newParameters
 }
 
 function farmValueFormula(parameters) {
@@ -50,12 +114,34 @@ function farmValueFormula(parameters) {
     let subValue1 = weightedPopulation + Math.pow(habSpace - parameters.population, 0.6) + (180 * parameters.hatchRate * parameters.silos)
     let subValue2 = parameters.accTricks  * parameters.eggMultiplier * parameters.layingRate / 2 * eggValue * 2000
     //FINAL CALCULATION
-    parameters['farmValue'] = subValue1 * subValue2;
+    console.assert(subValue1)
+    console.assert(subValue2)
+    return subValue1 * subValue2;
 }
 
 function mysticalBonusFormula(soulEggs, prophecyEggs, playerResearch) {
     let soulFood = playerResearch.epic["soul_eggs"]
     let prophecyBonus = playerResearch.epic["prophecy_bonus"]
     // 
-    return Math.pow(105 + (1 * prophecyBonus), prophecyEggs) == Infinity ? alert("Javascript can not count that high :(") : soulEggs * (((10 + (1 * soulFood)) / 100) * ((Math.pow(105 + (1 * prophecyBonus), prophecyEggs) / Math.pow(100, prophecyEggs))));
+    if (Math.pow(105 + (1 * prophecyBonus), prophecyEggs) === Infinity) {
+        // Try to use BigInt
+        if (window.BigInt !== undefined) {
+            try {
+                let soulEggComponent = (BigInt(10) + (BigInt(1) * BigInt(soulFood))) / BigInt(100)
+                // let prophecyEggComponent = ((BigInt(105) + (BigInt(1) * BigInt(prophecyBonus))) ** BigInt(prophecyEggs)) / (BigInt(100) ** BigInt(prophecyEggs))            
+                let intNumerator = (BigInt(105) + (BigInt(1) * BigInt(prophecyBonus))) ** BigInt(prophecyEggs)
+                let intDenominator = (BigInt(100) ** BigInt(prophecyEggs))
+                let prophecyEggComponent = intNumerator / intDenominator
+                let result = BigInt(soulEggs) * (soulEggComponent * prophecyEggComponent)
+                console.log(typeof result, result)
+                return Number(result)
+            } catch (TypeError) {}
+        }
+        return -1
+    }
+    else {
+        let soulEggComponent = (10 + (1 * soulFood)) / 100
+        let prophecyEggComponent = Math.pow(105 + (1 * prophecyBonus), prophecyEggs) / Math.pow(100, prophecyEggs)
+        return soulEggs * (soulEggComponent * prophecyEggComponent)
+    }
 }

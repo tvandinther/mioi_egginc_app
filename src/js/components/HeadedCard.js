@@ -5,7 +5,7 @@ import { Card, Typography } from "@material-ui/core"
 
 const useStyle = makeStyles(theme => ({
     card: {
-        minHeight: 150,
+        
     },
     header: {
         backgroundColor: theme.palette.primary.main,
@@ -20,12 +20,12 @@ export default function DashboardCard(props) {
     const classes = useStyle()
     const hoverable = props.hoverable || false
     let [raised, setRaised] = useState(false)
-    const toggleRaised = () => {
+    const toggleRaised = hoverable ? () => {
         setRaised(!raised)
-    }
+    } : null
 
     return (
-        <Card raised={hoverable && raised} onMouseOver={toggleRaised} onMouseOut={toggleRaised} className={`${classes.card}`}>
+        <Card style={props.style} raised={hoverable && raised} onMouseOver={toggleRaised} onMouseOut={toggleRaised} className={`${classes.card}`}>
             <div className={classes.header}>
                 <Typography variant="h5" align="center" style={{color: "white"}}>{props.title}</Typography>
             </div>

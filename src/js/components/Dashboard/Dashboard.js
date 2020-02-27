@@ -44,7 +44,6 @@ export default function Dashboard(props) {
 
     useEffect(() => {
         if (playerData.fetched && (Object.keys(playerCoops).length === 0 && playerCoops.constructor === Object)) {
-            console.log("IM GOIJNG")
             fetchPlayerCoops()
         }
     }, [playerData.userId]) 

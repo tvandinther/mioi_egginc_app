@@ -20,7 +20,7 @@ function ContractApp(props) {
     }
     useEffect(() => {
         const oldTitle = document.title
-        document.title = [oldTitle, "Contracts"].join(" | ")
+        document.title = [oldTitle, pageDetails.shortTitle].join(" | ")
         return () => document.title = oldTitle
     }, [])
 

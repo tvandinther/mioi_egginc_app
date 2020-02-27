@@ -1,5 +1,5 @@
 import React from "react"
-import DashboardCard from "./DashboardCard"
+import HeadedCard from "../HeadedCard"
 import PlayerIDInput from "../appSettings/PlayerIDInput"
 import { Typography } from "@material-ui/core"
 
@@ -7,7 +7,7 @@ export default function PlayerIDPromptCard(props) {
 
 
     return (
-        <DashboardCard>
+        <HeadedCard>
             <Typography variant="h5">
                 Welcome to mioi.io's Egg, Inc. companion app
             </Typography>
@@ -20,6 +20,6 @@ export default function PlayerIDPromptCard(props) {
                 The PlayerID will be saved on the device you're viewing this on.
             </Typography>
             <PlayerIDInput/>
-        </DashboardCard>
+        </HeadedCard>
     )
 }
