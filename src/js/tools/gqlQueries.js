@@ -1,3 +1,17 @@
+export const fetchNews = `
+	query fetchNews($context: String!, $limit: Int) {
+		mioi {
+		fetchNews(context: $context, limit: $limit) {
+			title
+			author
+			timePosted
+			bodyType
+			body
+		}
+		}
+	}
+`
+
 export const getCoop = `
     query getCoop($coopName: String!, $contractName: String!) {
         eggInc {

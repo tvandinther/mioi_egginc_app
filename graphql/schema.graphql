@@ -1,12 +1,15 @@
 # import * from 'ei_query.graphql'
+# import * from 'mioi.graphql'
 
 type Query {
     eggInc: EggIncQuery
+	mioi: MioiQuery
 }
 
 "The root mioi Query"
 type MioiQuery {
     generateAPIKey(currentUser: String!): String
+	fetchNews(context: String!, limit: Int): [NewsItem]
 }
 
 "The root EggInc Query"

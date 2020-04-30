@@ -1,5 +1,7 @@
 const ei_resolvers = require("./ei_resolvers.js")
+const mioi_resolvers = require("./mioi_resolvers")
 
 module.exports = {
-    eggInc: ei_resolvers
+	mioi: mioi_resolvers,
+	eggInc: ei_resolvers
 }

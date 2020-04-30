@@ -1,0 +1,7 @@
+type NewsItem {
+	title: String!
+	timePosted: Float!
+	author: String!
+	bodyType: String
+	body: String!
+}
