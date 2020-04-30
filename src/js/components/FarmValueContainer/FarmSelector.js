@@ -44,11 +44,11 @@ export default function FarmSelector(props) {
         dispatch(setFarm(playerFarms[selected], playerData.game))
     }
 
-    useEffect(() => {
-        if (playerData.fetched) {
-            handleFarmLoad()
-        }
-    }, [playerData.fetched])
+    // useEffect(() => {
+    //     if (playerData.fetched) {
+    //         handleFarmLoad()
+    //     }
+    // }, [playerData.fetched])
 
     if (playerData.fetched) {
         const playerFarms = playerData.farmsList
@@ -57,13 +57,13 @@ export default function FarmSelector(props) {
             let farm = playerFarms[index]
             let name
             if (farm.farmType === 2) {
-                name = "Home Farm"
+                name = ["Home Farm"]
             }
             else {
                 if (farm.contractId === "") continue
                 let contract = contracts[farm.contractId]
                 if (!contract) continue
-                name = "Contract: " + contract.title
+                name = ["Contract: ", contract.title]
             }
             options.push(
                 <MenuItem key={`farmSelection${index}`} value={index} className={classes.selectorItem}>
@@ -74,7 +74,7 @@ export default function FarmSelector(props) {
         }
 
         return (
-            <HeadedCard style={props.style} title="Load Farm" className={classes.root}>
+            <HeadedCard collapsable style={props.style} title="Load Farm" className={classes.root}>
                 <Select value={selected} onChange={evt => setSelected(evt.target.value)} className={classes.selector} classes={{select: classes.selectorItem}}>
                     {options}
                 </Select>

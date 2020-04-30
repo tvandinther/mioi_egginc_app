@@ -18,7 +18,7 @@ const persistedReducer = persistReducer(persistConfig, reducer)
 
 let store = createStore(
     persistedReducer,
-    applyMiddleware(promise, logger, )
+    applyMiddleware(promise, logger) // add logger to log redux
 )
 
 export default store

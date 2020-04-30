@@ -1,10 +1,5 @@
 [
     {
-        "name": "None",
-        "capacity": 0,
-        "cost": 0
-    },
-    {
         "name": "Coop",
         "capacity": 250,
         "cost": [63.51, 79.72, 99.89, 124]
@@ -100,5 +95,10 @@
         "capacity": 600000000,
         "tag": "portalHab",
         "cost": []
+	},
+	{
+        "name": "None",
+        "capacity": 0,
+        "cost": 0
     }
 ]

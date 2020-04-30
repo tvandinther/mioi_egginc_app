@@ -6,12 +6,16 @@ export const getCoop = `
                 coop
                 eggs
                 totalRate
-                timeLeft
+				timeLeft
+				league
+				public
                 members {
                     name
                     id
                     eggs
-                    rate
+					rate
+					soulPower
+					boostTokens
                 }
             }
         }
@@ -25,7 +29,8 @@ export const getPlayerData = `
                 userId
                 userName
                 game {
-                    soulEggsD
+					soulEggsD
+					forceEliteContracts
                     eggsOfProphecy
                     epicResearchList {
                         id
@@ -42,7 +47,8 @@ export const getPlayerData = `
                         contract {
                             identifier
                             lengthSeconds
-                        }
+						}
+						league
                         accepted
                         timeAccepted
                         coopIdentifier

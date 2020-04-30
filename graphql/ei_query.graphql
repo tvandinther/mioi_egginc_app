@@ -10,6 +10,9 @@ type Coop {
     totalRate: Float
     "The time left in the contract in seconds since epoch"
     timeLeft: Float
+	public: Boolean
+    "The league of the co-op"
+    league: String
     "An array of all members belonging to the co-op"
     members: [Member]
 }
@@ -24,6 +27,10 @@ type Member {
     eggs: Float
     "The last reported egg laying rate of the member"
     rate: Float
+	"The soul power of the member"
+    soulPower: Float
+    "The amount of boost tokens the member has"
+    boostTokens: Int
 }
 
 type PlayerData {
@@ -50,6 +57,7 @@ type Stats {
 type Game {
     currentFarm: Int
     maxEggReached: Int
+	forceEliteContracts: Boolean
     goldenEggsEarned: Int
     goldenEggsSpent: Int
     soulEggsD: Float
@@ -145,6 +153,7 @@ type LocalContract {
     coopLastUploadedContribution: Float
     lastAmountWhenRewardGiven: Float
     boostsUsed: Int
+	league: Int
 }
 
 type Contract {

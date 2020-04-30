@@ -3,12 +3,13 @@ import { Card, Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { useSelector } from "react-redux"
 import { getActiveContracts } from "../../actions/contractActions"
-import ContractRewards from "../ContractSummary/ContractRewards"
+import CoopRewards from "../ContractSummary/CoopSummary/CoopRewards"
 import CoopExpiryEstimate from "../ContractSummary/CoopSummary/CoopExpiryEstimate"
 import { NavLink } from "react-router-dom"
 import HeadedCard from "../HeadedCard"
 import ContractIcons from "../ContractSummary/ContractIcons"
 import Loading from "../Loading"
+import calculateFarmStats from "../../tools/farmStatTools"
 
 const useStyle = makeStyles(theme => ({
     card: {
@@ -21,7 +22,8 @@ const useStyle = makeStyles(theme => ({
             "estimate estimate estimate"
         `,
         gridGap: 10,
-        alignItems: "center",
+		alignItems: "center",
+		wordBreak: "break-word",
     },
     image: {
         gridArea: "image",
@@ -35,7 +37,11 @@ export default function CoopCard(props) {
     const metaContract = props.metaContract
     const coopId = metaContract.coopIdentifier
     const coop = useSelector(store => store.contract.playerCoops[contract.name])
-    const playerContractFarm = useSelector(store => store.playerData.farmsList.find(item => item.contractId === contract.name))
+	const playerContractFarm = useSelector(store => store.playerData.farmsList.find(item => item.contractId === contract.name))
+	const playerGameData = useSelector(store => store.playerData.game)
+	const farmStats = calculateFarmStats(playerContractFarm, playerGameData)
+	const league = metaContract.league === 0 ? "elite" : "standard"
+	const coopRewards = contract.goals[league]
     let loadingCoop
     if (coop) loadingCoop = coop.fetching
     
@@ -45,21 +51,21 @@ export default function CoopCard(props) {
     
     const loadingContent = [
                 <Loading style={{gridArea: "rewards / estimate / rewards / estimate"}} key="loading" />,
-    ]
-    
+	]
+	
     const coopContent = [
         <Typography key="coop" style={{gridArea: "subtitle"}} align="center" variant="h4">{(coop && coop.coop) || "No Co-op"}</Typography>,
-        <ContractRewards key="rewards" style={{gridArea: "rewards"}}  eggsLaid={(coop && coop.eggs) || playerContractFarm.eggsLaid} rewards={contract.rewards} />,
-        <CoopExpiryEstimate key="estimate" style={{gridArea: "estimate"}} contract={contract} data={(coop && {eggsLaid: coop.eggs, layingRate: coop.totalRate, timeLeft: coop.timeLeft} ) || {eggsLaid: playerContractFarm.eggsLaid, layingRate: 1e12, timeLeft: metaContract.timeAccepted + metaContract.contract.lengthSeconds - (new Date() / 1000)}}/>,
+        <CoopRewards key="rewards" style={{gridArea: "rewards"}}  eggsLaid={(coop && coop.eggs) || playerContractFarm.eggsLaid} rewards={coopRewards} />,
+        <CoopExpiryEstimate key="estimate" style={{gridArea: "estimate"}} rewards={coopRewards} data={(coop && {eggsLaid: coop.eggs, layingRate: coop.totalRate, timeLeft: coop.timeLeft} ) || {eggsLaid: playerContractFarm.eggsLaid, layingRate: farmStats.layingRate, timeLeft: metaContract.timeAccepted + metaContract.contract.lengthSeconds - (new Date() / 1000)}}/>,
     ]
 
     return (
-        <NavLink className={classes.root} to={link}>
-            <HeadedCard hoverable title={`${contract.title}`} className={classes.card}>
-                <img key="image" className={classes.image} src={`/images/egg${contract.egg}.png`}/>
-                <ContractIcons style={{gridArea: "icons"}} contract={contract} coop={coop} />
-                {loadingCoop ? loadingContent : coopContent}
-            </HeadedCard>
-        </NavLink>
+		<HeadedCard hoverable collapsable title={`${contract.title}`} className={classes.root}>
+			<NavLink className={classes.card} to={link}>
+				<img key="image" className={classes.image} src={`/images/egg${contract.egg}.png`}/>
+				<ContractIcons style={{gridArea: "icons"}} contract={contract} coop={coop} />
+				{loadingCoop ? loadingContent : coopContent}
+			</NavLink>
+		</HeadedCard>
     )
 }

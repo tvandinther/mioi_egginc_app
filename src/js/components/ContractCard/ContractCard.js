@@ -11,14 +11,14 @@ const useStyle = makeStyles(theme => ({
         display: "grid",
         margin: "12px 15px 12px 15px",
         gridTemplateRows: "40px 5px 1fr",
-        gridTemplateColumns: "1fr",
+        gridTemplateColumns: "100%",
         gridTemplateAreas: `
             "title title"
             "progressBar progressBar"
         `,
         justifyContent: "center",
         alignItems: "center",
-        height: "180px",
+        // height: "180px",
         transition: "all 200ms ease",
         cursor: "pointer",
         userSelect: "none",

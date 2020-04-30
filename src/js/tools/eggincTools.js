@@ -141,9 +141,13 @@ export function getImageSrc(reward) {
             quantity = `+${reward.quantity}`
             break
         }
-        case "RESEARCH":
+        case "RESEARCH": {
+            path = reward.subtype
+            quantity = `+${reward.quantity}`
+            break
+        }
         case "PIGGY_LEVEL": {
-            path = reward.subtype 
+            path = reward.type
             quantity = `+${reward.quantity}`
             break
         }

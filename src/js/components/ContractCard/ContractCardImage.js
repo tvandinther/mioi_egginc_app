@@ -6,8 +6,8 @@ const useStyles = makeStyles(theme => createStyles({
     ContractCardImage: {
         backgroundColor: theme.palette.background.off,
         gridArea: "image",
-        height: "100%",
-        width: "100%",
+		width: "100%",
+		maxWidth: 150,
         display: "grid",
         alignItems: "center",
         justifyItems: "center",
@@ -18,7 +18,6 @@ const useStyles = makeStyles(theme => createStyles({
         "& img": {
             maxHeight: "90%",
             maxWidth: "90%",
-            display: "block",
         }
     },
 }))

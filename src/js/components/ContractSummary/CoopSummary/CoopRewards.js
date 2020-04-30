@@ -2,10 +2,10 @@ import React from "react"
 import { useTheme } from "@material-ui/core/styles"
 import "react-step-progress-bar/styles.css"
 import { ProgressBar, Step } from "react-step-progress-bar"
-import { percentString, getImageSrc } from "../../tools/eggincTools"
+import { percentString, getImageSrc } from "../../../tools/eggincTools"
 import { Paper, Tooltip } from "@material-ui/core"
 
-export default function ContractRewards(props) {
+export default function CoopRewards(props) {
     const theme = useTheme()
     const rewards = props.rewards
     let eggsLaid = props.eggsLaid || 0

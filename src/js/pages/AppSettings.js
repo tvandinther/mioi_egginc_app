@@ -5,6 +5,7 @@ import { Container, Card, Typography, Divider, Switch, List, ListItem, TextField
 import { makeStyles } from "@material-ui/core/styles"
 import { useSelector, useDispatch } from "react-redux"
 import * as settingsActions from "../actions/settingsActions"
+import ClearPlayerID from "../components/appSettings/ClearPlayerID"
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -26,30 +27,51 @@ export default function AppSettings(props) {
         shortTitle: "Settings",
     }
 
+	const PlayerData = () => (
+		<div>
+			<Typography variant="h5">
+				Player Data
+			</Typography>
+			<Divider variant="middle"/>
+			<List>
+				<ListItem>
+					<Typography>
+						{(playerData && playerData.userName) ? `Hello ${playerData.userName}!` : `Hello mystery user! Enter your Player ID to access personalised features.`}
+					</Typography>
+				</ListItem>
+				<ListItem>
+					<PlayerIDInput/>
+				</ListItem>
+				<ListItem>
+					<ClearPlayerID/>
+				</ListItem>
+			</List>
+		</div>
+	)
+
+	const Appearance = () => (
+		<div>
+			<Typography variant="h5">
+				Appearance
+			</Typography>
+			<Divider variant="middle"/>
+			<List>
+				<ListItem>
+					<Switch checked={settings.darkTheme} onChange={event => dispatch(settingsActions.setDarkTheme(event.target.checked))}/>
+					<ListItemText primary="Dark Theme"/>
+				</ListItem>
+			</List>
+		</div>
+	)
+
     return (
         <div>
             <Navbar title={pageDetails.shortTitle}/>
             <Container>
                 <Card className={classes.card}>
-                    <Typography variant="h5">
-                        User Data
-                    </Typography>
-                    <Divider variant="middle"/>
-                    <List>
-                        <ListItem>
-                            <Typography>
-                                {(playerData && playerData.userName) ? `Hello ${playerData.userName}!` : `Hello mystery user! Enter your Player ID to access personalised features.`}
-                            </Typography>
-                        </ListItem>
-                        <ListItem>
-                            <PlayerIDInput/>
-                        </ListItem>
-                        <ListItem>
-                            <Switch checked={settings.darkTheme} onChange={event => dispatch(settingsActions.setDarkTheme(event.target.checked))}/>
-                            <ListItemText primary="Dark Theme"/>
-                        </ListItem>
-                    </List>
-                    
+					<Appearance/>
+					<Divider/>
+					<PlayerData/>
                 </Card>
             </Container>
         </div>

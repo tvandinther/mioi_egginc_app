@@ -20,7 +20,7 @@ export default function IconLabel(props) {
     return (
         <div style={style}>
             <SvgIcon style={iconStyle} fontSize="large" color="secondary" component={props.icon}/>
-            <Typography variant="h6">{props.label}</Typography>
+            <Typography variant="subtitle1">{props.label}</Typography>
         </div>
     )
 }

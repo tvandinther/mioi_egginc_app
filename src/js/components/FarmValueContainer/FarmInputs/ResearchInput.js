@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Typography,Input, Slider } from "@material-ui/core"
+import { Typography,Input, Slider, InputLabel } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { useDispatch, useSelector } from "react-redux"
 import { setResearch } from "../../../actions/farmValueActions"
@@ -7,10 +7,11 @@ import { setResearch } from "../../../actions/farmValueActions"
 const useStyle = makeStyles(theme => ({
     root: {
         display: "grid",
-        gridTemplateColumns: "72px auto auto 1fr",
+        gridTemplateColumns: "56px 1fr",
         gridTemplateAreas: `
-            "image name name description"
-            "image input slider slider"
+			"image name"
+			"input slider"
+			"description description"
         `,
         alignItems: "center",
         justifyItems: "center",
@@ -33,44 +34,81 @@ const useStyle = makeStyles(theme => ({
     },
     input: {
         gridArea: "input",
-        width: 72,
-    },
+		width: "100%",
+		marginBottom: 20,
+	},
+	inputOverride: {
+		textAlign: "center",
+	},
     slider: {
         gridArea: "slider",
-        maxWidth: 500,
-    },
+		maxWidth: 500,
+		marginRight: 6,
+	},
+	sliderLabel: {
+		gridArea: "slider",
+		position: "relative",
+		textAlign: "right",
+		width: "100%",
+		maxWidth: 500,
+		top: 20,
+	},
 }))
 
 export default function ResearchInput(props) {
     const classes = useStyle()
     const dispatch = useDispatch()
-    const research = props.research
-    const initialValue = useSelector(store => store.farmValue.farm.commonResearchList.find(element => element.id === research.id)).level
-    // const initialValue = useSelector(store => {
-    //     console.log(store)
-    //     if (store.farmValue.farm) return store.farmValue.farm.commonResearchList.find(element => element.id === research.id)
-    //     else return null
-    // }).level
-    let [value, setValue] = useState(initialValue)
-    useEffect(() => setValue(initialValue), [initialValue])
+	const research = props.research
+	var initialValue, type
+	if (props.tier === "epic") {
+		initialValue = useSelector(store => store.farmValue.game.epicResearch[research.id])
+		type = "epic"
+	}
+	else {
+		initialValue = useSelector(store => store.farmValue.farm.commonResearch[research.id])
+		type = "common"
+	}
 
-    const handleInputChange = evt => {
-        setValue(event.target.value === "" ? "" : Number(event.target.value))
-        submitChange()
-    }
+    let [sliderValue, setSliderValue] = useState(initialValue)
+    useEffect(() => setSliderValue(initialValue), [initialValue])
 
-    const handleBlur = evt => {
-        if (value < 0 || value == "") {
-            setValue(0)
+    const handleInputChange = (evt) => {
+        setSliderValue(Number(evt.target.value) || 0)
+        // submitChange() // causes rendering issues
+	}
+	
+	// I'm having an issue where I want local state to update slider and input together and have the redux 
+	// dispatch occur after local state has been updated (but not trigger a re-render).
+
+    const handleBlur = (evt) => {
+		let newValue = Number(evt.target.value) || 0
+        if (newValue < 0) {
+            newValue = 0
         }
-        else if (value > research.maxLevel) {
-            setValue(research.maxLevel)
-        }
+        else if (newValue > research.maxLevel) {
+            newValue = research.maxLevel
+		}
+		setSliderValue(newValue)
+		submitChange(newValue)
     }
 
-    const submitChange = () => {
-        dispatch(setResearch(research.id, value))
-    }
+    const submitChange = value => {
+        dispatch(setResearch(research.id, value, type))
+	}
+	
+	const handleSliderCommit = (evt, newValue) => {
+		submitChange(newValue)
+	}
+
+	// generate slider marks
+	// THIS CREATES PERFORMANCE DROP
+	// let sliderMarks = []
+	// if (research.maxLevel <= 50) {
+	// 	for (let i = 0; i < research.maxLevel; i++) {
+	// 		sliderMarks.push({value: i})
+	// 	}
+	// }	
+	// sliderMarks.push({value: research.maxLevel, label: research.maxLevel})
 
     return (
         <div className={classes.root}>
@@ -79,21 +117,23 @@ export default function ResearchInput(props) {
             <Typography className={classes.description} variant="subtitle2">{research.description}</Typography>
             <Input
                 type="number"
-                className={classes.input}
-                value={value}
+				className={classes.input}
+				classes={{input: classes.inputOverride}}
+                value={sliderValue}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
             />
             <Slider
                 className={classes.slider}
-                value={typeof value === "number" ? value : 0}
-                onChange={(evt, newValue) => setValue(newValue)}
-                onChangeCommitted={submitChange}
-                marks={research.maxLevel <= 50 ? true : []}
+                value={Number(sliderValue) || 0}
+                onChange={(evt, newValue) => setSliderValue(newValue)}
+                onChangeCommitted={handleSliderCommit}
+                // marks={true}
                 min={0}
                 max={research.maxLevel}
                 color="secondary"
             />
+			<InputLabel className={classes.sliderLabel}>{research.maxLevel}</InputLabel>
         </div>
     )
 }

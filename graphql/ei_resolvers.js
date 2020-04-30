@@ -5,7 +5,18 @@ var getCoop = function(args) {
 }
 
 var getPlayerData = function(args) {
-    return eggincAPI.getPlayerData(args.playerID);
+	return eggincAPI.getPlayerData(args.playerID);
+	// let data = eggincAPI.getPlayerData(args.playerID);
+	// return {
+	// 	...data,
+	// 	game: {
+	// 		...data.game,
+	// 		epicResearch: data.game.epicResearchList.reduce((obj, item) => {
+	// 			obj[item.id] = item.level
+	// 			return obj
+	// 		}, {})
+	// 	}
+	// }
 }
 
 var getPeriodicals = function(args) {

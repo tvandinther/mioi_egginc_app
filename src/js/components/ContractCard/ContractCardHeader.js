@@ -1,16 +1,28 @@
 import React from "react"
 import { Typography } from "@material-ui/core"
-import { useTheme } from "@material-ui/core/styles"
+import { makeStyles } from "@material-ui/core/styles"
+
+const useStyle = makeStyles(theme => ({
+	root: {
+		gridArea: "title",
+		backgroundColor: theme.palette.primary.main,
+		height: "100%",
+		// borderTopLeftRadius: "inherit",
+	},
+	text: {
+		margin: 10,
+		fontSize: 20,
+		color: "white",
+	}
+}))
 
 export default function ContractCardHeader(props) {
-    const theme = useTheme()
-    const style = {
-        backgroundColor: theme.palette.primary.main,
-    }
+    const classes = useStyle()
+    
 
     return (
-        <div style={style} className="ContractCardHeader">
-            <Typography variant="h2">{props.text}</Typography>
+        <div className={classes.root}>
+            <Typography className={classes.text} variant="h2">{props.text}</Typography>
         </div>
     )
 }

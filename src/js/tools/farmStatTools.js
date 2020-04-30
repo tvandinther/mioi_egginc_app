@@ -4,28 +4,21 @@ import habs from "./habs.json"
 
 export default function calculateFarmStats(farm, game) {
     let playerResearch = {
-        common: {},
-        epic: {},
-    }
-
-    for (let item of farm.commonResearchList) {
-        Object.assign(playerResearch.common, {[item.id]: item.level})
-    }
-    for (let item of game.epicResearchList) {
-        Object.assign(playerResearch.epic, {[item.id]: item.level})
+        common: farm.commonResearch,
+        epic: game.epicResearch,
     }
 
     let initialParameters = {
         population: farm.numChickens,
-        eggTypeValue: eggTypes[farm.eggType-1].value, // -1 to offset index 0000000000 ???
+        eggTypeValue: eggTypes[farm.eggType].value,
         eggMultiplier: 1 + (0.5 * farm.eggType),
-        maxHabCapacity: farm.habsList.reduce((acc, habIndex) => acc + habs[habIndex+1].capacity, 0), // +1 to offset index 0 reserved for no hab
+        maxHabCapacity: farm.habsList.reduce((acc, habIndex) => acc + habs[habIndex].capacity, 0),
         layingRate: 2, // eggs per minute per chicken
         eggValue: 1, // base multiplier
         hatchRefill: 1, // base multiplier
         runningBonus: 1, // base multiplier
         maxRunningBonus: 1.5, // base value
-        shippingCapacity: 5000, // base value
+        shippingCapacity: farm.eggsPaidFor || 5000, // base value
         habCapacity: 1, // base multiplier
         hatchRate: 0, // base value
         hatchCapacity: 1, // base multiplier
@@ -40,15 +33,18 @@ export default function calculateFarmStats(farm, game) {
 
     updatedParameters.farmValue = farmValueFormula(updatedParameters)
 
-    return {
-        earningsBonus: updatedParameters.meBonus,
+	const farmStats = {
+		earningsBonus: updatedParameters.meBonus,
         eggValue: updatedParameters.eggTypeValue * updatedParameters.eggValue,
         layingRate: updatedParameters.layingRate * updatedParameters.population,
         hatchRate: updatedParameters.hatchRate,
-        maxHabCapacity: updatedParameters.maxHabCapacity * updatedParameters.habCapacity,
+        maxHabCapacity: Math.round(updatedParameters.maxHabCapacity * updatedParameters.habCapacity),
         soulEggBonus: game.soulEggsD * (10 + (1 * playerResearch.epic["soul_eggs"])) / 100,
-        farmValue: updatedParameters.farmValue,
-    }
+		farmValue: updatedParameters.farmValue,
+		shippingCapacity: updatedParameters.shippingCapacity,
+	}
+	console.log("Farm Stats: ", farmStats)
+    return farmStats
 }
 
 function iterateResearch(playerResearch, parameters, farm) {
@@ -67,7 +63,7 @@ function iterateResearch(playerResearch, parameters, farm) {
             if (researchItem.tag) { // special cases requiring conditional value alteration
                 switch (researchItem.tag) {
                     case "portalHab": { // some research improves the capacity of portal habs specifically
-                        let count = farm.habsList.reduce((acc, habIndex) => habs[habIndex+1].tag === "portalHab" ? acc + 1 : acc, 0)
+                        let count = farm.habsList.reduce((acc, habIndex) => habs[habIndex].tag === "portalHab" ? acc + 1 : acc, 0)
                         value = (count / farm.habsList.length) * value
                     }
                     break

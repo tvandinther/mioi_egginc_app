@@ -80,16 +80,17 @@ function Overlay(props) {
 
 export default function CoopExpiryEstimate(props) {
     const classes = useStyle()
-    const theme = useTheme()
+	const theme = useTheme()
+	const rewards = props.rewards
     let totalRate, eggsRemaining, timeLeft
     if (props.coop) {
         totalRate = props.coop.members.reduce((acc, member) => acc + member.rate, 0)
-        eggsRemaining = (props.contract.rewards[props.contract.rewards.length - 1].goal - props.coop.eggs)
+        eggsRemaining = (rewards[rewards.length - 1].goal - props.coop.eggs)
         timeLeft = props.coop.timeLeft
     }
     else if (props.data) {
         totalRate = props.data.layingRate
-        eggsRemaining = (props.contract.rewards[props.contract.rewards.length - 1].goal - props.data.eggsLaid)
+        eggsRemaining = (rewards[rewards.length - 1].goal - props.data.eggsLaid)
         timeLeft =  props.data.timeLeft
     }
     else {

@@ -13,7 +13,13 @@ export default function reducer(state=initialState, action) {
                 ...state,
                 playerId: action.payload,
             }
-        }
+		}
+		case "CLEAR_GAMEID": {
+			return {
+				...state,
+				playerId: null,
+			}
+		}
         case "SET_DARK_THEME": {
             return {
                 ...state,

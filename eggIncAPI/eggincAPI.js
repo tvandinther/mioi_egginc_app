@@ -2,7 +2,8 @@ const axios = require('axios');
 const ei = require('./egginc_pb');
 const b = require('base64-arraybuffer');
 
-const clientVersion = 99;
+const clientVersion = 99
+const leagueThreshold = 11.0 // Soul power below this value is considered "standard"
 
 var exports = module.exports = {};
 
@@ -47,12 +48,22 @@ exports.getContract = async function(contractName, coopName) {
                 name : obj.userName,
                 id : obj.userId,
                 eggs : obj.contributionAmount,
-                rate : obj.contributionRate
+				rate : obj.contributionRate,
+				soulPower : obj.soulPower,
+				boostTokens : obj.boostTokens,
             }
         });
         return {
             contract : response.contractIdentifier,
             coop : response.coopIdentifier,
+            league : (function(members) {
+                for (member of members) {
+                    if (member.soulPower < leagueThreshold) {
+                        return "standard"
+                    }
+                }
+                return "elite"
+            })(members),
             eggs : response.totalAmount,
             totalRate : members.reduce((accumulator, member) => accumulator + member.rate, 0),
             timeLeft : response.secondsRemaining,

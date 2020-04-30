@@ -1,65 +1,51 @@
-import React, { useState, useEffect } from "react"
-import { Card, Select, MenuItem, Typography } from "@material-ui/core"
+import React from "react"
 import eggs from "../../../tools/eggTypes.json"
 import { makeStyles } from "@material-ui/core/styles"
 import { setEgg } from "../../../actions/farmValueActions"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import HeadedCard from "../../HeadedCard"
+import ImageDropdown from "../../ImageDropdown"
 
 const useStyle = makeStyles(theme => ({
     root: {
         margin: "auto",
         maxWidth: 400,
-        padding: 10,
-        display: "grid",
-        gridTemplateColumns: "1fr 80px",
-        gridTemplateRows: "max-content",
-        gridGap: 10,
-    },
-    selector: {
-        width: "100%",
-        overflow: "hidden",
-    },
-    selectorItem: {
-        display: "grid",
-        gridTemplateColumns: "auto 1fr",
-        gridGap: 5,
-        alignItems: "center",
-    },
-    image: {
-        height: 36,
-        width: "auto",
+		padding: 10,
+		display: "flex",
+		flexWrap: "wrap",
+		justifyContent: "space-evenly",
     },
 }))
 
 export default function EggSelector(props) {
     const classes = useStyle()
-    const dispatch = useDispatch()
     const initialValue = useSelector(store => store.farmValue.farm.eggType)
-    let [selected, setSelected] = useState(initialValue)
-    useEffect(() => setSelected(initialValue), [initialValue])
 
-    const options = eggs.map((egg, index) => {
-        let eggIndex = index + 1
-        return (
-            <MenuItem key={egg.name} value={eggIndex} className={classes.selectorItem}>
-                <img src={`/images/egg${eggIndex}.png`} className={classes.image}/>
-                <Typography>{egg.name}</Typography>
-            </MenuItem>
-        )
-    })
-
-    const handleChange = evt => {
-        let value = evt.target.value
-        setSelected(value)
-        dispatch(setEgg(value))
-    }
+	let mainEggs = {
+		items: []
+	}
+	let contractEggs = {
+		title: "Contract Eggs",
+		items: []
+	}
+	for (let [key, value] of Object.entries(eggs)) {
+		let section
+		if (value.unlock === null) section = contractEggs
+		else section = mainEggs
+		section.items.push({
+			title: value.name,
+			imageSrc: `/images/egg${key}.png`,
+			value: key,
+		})
+	}
 
     return (
-        <HeadedCard title="Farm Egg" className={classes.root}>
-            <Select value={selected} onChange={handleChange} className={classes.selector} classes={{select: classes.selectorItem}}>
-                {options}
-            </Select>
+        <HeadedCard collapsable title="Farm Egg" className={classes.root}>
+			<ImageDropdown
+				initialValue={initialValue || 1}
+				menuMap={[mainEggs, contractEggs]}
+				dispatchFunc={setEgg}
+			/>
         </HeadedCard>
     )
 }

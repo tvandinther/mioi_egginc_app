@@ -14,7 +14,7 @@ export default function NewsCard(props) {
     }
 
     return (
-        <HeadedCard title="News">
+        <HeadedCard collapsable title="News">
             <Typography variant="overline" align="right">
                 {new Date(data.timePosted * 1000).toLocaleString(undefined, {
                     dateStyle: "medium",

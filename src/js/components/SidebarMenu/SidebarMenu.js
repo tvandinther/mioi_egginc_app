@@ -9,7 +9,7 @@ import { useClickAway } from "../../customHooks/customHooks"
 import MenuButton from "../MenuButton"
 import SidebarMenuHeader from "./SidebarMenuHeader"
 import SidebarMenuItem from "./SidebarMenuItem"
-import { SwipeableDrawer, List, Drawer } from "@material-ui/core"
+import { SwipeableDrawer, List, Drawer, Divider } from "@material-ui/core"
 // ICONS
 // import { HomeIcon, ReceiptIcon, HelpIcon, SettingsIcon } from "@material-ui/icons"
 import HomeIcon from '@material-ui/icons/Home';
@@ -53,19 +53,24 @@ function SidebarMenu(props) {
             path: "/guide",
             icon: HelpIcon,
         },
-        "App Settings" : {
+	}
+	const menuItems2 = {
+		"App Settings" : {
             path: "/settings",
             icon: SettingsIcon,
         }
-    }
+	}
     const sidebarMenuItemComponents = Object.entries(menuItems).map(([text, { path, icon }]) => {
         return <SidebarMenuItem text={text} href={path} key={path} onClick={props.hideSidebar} icon={icon}/>
-    })
+	})
+	const sidebarMenuItemComponents2 = Object.entries(menuItems2).map(([text, { path, icon }]) => {
+        return <SidebarMenuItem text={text} href={path} key={path} onClick={props.hideSidebar} icon={icon}/>
+	})
     let DynamicDrawer = (props) => {
         if (true || window.innerWidth < theme.breakpoints.values.md) {
             return (
                 <SwipeableDrawer 
-                    hysteresis={0.42} 
+                    hysteresis={0.27} 
                     minFlingVelocity={300} 
                     anchor={UI.menuOnLeft ? "left" : "right"} 
                     className={classes.drawer}
@@ -98,6 +103,8 @@ function SidebarMenu(props) {
                 <SidebarMenuHeader left={UI.menuOnLeft}/>
                 <List>
                     {sidebarMenuItemComponents}
+					<Divider/>
+					{sidebarMenuItemComponents2}
                 </List>
             </div>
         </DynamicDrawer>

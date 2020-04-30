@@ -31,6 +31,12 @@ export function validatePlayerId(playerId) {
     }
 }
 
+export function clearPlayerId() {
+	return {
+		type: "CLEAR_GAMEID",
+	}
+}
+
 export function setDarkTheme(bool) {
     return {
         type: "SET_DARK_THEME",

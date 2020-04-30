@@ -1,3 +1,6 @@
+import { calculateFarmStats } from "../tools/eggincTools"
+import { useStore, useSelector } from "react-redux"
+
 export function setFarm(farm, game) {
     return {
         type: "SET_FARM",
@@ -8,11 +11,38 @@ export function setFarm(farm, game) {
     }
 }
 
+export function setMysticalEgg(eggType, value) {
+	return {
+		type: "SET_MYSTICAL_EGG",
+		payload: {
+			eggType: eggType,
+			value: value,
+		}
+	}
+}
+
 export function setEgg(eggIndex) {
     return {
         type: "SET_EGG",
         payload: eggIndex
     }
+}
+
+export function setHab(habIndex, slotIndex) {
+    return {
+        type: "SET_HAB",
+        payload: {
+			hab: habIndex,
+			slot: slotIndex,
+		}
+    }
+}
+
+export function setEggsShipped(value) {
+	return {
+		type: "SET_EGGS_SHIPPED",
+		payload: value,
+	}
 }
 
 export function setSilos(siloCount) {
@@ -38,4 +68,11 @@ export function setResearch(researchId, value, type="common") {
             researchType: type,
         }
     }
+}
+
+export function calculateStats(farm, game) {
+	return {
+		type: "CALCULATE_FARM_STATS",
+		payload: calculateFarmStats(farm, game)
+	}
 }

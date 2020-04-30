@@ -3,32 +3,38 @@ import { Card } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import ResearchTierPanels from "./ResearchTierPanels"
 import EggSelector from "./EggSelector"
+import HabSelector from "./HabSelector"
 import SiloSlider from "./SiloSlider"
 import PopulationInput from "./PopulationInput"
+import ShippingInput from "./ShippingInput"
 
 const useStyle = makeStyles(theme => ({
     root: {
+		// display: "flex",
         flexGrow: 3,
         width: "100%",
         marginLeft: "0 !important",
         marginRight: "0 !important",
-        marginTop: -20,
+		marginTop: -20,
 
         "& >*": {
-            margin: "20px 0px",
+			margin: "20px 0px",
+			flexGrow: "1",
+			// height: "max-content",
         }
     },
 }))
 
 export default function FarmInputs(props) {
     const classes = useStyle()
-    const { farm, game, stats } = props
 
     return (
         <div style={props.style} className={classes.root}>
             <EggSelector/>
-            <SiloSlider/>
-            <PopulationInput stats={stats}/>
+			<HabSelector/>
+			<ShippingInput/>
+            <PopulationInput />
+			<SiloSlider/>
             <ResearchTierPanels/>
         </div>
     )

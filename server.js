@@ -1,12 +1,15 @@
 const express = require("express")
 const path = require("path")
 const rateLimit = require("express-rate-limit")
+const compression = require("compression")
 const express_graphql = require("express-graphql");
 const { buildSchema } = require("graphql");
 const { importSchema } = require("graphql-import");
 const GQLResolvers = require("./graphql/index.js")
 
 const app = express();
+
+app.use(compression())
 
 const eggincAPILimiter = rateLimit({
     windowMS : 60 * 1000, // 1 minute
