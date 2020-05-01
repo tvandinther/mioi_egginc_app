@@ -41,15 +41,15 @@ export default function reducer(state=initialState, action) {
                 ...state,
                 error: true,
             }
-        }
-        default: {
-            return state
 		}
 		case "CLEAR_GAMEID": {
 			return {
 				error: false,
 				fetched: false,
 			}
+		}
+        default: {
+            return state
 		}
     }
 }

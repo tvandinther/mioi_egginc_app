@@ -2,12 +2,13 @@
 import React, { useRef, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import { hot } from "react-hot-loader";
-import { useSwipeable, Swipeable } from 'react-swipeable'
-import { connect, useSelector } from "react-redux"
+import { Swipeable } from 'react-swipeable'
+import { useDispatch, useSelector } from "react-redux"
 
-import { useClickAway } from "./customHooks/customHooks"
 // ACTIONS
-import actions from "./actions"
+import { fetchNews } from "./actions/appActions"
+import { validatePlayerId } from "./actions/settingsActions"
+import { getActiveContracts } from "./actions/contractActions"
 // RESOURCES
 import "../css/App.css";
 import Pages from "./pages/pageRoutes"
@@ -27,6 +28,7 @@ const useStyle = makeStyles(theme => ({
 function App(props) {
 	const classes = useStyle()
 	const theme = useTheme()
+	const dispatch = useDispatch()
 	const settings = useSelector(state => state.settings)
 	useEffect(() => {
 		let metaThemeColor = document.querySelector("meta[name=theme-color]")
@@ -38,8 +40,9 @@ function App(props) {
 		return () => window.removeEventListener("resize", props.resizePage)
 	}, [])
 
-	useEffect(() => {props.getActiveContracts()}, [])
-	useEffect(() => {props.validatePlayerId(settings.playerId)}, [])
+	useEffect(() => {dispatch(getActiveContracts())}, [])
+	useEffect(() => {dispatch(validatePlayerId(settings.playerId))}, [])
+	useEffect(() => {dispatch(fetchNews(5))}, [])
 
 	return (
 			<Swipeable className={classes.root + " App"}>
@@ -53,6 +56,7 @@ function App(props) {
 						<Route path="/farmvalue" component={Pages.FarmValue} />
 						<Route path="/guide" component={Pages.GameGuide} />
 						<Route path="/settings" component={Pages.Settings} />
+						<Route path="/news" component={Pages.News} />
 						<Route component={PageNotFound} />
 					</Switch>
 				</Router>
@@ -60,11 +64,5 @@ function App(props) {
 	)
 }
 
-const mapDispatchToProps = {
-	...actions
-}
-
-const connectedApp = connect(null, mapDispatchToProps)(App)
-
 // export default hot(module)(App)
-export default hot(module)(connectedApp);
+export default hot(module)(App);

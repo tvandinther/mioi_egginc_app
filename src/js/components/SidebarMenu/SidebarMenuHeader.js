@@ -7,7 +7,7 @@ import { hideSidebar } from "../../actions/UIActions"
 
 const useStyle = makeStyles(theme => ({
     root: Object.assign(theme.mixins.toolbar, {
-        backgroundColor: theme.palette.secondary["A200"],
+        backgroundColor: theme.palette.primary.main,
         display: "flex",
         flexGrow: 1,
         flexDirection: "row",

@@ -1,21 +1,24 @@
 import React, { useEffect, useRef } from "react"
 import { useTheme, makeStyles } from "@material-ui/core/styles"
-import { connect, useSelector, useDispatch } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { hideSidebar } from "../../actions/UIActions"
 
 // ACTIONS
 import * as UIActions from "../../actions/UIActions"
-import { useClickAway } from "../../customHooks/customHooks"
 
 import MenuButton from "../MenuButton"
 import SidebarMenuHeader from "./SidebarMenuHeader"
 import SidebarMenuItem from "./SidebarMenuItem"
-import { SwipeableDrawer, List, Drawer, Divider } from "@material-ui/core"
+import { SwipeableDrawer, List, Drawer, Divider, Typography } from "@material-ui/core"
 // ICONS
 // import { HomeIcon, ReceiptIcon, HelpIcon, SettingsIcon } from "@material-ui/icons"
 import HomeIcon from '@material-ui/icons/Home';
 import ReceiptIcon from '@material-ui/icons/Receipt';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import HelpIcon from '@material-ui/icons/Help';
+import NotesIcon from '@material-ui/icons/Notes';
 import SettingsIcon from '@material-ui/icons/Settings';
+import LinkIcon from '@material-ui/icons/Link';
 
 const useStyle = makeStyles(theme => ({
     drawer: {
@@ -27,10 +30,14 @@ const useStyle = makeStyles(theme => ({
         width: "100vw",
         backgroundColor: theme.palette.background.paper,
     },
-    toolbar: theme.mixins.toolbar,
+	toolbar: theme.mixins.toolbar,
+	text: {
+		margin: "0px 5px",
+		textAlign: "right",
+	}
 }))
 
-function SidebarMenu(props) {
+export default function SidebarMenu(props) {
     const UI = useSelector(state => state.UI)
     const dispatch = useDispatch()
     const classes = useStyle()
@@ -39,33 +46,50 @@ function SidebarMenu(props) {
     const menuItems = {
         "Dashboard" : {
             path: "/",
-            icon: HomeIcon,
+			icon: HomeIcon,
+			disabled: false,
         },
         "Contracts" : {
             path: "/contract",
-            icon: ReceiptIcon,
+			icon: ReceiptIcon,
+			disabled: false,
         },
         "Farm Value" : {
             path: "/farmvalue",
-            icon: HomeIcon,
+			icon: AttachMoneyIcon,
+			disabled: false,
         },
         "Game Guide" : {
             path: "/guide",
-            icon: HelpIcon,
+			icon: HelpIcon,
+			disabled: true,
         },
 	}
 	const menuItems2 = {
 		"App Settings" : {
             path: "/settings",
-            icon: SettingsIcon,
-        }
+			icon: SettingsIcon,
+			disabled: false,
+		},
+		"News" : {
+			path: "/news",
+			icon: NotesIcon,
+		},
+		"Get Egg, Inc." : {
+			path: "http://www.auxbrain.com/",
+			icon: LinkIcon,
+			external: true,
+		}
 	}
-    const sidebarMenuItemComponents = Object.entries(menuItems).map(([text, { path, icon }]) => {
-        return <SidebarMenuItem text={text} href={path} key={path} onClick={props.hideSidebar} icon={icon}/>
+
+	const dispatchHideSidebar = () => dispatch(hideSidebar())
+
+	const createComponents = objectMap => Object.entries(objectMap).map(([text, { path, icon, disabled, external }]) => {
+        return <SidebarMenuItem disabled={disabled} external={external} text={text} href={path} key={path} onClick={dispatchHideSidebar} icon={icon}/>
 	})
-	const sidebarMenuItemComponents2 = Object.entries(menuItems2).map(([text, { path, icon }]) => {
-        return <SidebarMenuItem text={text} href={path} key={path} onClick={props.hideSidebar} icon={icon}/>
-	})
+
+    const sidebarMenuItemComponents = createComponents(menuItems)
+	const sidebarMenuItemComponents2 = createComponents(menuItems2)
     let DynamicDrawer = (props) => {
         if (true || window.innerWidth < theme.breakpoints.values.md) {
             return (
@@ -80,6 +104,9 @@ function SidebarMenu(props) {
                     onClose={() => dispatch(UIActions.hideSidebar())}
                 >
                     {props.children}
+					<Divider/>
+					<Typography className={classes.text} variant="overline">© Created by Tom</Typography>
+					<Typography className={classes.text} variant="caption">Version {0.14}</Typography>
                 </SwipeableDrawer>
             )
         }
@@ -110,18 +137,3 @@ function SidebarMenu(props) {
         </DynamicDrawer>
     )
 }
-
-const mapStateToProps = store => {
-    const {UI: {sizeFormat, isSidebarVisible, menuOnLeft} } = store;
-	return {
-        sizeFormat,
-        isSidebarVisible,
-        menuOnLeft,
-	}
-}
-
-const mapDispatchToProps = {
-	...UIActions
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SidebarMenu)

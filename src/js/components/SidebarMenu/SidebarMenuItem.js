@@ -1,22 +1,49 @@
 import React from "react"
 import { NavLink } from "react-router-dom"
-import { useTheme } from "@material-ui/core/styles"
+import { makeStyles } from "@material-ui/core/styles"
 import { ListItem, ListItemText, ListItemIcon, SvgIcon } from "@material-ui/core"
+import Link from "../Link"
+
+const useStyle = makeStyles(theme => ({
+	active: {
+		"&> div": {
+			backgroundColor: theme.palette.secondary.light,
+		},
+	},
+	disabled: {
+		cursor: "initial",
+	}
+}))
 
 export default function SidebarMenuItem(props) {
-    const theme = useTheme()
+    const classes = useStyle()
+	const { icon, text, disabled, external, href, onClick } = props
 
-    const activeStyle = {
-        backgroundColor: theme.palette.secondary["A100"]
-    }
+	const handleClick = () => {
+		if (disabled) {
+			return
+		}
+		else {
+			onClick()
+		}
+	}
+
     return (
-        <NavLink onClick={props.onClick} to={props.href} exact={props.href === "/"} activeStyle={activeStyle}>
-            <ListItem button>
+		<Link
+			onClick={handleClick}
+			external={external}
+			disabled={disabled}
+			to={href}
+			exact={props.href === "/"}
+			//className={!disabled || classes.disabled}
+			activeClassName={classes.active}
+		>
+            <ListItem disabled={disabled || false} button>
                 <ListItemIcon>
-                    <SvgIcon component={props.icon}/>
+                    <SvgIcon component={icon}/>
                 </ListItemIcon>
-                <ListItemText primary={props.text} primaryTypographyProps={{variant: "h5"}}/>
+                <ListItemText primary={text} primaryTypographyProps={{variant: "h5"}}/>
             </ListItem>
-        </NavLink>
+        </Link>
     )
 }

@@ -29,7 +29,8 @@ export default function Dashboard(props) {
     const playerData = useSelector(store => store.playerData)
     const activeContracts = useSelector(store => store.contract.activeContracts)
     const playerCoops = useSelector(store => store.contract.playerCoops)
-    const playerId = useSelector(store => store.settings.playerId)
+	const playerId = useSelector(store => store.settings.playerId)
+	const news = useSelector(store => store.app.news)
     const theme = useTheme()
     let [columnCount, setColumnCount] = useState(null)
     const coopIds = playerData.fetched ? playerData.contracts.contractsList : null
@@ -52,10 +53,12 @@ export default function Dashboard(props) {
         rootClass: classes.root,
         columnClass: classes.column,
     })
-    // NEWS
-    dcm.addItem(
-        <NewsCard priority={2} key="post"/>
-    )
+	// NEWS
+	if (news.fetched) {
+		dcm.addItem(
+			<NewsCard post={news.posts[0]} priority={2} key="post"/>
+		)
+	}
     // QUICK LINKS
     dcm.addItem(
         <QuickLinkCard key="contractLink" priority={3} link="/contract" title="Contracts" body="Click to see all of the current contracts!"/>
