@@ -1,9 +1,11 @@
 // FRAMEWORK
 import React, { useRef, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import { Router as Router, Route, Switch } from "react-router-dom"
 import { hot } from "react-hot-loader";
 import { Swipeable } from 'react-swipeable'
 import { useDispatch, useSelector } from "react-redux"
+import { createBrowserHistory } from "history"
+import ReactGA from "react-ga"
 
 // ACTIONS
 import { fetchNews } from "./actions/appActions"
@@ -17,6 +19,37 @@ import PageNotFound from "./pages/_404"
 import SidebarMenu from "./components/SidebarMenu/SidebarMenu"
 import { useTheme, makeStyles } from "@material-ui/core/styles";
 import { CssBaseline } from "@material-ui/core";
+import EntryPopup from "./components/EntryPopup";
+
+const history = createBrowserHistory()
+console.log(history)
+
+const trackingIDs = {
+	"egginc.mioi.io": "UA-120158257-2",
+	"cordless.cloud": "UA-120158257-1",
+	"localhost:3000": "UA-120158257-1",
+}
+const trackingID = trackingIDs[window.location.host]
+if (trackingID) {
+	ReactGA.initialize(trackingID)
+}
+
+ReactGA.pageview(history.location.pathname) // immediate pageview is recorded
+
+history.listen(location => {
+	ReactGA.pageview(location.pathname)
+})
+
+window.addEventListener('load', event => {
+	const timing = window.performance.timing
+	const totalLoadTime = timing.loadEventStart - timing.fetchStart
+	
+	ReactGA.timing({
+		category: "Site",
+		variable: "Load",
+		value: totalLoadTime,
+	})
+})
 
 const useStyle = makeStyles(theme => ({
 	root: {
@@ -47,9 +80,10 @@ function App(props) {
 	return (
 			<Swipeable className={classes.root + " App"}>
 				<CssBaseline/>
-				<Router>
+				<Router history={history}>
 					<SidebarMenu />
 					<div className={classes.toolbar}></div>
+					<EntryPopup/>
 					<Switch>
 						<Route exact path="/" component={Pages.MyFarm} />
 						<Route path="/contract" component={Pages.ContractApp} />

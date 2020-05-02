@@ -118,7 +118,7 @@ export default function CoopExpiryEstimate(props) {
         <Paper style={props.style} className={classes.root}>
             <Overlay completed={completed}/>
             <Typography variant="body2" className={classes.estimate} style={{gridArea: "estimateTitle"}}>
-                    Estimate
+                    Completion Estimate
             </Typography>
 
             <Typography variant="body2" className={classes.estimate} style={{gridArea: "estimateValue"}}>
@@ -132,7 +132,7 @@ export default function CoopExpiryEstimate(props) {
             </div>
 
             <Typography variant="body2" className={classes.expiry} style={{gridArea: "expiryTitle"}}>
-                Time Left
+                Contract Time Left
             </Typography>
 
             <Typography variant="body2" className={classes.expiry} style={{gridArea: "expiryValue"}}>

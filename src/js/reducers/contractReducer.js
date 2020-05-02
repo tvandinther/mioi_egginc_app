@@ -17,7 +17,6 @@ const defaultActiveContractsRoot = {
 const initialState = {
     activeContracts: defaultActiveContractsRoot,
     coopSearch: {},
-    viewContract: null,
     coops: {},
     playerCoops: {},
 }
@@ -67,16 +66,6 @@ export default function reducer(state=initialState, action) {
                     ...state.activeContracts,
                     error: action.payload,
             }}
-        }
-        case "SHOW_CONTRACT": {
-            return {...state,
-                viewContract: true
-            }
-        }
-        case "HIDE_CONTRACT": {
-            return {...state,
-                viewContract: false
-            }
         }
         case "UPDATE_CONTRACT_COOP_SEARCH_STRING": {
             let newCoopSearch = state.coopSearch

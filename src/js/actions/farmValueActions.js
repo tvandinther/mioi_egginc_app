@@ -59,17 +59,15 @@ export function setPopulation(numChickens) {
     }
 }
 
-export function setResearch(researchId, value, type="common") {
+export function setResearch(object, type="common") {
     return {
         type: "SET_RESEARCH",
         payload: {
-            researchId: researchId,
-            value: value,
+            research: object,
             researchType: type,
         }
     }
 }
-
 export function calculateStats(farm, game) {
 	return {
 		type: "CALCULATE_FARM_STATS",

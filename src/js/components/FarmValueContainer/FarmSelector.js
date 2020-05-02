@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { NativeSelect, Select, MenuItem, Button, Card, Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { setFarm } from "../../actions/farmValueActions"
+import ReactGA from "react-ga"
 import HeadedCard from "../HeadedCard"
 
 const useStyle = makeStyles(theme => ({
@@ -40,8 +41,13 @@ export default function FarmSelector(props) {
     let [selected, setSelected] = useState(0)
     
     const handleFarmLoad = () => {
-        let playerFarms = playerData.farmsList
-        dispatch(setFarm(playerFarms[selected], playerData.game))
+        let selectedFarm = playerData.farmsList[selected]
+		dispatch(setFarm(selectedFarm, playerData.game))
+		ReactGA.event({
+			category: "Farm Value",
+			action: "Farm Loaded",
+			label: selectedFarm.contractId === "" ? "Home" : "Contract",
+		})
     }
 
     // useEffect(() => {

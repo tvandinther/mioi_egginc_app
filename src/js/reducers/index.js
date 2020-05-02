@@ -10,8 +10,8 @@ import app from "./appReducer"
 export default combineReducers({
 	app,
 	UI,
-    contract,
-    farmValue,
-    settings,
+	settings,
 	playerData,
+    contract,
+	farmValue,
 })

@@ -65,12 +65,15 @@ export default function Dashboard(props) {
     )
     // PLAYER CONTRACTS
     if (activeContracts.fetched && playerData.fetched) {
-        coopIds.forEach((metaContract, index) => dcm.addItem(
-            <CoopCard key={index} priority={1} metaContract={metaContract} contract={activeContracts.contracts[metaContract.contract.identifier]}/>
-        ))
+        coopIds.forEach((metaContract, index) => {
+			let contract = activeContracts.contracts[metaContract.contract.identifier]
+			if (contract !== undefined) dcm.addItem(
+				<CoopCard key={index} priority={1} metaContract={metaContract} contract={contract}/>
+			)
+		})
     }
     // PLAYER ID PROMPT
-    if (!playerId) {
+    if (!playerId || playerData.fetching) {
         dcm.addItem(
             <PlayerIDPromptCard priority={0} key="idPrompt"/>
         )

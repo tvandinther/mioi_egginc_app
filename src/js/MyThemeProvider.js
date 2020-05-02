@@ -1,8 +1,9 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { StylesProvider, ThemeProvider, createMuiTheme, makeStyles } from "@material-ui/core/styles"
 import { indigo, deepOrange, deepPurple } from "@material-ui/core/colors"
 import { create } from "jss"
 import { useSelector } from "react-redux"
+import ReactGA from "react-ga"
 
 const jss = create()
 jss.createStyleSheet({
@@ -113,7 +114,13 @@ const darkTheme = createMuiTheme({
 })
 
 export default function MyThemeProvider(props) {
-    const isDarkTheme = useSelector(store => store.settings.darkTheme)
+	const isDarkTheme = useSelector(store => store.settings.darkTheme)
+	useEffect(() => {
+		ReactGA.event({
+			category: "Theme",
+			action: isDarkTheme ? "Dark Theme Enabled" : "Light Theme Enabled",
+		})
+	}, [isDarkTheme])
     return (
         <StylesProvider>
             <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>

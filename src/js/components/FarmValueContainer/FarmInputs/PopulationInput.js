@@ -41,7 +41,7 @@ export default function PopulationInput(props) {
     }
 
     const handleBlur = evt => {
-        let currentValue
+        let currentValue = value
         if (value < 0 || value == "") {
             currentValue = 0
         }

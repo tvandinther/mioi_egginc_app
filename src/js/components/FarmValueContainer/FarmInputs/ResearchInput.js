@@ -93,7 +93,7 @@ export default function ResearchInput(props) {
     }
 
     const submitChange = value => {
-        dispatch(setResearch(research.id, value, type))
+        dispatch(setResearch({[research.id]: value}, type))
 	}
 	
 	const handleSliderCommit = (evt, newValue) => {

@@ -5,6 +5,7 @@ import { updateContractCoopSearchString, getCoop, setPlayerCoopToCoop } from "..
 import { contractNameFormat } from "../../tools/eggincTools"
 import { Typography, Button, CircularProgress } from "@material-ui/core"
 import { useTheme, makeStyles } from "@material-ui/core/styles"
+import ReactGA from "react-ga"
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -45,7 +46,12 @@ export default function CoopSearch(props) {
     }
     const handleSubmit = () => {
         if (!loading) {
-            dispatch(getCoop(coopSearchString, props.contractId))
+			dispatch(getCoop(coopSearchString, props.contractId))
+			ReactGA.event({
+				category: "Contract",
+				action: "Co-op Searched",
+				label: props.contractId,
+			})
         }
     }
     

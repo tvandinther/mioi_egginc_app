@@ -4,6 +4,8 @@ import { TextField, Button, IconButton } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { useSelector, useDispatch } from "react-redux"
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
+import Loading from "../Loading"
+import ReactGA from "react-ga"
 
 // MY ID FOR TESTING
 // 105311171997915647553
@@ -23,14 +25,20 @@ const useStyle = makeStyles(theme => ({
 export default function PlayerIDInput(props) {
 	const classes = useStyle()
     const dispatch = useDispatch()
-    const playerId = useSelector(store => store.settings.playerId)
+	const playerId = useSelector(store => store.settings.playerId)
+	const fetchedPlayerId = useSelector(store => store.playerData.userId)
+	const fetching = useSelector(store => store.playerData.fetching)
     const playerDataError = useSelector(store => store.playerData.error)
-    let [error, setError] = useState(playerId ? playerDataError : false)
+    let [error, setError] = useState(playerId ? playerDataError && !fetching : false)
     let [value, setValue] = useState(playerId || "")
 
 	useEffect(() => {
 		setValue(playerId || "")
 	}, [playerId])
+
+	// useEffect(() => {
+	// 	dispatch(setPlayerId(fetchedPlayerId))
+	// }, [fetchedPlayerId])
 
     const handleChange = event => {
         setValue(event.target.value)
@@ -38,10 +46,20 @@ export default function PlayerIDInput(props) {
     }
     const handleSubmit = event => {
         if (value !== "" && value !== playerId) {
-            dispatch(validatePlayerId(value))
-            dispatch(setPlayerId(value))
+			dispatch(validatePlayerId(value))
+			dispatch(setPlayerId(value))
+			ReactGA.event({
+				category: "Player",
+				action: "PlayerID Submitted",
+			})
         }
-    }
+	}
+	
+	const handleKeyUp = event => {
+		if (event.key === "Enter") {
+			handleSubmit()
+		}
+	}
 
     return (
 		<div className={classes.root}>
@@ -52,14 +70,17 @@ export default function PlayerIDInput(props) {
 				helperText="Found at the bottom of the 'Privacy & Data' in-game menu"
 				label="Player ID"
 				onChange={handleChange}
+				onKeyUp={handleKeyUp}
 			/>
-			<IconButton
+			{fetching && <Loading/>}
+			{!fetching && <IconButton
 				onClick={handleSubmit}
 				color="primary"
 				size="medium"
+				disabled={value === playerId}
 			>
 				<CheckCircleIcon/>
-			</IconButton>
+			</IconButton>}
 		</div>
     )
 }

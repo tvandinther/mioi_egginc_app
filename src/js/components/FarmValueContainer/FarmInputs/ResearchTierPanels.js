@@ -1,10 +1,12 @@
 import React, { useState, useRef } from "react"
 import research from "../../../tools/research.json"
-import { Typography, Divider, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from "@material-ui/core"
+import { Typography, Divider, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Button } from "@material-ui/core"
 import ResearchInput from "./ResearchInput"
 import { makeStyles } from "@material-ui/core/styles"
 import HeadedCard from "../../HeadedCard"
 import Loading from "../../Loading"
+import { useDispatch } from "react-redux"
+import { setResearch } from "../../../actions/farmValueActions.js"
 
 const useStyle = makeStyles(theme => ({
     panelDetails: {
@@ -21,6 +23,10 @@ const useStyle = makeStyles(theme => ({
 	panelOverride: {
 		paddingLeft: 12,
 		paddingRight: 12,
+	},
+	summary: {
+		display: "flex",
+		justifyContent: "space-between",
 	}
 }))
 
@@ -31,6 +37,7 @@ export default function ResearchTierPanels(props) {
 	let [expanded, setExpanded] = useState(false)
 
 	function ResearchExpansionPanel(props) {
+		const dispatch = useDispatch()
 		const panelRef = useRef(null)
 		const { index, tier, expanded, setExpanded } = props
 		var thisExpanded = expanded === index
@@ -56,10 +63,33 @@ export default function ResearchTierPanels(props) {
 			}
 		}
 
+		const handleMax = evt => {
+			let researchObject = {}
+			if (tier.tier === "epic") {
+				for (let research of tier.research) {
+					researchObject[research.id] = research.maxLevel
+				}
+				dispatch(setResearch(researchObject, "epic"))
+			}
+			else {
+				for (let i = 0; i < tier.tier; i++) {
+					let tier = research.common[i]
+					for (let research of tier.research) {
+						researchObject[research.id] = research.maxLevel
+					}
+				}
+				dispatch(setResearch(researchObject))
+			}
+			
+			evt.stopPropagation()
+			setExpanded(index)
+		}
+
 		return (
 			<ExpansionPanel key={`panel${index}`} expanded={thisExpanded} onChange={handleChange}>
-				<ExpansionPanelSummary>
+				<ExpansionPanelSummary classes={{content: classes.summary}}>
 					<Typography variant="subtitle1">{tier.title}</Typography>
+					<Button variant="outlined" onClick={handleMax}>Max Tier</Button>
 				</ExpansionPanelSummary>
 				<ExpansionPanelDetails ref={panelRef} className={classes.panelDetails} classes={{root: classes.panelOverride}}>
 					{researchInputs}

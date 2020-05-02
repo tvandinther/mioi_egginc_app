@@ -10,16 +10,18 @@ export default function reducer(state=initialState, action) {
     switch(action.type) {
 		case "VALIDATE_GAMEID_FULFILLED": {
 			let data = action.payload.data.data.eggInc.playerData
-			let epicResearch = {}
-			data.game.epicResearchList.forEach(research => {
-				epicResearch[research.id] = research.level
-			})
-			return {
-				...state,
-				game: {
-					...data.game,
-					epicResearch: epicResearch,
-				},
+			if (data.userName) {
+				let epicResearch = {}
+				data.game.epicResearchList.forEach(research => {
+					epicResearch[research.id] = research.level
+				})
+				return {
+					...state,
+					game: {
+						...data.game,
+						epicResearch: epicResearch,
+					},
+				}
 			}
 		}
         case "SET_FARM": {
@@ -88,7 +90,7 @@ export default function reducer(state=initialState, action) {
                     numChickens: action.payload
                 }
             }
-        }
+		}
         case "SET_RESEARCH": {
             if (action.payload.researchType === "common") {
 				return {
@@ -97,7 +99,7 @@ export default function reducer(state=initialState, action) {
 						...state.farm,
 						commonResearch: {
 							...state.farm.commonResearch,
-							[action.payload.researchId]: action.payload.value
+							...action.payload.research,
 						}
 					}
 				}
@@ -109,7 +111,7 @@ export default function reducer(state=initialState, action) {
 						...state.game,
 						epicResearch: {
 							...state.game.epicResearch,
-							[action.payload.researchId]: action.payload.value
+							...action.payload.research,
 						}
 					}
 				}

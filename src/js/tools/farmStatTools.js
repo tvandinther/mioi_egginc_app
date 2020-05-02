@@ -1,3 +1,4 @@
+import ReactGA from "react-ga"
 import research from "./research.json"
 import eggTypes from "./eggTypes.json"
 import habs from "./habs.json"
@@ -30,7 +31,8 @@ export default function calculateFarmStats(farm, game) {
     }
 
     let updatedParameters = iterateResearch(playerResearch, initialParameters, farm) // mutates parameters
-
+	updatedParameters.maxHabCapacity = Math.ceil(updatedParameters.habCapacity * updatedParameters.maxHabCapacity)
+	updatedParameters.population = Math.min(updatedParameters.population, updatedParameters.maxHabCapacity)
     updatedParameters.farmValue = farmValueFormula(updatedParameters)
 
 	const farmStats = {
@@ -102,14 +104,20 @@ function iterateResearch(playerResearch, parameters, farm) {
 
 function farmValueFormula(parameters) {
     //SUB CALCULATIONS
-    let habSpace = Math.ceil(parameters.habCapacity * parameters.maxHabCapacity);
     let eggsMin = parameters.population * parameters.layingRate;
     let eggValue = (parameters.eggTypeValue * parameters.eggValue) * (1 + parameters.meBonus);
     let eggsDelivered = Math.min(parameters.shippingCapacity, eggsMin)
     let weightedPopulation = (Math.floor(eggsDelivered / parameters.layingRate) + (Math.ceil((eggsMin - eggsDelivered) / parameters.layingRate) * 0.2));
-    let subValue1 = weightedPopulation + Math.pow(habSpace - parameters.population, 0.6) + (180 * parameters.hatchRate * parameters.silos)
+    let subValue1 = weightedPopulation + Math.pow(parameters.maxHabCapacity - parameters.population, 0.6) + (180 * parameters.hatchRate * parameters.silos)
     let subValue2 = parameters.accTricks  * parameters.eggMultiplier * parameters.layingRate / 2 * eggValue * 2000
-    //FINAL CALCULATION
+	//FINAL CALCULATION
+	if (isNaN(subValue1) || isNaN(subValue2)) {
+		let valueString = isNaN(subValue1) ? "subValue1" : "subValue2"
+		ReactGA.exception({
+			description: `${valueString} is NaN`,
+			fatal: false,
+		})
+	}
     console.assert(subValue1)
     console.assert(subValue2)
     return subValue1 * subValue2;

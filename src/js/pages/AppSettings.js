@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles"
 import { useSelector, useDispatch } from "react-redux"
 import * as settingsActions from "../actions/settingsActions"
 import ClearPlayerID from "../components/appSettings/ClearPlayerID"
+import ThemeSwitch from "../components/appSettings/ThemeSwitch"
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -57,7 +58,7 @@ export default function AppSettings(props) {
 			<Divider variant="middle"/>
 			<List>
 				<ListItem>
-					<Switch checked={settings.darkTheme} onChange={event => dispatch(settingsActions.setDarkTheme(event.target.checked))}/>
+					<ThemeSwitch/>
 					<ListItemText primary="Dark Theme"/>
 				</ListItem>
 			</List>
