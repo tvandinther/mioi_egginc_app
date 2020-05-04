@@ -142,7 +142,7 @@ export function getImageSrc(reward) {
             break
         }
         case "RESEARCH": {
-            path = reward.subtype
+            path = `r_icon_${reward.subtype}`
             quantity = `+${reward.quantity}`
             break
         }

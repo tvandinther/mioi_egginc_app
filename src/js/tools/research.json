@@ -709,7 +709,7 @@
 		  "baseCost": null,
 		  "costMultiplier": null,
 		  "maxLevel": 20,
-		  "id": "epic_hatchery"
+		  "id": "epic_internal_incubators"
 		},
 		{
 		  "name": "Accounting Tricks",
