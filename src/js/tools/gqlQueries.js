@@ -41,9 +41,12 @@ export const getPlayerData = `
         eggInc {
             playerData(playerID: $playerId) {
                 userId
-                userName
+				userName
+				approxTime
                 game {
 					soulEggsD
+					maxEggReached
+					hyperLoopStation
 					forceEliteContracts
                     eggsOfProphecy
                     epicResearchList {
@@ -54,7 +57,16 @@ export const getPlayerData = `
                     boostsList {
                         boostId
                         count
-                    }
+					}
+					nextDailyGiftTime
+					lastDailyGiftCollectedDay
+					numDailyGiftsCollected
+					eggMedalLevelList
+					maxFarmSizeReachedList
+					achievementsList {
+						id
+						achieved
+					}
                 }
                 contracts {
                     contractsList {

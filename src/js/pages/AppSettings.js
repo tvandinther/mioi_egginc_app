@@ -57,10 +57,7 @@ export default function AppSettings(props) {
 			</Typography>
 			<Divider variant="middle"/>
 			<List>
-				<ListItem>
-					<ThemeSwitch/>
-					<ListItemText primary="Dark Theme"/>
-				</ListItem>
+				<ThemeSwitch/>
 			</List>
 		</div>
 	)

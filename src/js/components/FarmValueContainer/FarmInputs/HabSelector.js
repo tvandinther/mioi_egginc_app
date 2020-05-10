@@ -38,6 +38,7 @@ export default function EggSelector(props) {
 			value: index,
 		})
 	})
+	habMap.items.unshift(habMap.items.pop()) // bring the No hab option to the top
 
 	var dropdowns = []
 	for (let i = 0; i < 4; i++) {

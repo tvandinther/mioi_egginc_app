@@ -58,3 +58,13 @@ export function setPlayerCoopToCoop(coop, contractId) {
         }
     }
 }
+
+export function setContractCalcParameter(parameter, value) {
+	return {
+		type: "SET_CONTRACT_CALC_PARAMETER",
+		payload: {
+			parameter: parameter,
+			value: value,
+		}
+	}
+}

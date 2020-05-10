@@ -10,7 +10,7 @@ import reducer from "./reducers"
 const persistConfig = {
     key: "appSettings",
     storage,
-    whitelist: ['settings'], // Only persists stores under these names
+    whitelist: ['settings', 'app', 'playerData'], // Only persists stores under these names
 }
 
 const persistedReducer = persistReducer(persistConfig, reducer)

@@ -4,6 +4,7 @@ import CoopCard from "./CoopCard"
 import * as ContractActions from "../../actions/contractActions"
 import { makeStyles, useTheme } from "@material-ui/core/styles"
 import PlayerIDPromptCard from "./PlayerIDPromptCard"
+import PlayerCard from "./PlayerCard"
 import QuickLinkCard from "./QuickLinkCard"
 import NewsCard from "./NewsCard"
 import Loading from "../Loading"
@@ -73,11 +74,14 @@ export default function Dashboard(props) {
 		})
     }
     // PLAYER ID PROMPT
-    if (!playerId || playerData.fetching) {
-        dcm.addItem(
-            <PlayerIDPromptCard priority={0} key="idPrompt"/>
-        )
-    }
+    // if (!playerId || playerData.fetching) {
+    //     dcm.addItem(
+    //         <PlayerIDPromptCard priority={0} key="idPrompt"/>
+    //     )
+	// }
+	
+	dcm.addItem(<PlayerCard priority={0}/>)
+
     useEffect(() => {
         if (window.innerWidth > theme.breakpoints.values.lg) setColumnCount(3)
         else if (window.innerWidth > theme.breakpoints.values.md) setColumnCount(2)

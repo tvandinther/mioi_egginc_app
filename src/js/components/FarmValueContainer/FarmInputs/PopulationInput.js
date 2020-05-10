@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react"
-import { Input, Slider, FormControlLabel, Switch } from "@material-ui/core"
+import { Slider, FormControlLabel, Switch, Input } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { useDispatch, useSelector } from "react-redux"
 import { setPopulation } from "../../../actions/farmValueActions"
 import { convertSymbol } from "../../../tools/eggincTools"
 import HeadedCard from "../../HeadedCard"
+import TextMask from "../../TextMask"
 
 const useStyle = makeStyles(theme => ({
     root: {
-        display: "grid",
+		display: "flex",
+		flexDirection: "column",
         gridGap: 10,
         alignItems: "center",
-        justifyItems: "center",
-		gridTemplateColumns: "1fr",
 		padding: "10px 30px",
     },
     input: {
@@ -36,16 +36,17 @@ export default function PopulationInput(props) {
 		if (value > maxHabCapacity || maxLock) setValue(maxHabCapacity)
 	}, [maxHabCapacity, maxLock])
 
-    const handleInputChange = evt => {
-        setValue(evt.target.value === "" ? "" : Number(evt.target.value))
+    const handleInputChange = (evt, newValue) => {
+        setValue(newValue)
     }
 
-    const handleBlur = evt => {
-        let currentValue = value
-        if (value < 0 || value == "") {
+    const handleBlur = (evt, newValue) => {
+		let currentValue = value
+		newValue = isNaN(newValue) ? evt.target.value : newValue
+        if (newValue < 0 || newValue == "") {
             currentValue = 0
         }
-        else if (value > maxHabCapacity) {
+        else if (newValue > maxHabCapacity) {
             currentValue = maxHabCapacity
         }
         setValue(currentValue)
@@ -69,14 +70,17 @@ export default function PopulationInput(props) {
 				color="secondary"
 				marks={[{value: 0, label: 0}, {value: maxHabCapacity, label: convertSymbol(maxHabCapacity)}]}
 			/>
-			<Input
+			<TextMask
 				key="input"
 				classes={{input: classes.inputRoot}}
 				className={classes.input}
 				onChange={handleInputChange}
 				onBlur={handleBlur}
 				value={value}
-			/>
+				helperText="e.g. 123,456 or 123.456T"
+			>
+				{Input}
+			</TextMask>
 			<FormControlLabel
 				control={
 					<Switch

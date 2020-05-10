@@ -14,7 +14,7 @@ export default function CoopRewards(props) {
 
     const style = {
         ...props.style,
-        margin: "5px 15px",
+        margin: "10px 20px",
         borderRadius: 10,
     }
     

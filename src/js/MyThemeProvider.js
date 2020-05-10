@@ -1,9 +1,8 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { StylesProvider, ThemeProvider, createMuiTheme, makeStyles } from "@material-ui/core/styles"
 import { indigo, deepOrange, deepPurple } from "@material-ui/core/colors"
 import { create } from "jss"
 import { useSelector } from "react-redux"
-import ReactGA from "react-ga"
 
 const jss = create()
 jss.createStyleSheet({
@@ -22,6 +21,35 @@ const headLineFontFamily = [
     "sans-serif",
 ].join(",")
 
+const commonThemeOverrides= {
+	MuiSlider: {
+		rail: {
+			height: 10,
+		},
+		track: {
+			height: 10,
+		},
+		mark: {
+			width: 4,
+			borderRadius: 2,
+			height: 10,
+		},
+		markLabel: {
+			top: 32,
+		},
+		thumb: {
+			width: 18,
+			height: 24,
+			marginLeft: 18 / -2,
+			marginTop: (24 / -2) + (10 / 2), // half the negative thumb height + half the track height
+			borderWidth: 2,
+			borderRadius: 9,
+			borderStyle: "solid",
+			borderColor: "white",
+		}
+	}
+}
+
 const lightTheme = createMuiTheme({
     palette: {
         type: 'light',
@@ -35,7 +63,10 @@ const lightTheme = createMuiTheme({
     },
     status: {
         danger: 'red',
-    },
+	},
+	overrides: Object.assign({
+		//
+	}, commonThemeOverrides),
     typography: {
         fontFamily: [
             "Open Sans",
@@ -78,13 +109,13 @@ const darkTheme = createMuiTheme({
     status: {
         danger: 'red',
     },
-    overrides: {
-        MuiCard: {
-            root: {
-                backgroundColor: "#222"
-            }
-        }
-    },
+    overrides: Object.assign({
+		MuiCard: {
+			root: {
+				backgroundColor: "#222"
+			}
+		},
+	}, commonThemeOverrides),
     typography: {
         fontFamily: [
             "Open Sans",
@@ -115,12 +146,6 @@ const darkTheme = createMuiTheme({
 
 export default function MyThemeProvider(props) {
 	const isDarkTheme = useSelector(store => store.settings.darkTheme)
-	useEffect(() => {
-		ReactGA.event({
-			category: "Theme",
-			action: isDarkTheme ? "Dark Theme Enabled" : "Light Theme Enabled",
-		})
-	}, [isDarkTheme])
     return (
         <StylesProvider>
             <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>

@@ -6,9 +6,10 @@ import CoopSearch from "./CoopSearch"
 import { showContract, hideContract, updateContractCoopSearchString } from "../../actions/contractActions"
 import ContractIcons from "./ContractIcons"
 import ContractRewards from "./CoopSummary/CoopRewards"
+import ContractSoloCalcPanel from "./ContractSoloCalcPanel"
 import CoopSummary from "./CoopSummary"
 import BackButton from "../BackButton"
-import { Typography, Card } from "@material-ui/core"
+import { Typography, Card, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 
 const useStyle = makeStyles(theme => ({
@@ -17,11 +18,13 @@ const useStyle = makeStyles(theme => ({
         gridTemplateColumns: "1fr 1fr 1fr",
         gridTemplateAreas: `
             "back-button back-button back-button"
-            "image title title"
+			"image image image"
+			"title title title"
             "description description description"
             "icons icons icons"
             "search search search"
-            "coop coop coop"
+			"coop coop coop"
+			"calc calc calc"
         `,
         gridColumnGap: "10px",
 		gridRowGap: "15px",
@@ -69,6 +72,7 @@ function ContractSummary(props) {
                 <ContractIcons contract={contract} coop={coop}/>
                 {contract.coopAllow && <CoopSearch style={{gridArea: "search"}} {...contract.coopSearch} contractId={contractId}/>}
                 <CoopSummary style={{gridArea: "coop"}} contract={contract}/>
+				<ContractSoloCalcPanel style={{gridArea: "calc"}} contract={contract} coop={coop}/>
             </Card>
         )
     }

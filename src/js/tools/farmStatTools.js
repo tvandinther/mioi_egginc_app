@@ -128,18 +128,17 @@ function mysticalBonusFormula(soulEggs, prophecyEggs, playerResearch) {
     let prophecyBonus = playerResearch.epic["prophecy_bonus"]
     // 
     if (Math.pow(105 + (1 * prophecyBonus), prophecyEggs) === Infinity) {
-        // Try to use BigInt
+		// Try to use BigInt
+		
         if (window.BigInt !== undefined) {
-            try {
-                let soulEggComponent = (BigInt(10) + (BigInt(1) * BigInt(soulFood))) / BigInt(100)
-                // let prophecyEggComponent = ((BigInt(105) + (BigInt(1) * BigInt(prophecyBonus))) ** BigInt(prophecyEggs)) / (BigInt(100) ** BigInt(prophecyEggs))            
-                let intNumerator = (BigInt(105) + (BigInt(1) * BigInt(prophecyBonus))) ** BigInt(prophecyEggs)
-                let intDenominator = (BigInt(100) ** BigInt(prophecyEggs))
-                let prophecyEggComponent = intNumerator / intDenominator
-                let result = BigInt(soulEggs) * (soulEggComponent * prophecyEggComponent)
-                console.log(typeof result, result)
-                return Number(result)
-            } catch (TypeError) {}
+			var soulEggComponent = (BigInt(10) + (BigInt(1) * BigInt(soulFood))) / BigInt(100)
+			// var intNumerator = (BigInt(105) + (BigInt(1) * BigInt(prophecyBonus))) ** BigInt(prophecyEggs)
+			// var intDenominator = (BigInt(100) ** BigInt(prophecyEggs))
+			var intNumerator = eval(`(BigInt(105) + (BigInt(1) * BigInt(${prophecyBonus}))) ** BigInt(${prophecyEggs})`)
+			var intDenominator = eval(`(BigInt(100) ** BigInt(${prophecyEggs}))`)
+			var prophecyEggComponent = intNumerator / intDenominator
+			var result = BigInt(soulEggs) * (soulEggComponent * prophecyEggComponent)
+			return Number(result)
         }
         return -1
     }

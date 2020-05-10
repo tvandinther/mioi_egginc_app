@@ -37,6 +37,7 @@ type PlayerData {
     userId: String
     userName: String
     version: Int
+	approxTime: Float
     stats: Stats
     game: Game
     farmsList: [Simulation]

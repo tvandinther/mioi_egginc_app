@@ -53,7 +53,7 @@ function ContractApp(props) {
                 <Route exact path={`${props.match.path}`}>
                     <ContractList match={props.match} />
                 </Route>
-                <Route path={`${props.match.path}/:contractId`}>
+                <Route path={`${props.match.path}/view/:contractId`}>
                     <Container disableGutters style={{overflowY: "auto"}}>
                         <ContractSummary match={props.match}/>
                     </Container>

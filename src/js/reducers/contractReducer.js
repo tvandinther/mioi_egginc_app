@@ -18,7 +18,8 @@ const initialState = {
     activeContracts: defaultActiveContractsRoot,
     coopSearch: {},
     coops: {},
-    playerCoops: {},
+	playerCoops: {},
+	contractCalc: {},
 }
 
 
@@ -147,6 +148,14 @@ export default function reducer(state=initialState, action) {
                     }
                 }
             }
-        }
+		}
+		case "SET_CONTRACT_CALC_PARAMETER": {
+			return {...state,
+				contractCalc: {
+					...state.contractCalc,
+					[action.payload.parameter]: action.payload.value,
+				}
+			}
+		}
     }
 }

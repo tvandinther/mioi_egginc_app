@@ -106,7 +106,7 @@ export default function SidebarMenu(props) {
                     {props.children}
 					<Divider/>
 					<Typography className={classes.text} variant="overline">© Created by Tom</Typography>
-					<Typography className={classes.text} variant="caption">Version {0.15}</Typography>
+					<Typography className={classes.text} variant="caption">Version {0.16}</Typography>
                 </SwipeableDrawer>
             )
         }

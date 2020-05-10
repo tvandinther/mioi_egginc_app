@@ -35,7 +35,7 @@ export default function CoopMembers(props) {
                             <TableRow key={member.id}>
                                 <TableCell>{member.name}</TableCell>
                                 <TableCell numeric="true">{convertSymbol(member.eggs)}</TableCell>
-                                <TableCell numeric="true">{convertSymbol(member.rate)}</TableCell>
+                                <TableCell numeric="true">{convertSymbol(member.rate) + "/s"}</TableCell>
                                 <TableCell numeric="true">{percentString(member.eggs / props.coop.eggs, 2)}</TableCell>
                             </TableRow>
                         ))}

@@ -82,7 +82,7 @@ export default function ResearchTierPanels(props) {
 			}
 			
 			evt.stopPropagation()
-			setExpanded(index)
+			// setExpanded(index)
 		}
 
 		return (

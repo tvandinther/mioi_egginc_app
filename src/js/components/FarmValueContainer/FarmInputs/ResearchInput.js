@@ -51,7 +51,7 @@ const useStyle = makeStyles(theme => ({
 		textAlign: "right",
 		width: "100%",
 		maxWidth: 500,
-		top: 20,
+		top: 28,
 	},
 }))
 
@@ -68,9 +68,12 @@ export default function ResearchInput(props) {
 		initialValue = useSelector(store => store.farmValue.farm.commonResearch[research.id])
 		type = "common"
 	}
+	const dispatchAction = props.dispatchAction || ((value) => setResearch({[research.id]: value}, type))
 
     let [sliderValue, setSliderValue] = useState(initialValue)
-    useEffect(() => setSliderValue(initialValue), [initialValue])
+	
+	if (props.dispatchAction) dispatch(props.dispatchAction(initialValue))
+	useEffect(() => setSliderValue(initialValue), [initialValue])
 
     const handleInputChange = (evt) => {
         setSliderValue(Number(evt.target.value) || 0)
@@ -93,7 +96,7 @@ export default function ResearchInput(props) {
     }
 
     const submitChange = value => {
-        dispatch(setResearch({[research.id]: value}, type))
+        dispatch(dispatchAction(value))
 	}
 	
 	const handleSliderCommit = (evt, newValue) => {
@@ -116,7 +119,9 @@ export default function ResearchInput(props) {
             <Typography className={classes.name} variant="h6">{research.name}</Typography>
             <Typography className={classes.description} variant="subtitle2">{research.description}</Typography>
             <Input
-                type="number"
+				type="number"
+				min={0}
+				max={research.maxLevel}
 				className={classes.input}
 				classes={{input: classes.inputOverride}}
                 value={sliderValue}

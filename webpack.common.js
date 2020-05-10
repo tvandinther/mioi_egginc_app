@@ -11,7 +11,11 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         loader: "babel-loader",
         options: {
-          presets: ["@babel/preset-env", "@babel/preset-react"],
+          presets: [
+			  ["@babel/preset-env", {
+				  exclude: ["@babel/plugin-transform-exponentiation-operator"]
+			  }], 
+			  ["@babel/preset-react"]],
           plugins: [
             [
               'babel-plugin-import',
@@ -30,7 +34,7 @@ module.exports = {
                 camel2DashComponentName: false
               },
               'icons'
-            ]
+			]
           ],
         }
       },

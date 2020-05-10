@@ -765,7 +765,18 @@
 		  "costMultiplier": null,
 		  "maxLevel": 5,
 		  "id": "prophecy_bonus"
-		}
+		},
+		{
+			"name": "Internal Hatchery Calm",
+			"description": "Increase internal hatchery rate by 10% while away",
+			"parameter": "hatchCalm",
+			"factorType": "multiplier",
+			"factor": 0.1,
+			"baseCost": null,
+			"costMultiplier": null,
+			"maxLevel": 20,
+			"id": "int_hatch_calm"
+		  }
 	  ]
 	}
   }

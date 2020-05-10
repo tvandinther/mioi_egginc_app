@@ -1,38 +1,46 @@
 import React, { useState, useEffect } from "react"
-import HeadedCard from "../../HeadedCard"
-import { Input } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
+import { Input } from "@material-ui/core"
 import { useSelector, useDispatch } from "react-redux"
-import { setEggsShipped } from "../../../actions/farmValueActions"
+import { setMysticalEgg } from "../../../actions/farmValueActions"
 import TextMask from "../../TextMask"
 
 const useStyle = makeStyles(theme => ({
-	root: {
-		textAlign: "center",
+    root: {
+        display: "grid",
+        gridTemplateColumns: "1fr",
+        alignItems: "center",
+        justifyItems: "center",
+
+        "& >img": {
+            width: 100,
+            height: "auto",
+        }
 	},
 	inputRoot: {
 		textAlign: "center",
 	},
 }))
 
-export default function ShippingInput(props) {
+export default function SEInput(props) {
 	const classes = useStyle()
 	const dispatch = useDispatch()
-	const initialValue = useSelector(store => store.farmValue.stats.shippingCapacity)
-	let [value, setValue] = useState(initialValue)
-
+	var initialValue = Number(props.value) || 0
+	let [value, setValue] = useState(Number(initialValue))
+	
 	useEffect(() => setValue(initialValue), [initialValue])
 
 	const handleBlur = (evt, newValue) => {
 		newValue = isNaN(newValue) ? evt.target.value : newValue
 		let value = Number(newValue)
 		setValue(value)
-		dispatch(setEggsShipped(value))
+		dispatch(setMysticalEgg("SOUL_EGGS", value))
 	}
-
-	return (
-		<HeadedCard collapsable title="Shipping" className={classes.root}>
-			<TextMask
+	
+    return (
+        <div className={classes.root}>
+            <img src={`/images/SOUL_EGGS.png`}/>
+            <TextMask
 				value={value}
 				classes={{input: classes.inputRoot}}
 				onBlur={handleBlur}
@@ -40,6 +48,6 @@ export default function ShippingInput(props) {
 			>
 				{Input}
 			</TextMask>
-		</HeadedCard>
-	)
+        </div>
+    )
 }

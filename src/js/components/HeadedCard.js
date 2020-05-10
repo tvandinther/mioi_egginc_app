@@ -47,14 +47,6 @@ export default function DashboardCard(props) {
 	const collapsable = props.collapsable || false
 	let [raised, setRaised] = useState(false)
 	let [collapsed, setCollapsed] = useState(false)
-	
-	useEffect(() => {
-		ReactGA.event({
-			category: "Interaction",
-			action: collapsed ? "Card Collapsed" : "Card Expanded",
-			label: props.title,
-		})
-	}, [collapsed])
 
 	const toggleRaised = hoverable ? () => {
         setRaised(!raised)
@@ -62,6 +54,11 @@ export default function DashboardCard(props) {
 	
 	const toggleCollapsed = collapsable ? () => {
 		setCollapsed(!collapsed)
+		ReactGA.event({
+			category: "Interaction",
+			action: !collapsed ? "Card Collapsed" : "Card Expanded",
+			label: props.title,
+		})
 	} : null
 
     return (

@@ -29,7 +29,7 @@ export default function FarmStats(props) {
             <Typography>({(Math.log(farmStats.farmValue) / Math.LN10).toFixed(2)} OoM)</Typography>
             <Typography>Earnings Bonus: {eiTools.convertSymbol(farmStats.earningsBonus * 100)}%</Typography>
             <Typography>Egg Value: {eiTools.convertSymbol(farmStats.eggValue)}</Typography>
-            <Typography>Soul Egg Bonus: {(farmStats.soulEggBonus * 100).toLocaleString()}%</Typography>
+            <Typography>Soul Egg Bonus: {eiTools.convertSymbol(farmStats.soulEggBonus * 100)}%</Typography>
             <Typography>Egg Laying Rate: {eiTools.convertSymbol(farmStats.layingRate)} eggs/min</Typography>
             <Typography>Int. Hatchery Rate: {eiTools.convertSymbol(farmStats.hatchRate)} min/hab</Typography>
             <Typography>Max Hab Capacity: {farmStats.maxHabCapacity.toLocaleString()}</Typography>

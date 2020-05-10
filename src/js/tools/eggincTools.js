@@ -1,6 +1,8 @@
 import orders from "./orders.json"
 import calculateFarmStats from "./farmStatTools"
 
+const validSymbols = orders.map(order => order.symbol)
+
 export { calculateFarmStats }
 
 export function contractNameFormat(value) {
@@ -46,8 +48,8 @@ export function convertEpoch(epochTime) {
     }
 }
 
-export function timeConvert(time) { 
-    //return 'Roughly ' + String(Math.floor(time/24/60) + " days, " + Math.floor(time/60%24) + ' hours and ' + Math.ceil(time%60) + ' minutes');
+export function timeConvert(time, base="ms") { 
+    //return String(Math.floor(time/24/60) + " days, " + Math.floor(time/60%24) + ' hours and ' + Math.ceil(time%60) + ' minutes');
     var units = {
         year: 24*60*365,
         month: 24*60*30,
@@ -56,8 +58,10 @@ export function timeConvert(time) {
         hour: 60,
         minute: 1
     }
-    var result = []
-    time = time / 1000
+	var result = []
+	if (base === "ms") {
+		time = time / 1000
+	}
     for(var name in units) {
       var p =  Math.floor(time / units[name]);
       if(p == 1) result.push(' ' + p + ' ' + name);
@@ -106,6 +110,19 @@ export function convertSymbol(n) { //converting the format of unreadable number 
     else {
         return Math.round((n / cutoffOf(n)) * 1000) / 1000 + 'e' + ((levelOf(n) + 1) * 3)
     }
+}
+
+export function isValidSymbol(string) {	
+	return validSymbols.includes(string)
+}
+
+export function isSymbolFormat(string) {
+	const expression = RegExp(`^\\d{1,3}((\\.\\d{1,3})?(${ validSymbols.toString().replace(/,/g, '|')})?|\\.)?$`)
+	return expression.test(string)
+}
+
+export function convertSymbolToNumber(string) {
+	return  (string.replace(/\D*$/, '')) * Math.pow(10, (magnitudeGet(String(string.match(/\D*$/)))))
 }
 
 export function round(n, precision) {
@@ -167,4 +184,62 @@ export function getImageSrc(reward) {
         path: `${imageRootSrc}/${path}.png`,
         quantity: quantity,
     }
+}
+
+export function contractTimeSoloEstimate(parameters) {
+	const hatchCalm = 1 + (parameters.hatchCalm * 0.1)
+	//BREAKPOINT CALCULATION		
+	let a = parameters.hatchRate * hatchCalm * 4;
+	let b = parameters.layingRate / parameters.population;
+	let c = parameters.population;
+	let d = parameters.eggsLaid;
+	let y = parameters.target;
+	let qA = (a * b) / 2;
+	let qB = b * c;		
+	let qC = d - y;
+	let determinant = Math.pow(qB, 2) - 4 * qA * qC
+	let numerator = determinant < 0 ? 0 : -1 * qB + Math.sqrt(determinant)		
+	let denominator = 2 * qA;		
+	let xToTarget =  numerator / denominator;		
+	let breakpoints = [0]		
+	let xMaxPopulation = (parameters.maxPopulation - c) / a;		
+	let xMaxShippingRate = ((parameters.shippingRate / b) - c) / a;		
+	breakpoints.push(xToTarget, xMaxPopulation, xMaxShippingRate);		
+	breakpoints.sort((a, b) => a - b );
+	//WHATIFS		
+	let maxFarmPopulation = (a * xToTarget) + c;		
+	let maxFarmShipping = ((a * xToTarget) + c) * b;		
+	//CALCULATE TIME		
+	let time = 0;		
+	time =+ breakpoints[1]		
+	//this.showWarning('maxPopulationWarning', 0, false);
+	//this.showWarning('shippingRateWarning', 0, false);
+	for (let i = 1; i < breakpoints.length; i++) {		
+		if (breakpoints[i] == xToTarget) {		
+			break;		
+		}		
+		else if (breakpoints[i] == xMaxPopulation) {		
+			d += findEggsLaid(breakpoints[i], breakpoints[i - 1], a, b, c);		
+			time += findTime(y, b, c, d);		
+			//this.showWarning('maxPopulationWarning', maxFarmPopulation, true);		
+			break;		
+		}		
+		else if (breakpoints[i] == xMaxShippingRate) {		
+			d += findEggsLaid(breakpoints[i], breakpoints[i - 1], a, b, c);		
+			time += findTime(y, b, c, d);		
+			//this.showWarning('shippingRateWarning', maxFarmShipping, true);		
+			break;
+		}
+	}
+		
+	function findEggsLaid(endBreakpoint, startBreakpoint, a, b, c) {		
+		let xRuntime = endBreakpoint - startBreakpoint;		
+		return (a * b / 2) * Math.pow(xRuntime, 2) + b * c * xRuntime;		
+	}
+		
+	function findTime(y, b, c, d) {		
+		return (y - d) / (b * (a * breakpoints[1] + c));		
+	}
+
+	return time;
 }

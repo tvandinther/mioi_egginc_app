@@ -45,7 +45,7 @@ export default function CoopCard(props) {
     let loadingCoop
     if (coop) loadingCoop = coop.fetching
     
-    let link = "/contract"
+    let link = "/contract/view"
     if (contract) link += "/" + contract.name
     if (coopId) link += "/" + coopId
     
