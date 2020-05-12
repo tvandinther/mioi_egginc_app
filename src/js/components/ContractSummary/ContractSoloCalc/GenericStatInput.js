@@ -25,6 +25,8 @@ export default function GenericStatInput(props) {
 		<TextMask
 			value={value}
 			onBlur={handleBlur}
+			fullWidth
+			classes={{input: {textAlign: "right", paddingRight: 24}}}
 		>
 			{Input}
 		</TextMask>

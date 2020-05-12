@@ -15,7 +15,8 @@ const useStyle = makeStyles(theme => ({
         `,
         alignItems: "center",
         justifyItems: "center",
-        gridGap: 10,
+		gridGap: 10,
+		padding: "0px 4px",
 
         "& >img": {
             width: "100%",

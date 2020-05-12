@@ -31,6 +31,12 @@ const useStyle = makeStyles(theme => ({
 		alignItems: "center",
 		margin: 25,
 		padding: 25,
+
+		"@media (max-width: 840px)": {
+			margin: "16px 8px",
+			paddingLeft: 16,
+			paddingRight: 16,
+		}
     }
 }))
 

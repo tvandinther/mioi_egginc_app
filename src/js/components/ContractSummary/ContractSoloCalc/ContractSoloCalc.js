@@ -1,5 +1,5 @@
 import React from "react"
-import { Slider, Typography } from "@material-ui/core"
+import { Slider, Typography, Divider } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import ResearchInput from "../../FarmValueContainer/FarmInputs/ResearchInput"
 import Research from "../../../tools/research.json"
@@ -14,11 +14,13 @@ const useStyle = makeStyles(theme => ({
 	flex: {
 		display: "flex",
 		flexWrap: "wrap",
+		justifyContent: "space-evenly",
 	},
 	section: {
+		flexGrow: 1,
 		margin: 10,
 		padding: 10,
-		borderWidth: 0,
+		borderWidth: 1,
 		borderStyle: "solid",
 		borderRadius: 8,
 		borderColor: theme.palette.augmentColor(theme.palette.grey).main
@@ -45,7 +47,7 @@ export default function ContractSoloCalc(props) {
 	function Section(props) {
 		return (
 			<div className={classes.section}>
-				<Typography variant="h6">{props.title}</Typography>
+				<Typography align="center" variant="h6">{props.title}</Typography>
 				<Typography variant="subtitle2">{props.subtitle}</Typography>
 				{props.children}
 			</div>
@@ -66,6 +68,7 @@ export default function ContractSoloCalc(props) {
 		<div className={classes.root}>
 			<Typography align="center" variant="subtitle1">Time remaining assuming solo progress using the variables below:</Typography>
 			<SoloCalcResults/>
+			<Divider/>
 			<div className={classes.flex}>
 				<Section title="Contract Target">
 					<GenericStatInput name="target" value={valueData.target}/>

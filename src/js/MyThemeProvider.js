@@ -47,7 +47,7 @@ const commonThemeOverrides= {
 			borderStyle: "solid",
 			borderColor: "white",
 		}
-	}
+	},
 }
 
 const lightTheme = createMuiTheme({
