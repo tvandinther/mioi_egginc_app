@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { useParams, useHistory } from "react-router-dom"
-import { connect } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useSwipeable } from "react-swipeable"
 import CoopSearch from "./CoopSearch"
 import { showContract, hideContract, updateContractCoopSearchString } from "../../actions/contractActions"
@@ -40,33 +40,29 @@ const useStyle = makeStyles(theme => ({
     }
 }))
 
-function ContractSummary(props) {
+export default function ContractSummary(props) {
     const classes = useStyle()
+    const dispatch = useDispatch()
 
     let { contractId } = useParams()
     useEffect(() => {
-        props.showContract()
-        return props.hideContract
+        dispatch(showContract())
+        return () => dispatch(hideContract())
     }, [])
 
     const history = useHistory()
     const goBack = () => {
         history.push(props.match.url)
-        props.hideContract()
+        dispatch(hideContract())
     }
-    const swipeHandlers = useSwipeable({
-        onSwipedRight: () => {
-            if (!props.isSidebarVisible) goBack() // Ideally want to prevent additonal handlers from firing but this will do the trick
-        },
-        delta: 100,
-    })
 
-    const contract = props.activeContracts.contracts[contractId]
-    const coop = props.coops[contractId]
+    const contract = useSelector(store => store.contract.activeContracts.contracts[contractId])
+    const coop = useSelector(store => store.contract.coops[contractId])
+    const fetched = useSelector(store => store.contract.activeContracts.fetched)
 
     const pathArray = window.location.pathname.split('/')
     let coopId = pathArray[pathArray.findIndex(item => item === contractId) + 1]
-    if (coopId && !coop && props.activeContracts.fetched) props.updateContractCoopSearchString(contractId, coopId)
+    if (coopId && !coop && fetched) dispatch(updateContractCoopSearchString(contractId, coopId))
 
     if (contract) {
         return (
@@ -84,20 +80,3 @@ function ContractSummary(props) {
     }
     return null
 }
-
-const mapStateToProps = state => {
-    const { UI: { isSidebarVisible }, contract: { activeContracts, coops }} = state
-    return {
-        isSidebarVisible,
-        activeContracts,
-        coops,
-    }
-}
-
-const mapDispatchToProps = {
-    showContract,
-    hideContract,
-    updateContractCoopSearchString,
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContractSummary)

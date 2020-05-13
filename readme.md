@@ -7,13 +7,13 @@
 - Add rate limiting factor notifications for SoloContractCalc
 - Improve SoloContractCalc look
 - Add tooltips
-- Change ContractSummary.js to use react-redux hooks
 - Improve Welcome dashboard card look and content
 - Farm stats window visual improvements
 - Next egg visualisation for Farm Value
 - Change DashboardContentManager to not use "repeat()" for css compatibility.
 - Add accessibility texts
 - Create a 30 second How-to/Intro video to the new website
+- ~~Change ContractSummary.js to use react-redux hooks~~
 - ~~Create a loader component~~
 - ~~Build farm calculator logic~~
 - ~~Create farm calculator page~~

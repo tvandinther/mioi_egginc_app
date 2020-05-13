@@ -9,6 +9,7 @@ import CoopExpiry from "./CoopExpiry"
 import CoopEstimate from "./CoopEstimate"
 import CoopMembers from "./CoopMembers"
 import CoopExpiryEstimate from "./CoopExpiryEstimate"
+import HelpTooltip from "../../Decorator/HelpTooltip"
 
 const useStyle = makeStyles(theme => ({
 	root: {
@@ -39,6 +40,11 @@ export default function CoopSummary(props) {
 					<Typography className={classes.type} align="center" variant="h4">{coop.coop}</Typography>
 					<Typography className={classes.type} align="center" variant="h6">{coop.league.toUpperCase()}</Typography>
 					<CoopRewards eggsLaid={coop.eggs} rewards={coopRewardSet}/>
+						<Typography variant="h5" align="center">
+							Completion Pace <HelpTooltip 
+												helpText={"The completion pace shows the ratio between your estimated completion time and the remaining time. Aim to keep this under the red \"success threshold\" line."}
+											/>
+						</Typography>
                     <CoopExpiryEstimate contract={contract} rewards={coopRewardSet} coop={coop}/>
                     <Typography align="center" variant="h5">Members ({coop.members.length}/{contract.coopSize})</Typography>
                     <CoopMembers coop={coop} />

@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { Input } from "@material-ui/core"
+import { makeStyles } from "@material-ui/core/styles"
 import { setContractCalcParameter } from "../../../actions/contractActions"
 import TextMask from "../../TextMask"
 
+const useStyle = makeStyles(theme => ({
+	input: {
+		textAlign: "right",
+		paddingRight: 24,
+	},
+}))
+
 export default function GenericStatInput(props) {
+	const classes = useStyle()
 	const initialValue = props.value || 0
 	const directive = props.directive || (() => {})
 	const name = props.name
@@ -26,7 +35,7 @@ export default function GenericStatInput(props) {
 			value={value}
 			onBlur={handleBlur}
 			fullWidth
-			classes={{input: {textAlign: "right", paddingRight: 24}}}
+			classes={{"input": classes.input}}
 		>
 			{Input}
 		</TextMask>

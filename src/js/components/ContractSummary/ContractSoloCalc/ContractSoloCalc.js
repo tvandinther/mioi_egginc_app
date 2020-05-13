@@ -15,6 +15,7 @@ const useStyle = makeStyles(theme => ({
 		display: "flex",
 		flexWrap: "wrap",
 		justifyContent: "space-evenly",
+		alignItems: "center",
 	},
 	section: {
 		flexGrow: 1,
