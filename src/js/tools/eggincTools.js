@@ -212,34 +212,41 @@ export function contractTimeSoloEstimate(parameters) {
 	//CALCULATE TIME		
 	let time = 0;		
 	time =+ breakpoints[1]		
-	//this.showWarning('maxPopulationWarning', 0, false);
-	//this.showWarning('shippingRateWarning', 0, false);
+	
+	let warning = null
+
 	for (let i = 1; i < breakpoints.length; i++) {		
 		if (breakpoints[i] == xToTarget) {		
 			break;		
 		}		
 		else if (breakpoints[i] == xMaxPopulation) {		
 			d += findEggsLaid(breakpoints[i], breakpoints[i - 1], a, b, c);		
-			time += findTime(y, b, c, d);		
-			//this.showWarning('maxPopulationWarning', maxFarmPopulation, true);		
-			break;		
+			time += findTime(y, b, c, d);
+			warning = {
+				type: "maxPopulation",
+				value: maxFarmPopulation,
+			}
+			break;
 		}		
-		else if (breakpoints[i] == xMaxShippingRate) {		
-			d += findEggsLaid(breakpoints[i], breakpoints[i - 1], a, b, c);		
-			time += findTime(y, b, c, d);		
-			//this.showWarning('shippingRateWarning', maxFarmShipping, true);		
+		else if (breakpoints[i] == xMaxShippingRate) {
+			d += findEggsLaid(breakpoints[i], breakpoints[i - 1], a, b, c);
+			time += findTime(y, b, c, d);
+			warning = {
+				type: "shippingRate",
+				value: maxFarmShipping,
+			}
 			break;
 		}
 	}
 		
-	function findEggsLaid(endBreakpoint, startBreakpoint, a, b, c) {		
-		let xRuntime = endBreakpoint - startBreakpoint;		
-		return (a * b / 2) * Math.pow(xRuntime, 2) + b * c * xRuntime;		
+	function findEggsLaid(endBreakpoint, startBreakpoint, a, b, c) {
+		let xRuntime = endBreakpoint - startBreakpoint;
+		return (a * b / 2) * Math.pow(xRuntime, 2) + b * c * xRuntime;
 	}
 		
-	function findTime(y, b, c, d) {		
-		return (y - d) / (b * (a * breakpoints[1] + c));		
+	function findTime(y, b, c, d) {
+		return (y - d) / (b * (a * breakpoints[1] + c));
 	}
 
-	return time;
+	return [time, warning];
 }

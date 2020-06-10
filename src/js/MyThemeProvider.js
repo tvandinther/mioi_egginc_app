@@ -48,6 +48,12 @@ const commonThemeOverrides= {
 			borderColor: "white",
 		}
 	},
+	MuiContainer: {
+		root: {
+			paddingLeft: 8,
+			paddingRight: 8,
+		}
+	}
 }
 
 const lightTheme = createMuiTheme({

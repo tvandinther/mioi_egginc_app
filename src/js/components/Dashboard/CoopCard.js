@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Card, Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { useSelector } from "react-redux"
@@ -42,6 +42,7 @@ export default function CoopCard(props) {
 	const farmStats = calculateFarmStats(playerContractFarm, playerGameData)
 	const league = metaContract.league === 0 ? "elite" : "standard"
 	const coopRewards = contract.goals[league]
+
     let loadingCoop
     if (coop) loadingCoop = coop.fetching
     
@@ -50,7 +51,7 @@ export default function CoopCard(props) {
     if (coopId) link += "/" + coopId
     
     const loadingContent = [
-                <Loading style={{gridArea: "rewards / estimate / rewards / estimate"}} key="loading" />,
+		<Loading style={{gridArea: "rewards / estimate / rewards / estimate"}} key="loading" />,
 	]
 	
     const coopContent = [

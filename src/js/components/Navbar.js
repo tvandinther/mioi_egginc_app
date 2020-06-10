@@ -31,9 +31,10 @@ function HideOnScroll(props) {
 
 export default function Navbar(props) {
     const theme = useTheme()
-    const UI = useSelector(state => state.UI)
-    const classes = useStyles()
-    console.log("THEME: ", theme)
+    const UI = useSelector(store => store.UI)
+	const classes = useStyles()
+	const title = useSelector(store => store.UI.activePage.shortTitle)
+    if (process.env.NODE_ENV == "development") console.log("THEME: ", theme)
     return (
         <HideOnScroll {...props}>
             <AppBar className={classes.root} position="fixed">
@@ -41,7 +42,7 @@ export default function Navbar(props) {
                     <MenuButton active={UI.isSidebarVisible} left={UI.menuOnLeft}/>
                     <NavLink to="/" style={{width: "100%", margin: "0px 40px"}}>
                         <Typography variant="h6" align="center" className={classes.title}>
-                            {props.title}
+                            {title}
                         </Typography>
                     </NavLink>
                     <div style={{width: "50px"}}/>

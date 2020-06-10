@@ -3,7 +3,7 @@ import { convertSymbol, convertSymbolToNumber, isSymbolFormat } from "../tools"
 import { FormHelperText } from "@material-ui/core"
 
 export default function TextMask(props) {
-	const { children, value, onChange, onBlur, helperText } = props
+	const { children, value, onChange, onBlur, helpText, ...inputprops } = props
 	const InputElement = children
 	let [maskedValue, setMaskedValue] = useState(convertSymbol(value))
 	let [trueValue, setTrueValue] = useState(value)
@@ -25,13 +25,11 @@ export default function TextMask(props) {
 		let deleted = maskedValue.length > newMaskedValue.length
 		setError(false)
 		if (isSymbolFormat(newMaskedValue)) { // Symbol condition
-			console.log("Symbol")
 			newTrueValue = convertSymbolToNumber(newMaskedValue)
 			setTrueValue(newTrueValue)
 			setMaskedValue(newMaskedValue)
 		}
 		else if (/^\d{1,4}(,\d{1,4})*,?$/.test(newMaskedValue)) { // Number condition
-			console.log("Number")
 			newTrueValue = newMaskedValue.replace(/\D/g, '')
 			setTrueValue(newTrueValue)
 			setMaskedValue(Number(newTrueValue).toLocaleString())
@@ -54,13 +52,13 @@ export default function TextMask(props) {
 	return (
 		<div>
 			<InputElement
-				{...props}
+				{...inputprops}
 				align="center"
 				value={maskedValue}
 				onChange={handleChange}
 				onBlur={handleBlur}
 			/>
-			<FormHelperText error={error}>{error ? helperText : " "}</FormHelperText>
+			<FormHelperText error={error}>{error ? helpText : " "}</FormHelperText>
 		</div>
 	)
 }

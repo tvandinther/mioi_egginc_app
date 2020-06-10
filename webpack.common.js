@@ -1,5 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
+const pkg = require("./package.json")
 
 module.exports = {
   entry: "./src/js/index.js",
@@ -56,12 +57,18 @@ module.exports = {
       },
     ]
   },
+  plugins: [
+	  new webpack.DefinePlugin({
+		  VERSION: JSON.stringify(pkg.version),
+		  TRACKING_ID: JSON.stringify("UA-120158257-2")
+	  })
+  ],
   resolve: {
     descriptionFiles: ["package.json"],
     extensions: ["*", ".js", ".jsx"]
   },
   output: {
-    path: path.resolve(__dirname, "public/"),
+    path: path.join(__dirname, "public/"),
     publicPath: "/",
     filename: "bundle.js"
   },

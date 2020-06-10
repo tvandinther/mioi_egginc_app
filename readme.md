@@ -3,16 +3,17 @@
 ## To Do:
 ### Pre-release
 
-- Update SoloContractCalc to factor in different contract leagues (currently assumes elite)
-- Add rate limiting factor notifications for SoloContractCalc
-- Improve SoloContractCalc look
-- Add tooltips
-- Improve Welcome dashboard card look and content
+- Add badge to show new contracts
+- Update SoloContractCalc to factor in different contract leagues (currently assumes elite)?
+- Improve SoloContractCalc look?
 - Farm stats window visual improvements
-- Next egg visualisation for Farm Value
-- Change DashboardContentManager to not use "repeat()" for css compatibility.
 - Add accessibility texts
 - Create a 30 second How-to/Intro video to the new website
+- ~~Add tooltips~~
+- ~~Fix bug when clicking into a contract card too quickly from load~~
+- ~~Improve Welcome dashboard card look and content~~
+- ~~Next egg visualisation for Farm Value~~
+- ~~Add rate limiting factor notifications for SoloContractCalc~~
 - ~~Change ContractSummary.js to use react-redux hooks~~
 - ~~Create a loader component~~
 - ~~Build farm calculator logic~~

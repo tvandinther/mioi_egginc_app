@@ -53,7 +53,7 @@ export default function MEInput(props) {
 			<TextMask
 				value={value}
 				onBlur={handleBlur}
-				helperText="e.g. 123,456 or 123.456T"
+				helpText="e.g. 123,456 or 123.456T"
 			>
 				{Input}
 			</TextMask>

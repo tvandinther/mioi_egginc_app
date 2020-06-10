@@ -17,7 +17,6 @@ export function hideSidebar() {
 }
 
 export function pageSwipe(event) {
-    console.log(event)
     return {
         type: "PAGE_SWIPE",
         payload: event,

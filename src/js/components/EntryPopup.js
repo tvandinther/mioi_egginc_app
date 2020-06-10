@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { Dialog, Button, Typography, Container } from "@material-ui/core"
 import ReactMarkdown from "react-markdown"
 import { makeStyles } from "@material-ui/core/styles"
+import ReactGA from "react-ga"
 
 const useStyle = makeStyles(theme => ({
 	root: {
@@ -30,6 +31,11 @@ export default function EntryPopup(props) {
 	const handleClick = event => {
 		setOpen(false)
 		window.history.replaceState({}, document.title, window.location.pathname)
+		ReactGA.event({
+			category: "Interaction",
+			action: "Redirect Confirmation",
+			label: window.location.pathname,
+		})
 	}
 
 	const mdSource = `You have been redirected from the old mioi.io website to the new home of your favourite Egg, Inc. tools. This new site offers many new features such as:

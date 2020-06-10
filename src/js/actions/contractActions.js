@@ -4,7 +4,7 @@ import * as queries from "../tools/gqlQueries"
 export function getActiveContracts() {
     return {
         type: "GET_ACTIVE_CONTRACTS",
-        payload: axios.get("https://mioi-www-public.storage.googleapis.com/activeContracts.json")
+        payload: axios.get("https://mioi-egginc-public.storage.googleapis.com/activeContracts.json")
     }
 }
 

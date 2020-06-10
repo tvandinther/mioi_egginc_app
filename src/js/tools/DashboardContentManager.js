@@ -26,6 +26,10 @@ export default class DashboardContentManager {
         for (let i = 0; i < columns; i++) {
             columnElements.push(<div key={`column${i+1}`} className={this.columnClass}>{this.orderedContent.filter((item, index) => index % columns === i)}</div>)
         }
-        return <div className={this.rootClass} style={{display: "grid", gridTemplateColumns: `repeat(${columns}, 1fr)`}}>{columnElements}</div>
+        return (
+			<div className={this.rootClass} style={{display: "grid", gridTemplateColumns: "1fr ".repeat(columns)}}>
+				{columnElements}
+			</div>
+		)
     }
 }

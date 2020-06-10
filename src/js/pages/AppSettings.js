@@ -1,12 +1,11 @@
 import React from "react"
-import Navbar from "../components/Navbar"
 import PlayerIDInput from "../components/appSettings/PlayerIDInput"
 import { Container, Card, Typography, Divider, Switch, List, ListItem, TextField, ListItemText, ListItemSecondaryAction } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { useSelector, useDispatch } from "react-redux"
-import * as settingsActions from "../actions/settingsActions"
 import ClearPlayerID from "../components/appSettings/ClearPlayerID"
 import ThemeSwitch from "../components/appSettings/ThemeSwitch"
+import Page from "../Page"
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -20,13 +19,7 @@ const useStyle = makeStyles(theme => ({
 
 export default function AppSettings(props) {
     const classes = useStyle()
-    const dispatch = useDispatch()
     const playerData = useSelector(store => store.playerData)
-    const settings = useSelector(store => store.settings)
-    const pageDetails = {
-        title: "App Settings",
-        shortTitle: "Settings",
-    }
 
 	const PlayerData = () => (
 		<div>
@@ -63,15 +56,14 @@ export default function AppSettings(props) {
 	)
 
     return (
-        <div>
-            <Navbar title={pageDetails.shortTitle}/>
-            <Container>
-                <Card className={classes.card}>
+        <Page title="App Settings" shortTitle="Settings">
+			<Container>
+				<Card className={classes.card}>
 					<Appearance/>
 					<Divider/>
 					<PlayerData/>
-                </Card>
-            </Container>
-        </div>
+				</Card>
+			</Container>
+        </Page>
     )
 }

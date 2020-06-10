@@ -7,6 +7,7 @@ import { hideSidebar } from "../../actions/UIActions"
 import * as UIActions from "../../actions/UIActions"
 
 import MenuButton from "../MenuButton"
+import ThemeSwitch from "../appSettings/ThemeSwitch"
 import SidebarMenuHeader from "./SidebarMenuHeader"
 import SidebarMenuItem from "./SidebarMenuItem"
 import { SwipeableDrawer, List, Drawer, Divider, Typography } from "@material-ui/core"
@@ -59,11 +60,6 @@ export default function SidebarMenu(props) {
 			icon: AttachMoneyIcon,
 			disabled: false,
         },
-        "Game Guide" : {
-            path: "/guide",
-			icon: HelpIcon,
-			disabled: true,
-        },
 	}
 	const menuItems2 = {
 		"App Settings" : {
@@ -74,6 +70,11 @@ export default function SidebarMenu(props) {
 		"News" : {
 			path: "/news",
 			icon: NotesIcon,
+		},
+		"Feedback" : {
+			path: "https://forms.gle/CQqQ21XJfsm1GgECA",
+			icon: LinkIcon,
+			external: true,
 		},
 		"Get Egg, Inc." : {
 			path: "http://www.auxbrain.com/",
@@ -105,8 +106,10 @@ export default function SidebarMenu(props) {
                 >
                     {props.children}
 					<Divider/>
+					<ThemeSwitch/>
+					<Divider/>
 					<Typography className={classes.text} variant="overline">© Created by Tom</Typography>
-					<Typography className={classes.text} variant="caption">Version {0.16}</Typography>
+					<Typography className={classes.text} variant="caption">Version {VERSION}</Typography>
                 </SwipeableDrawer>
             )
         }

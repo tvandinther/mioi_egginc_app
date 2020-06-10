@@ -44,7 +44,7 @@ export default function SEInput(props) {
 				value={value}
 				classes={{input: classes.inputRoot}}
 				onBlur={handleBlur}
-				helperText="e.g. 123,456 or 123.456T"
+				helptext="e.g. 123,456 or 123.456T"
 			>
 				{Input}
 			</TextMask>

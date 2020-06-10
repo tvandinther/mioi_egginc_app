@@ -32,11 +32,9 @@ const useStyle = makeStyles(theme => ({
 
 export default function FarmValueContainer(props) {
     const classes = useStyle()
-    const theme = useTheme()
-
     return (
         <Container className={classes.root}>
-            <FarmStats style={{gridArea: "stats"}} />
+			<FarmStats style={{gridArea: "stats"}} />
             <FarmSelector style={{gridArea: "load-farm"}} />
             <MysticalEggsInputs style={{gridArea: "mystical-eggs"}} />
             <FarmInputs style={{gridArea: "farm-inputs"}} />

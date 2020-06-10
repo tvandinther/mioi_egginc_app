@@ -15,10 +15,12 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, reducer)
 
+let middleware = [promise]
+if (process.env.NODE_ENV !== "production") middleware.push(logger)
 
 let store = createStore(
     persistedReducer,
-    applyMiddleware(promise, logger) // add logger to log redux
+    applyMiddleware(...middleware)
 )
 
 export default store

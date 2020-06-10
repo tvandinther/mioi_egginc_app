@@ -1,15 +1,13 @@
 import React, { useEffect } from "react"
 import { useParams, useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { useSwipeable } from "react-swipeable"
 import CoopSearch from "./CoopSearch"
 import { showContract, hideContract, updateContractCoopSearchString } from "../../actions/contractActions"
 import ContractIcons from "./ContractIcons"
-import ContractRewards from "./CoopSummary/CoopRewards"
 import ContractSoloCalcPanel from "./ContractSoloCalcPanel"
 import CoopSummary from "./CoopSummary"
 import BackButton from "../BackButton"
-import { Typography, Card, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from "@material-ui/core"
+import { Typography, Card, } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 
 const useStyle = makeStyles(theme => ({
@@ -48,8 +46,8 @@ export default function ContractSummary(props) {
     useEffect(() => {
         dispatch(showContract())
         return () => dispatch(hideContract())
-    }, [])
-
+	}, [])
+	
     const history = useHistory()
     const goBack = () => {
         history.push(props.match.url)

@@ -9,6 +9,7 @@ import QuickLinkCard from "./QuickLinkCard"
 import NewsCard from "./NewsCard"
 import Loading from "../Loading"
 import DashboardContentManager from "../../tools/DashboardContentManager"
+import { Container } from "@material-ui/core"
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -55,7 +56,7 @@ export default function Dashboard(props) {
         columnClass: classes.column,
     })
 	// NEWS
-	if (news.fetched) {
+	if (news.fetched && news.posts) {
 		dcm.addItem(
 			<NewsCard post={news.posts[0]} priority={2} key="post"/>
 		)
@@ -80,7 +81,7 @@ export default function Dashboard(props) {
     //     )
 	// }
 	
-	dcm.addItem(<PlayerCard priority={0}/>)
+	dcm.addItem(<PlayerCard key="playerCard" priority={0}/>)
 
     useEffect(() => {
         if (window.innerWidth > theme.breakpoints.values.lg) setColumnCount(3)
@@ -89,6 +90,8 @@ export default function Dashboard(props) {
     }, [window.innerWidth])
     
     return (
-            dcm.render(columnCount)
+		<Container>
+            {dcm.render(columnCount)}
+		</Container>
     )
 }

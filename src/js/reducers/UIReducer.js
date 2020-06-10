@@ -1,8 +1,8 @@
 const initialState = {
     activePage: {
         path: "/",
-        shortTitle: "Home",
-        title: "Welcome",
+        shortTitle: "",
+        title: null,
     },
     isSidebarVisible: false,
     menuOnLeft: determineMenuPlacement(),

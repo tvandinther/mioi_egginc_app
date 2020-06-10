@@ -1,15 +1,25 @@
 import React from "react"
-import HeadedCard from "../HeadedCard"
-import PlayerIDInput from "../appSettings/PlayerIDInput"
+import HeadedCard from "../../HeadedCard"
+import PlayerIDInput from "../../appSettings/PlayerIDInput"
 import { Typography } from "@material-ui/core"
+import { makeStyles } from "@material-ui/core/styles"
 import { useSelector } from "react-redux"
-import { convertSymbol, getDayIndex } from "../../tools"
-import Loading from "../Loading"
-import FlexContainer from "../FlexContainer"
-import ImageLabel from "../Decorator/ImageLabel"
+import { convertSymbol, getDayIndex } from "../../../tools"
+import Loading from "../../Loading"
+import FlexContainer from "../../FlexContainer"
+import ImageLabel from "../../Decorator/ImageLabel"
+import DailyGiftCollection from "./DailyGiftCollection"
+
+const useStyle = makeStyles(theme => ({
+	meEggs: {
+		paddingTop: 8,
+		paddingBottom: 8,
+	}
+}))
 
 export default function PlayerCard(props) {
 	const playerData = useSelector(store => store.playerData)
+	const classes = useStyle()
 	const fetched = playerData.fetched
 	const fetching = playerData.fetching
 	const userId = playerData.userId
@@ -34,8 +44,8 @@ export default function PlayerCard(props) {
 
 	const PlayerDataDisplay = () => (
 		<div>
-			<Typography>Daily Gift Collected: {giftCollected ? "Yes" : "No"}</Typography>
-			<FlexContainer>
+			<DailyGiftCollection collected={giftCollected}/>
+			<FlexContainer className={classes.meEggs}>
 				<ImageLabel imageSrc={"/images/SOUL_EGGS.png"} label={convertSymbol(playerData.game.soulEggsD)} height={80} />
 				<ImageLabel imageSrc={"/images/PROPHECY_EGGS.png"} label={convertSymbol(playerData.game.eggsOfProphecy)} height={80} />
 			</FlexContainer>
@@ -48,7 +58,6 @@ export default function PlayerCard(props) {
 	)
 
 	const cardTitle = playerData.userName ? `Hello, ${playerData.userName}` : "Welcome"
-
     return (
         <HeadedCard collapsable title={cardTitle}>
 			{!fetched && <IDPrompt/>}

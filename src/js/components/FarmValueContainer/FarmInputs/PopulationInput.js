@@ -77,7 +77,7 @@ export default function PopulationInput(props) {
 				onChange={handleInputChange}
 				onBlur={handleBlur}
 				value={value}
-				helperText="e.g. 123,456 or 123.456T"
+				helpText="e.g. 123,456 or 123.456T"
 			>
 				{Input}
 			</TextMask>

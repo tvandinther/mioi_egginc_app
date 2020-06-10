@@ -36,7 +36,7 @@ export default function ShippingInput(props) {
 				value={value}
 				classes={{input: classes.inputRoot}}
 				onBlur={handleBlur}
-				helperText="e.g. 123,456 or 123.456T"
+				helpText="e.g. 123,456 or 123.456T"
 			>
 				{Input}
 			</TextMask>
