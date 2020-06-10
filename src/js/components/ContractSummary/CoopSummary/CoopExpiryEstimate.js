@@ -12,27 +12,24 @@ const useStyle = makeStyles(theme => ({
         borderStyle: "none",
         borderColor: theme.palette.grey[300],
         borderRadius: 10,
-        display: "grid",
-        margin: "10px 0px",
-        gridTemplateColumns: "1fr 2px 1fr",
-        gridTemplateRows: "auto 30px auto",
-        gridTemplateAreas: `
-            "estimateTitle dividerTop expiryTitle"
-            "progress progress progress"
-            "estimateValue dividerBottom expiryValue"
-            "note note note"
-        `
-    },
+		margin: "10px 0px",
+		display: "block",
+	},
+	main: {
+		position: "relative",
+	},
     divider: {
-        gridColumn: "dividerTop / dividerBottom",
-        gridRow: "dividerTop / dividerBottom",
+		position: "absolute",
+		width: 2,
+		height: "100%",
+		left: "calc(50% - 1px)",
         zIndex: 10,
         backgroundColor: theme.palette.secondary.main,
         boxShadow: theme.shadows[4],
     },
     progress: {
-        gridArea: "progress",
-        height: "100%",
+		clear: "both",
+        height: 30,
 
         "& div": {
             borderRadius: "unset !important",
@@ -41,24 +38,38 @@ const useStyle = makeStyles(theme => ({
                 borderRadius: "unset !important",
             }
         }
-    },
+	},
     estimate: {
-        textAlign: "left",
+		textAlign: "left",
+		float: "left",
+		maxWidth: "45%",
         marginLeft: 10,
     },
     expiry: {
-        textAlign: "right",
+		textAlign: "right",
+		float: "right",
+		maxWidth: "45%",
         marginRight: 10,
-    },
+	},
+	title: {
+		
+	},
+	value: {
+		
+	},
     overlay: {
-        gridColumn: "1 / -1",
-        gridRow: "1 / -1",
+		position: "absolute",
+		display: "grid",
+		alignItems: "center",
+		height: "100%",
+		width: "100%",
         borderRadius: "inherit",
         backgroundColor: theme.palette.background.offOverlay,
         zIndex: 99,
-        display: "grid",
-        alignItems: "center",
-    }
+	},
+	tip: {
+		clear: "both",
+	}
 }))
 
 function Overlay(props) {
@@ -98,7 +109,8 @@ export default function CoopExpiryEstimate(props) {
     }
 
 
-    let estimate =  eggsRemaining / totalRate
+	let estimate =  eggsRemaining / totalRate
+	if (estimate === Infinity) estimate = Number.MAX_SAFE_INTEGER
     let progress = estimate / (estimate + timeLeft) * 100
 
     let fill = theme.palette.warning.main
@@ -112,35 +124,37 @@ export default function CoopExpiryEstimate(props) {
     else if (timeLeft <= 0) {
         completed = false
         progress = 0
-    }
-
+	}
+	const EPOCH_1_YEAR = 3600 * 24 * 365
     return (
         <Paper style={props.style} className={classes.root}>
-            <Overlay completed={completed}/>
-            <Typography variant="body2" className={classes.estimate} style={{gridArea: "estimateTitle"}}>
-                    Completion Estimate
-            </Typography>
+			<div className={classes.main}>
+				<Overlay completed={completed}/>
+				<Typography variant="body2" className={`${classes.estimate} ${classes.title}`}>
+						Completion Estimate
+				</Typography>
 
-            <Typography variant="body2" className={classes.estimate} style={{gridArea: "estimateValue"}}>
-                {convertEpoch(estimate)}
-            </Typography>
+				<Typography variant="body2" className={`${classes.expiry} ${classes.title}`}>
+					Contract Time Left
+				</Typography>
 
-            <div className={classes.divider}/>
+				<div className={classes.divider}/>
 
-            <div className={classes.progress}>
-                <ProgressBar height="100%" percent={progress} unfilledBackground={theme.palette.background.off} filledBackground={fill}/>
-            </div>
+				<div className={classes.progress}>
+					<ProgressBar height="100%" percent={progress} unfilledBackground={theme.palette.background.off} filledBackground={fill}/>
+				</div>
+				
+				<Typography variant="body2" className={`${classes.estimate} ${classes.value}`}>
+					{estimate > EPOCH_1_YEAR ? "A very long time" : convertEpoch(estimate)}
+				</Typography>
 
-            <Typography variant="body2" className={classes.expiry} style={{gridArea: "expiryTitle"}}>
-                Contract Time Left
-            </Typography>
-
-            <Typography variant="body2" className={classes.expiry} style={{gridArea: "expiryValue"}}>
-                {convertEpoch(timeLeft)}
-            </Typography>
-
-            {(progress > 50) && <Divider/>}
-            <Typography align="center" variant="body2" style={{gridArea: "note"}}>
+				<Typography variant="body2" className={`${classes.expiry} ${classes.value}`}>
+					{convertEpoch(timeLeft)}
+				</Typography>
+				<div style={{clear: "both"}}></div>
+			</div>
+            {(progress > 50) && <Divider style={{clear: "both"}}/>}
+            <Typography align="center" variant="body2" className={classes.tip}>
                 {progress > 50 ? `Tip: ${convertSymbol(eggsRemaining / timeLeft)}/s required to reach success threshold.` : null}
             </Typography>
         </Paper>
