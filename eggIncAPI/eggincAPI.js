@@ -2,8 +2,10 @@ const axios = require('axios');
 const ei = require('./egginc_pb');
 const b = require('base64-arraybuffer');
 
-const clientVersion = 99
+const CLIENT_VERSION = 99
 const leagueThreshold = 11.0 // Soul power below this value is considered "standard"
+const ELITE = 0
+const STANDARD = 1
 
 var exports = module.exports = {};
 
@@ -34,7 +36,7 @@ exports.getContractAll = async function() {
 
 exports.getPeriodicals = async function() {
     let message = new ei.GetPeriodicalsRequest();
-    message.setCurrentClientVersion(clientVersion);
+    message.setCurrentClientVersion(CLIENT_VERSION);
     return await ei_request('get_periodicals', message, ei.PeriodicalsResponse)
 }
 
@@ -72,6 +74,15 @@ exports.getContract = async function(contractName, coopName) {
     });
 }
 
+exports.queryCoop = async function(contractName, coopName) {
+	let message = new ei.QueryCoopRequest();
+	message.setContractIdentifier(contractName);
+	message.setCoopIdentifier(coopName);
+	message.setLeague(ELITE);
+	message.setClientVersion(CLIENT_VERSION);
+	return await ei_request("query_coop", message, ei.QueryCoopResponse);
+}
+
 exports.getPlayerData = async function(identifier) {
     let message = new ei.EggIncFirstContactRequest();
     message.setUserId(identifier);
@@ -91,3 +102,5 @@ exports.getPlayerData = async function(identifier) {
 // exports.getContractAll().then( x => {
 //     console.log(x)
 // })
+
+// exports.queryCoop('space-eggs', 'envy').then(x => console.log(x))
