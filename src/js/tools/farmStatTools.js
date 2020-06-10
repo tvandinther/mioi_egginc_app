@@ -40,12 +40,12 @@ export default function calculateFarmStats(farm, game) {
         eggValue: updatedParameters.eggTypeValue * updatedParameters.eggValue,
         layingRate: updatedParameters.layingRate * updatedParameters.population,
         hatchRate: updatedParameters.hatchRate,
-        maxHabCapacity: Math.round(updatedParameters.maxHabCapacity * updatedParameters.habCapacity),
+        maxHabCapacity: updatedParameters.maxHabCapacity,
         soulEggBonus: game.soulEggsD * (10 + (1 * playerResearch.epic["soul_eggs"])) / 100,
 		farmValue: updatedParameters.farmValue,
 		shippingCapacity: updatedParameters.shippingCapacity,
 	}
-	console.log("Farm Stats: ", farmStats)
+	if (process.env.NODE_ENV == "development") console.log("Farm Stats: ", farmStats)
     return farmStats
 }
 
@@ -93,7 +93,9 @@ function iterateResearch(playerResearch, parameters, farm) {
             newParameters[key] += value
         }
         for (let [key, value] of Object.entries(subParametersMultiplier)) { // Combine the multipliers into the main object by multiplication
-            newParameters[key] *= value
+			if (key == "habCapacity") console.log(newParameters[key], value)
+			newParameters[key] *= value
+			if (key == "habCapacity") console.log(newParameters[key], value)
         }
         for (let [key, value] of Object.entries(subParametersPower)) { // Combine the powers into the main object by multiplication
             newParameters[key] *= value
