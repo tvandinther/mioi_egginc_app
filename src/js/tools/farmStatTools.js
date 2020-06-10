@@ -93,9 +93,7 @@ function iterateResearch(playerResearch, parameters, farm) {
             newParameters[key] += value
         }
         for (let [key, value] of Object.entries(subParametersMultiplier)) { // Combine the multipliers into the main object by multiplication
-			if (key == "habCapacity") console.log(newParameters[key], value)
 			newParameters[key] *= value
-			if (key == "habCapacity") console.log(newParameters[key], value)
         }
         for (let [key, value] of Object.entries(subParametersPower)) { // Combine the powers into the main object by multiplication
             newParameters[key] *= value
