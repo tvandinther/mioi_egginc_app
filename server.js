@@ -6,6 +6,7 @@ const express_graphql = require("express-graphql");
 const { buildSchema } = require("graphql");
 const { importSchema } = require("graphql-import");
 const GQLResolvers = require("./graphql/index.js")
+const contractPageHandler = require("./side_effects/contract_page_handler")
 
 const app = express();
 
@@ -30,8 +31,9 @@ app.use('/api',
 app.use(express.static('public'))
 
 app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+	res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+	contractPageHandler.init()
 })
 
-const port = 8080
-app.listen(port, () => console.log(`listening on port ${port}`))
+const PORT = process.env.PORT || 8080
+app.listen(PORT, () => console.log(`listening on port ${PORT}`))
