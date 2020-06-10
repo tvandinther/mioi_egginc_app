@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { Typography } from "@material-ui/core";
+import React, { useState, useEffect } from "react"
+import { Typography, useMediaQuery } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useTheme } from "@material-ui/core/styles"
 
@@ -26,25 +26,34 @@ const useStyle = makeStyles(theme => ({
         zIndex: -1,
         width: "100%",
         height: "100%",
-    }
+	},
+	text: {
+		lineHeight: "unset",
+	}
 }))
 
 export default function ContractCardProgressBar(props) {
     const theme = useTheme()
-    const classes = useStyle()
+	const classes = useStyle()
+	const noDeviceHover = useMediaQuery("(hover: none)")
 
     const progress = Math.min(Math.max(0, props.progress), 1)
     let [hovered, setHovered] = useState(false)
 
+	useEffect(() => {
+		setHovered(noDeviceHover)
+	}, [noDeviceHover])
+
     let handleMouseEnter = evt => {
-        setHovered(true);
+        setHovered(noDeviceHover || true);
     }
     let handleMouseLeave = evt => {
-        setHovered(false);
+        setHovered(noDeviceHover || false);
     }
 
     const barStyle = {
-        height: hovered ? `20px` : null,
+		height: hovered ? 20 : null,
+		marginTop: noDeviceHover ? 10 : null
     }
 
     const gradient = [
@@ -88,7 +97,7 @@ export default function ContractCardProgressBar(props) {
         width: `${progress * 100}%`,
         background: `rgb(${fillColour[0]},${fillColour[1]},${fillColour[2]})`,
     }
-    const hoverText = hovered ? <Typography variant="subtitle2">{props.hoverText}</Typography> : null
+    const hoverText = hovered ? <Typography variant="overline" className={classes.text}>{props.hoverText}</Typography> : null
     return (
         <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className={classes.unfilled} style={barStyle}>
             {hoverText}

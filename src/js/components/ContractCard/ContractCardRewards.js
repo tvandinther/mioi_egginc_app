@@ -1,7 +1,7 @@
 import React from "react"
-import { Typography } from "@material-ui/core"
+import { Typography, Tooltip } from "@material-ui/core"
 import { useTheme, makeStyles } from "@material-ui/core/styles"
-import { getImageSrc } from "../../tools/eggincTools"
+import { getImageSrc, convertSymbol } from "../../tools/eggincTools"
 
 const useStyle = makeStyles(theme => ({
 	root: {
@@ -70,12 +70,15 @@ function RewardSet(props) {
 
 function RewardItem(props) {
 	const classes = useStyle()
+	const { goal } = props.reward
     const { path, quantity } = getImageSrc(props.reward)
     return (
-        <div className={classes.reward}>
-            <img className={classes.rewardIcon} src={path}></img>
-            <span className={classes.quantityText}>{quantity}</span>
-        </div>
+		<Tooltip title={convertSymbol(goal)} placement="left" arrow>
+			<div className={classes.reward}>
+				<img className={classes.rewardIcon} src={path}></img>
+				<span className={classes.quantityText}>{quantity}</span>
+			</div>
+		</Tooltip>
     )
 }
 
