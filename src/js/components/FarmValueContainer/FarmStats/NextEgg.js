@@ -1,5 +1,6 @@
 import React from "react"
 import { ProgressBar, Step } from "react-step-progress-bar"
+import "react-step-progress-bar/styles.css"
 import eggTypes from "../../../tools/eggTypes.json"
 import { useTheme, makeStyles } from "@material-ui/core/styles"
 import { Tooltip, Typography, Paper } from "@material-ui/core"
@@ -85,7 +86,7 @@ export default function NextEgg(props) {
 	}
 	
 	const fill =`linear-gradient(to right, ${theme.palette.primary.light}, ${theme.palette.secondary.light})`
-
+	console.log(progress, stepPositions, steps)
 	return (
 		<Paper elevation={4} className={classes.root}>
 			<Typography align="center">
