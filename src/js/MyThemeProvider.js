@@ -22,6 +22,14 @@ const headLineFontFamily = [
 ].join(",")
 
 const commonThemeOverrides= {
+	MuiCssBaseline: {
+		"@global": {
+			a: {
+				textDecoration: "none",
+				color: "inherit",
+			},
+		},
+	},
 	MuiSlider: {
 		rail: {
 			height: 10,
@@ -53,7 +61,7 @@ const commonThemeOverrides= {
 			paddingLeft: 8,
 			paddingRight: 8,
 		}
-	}
+	},
 }
 
 const lightTheme = createMuiTheme({

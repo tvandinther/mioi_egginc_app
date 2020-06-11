@@ -13,10 +13,7 @@ const useStyle = makeStyles(theme => ({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-    }),
-    button: {
-        height: "100%",
-    }
+    })
 }))
 
 export default function SidebarMenuHeader(props) {
@@ -36,7 +33,7 @@ export default function SidebarMenuHeader(props) {
             <Typography>
                 
             </Typography>
-            <IconButton className={classes.button} onClick={() => dispatch(hideSidebar())}>
+            <IconButton onClick={() => dispatch(hideSidebar())}>
                 <ArrowBackIosIcon style={style.icon}/>
             </IconButton>
         </div>

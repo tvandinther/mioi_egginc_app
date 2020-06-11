@@ -18,6 +18,7 @@ const useStyle = makeStyles(theme => ({
 	},
 	main: {
 		position: "relative",
+		borderRadius: "inherit",
 	},
     divider: {
 		position: "absolute",

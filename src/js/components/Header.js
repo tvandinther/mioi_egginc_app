@@ -39,9 +39,9 @@ export default function Navbar(props) {
         <HideOnScroll {...props}>
             <AppBar className={classes.root} position="fixed">
                 <Toolbar style={{flexDirection: UI.menuOnLeft? "row" : "row-reverse"}}>
-                    <MenuButton active={UI.isSidebarVisible} left={UI.menuOnLeft}/>
+                    <MenuButton active={UI.isSidebarVisible}/>
                     <NavLink to="/" style={{width: "100%", margin: "0px 40px"}}>
-                        <Typography variant="h6" align="center" className={classes.title}>
+                        <Typography variant="h6" align="center" noWrap className={classes.title}>
                             {title}
                         </Typography>
                     </NavLink>

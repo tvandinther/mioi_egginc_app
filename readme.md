@@ -1,14 +1,25 @@
 # MIOI Egg, Inc. App
 
 ## To Do:
-### Pre-release
 
+### Post-release
+- Make SoloContractCalc target a populated drop-down
+- Add a Standard/Elite switch on contract summary page
 - Add badge to show new contracts
+- Add "Reporting Totals" state to contracts
 - Update SoloContractCalc to factor in different contract leagues (currently assumes elite)?
 - Improve SoloContractCalc look?
 - Farm stats window visual improvements
 - Add accessibility texts
-- Create a 30 second How-to/Intro video to the new website
+- Implement TypeScript into WebPack
+- Add a new shipping input for farm value
+- Add a co-op listing page
+- Add a comment page to co-ops only viewable by members of that co-op
+- Populate the game guide
+- Create a full alias to translate game objects through API
+
+### ~~Pre-release~~
+- ~~Continue to clean up App.css~~
 - ~~Add tooltips~~
 - ~~Fix bug when clicking into a contract card too quickly from load~~
 - ~~Improve Welcome dashboard card look and content~~
@@ -21,13 +32,4 @@
 - ~~Create news post system~~
 - ~~Error control for coop search~~
 - ~~Have graphql return HTTP error code for no response~~
-    - ~~or handle it in code~~
-
-### Post-release
-- Implement TypeScript into WebPack
-- Add a new shipping input for farm value
-- Add a co-op listing page
-- Add a comment page to co-ops only viewable by members of that co-op
-- Continue to clean up App.css
-- Populate the game guide
-- Create a full alias to translate game objects through API
+	- ~~or handle it in code~~

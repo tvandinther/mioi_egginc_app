@@ -10,13 +10,11 @@ import ReactGA from "react-ga"
 import { fetchNews } from "./actions/appActions"
 import { validatePlayerId } from "./actions/settingsActions"
 import { getActiveContracts } from "./actions/contractActions"
-// RESOURCES
-import "../css/App.css";
-// import Pages from "./pages/pageRoutes"
+
 import PageNotFound from "./pages/_404"
 // COMPONENTS
 import SidebarMenu from "./components/SidebarMenu/SidebarMenu"
-import Navbar from "./components/Navbar"
+import Header from "./components/Header"
 import useTheme from "@material-ui/core/styles/useTheme";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -33,7 +31,7 @@ if (process.env.NODE_ENV !== "production") {
 		"cordless.cloud": "UA-120158257-1",
 		"localhost:3000": "UA-120158257-1",
 	}
-	trackingID = trackingIDs[window.location.host]
+	trackingID = trackingIDs[window.location.host] || null
 }
 if (process.env.NODE_ENV === "production") {
 	trackingID = TRACKING_ID
@@ -99,7 +97,7 @@ function App(props) {
 				<SidebarMenu />
 				<div className={classes.toolbar}></div>
 				<EntryPopup/>
-				<Navbar/>
+				<Header/>
 				<Suspense fallback={<Loading/>}>
 					<Switch>
 						<Route exact path="/" component={Home} />

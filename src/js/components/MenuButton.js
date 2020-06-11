@@ -7,16 +7,19 @@ import { useTheme } from "@material-ui/core/styles"
 
 const useStyles = makeStyles(theme => ({
     root: {
-        padding: "0px 12px",
-        width: "50px",
+        padding: "unset",
     },
     MenuButton: {
         transition: "all 300ms ease-out",
-
-        "& div": {
-            backgroundColor: theme.palette.primary.contrastText,
-        },
-    }
+	},
+	bar: {
+		width: 35,
+		height: 4,
+		borderRadius: 2,
+		backgroundColor: theme.palette.primary.contrastText,
+		margin: "6px 0px",
+		transition: "0.4s",
+	}
 }))
 
 export default function MenuButton(props) {
@@ -39,11 +42,11 @@ export default function MenuButton(props) {
     }
 
     return (
-        <IconButton className={classes.root} style={null} onClick={() => dispatch(toggleSidebar())} edge={props.left ? "start" : "end"}>
+        <IconButton className={classes.root} style={null} onClick={() => dispatch(toggleSidebar())}>
             <div className={classes.MenuButton}>
-                <div style={props.active ? barActiveStyles.bar1 : null} className="bar1"></div>
-                <div style={props.active ? barActiveStyles.bar2 : null} className="bar2"></div>
-                <div style={props.active ? barActiveStyles.bar3 : null} className="bar3"></div>
+                <div style={props.active ? barActiveStyles.bar1 : null} className={classes.bar}></div>
+                <div style={props.active ? barActiveStyles.bar2 : null} className={classes.bar}></div>
+                <div style={props.active ? barActiveStyles.bar3 : null} className={classes.bar}></div>
             </div>
         </IconButton>
     )
