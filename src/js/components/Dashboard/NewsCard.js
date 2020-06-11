@@ -11,10 +11,10 @@ const useStyle = makeStyles(theme => ({
 		whiteSpace: "pre-line",
 
 		"& a": {
-			color: theme.palette.info.main,
+			color: theme.palette.info.dark,
 
 			"&:hover": {
-				color: theme.palette.info.light,
+				color: theme.palette.info.main,
 			},
 		}
 	}

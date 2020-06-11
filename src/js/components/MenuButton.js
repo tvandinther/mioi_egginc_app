@@ -42,7 +42,7 @@ export default function MenuButton(props) {
     }
 
     return (
-        <IconButton className={classes.root} style={null} onClick={() => dispatch(toggleSidebar())}>
+        <IconButton className={classes.root} style={null} onClick={() => dispatch(toggleSidebar())} aria-label="Menu">
             <div className={classes.MenuButton}>
                 <div style={props.active ? barActiveStyles.bar1 : null} className={classes.bar}></div>
                 <div style={props.active ? barActiveStyles.bar2 : null} className={classes.bar}></div>

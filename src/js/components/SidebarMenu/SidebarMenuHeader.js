@@ -33,7 +33,7 @@ export default function SidebarMenuHeader(props) {
             <Typography>
                 
             </Typography>
-            <IconButton onClick={() => dispatch(hideSidebar())}>
+            <IconButton onClick={() => dispatch(hideSidebar())} aria-label="Hide Menu">
                 <ArrowBackIosIcon style={style.icon}/>
             </IconButton>
         </div>

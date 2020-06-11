@@ -127,7 +127,8 @@ export default function ResearchInput(props) {
 				classes={{input: classes.inputOverride}}
                 value={sliderValue}
                 onChange={handleInputChange}
-                onBlur={handleBlur}
+				onBlur={handleBlur}
+				aria-label={research.name}
             />
             <Slider
                 className={classes.slider}
@@ -137,7 +138,8 @@ export default function ResearchInput(props) {
                 // marks={true}
                 min={0}
                 max={research.maxLevel}
-                color="secondary"
+				color="secondary"
+				aria-label={research.name}
             />
 			<InputLabel className={classes.sliderLabel}>{research.maxLevel}</InputLabel>
         </div>

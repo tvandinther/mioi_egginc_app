@@ -36,6 +36,7 @@ export default function GenericStatInput(props) {
 			onBlur={handleBlur}
 			fullWidth
 			classes={{"input": classes.input}}
+			aria-label={name}
 		>
 			{Input}
 		</TextMask>

@@ -65,7 +65,7 @@ export default function DashboardCard(props) {
         <Card style={props.style} raised={hoverable && raised} onMouseOver={toggleRaised} onMouseOut={toggleRaised} className={`${classes.card}`}>
             <div className={classes.header} onClick={toggleCollapsed} style={{cursor: collapsable ? "pointer" : null}}>
                 <Typography className={classes.title} variant="h5" align="center" style={{color: "white"}}>{props.title}</Typography>
-				{collapsable && <IconButton className={`${classes.collapseButton} ${collapsed ? classes.iconCollapsed : ''}`} style={{color: "white"}}>
+				{collapsable && <IconButton className={`${classes.collapseButton} ${collapsed ? classes.iconCollapsed : ''}`} style={{color: "white"}} aria-label={collapsed ? "Expand Card" : "Collapse Card"}>
 					<ExpandLessIcon/>
 				</IconButton>}
             </div>

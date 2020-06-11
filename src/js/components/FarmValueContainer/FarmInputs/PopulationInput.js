@@ -78,6 +78,7 @@ export default function PopulationInput(props) {
 				onBlur={handleBlur}
 				value={value}
 				helpText="e.g. 123,456 or 123.456T"
+				aria-label="Farm Population"
 			>
 				{Input}
 			</TextMask>

@@ -47,6 +47,7 @@ export default function PEInput(props) {
 				onChange={(evt) => setValue(evt.target.value)}
 				onBlur={handleBlur}
 				classes={{input: classes.inputRoot}}
+				aria-label="Prophecy Eggs"
             />
 			<FormHelperText> </FormHelperText>
         </div>

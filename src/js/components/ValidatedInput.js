@@ -35,7 +35,8 @@ export default function ValidatedInput(props) {
     }
 
     return (
-        <TextField 
+		<TextField 
+			aria-label={props["aria-label"]}
             error={props.error} 
             autoFocus onKeyUp={handleKeyUp} 
             type={props.type}

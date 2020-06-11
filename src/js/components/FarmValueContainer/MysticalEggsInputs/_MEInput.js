@@ -54,6 +54,7 @@ export default function MEInput(props) {
 				value={value}
 				onBlur={handleBlur}
 				helpText="e.g. 123,456 or 123.456T"
+				aria-label={type}
 			>
 				{Input}
 			</TextMask>

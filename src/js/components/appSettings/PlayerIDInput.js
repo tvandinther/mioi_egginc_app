@@ -71,6 +71,7 @@ export default function PlayerIDInput(props) {
 				label="Player ID"
 				onChange={handleChange}
 				onKeyUp={handleKeyUp}
+				inputProps={{"aria-label": "Player ID"}}
 			/>
 			{fetching && <Loading/>}
 			{!fetching && <IconButton
@@ -78,6 +79,7 @@ export default function PlayerIDInput(props) {
 				color="primary"
 				size="medium"
 				disabled={value === playerId}
+				aria-label="Submit"
 			>
 				<CheckCircleIcon/>
 			</IconButton>}

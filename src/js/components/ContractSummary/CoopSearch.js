@@ -65,7 +65,17 @@ export default function CoopSearch(props) {
     
     return (
             <div style={props.style} className={classes.root}>
-                <ValidatedInput pasteSubmit={false} label="Search a Co-op" type="search" error={error} onEnter={handleSubmit} value={coopSearchString} setValue={setReduxSearchString} validatorFunction={contractNameFormat}/>
+                <ValidatedInput
+					pasteSubmit={false}
+					label="Search a Co-op"
+					type="search"
+					error={error}
+					onEnter={handleSubmit}
+					value={coopSearchString}
+					setValue={setReduxSearchString}
+					validatorFunction={contractNameFormat}
+					inputProps={{"aria-label": "Search a Co-op"}}
+				/>
                 <Button onClick={handleSubmit} variant="outlined" disabled={loading || disableSearch}>
                     Search
                     {loading && <CircularProgress className={classes.progress}/>}

@@ -45,6 +45,7 @@ export default function SEInput(props) {
 				classes={{input: classes.inputRoot}}
 				onBlur={handleBlur}
 				helptext="e.g. 123,456 or 123.456T"
+				aria-label="Soul Eggs"
 			>
 				{Input}
 			</TextMask>
