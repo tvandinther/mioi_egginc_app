@@ -23,7 +23,7 @@ app.use('/api',
     express_graphql({
         schema : buildSchema(importSchema('./graphql/schema.graphql')),
         rootValue : GQLResolvers,
-        graphiql : true
+        graphiql : false
     })    
 );
 
