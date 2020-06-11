@@ -11,7 +11,7 @@ export default function ThemeSwitch(props) {
 	const handleChange = event => {
 		dispatch(setDarkTheme(event.target.checked))
 		ReactGA.event({
-			category: "Theme",
+			category: "Appearance",
 			action: !darkTheme ? "Dark Theme Enabled" : "Light Theme Enabled",
 		})
 	}

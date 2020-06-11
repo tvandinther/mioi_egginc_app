@@ -43,3 +43,10 @@ export function setDarkTheme(bool) {
         payload: bool,
     }
 }
+
+export function hideTooltips(bool) {
+	return {
+		type: "HIDE_TOOLTIPS",
+		payload: bool,
+	}
+}

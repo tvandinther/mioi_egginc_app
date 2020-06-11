@@ -4,6 +4,7 @@ import { ProgressBar } from "react-step-progress-bar"
 import "react-step-progress-bar/styles.css"
 import { Typography, Paper, Divider } from "@material-ui/core"
 import { makeStyles, useTheme } from "@material-ui/core/styles"
+import HelpTooltip from "../../Decorator/HelpTooltip"
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -131,11 +132,11 @@ export default function CoopExpiryEstimate(props) {
 			<div className={classes.main}>
 				<Overlay completed={completed}/>
 				<Typography variant="body2" className={`${classes.estimate} ${classes.title}`}>
-						Completion Estimate
+						Completion Estimate <HelpTooltip small helpText="Time to complete final goal at current rate"/>
 				</Typography>
 
 				<Typography variant="body2" className={`${classes.expiry} ${classes.title}`}>
-					Contract Time Left
+					Contract Time Left <HelpTooltip small helpText="Time remaining on contract"/>
 				</Typography>
 
 				<div className={classes.divider}/>

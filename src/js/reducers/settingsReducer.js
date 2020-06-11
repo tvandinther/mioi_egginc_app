@@ -23,9 +23,15 @@ export default function reducer(state=initialState, action) {
         case "SET_DARK_THEME": {
             return {
                 ...state,
-                darkTheme: action.payload
+                darkTheme: action.payload,
             }
-        }
+		}
+		case "HIDE_TOOLTIPS": {
+			return {
+				...state,
+				hideTooltips: action.payload,
+			}
+		}
         default: {
             return state
         }

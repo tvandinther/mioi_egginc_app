@@ -2,7 +2,7 @@ import React from "react"
 import { useTheme } from "@material-ui/core/styles"
 import "react-step-progress-bar/styles.css"
 import { ProgressBar, Step } from "react-step-progress-bar"
-import { percentString, getImageSrc } from "../../../tools/eggincTools"
+import { percentString, convertSymbol, getImageSrc } from "../../../tools/eggincTools"
 import { Paper, Tooltip } from "@material-ui/core"
 
 export default function CoopRewards(props) {
@@ -34,7 +34,8 @@ export default function CoopRewards(props) {
                     }
                     
                     return (
-                        <Tooltip 
+						<Tooltip 
+							arrow
                             title={`${percentString(eggsLaid / reward.goal, 0, true)} completed`} 
                             placement="top"
                             enterTouchDelay={400}
@@ -50,16 +51,19 @@ export default function CoopRewards(props) {
     })
 
     return (
+		<Tooltip arrow title={`${convertSymbol(eggsLaid)}/${convertSymbol(finalGoal)}`}>
         <Paper elevation={4} style={style}>
-            <ProgressBar 
+			<ProgressBar 
                 height={20}
                 percent={progress} 
                 unfilledBackground={theme.palette.background.off}
                 filledBackground={fill}
-                stepPositions={rewards.map(reward => reward.goal / finalGoal * 100)}
+				stepPositions={rewards.map(reward => reward.goal / finalGoal * 100)}
+				// text={`${convertSymbol(eggsLaid)}/${convertSymbol(finalGoal)}`}
             >
                 {steps}
             </ProgressBar>
         </Paper>
+		</Tooltip>
     )
 }

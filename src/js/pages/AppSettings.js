@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux"
 import ClearPlayerID from "../components/appSettings/ClearPlayerID"
 import ThemeSwitch from "../components/appSettings/ThemeSwitch"
 import Page from "../Page"
+import HideTooltipsSwitch from "../components/appSettings/HideTooltipsSwitch"
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -51,6 +52,7 @@ export default function AppSettings(props) {
 			<Divider variant="middle"/>
 			<List>
 				<ThemeSwitch/>
+				<HideTooltipsSwitch/>
 			</List>
 		</div>
 	)
