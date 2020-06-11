@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /contract/view
+Noindex: /contract/view
+Disallow: /settings/
+Noindex: /settings/
+Disallow: /api/
+Noindex: /api/
