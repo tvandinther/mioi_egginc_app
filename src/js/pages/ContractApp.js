@@ -9,10 +9,8 @@ import { Switch, Route } from "react-router-dom"
 // COMPONENTS
 import { Container } from "@material-ui/core"
 import Page from "../Page"
-import Navbar from "../components/Navbar"
 import ContractList from "../components/ContractList"
 import ContractSummary from "../components/ContractSummary/ContractSummary"
-import ErrorBoundary from "../components/ErrorBoundary"
 
 export default function ContractApp(props) {
 	return (
