@@ -10,7 +10,7 @@ import store, { persistor } from "./store"
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
-        navigator.serviceWorker.register('sw.js', {scope: "/", updateViaCache: 'none'}).then(function(registration) {
+        navigator.serviceWorker.register('/sw.js', {scope: "/", updateViaCache: 'none'}).then(function(registration) {
         // Registration was successful
         console.log('ServiceWorker registration successful with scope: ', registration.scope);
       }, function(err) {
