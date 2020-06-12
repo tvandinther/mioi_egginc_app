@@ -4,6 +4,7 @@ import { IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPlayerCoops } from "../tools"
+import ReactGA from "react-ga"
 
 // ACTIONS
 import { fetchNews } from "../actions/appActions"
@@ -39,6 +40,12 @@ export default function SyncButton(props) {
 		if (settings.playerId) dispatch(validatePlayerId(settings.playerId))
 		fetchPlayerCoops(coopIds, dispatch)
 		dispatch(fetchNews(5))
+
+		ReactGA.event({
+			category: "Interaction",
+			action: "Sync",
+			label: window.location.pathname,
+		})
 	}
 
 	const noAnimation = {
