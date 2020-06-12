@@ -4,6 +4,7 @@ import { Typography, AppBar, Toolbar, Slide, useScrollTrigger } from "@material-
 import MenuButton from "./MenuButton"
 import { useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
+import SyncButton from "./SyncButton"
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -45,7 +46,7 @@ export default function Navbar(props) {
                             {title}
                         </Typography>
                     </NavLink>
-                    <div style={{width: "50px"}}/>
+                    <SyncButton/>
                 </Toolbar>
             </AppBar>
         </HideOnScroll>

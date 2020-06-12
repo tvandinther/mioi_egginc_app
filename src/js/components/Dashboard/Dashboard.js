@@ -10,6 +10,7 @@ import NewsCard from "./NewsCard"
 import Loading from "../Loading"
 import DashboardContentManager from "../../tools/DashboardContentManager"
 import { Container } from "@material-ui/core"
+import { fetchPlayerCoops } from "../../tools"
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -37,17 +38,18 @@ export default function Dashboard(props) {
     let [columnCount, setColumnCount] = useState(null)
     const coopIds = playerData.fetched ? playerData.contracts.contractsList : null
 
-    function fetchPlayerCoops() {
-        for (let item of coopIds) {
-            let contractId = item.contract.identifier
-            let coopId = item.coopIdentifier
-            if (coopId) dispatch(ContractActions.getCoop(coopId, contractId, true))
-        }
-    }
+
+    // function fetchPlayerCoops() {
+    //     for (let item of coopIds) {
+    //         let contractId = item.contract.identifier
+    //         let coopId = item.coopIdentifier
+    //         if (coopId) dispatch(ContractActions.getCoop(coopId, contractId, true))
+    //     }
+    // }
 
     useEffect(() => {
         if (playerData.fetched && (Object.keys(playerCoops).length === 0 && playerCoops.constructor === Object)) {
-            fetchPlayerCoops()
+            fetchPlayerCoops(coopIds, dispatch)
         }
     }, [playerData.userId]) 
 
@@ -74,12 +76,6 @@ export default function Dashboard(props) {
 			)
 		})
     }
-    // PLAYER ID PROMPT
-    // if (!playerId || playerData.fetching) {
-    //     dcm.addItem(
-    //         <PlayerIDPromptCard priority={0} key="idPrompt"/>
-    //     )
-	// }
 	
 	dcm.addItem(<PlayerCard key="playerCard" priority={0}/>)
 
