@@ -39,7 +39,6 @@ export default function CoopCard(props) {
     const coop = useSelector(store => store.contract.playerCoops[contract.name])
 	const playerContractFarm = useSelector(store => store.playerData.farmsList.find(item => item.contractId === contract.name))
 	const playerGameData = useSelector(store => store.playerData.game)
-	const farmStats = calculateFarmStats(playerContractFarm, playerGameData)
 	const league = metaContract.league === 0 ? "elite" : "standard"
 	const coopRewards = contract.goals[league]
 
@@ -54,10 +53,27 @@ export default function CoopCard(props) {
 		<Loading style={{gridArea: "rewards / estimate / rewards / estimate"}} key="loading" />,
 	]
 	
+	let coopData
+	if (coop) {
+		coopData = {
+			eggsLaid: coop.eggs,
+			layingRate: coop.totalRate,
+			timeLeft: coop.timeLeft
+		}
+	}
+	else {
+		const farmStats = calculateFarmStats(playerContractFarm, playerGameData)
+		coopData = {
+			eggsLaid: playerContractFarm.eggsLaid,
+			layingRate: farmStats.layingRate / 60,
+			timeLeft: metaContract.timeAccepted + metaContract.contract.lengthSeconds - (new Date() / 1000)
+		}
+	}
+	console.log(coopData)
     const coopContent = [
         <Typography key="coop" style={{gridArea: "subtitle"}} align="center" variant="h4">{(coop && coop.coop) || "No Co-op"}</Typography>,
         <CoopRewards key="rewards" style={{gridArea: "rewards"}}  eggsLaid={(coop && coop.eggs) || playerContractFarm.eggsLaid} rewards={coopRewards} />,
-        <CoopExpiryEstimate key="estimate" style={{gridArea: "estimate"}} rewards={coopRewards} data={(coop && {eggsLaid: coop.eggs, layingRate: coop.totalRate, timeLeft: coop.timeLeft} ) || {eggsLaid: playerContractFarm.eggsLaid, layingRate: farmStats.layingRate, timeLeft: metaContract.timeAccepted + metaContract.contract.lengthSeconds - (new Date() / 1000)}}/>,
+        <CoopExpiryEstimate key="estimate" style={{gridArea: "estimate"}} rewards={coopRewards} data={coopData}/>,
     ]
 
     return (

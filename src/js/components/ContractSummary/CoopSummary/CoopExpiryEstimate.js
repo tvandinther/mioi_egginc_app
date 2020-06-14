@@ -147,7 +147,7 @@ export default function CoopExpiryEstimate(props) {
 				</div>
 				
 				<Typography variant="body2" className={`${classes.estimate} ${classes.value}`}>
-					{estimate > EPOCH_1_YEAR ? "A very long time" : convertEpoch(estimate)}
+					{estimate == Infinity ? "A very long time" : convertEpoch(estimate)}
 				</Typography>
 
 				<Typography variant="body2" className={`${classes.expiry} ${classes.value}`}>

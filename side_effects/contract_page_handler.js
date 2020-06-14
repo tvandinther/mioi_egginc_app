@@ -59,6 +59,6 @@ exports.init = function() {
         })
     }
     else {
-        console.log(`Will invoke again after ${Math.ceil(global.getActiveContractsLastExecuted + timeout - now)} seconds`);
+        // console.log(`Will invoke again after ${Math.ceil(global.getActiveContractsLastExecuted + timeout - now)} seconds`);
     }
 }
