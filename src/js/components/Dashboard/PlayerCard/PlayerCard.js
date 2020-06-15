@@ -9,21 +9,33 @@ import Loading from "../../Loading"
 import FlexContainer from "../../FlexContainer"
 import ImageLabel from "../../Decorator/ImageLabel"
 import DailyGiftCollection from "./DailyGiftCollection"
+import NextEgg from "../../FarmValueContainer/FarmStats/NextEgg"
+import { calculateFarmStats } from "../../../tools"
+import Image from "../../Decorator/Image"
 
 const useStyle = makeStyles(theme => ({
+	root: {
+		"& > *": {
+			marginTop: 10,
+			marginBottom: 10,
+		},
+	},
 	meEggs: {
 		paddingTop: 8,
 		paddingBottom: 8,
-	}
+	},
 }))
 
 export default function PlayerCard(props) {
-	const playerData = useSelector(store => store.playerData)
 	const classes = useStyle()
+	const playerData = useSelector(store => store.playerData)
+	const farm = useSelector(store => store.playerData.farmsList.find(farm => farm.farmType === 2))
+	const game = useSelector(store => store.playerData.game)
 	const fetched = playerData.fetched
 	const fetching = playerData.fetching
 	const userId = playerData.userId
 	const giftCollected = fetched ? playerData.game.lastDailyGiftCollectedDay >= getDayIndex(new Date()) : undefined
+	const farmStats = calculateFarmStats(farm, game)
 
 	const IDPrompt = () => (
 		<div>
@@ -43,7 +55,7 @@ export default function PlayerCard(props) {
 	)
 
 	const PlayerDataDisplay = () => (
-		<div>
+		<div className={classes.root}>
 			<DailyGiftCollection collected={giftCollected}/>
 			<FlexContainer className={classes.meEggs}>
 				<ImageLabel imageSrc={"/images/SOUL_EGGS.png"} label={convertSymbol(playerData.game.soulEggsD)} height={80} />

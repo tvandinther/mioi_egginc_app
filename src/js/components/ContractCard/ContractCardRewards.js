@@ -1,7 +1,7 @@
 import React from "react"
 import { Typography, Tooltip } from "@material-ui/core"
 import { useTheme, makeStyles } from "@material-ui/core/styles"
-import { getImageSrc, convertSymbol } from "../../tools/eggincTools"
+import { getRewardDetails, convertSymbol } from "../../tools/eggincTools"
 
 const useStyle = makeStyles(theme => ({
 	root: {
@@ -71,7 +71,7 @@ function RewardSet(props) {
 function RewardItem(props) {
 	const classes = useStyle()
 	const { goal } = props.reward
-    const { path, quantity } = getImageSrc(props.reward)
+    const { path, quantity } = getRewardDetails(props.reward)
     return (
 		<Tooltip title={convertSymbol(goal)} placement="left" arrow>
 			<div className={classes.reward}>

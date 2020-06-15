@@ -10,7 +10,7 @@ const contractPageHandler = require("./side_effects/contract_page_handler")
 
 const app = express();
 
-app.use(compression())
+// ==================== API ====================
 
 const eggincAPILimiter = rateLimit({
     windowMS : 60 * 1000, // 1 minute
@@ -27,13 +27,17 @@ app.use('/api',
     })    
 );
 
+// ==================== EXPRESS ====================
 
+app.use(compression())
 app.use(express.static('public'))
 
 app.get('*', (req, res) => {
 	res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 	contractPageHandler.init()
 })
+
+// ==================== PORT ====================
 
 const PORT = process.env.PORT || 8080
 app.listen(PORT, () => console.log(`listening on port ${PORT}`))

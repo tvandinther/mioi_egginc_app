@@ -27,7 +27,7 @@ exports.init = function() {
                 metadata   : {
                     cacheControl: 'public, max-age=300'}
             }))
-            console.log(`Updated contract cache`);
+            console.info(`Updated contract cache`);
         });
     }
 
@@ -45,16 +45,15 @@ exports.init = function() {
                 let id = contract.identifier;
                 mioidb.checkFor('contract', id).then(exists => {
                     if (!exists) {
-                        console.log(`Adding contract "${id}" to database...`);
+                        console.info(`Adding contract "${id}" to database...`);
                         mioidb.addcontract(id, contract).then( () => {
-                            console.log(`Completed adding new contract to database`)
-                            console.log(`Updating contract cache...`);
+                            console.info(`Completed adding new contract to database`)
+                            console.info(`Updating contract cache...`);
                             getActiveContracts();
                         });
                     }
                 });
             });
-            // getActiveContracts();
             console.log(`Contract check complete!`);
         })
     }

@@ -148,7 +148,7 @@ function cutoffOf(n) {
     return Math.pow(10, Math.floor(orderOf(n)) * 3);
 }
 
-export function getImageSrc(reward) {
+export function getRewardDetails(reward) {
     const imageRootSrc = "/images"
     let path = null
     let quantity = null
@@ -184,6 +184,10 @@ export function getImageSrc(reward) {
         path: `${imageRootSrc}/${path}.png`,
         quantity: quantity,
     }
+}
+
+export function getImageSrc(id) {
+	return `/images/${id}.png`
 }
 
 export function contractTimeSoloEstimate(parameters) {

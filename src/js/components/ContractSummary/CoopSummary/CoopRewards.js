@@ -2,7 +2,7 @@ import React from "react"
 import { useTheme } from "@material-ui/core/styles"
 import "react-step-progress-bar/styles.css"
 import { ProgressBar, Step } from "react-step-progress-bar"
-import { percentString, convertSymbol, getImageSrc } from "../../../tools/eggincTools"
+import { percentString, convertSymbol, getRewardDetails } from "../../../tools/eggincTools"
 import { Paper, Tooltip } from "@material-ui/core"
 
 export default function CoopRewards(props) {
@@ -41,7 +41,7 @@ export default function CoopRewards(props) {
                             enterTouchDelay={400}
                         >
                             <div>
-                                <img width={40} src={getImageSrc(reward).path} style={stepStyle}></img>
+                                <img width={40} src={getRewardDetails(reward).path} style={stepStyle}></img>
                             </div>
                         </Tooltip>
                     )

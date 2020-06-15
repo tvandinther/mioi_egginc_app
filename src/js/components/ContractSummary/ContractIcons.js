@@ -13,7 +13,8 @@ export default function ContractIcons(props) {
     const coopIconText = (() => {
         if (contract.coopSize) {
             let string = contract.coopSize
-            if (coop && coop.members) return coop.members.length + "/" + string
+			if (coop && coop.members) return coop.members.length + "/" + string
+			else return string
         }
         return "0"
     })()

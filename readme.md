@@ -4,7 +4,6 @@
 
 ### Post-release
 - Make SoloContractCalc target a populated drop-down
-- Add a Standard/Elite switch on contract summary page
 - Add badge to show new contracts
 - Add "Reporting Totals" state to contracts
 - Update SoloContractCalc to factor in different contract leagues (currently assumes elite)?
@@ -19,6 +18,7 @@
 - Create a full alias to translate game objects through API
 
 ### ~~Pre-release~~
+- ~~Add a Standard/Elite switch on contract summary page~~
 - ~~Continue to clean up App.css~~
 - ~~Add tooltips~~
 - ~~Fix bug when clicking into a contract card too quickly from load~~
