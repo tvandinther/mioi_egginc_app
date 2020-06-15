@@ -35,7 +35,7 @@ const useStyle = makeStyles(theme => ({
 export default function ContractCardProgressBar(props) {
     const theme = useTheme()
 	const classes = useStyle()
-	const noDeviceHover = useMediaQuery("(hover: none)")
+	const noDeviceHover = useMediaQuery("(pointer: none), (hover: none)")
 
     const progress = Math.min(Math.max(0, props.progress), 1)
     let [hovered, setHovered] = useState(false)

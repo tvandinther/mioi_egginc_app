@@ -11,6 +11,7 @@ import CoopMembers from "./CoopMembers"
 import CoopExpiryEstimate from "./CoopExpiryEstimate"
 import HelpTooltip from "../../Decorator/HelpTooltip"
 import LabelToggle from "../../controls/LabelToggle"
+import ReactGA from "react-ga"
 
 const useStyle = makeStyles(theme => ({
 	root: {
@@ -39,6 +40,14 @@ export default function CoopSummary(props) {
 		else setSelectedLeague("elite")
 	}
 
+	const logTierChange = (evt, newState) => {
+		ReactGA.event({
+			category: "Contract",
+			action: "Co-op Tier Changed",
+			label: newState ? "Elite" : "Standard",
+		})
+	}
+
 	useEffect(() => {
 		if (coop.fetched && coop.league) setSelectedLeague(coop.league)
 	}, [(coop && coop.league)])
@@ -52,7 +61,7 @@ export default function CoopSummary(props) {
                 <Redirect to={`${currentRoute.url}/${coop.coop}`} />
                 <Route path={`${currentRoute.path}/:coopId`}>
 					<Typography className={classes.type} align="center" variant="h4">{coop.coop}</Typography>
-					<LabelToggle state={selectedLeague === "elite"} labels={["Standard", "Elite"]} onChange={handleLeagueChange}/>
+					<LabelToggle state={selectedLeague === "elite"} labels={["Standard", "Elite"]} onChange={handleLeagueChange} onClick={logTierChange}/>
 					<CoopRewards eggsLaid={coop.eggs} rewards={coopRewardSet}/>
 						<Typography variant="h5" align="center">
 							Completion Pace

@@ -56,7 +56,7 @@ export default function LabelToggle(props) {
 	const leftRef = useRef()
 	const rightRef = useRef()
 	const selectorRef = useRef()
-	const { state, labels, onChange } = props
+	const { state, labels, onChange, onClick } = props
 	
 	const [toggleState, setToggleState] = useState(state)
 
@@ -83,6 +83,7 @@ export default function LabelToggle(props) {
 
 	const handleClick = evt => {
 		setToggleState(!toggleState)
+		if (typeof onClick === "function") onClick(evt, !toggleState)
 	}
 
 	return (
