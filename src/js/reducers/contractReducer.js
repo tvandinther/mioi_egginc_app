@@ -43,7 +43,7 @@ export default function reducer(state=initialState, action) {
             let coops = {}
             for (let contractId of contractIds) {
                 Object.assign(coopSearches, {[contractId]: defaultCoopSearch})
-                Object.assign(coops, {[contractId]: null})
+                Object.assign(coops, {[contractId]: {fetched: false}})
             }
             return {...state, 
                 activeContracts: {

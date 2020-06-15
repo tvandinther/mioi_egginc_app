@@ -86,7 +86,7 @@ export default function NextEgg(props) {
 	}
 	
 	const fill =`linear-gradient(to right, ${theme.palette.primary.light}, ${theme.palette.secondary.light})`
-	console.log(progress, stepPositions, steps)
+
 	return (
 		<Paper elevation={4} className={classes.root}>
 			<Typography align="center">

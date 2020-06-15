@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { useSelector } from "react-redux"
 import { Route, useRouteMatch, Redirect, useParams } from "react-router-dom"
 import { Typography } from "@material-ui/core"
@@ -10,6 +10,7 @@ import CoopEstimate from "./CoopEstimate"
 import CoopMembers from "./CoopMembers"
 import CoopExpiryEstimate from "./CoopExpiryEstimate"
 import HelpTooltip from "../../Decorator/HelpTooltip"
+import LabelToggle from "../../controls/LabelToggle"
 
 const useStyle = makeStyles(theme => ({
 	root: {
@@ -17,7 +18,8 @@ const useStyle = makeStyles(theme => ({
 		flexDirection: "column",
 
 		"&>*": {
-			margin: "10px 0px",
+			marginTop: 10,
+			marginBottom: 10,
 		}
 	},
 	type: {
@@ -29,21 +31,34 @@ export default function CoopSummary(props) {
 	const contract = props.contract
 	const classes = useStyle()
     const currentRoute = useRouteMatch()
-    const coop = useSelector(state => state.contract.coops[props.contract.name])
+	const coop = useSelector(state => state.contract.coops[props.contract.name])
+	const [selectedLeague, setSelectedLeague] = useState("standard")
+
+	const handleLeagueChange = state => {
+		if (state === false) setSelectedLeague("standard")
+		else setSelectedLeague("elite")
+	}
+
+	useEffect(() => {
+		if (coop.fetched && coop.league) setSelectedLeague(coop.league)
+	}, [(coop && coop.league)])
+
+	const coopRewardSet = (contract.goals[selectedLeague]) || contract.rewards
 
     if (coop && coop.fetched) {
-		const coopRewardSet = contract.goals[coop.league] || contract.goals
+		
         return (
             <div style={props.style} className={classes.root}>
                 <Redirect to={`${currentRoute.url}/${coop.coop}`} />
                 <Route path={`${currentRoute.path}/:coopId`}>
 					<Typography className={classes.type} align="center" variant="h4">{coop.coop}</Typography>
-					<Typography className={classes.type} align="center" variant="h6">{coop.league.toUpperCase()}</Typography>
+					<LabelToggle state={selectedLeague === "elite"} labels={["Standard", "Elite"]} onChange={handleLeagueChange}/>
 					<CoopRewards eggsLaid={coop.eggs} rewards={coopRewardSet}/>
 						<Typography variant="h5" align="center">
-							Completion Pace <HelpTooltip 
-												helpText={"The completion pace shows the ratio between your estimated completion time and the remaining time. Aim to keep this under the red \"success threshold\" line."}
-											/>
+							Completion Pace
+							<HelpTooltip 
+								helpText={"The completion pace shows the ratio between your estimated completion time and the remaining time. Aim to keep this under the red \'success threshold\' line."}
+							/>
 						</Typography>
                     <CoopExpiryEstimate contract={contract} rewards={coopRewardSet} coop={coop}/>
                     <Typography align="center" variant="h5">Members ({coop.members.length}/{contract.coopSize})</Typography>

@@ -24,10 +24,10 @@ const useStyle = makeStyles(theme => ({
         gridGap: 10,
 		alignItems: "center",
 		wordBreak: "break-word",
-    },
+	},
     image: {
         gridArea: "image",
-            width: 80,
+        width: 80,
     }
 }))
 
@@ -54,12 +54,14 @@ export default function CoopCard(props) {
 	]
 	
 	let coopData
+	let title
 	if (coop) {
 		coopData = {
 			eggsLaid: coop.eggs,
 			layingRate: coop.totalRate,
 			timeLeft: coop.timeLeft
 		}
+		title = coop.coop
 	}
 	else {
 		const farmStats = calculateFarmStats(playerContractFarm, playerGameData)
@@ -68,18 +70,21 @@ export default function CoopCard(props) {
 			layingRate: farmStats.layingRate / 60,
 			timeLeft: metaContract.timeAccepted + metaContract.contract.lengthSeconds - (new Date() / 1000)
 		}
+		title = "No Co-op"
 	}
-	console.log(coopData)
+
     const coopContent = [
-        <Typography key="coop" style={{gridArea: "subtitle"}} align="center" variant="h4">{(coop && coop.coop) || "No Co-op"}</Typography>,
         <CoopRewards key="rewards" style={{gridArea: "rewards"}}  eggsLaid={(coop && coop.eggs) || playerContractFarm.eggsLaid} rewards={coopRewards} />,
         <CoopExpiryEstimate key="estimate" style={{gridArea: "estimate"}} rewards={coopRewards} data={coopData}/>,
     ]
+
+	if (!title) title = <Loading/>
 
     return (
 		<HeadedCard hoverable collapsable title={`${contract.title}`} className={classes.root}>
 			<NavLink className={classes.card} to={link}>
 				<img key="image" className={classes.image} src={`/images/egg${contract.egg}.png`}/>
+				<Typography key="coop" style={{gridArea: "subtitle"}} align="center" variant="h4">{title}</Typography>
 				<ContractIcons style={{gridArea: "icons"}} contract={contract} coop={coop} />
 				{loadingCoop ? loadingContent : coopContent}
 			</NavLink>

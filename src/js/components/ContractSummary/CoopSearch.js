@@ -20,52 +20,67 @@ const useStyle = makeStyles(theme => ({
 }))
 
 export default function CoopSearch(props) {
-    const dispatch = useDispatch()
-    const classes = useStyle()
-    const search = useSelector(store => store.contract.coopSearch[props.contractId])
-    let coop = useSelector(store => store.contract.coops[props.contractId])
-    const playerCoop = useSelector(store => store.contract.playerCoops[props.contractId])
-    let loading = coop ? coop.fetching : false
-    let [coopSearchString, setCoopSearchString] = useState(search.searchString)
-    let [error, setError] = useState(search.searchFailed)
-    let [disableSearch, setDisableSearch] = useState(search.disabled)
-    
-    useEffect(() => {
-        if (search.failedSearches.includes(coopSearchString)) setError(true)
-    }, [search])
+	const { initialSearch, contractId } = props
+	const dispatch = useDispatch()
+	const classes = useStyle()
+	const search = useSelector(store => store.contract.coopSearch[contractId])
+	let coop = useSelector(store => store.contract.coops[contractId])
+	const playerCoop = useSelector(store => store.contract.playerCoops[contractId])
+	let loading = coop ? coop.fetching : false
+	let [coopSearchString, setCoopSearchString] = useState(initialSearch || search.searchString)
+	let [error, setError] = useState(search.searchFailed)
+	let [disableSearch, setDisableSearch] = useState(search.disabled)
 
-    const setReduxSearchString = (value) => {
-        setCoopSearchString(value)
-        if (!value) setDisableSearch(true)
-        else {
-            setDisableSearch(false)
-            if (search.failedSearches.includes(value)) setError(true)
-            else setError(false)
-        }
-        dispatch(updateContractCoopSearchString(props.contractId, value))
-    }
-    const handleSubmit = () => {
-        if (!loading) {
-			dispatch(getCoop(coopSearchString, props.contractId))
+	const setReduxSearchString = (value) => {
+		setCoopSearchString(value)
+		if (!value) setDisableSearch(true)
+		else {
+			setDisableSearch(false)
+			if (search.failedSearches.includes(value)) setError(true)
+			else setError(false)
+		}
+	}
+
+	const handleSubmit = () => {
+		if (!loading) {
+			dispatch(updateContractCoopSearchString(contractId, coopSearchString))
+			dispatch(getCoop(coopSearchString, contractId))
 			ReactGA.event({
 				category: "Contract",
 				action: "Co-op Searched",
 				label: props.contractId,
 			})
-        }
-    }
-    
-    useEffect(() => {
-        if (playerCoop && coopSearchString === playerCoop.coop) {
-            coop = playerCoop
-            dispatch(setPlayerCoopToCoop(playerCoop, props.contractId))
-        }
-        if (!coop && !search.searchFailed && search.searchString) handleSubmit()
-    }, [])
-    
-    return (
-            <div style={props.style} className={classes.root}>
-                <ValidatedInput
+		}
+	}
+
+	useEffect(() => {
+		if (!coop.fetched && coopSearchString) handleSubmit()
+	}, [])
+
+	useEffect(() => {
+		setError(search.searchFailed)
+	}, [search.searchFailed])
+
+	useEffect(() => {
+		setCoopSearchString(search.searchString)
+	}, [search.searchString])
+
+	// // Disables search button on a failed search term
+	// useEffect(() => {
+	//     if (search.failedSearches.includes(coopSearchString)) setError(true)
+	// }, [search])
+
+	useEffect(() => {
+		// Use preloaded player Co-op if search term matches
+		if (playerCoop && (coopSearchString === playerCoop.coop)) {
+			coop = playerCoop
+			dispatch(setPlayerCoopToCoop(playerCoop, contractId))
+		}
+	}, [playerCoop])
+
+	return (
+			<div style={props.style} className={classes.root}>
+				<ValidatedInput
 					pasteSubmit={false}
 					label="Search a Co-op"
 					type="search"
@@ -76,11 +91,10 @@ export default function CoopSearch(props) {
 					validatorFunction={contractNameFormat}
 					inputProps={{"aria-label": "Search a Co-op"}}
 				/>
-                <Button onClick={handleSubmit} variant="outlined" disabled={loading || disableSearch}>
-                    Search
-                    {loading && <CircularProgress className={classes.progress}/>}
-                </Button>
-            </div>
-        
-    )
+				<Button onClick={handleSubmit} variant="outlined" disabled={loading || disableSearch}>
+					Search
+					{loading && <CircularProgress className={classes.progress}/>}
+				</Button>
+			</div>
+	)
 }

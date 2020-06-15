@@ -1,4 +1,4 @@
-import { applyMiddleware, createStore } from "redux"
+import { applyMiddleware, createStore, compose } from "redux"
 
 import promise from "redux-promise-middleware"
 import logger from "redux-logger"
@@ -16,11 +16,18 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, reducer)
 
 let middleware = [promise]
-if (process.env.NODE_ENV !== "production") middleware.push(logger)
+if (process.env.NODE_ENV !== "production") {
+	middleware.push(logger)
+	middleware.push()
+}
+
+const composeEnhancers = (typeof window !== 'undefined' && (process.env.NODE_ENV !== "production") && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
 
 let store = createStore(
-    persistedReducer,
-    applyMiddleware(...middleware)
+	persistedReducer,
+	composeEnhancers(
+		applyMiddleware(...middleware)
+	)
 )
 
 export default store
