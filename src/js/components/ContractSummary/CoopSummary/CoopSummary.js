@@ -12,6 +12,7 @@ import CoopExpiryEstimate from "./CoopExpiryEstimate"
 import HelpTooltip from "../../Decorator/HelpTooltip"
 import LabelToggle from "../../controls/LabelToggle"
 import ReactGA from "react-ga"
+import CoopSettings from "./CoopSettings"
 
 const useStyle = makeStyles(theme => ({
 	root: {
@@ -32,7 +33,7 @@ export default function CoopSummary(props) {
 	const contract = props.contract
 	const classes = useStyle()
     const currentRoute = useRouteMatch()
-	const coop = useSelector(state => state.contract.coops[props.contract.name])
+	const coop = useSelector(store => store.contract.coops[props.contract.name])
 	const [selectedLeague, setSelectedLeague] = useState("standard")
 
 	const handleLeagueChange = state => {
@@ -60,15 +61,16 @@ export default function CoopSummary(props) {
             <div style={props.style} className={classes.root}>
                 <Redirect to={`${currentRoute.url}/${coop.coop}`} />
                 <Route path={`${currentRoute.path}/:coopId`}>
+					<CoopSettings/>
 					<Typography className={classes.type} align="center" variant="h4">{coop.coop}</Typography>
 					<LabelToggle state={selectedLeague === "elite"} labels={["Standard", "Elite"]} onChange={handleLeagueChange} onClick={logTierChange}/>
 					<CoopRewards eggsLaid={coop.eggs} rewards={coopRewardSet}/>
-						<Typography variant="h5" align="center">
-							Completion Pace
-							<HelpTooltip 
-								helpText={"The completion pace shows the ratio between your estimated completion time and the remaining time. Aim to keep this under the red \'success threshold\' line."}
-							/>
-						</Typography>
+					<Typography variant="h5" align="center">
+						Completion Pace
+						<HelpTooltip 
+							helpText={"The completion pace shows the ratio between your estimated completion time and the remaining time. Aim to keep this under the red \'success threshold\' line."}
+						/>
+					</Typography>
                     <CoopExpiryEstimate contract={contract} rewards={coopRewardSet} coop={coop}/>
                     <Typography align="center" variant="h5">Members ({coop.members.length}/{contract.coopSize})</Typography>
                     <CoopMembers coop={coop} />

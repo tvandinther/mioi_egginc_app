@@ -67,7 +67,7 @@ function App(props) {
 	const classes = useStyle()
 	const theme = useTheme()
 	const dispatch = useDispatch()
-	const settings = useSelector(state => state.settings)
+	const playerId = useSelector(store => store.settings.playerId)
 	useEffect(() => {
 		let metaThemeColor = document.querySelector("meta[name=theme-color]")
     	metaThemeColor.setAttribute("content", theme.palette.primary.main)
@@ -80,7 +80,7 @@ function App(props) {
 
 	useEffect(() => {dispatch(getActiveContracts())}, [])
 	useEffect(() => {
-		if (settings.playerId) dispatch(validatePlayerId(settings.playerId))
+		if (playerId) dispatch(validatePlayerId(playerId))
 	}, [])
 	useEffect(() => {dispatch(fetchNews(5))}, [])
 

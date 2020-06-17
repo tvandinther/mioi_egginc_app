@@ -28,7 +28,7 @@ const useStyle = makeStyles(theme => ({
 export default function SyncButton(props) {
 	const classes = useStyle()
 	const dispatch = useDispatch()
-	const settings = useSelector(store => store.settings)
+	const playerId = useSelector(store => store.settings.playerId)
 	const activeContractsFetching = useSelector(store => store.contract.activeContracts.fetching)
 	const playerData = useSelector(store => store.playerData)
 	const playerDataFetching = playerData.fetching
@@ -37,7 +37,7 @@ export default function SyncButton(props) {
 
 	const handleClick = evt => {
 		dispatch(getActiveContracts())
-		if (settings.playerId) dispatch(validatePlayerId(settings.playerId))
+		if (playerId) dispatch(validatePlayerId(playerId))
 		fetchPlayerCoops(coopIds, dispatch)
 		dispatch(fetchNews(5))
 

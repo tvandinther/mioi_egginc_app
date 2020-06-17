@@ -3,7 +3,10 @@ const initialState = {
     playerData: {
         error: false,
     },
-    darkTheme: false,
+	darkTheme: false,
+	hideTooltips: false,
+	detailedRewardsBar: false,
+	hourlyEggLayingRate: true,
 }
 
 export default function reducer(state=initialState, action) {
@@ -30,6 +33,18 @@ export default function reducer(state=initialState, action) {
 			return {
 				...state,
 				hideTooltips: action.payload,
+			}
+		}
+		case "DETAILED_REWARDS_BAR": {
+			return {
+				...state,
+				detailedRewardsBar: action.payload,
+			}
+		}
+		case "HOURLY_EGG_LAYING_RATE": {
+			return {
+				...state,
+				hourlyEggLayingRate: action.payload,
 			}
 		}
         default: {

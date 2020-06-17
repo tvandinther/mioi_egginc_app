@@ -7,7 +7,8 @@ import { hideSidebar } from "../../actions/UIActions"
 import * as UIActions from "../../actions/UIActions"
 
 import MenuButton from "../MenuButton"
-import ThemeSwitch from "../appSettings/ThemeSwitch"
+import SettingsSwitch from "../appSettings/SettingsSwitch"
+import switchProfiles from "../appSettings/switchProfiles.json"
 import SidebarMenuHeader from "./SidebarMenuHeader"
 import SidebarMenuItem from "./SidebarMenuItem"
 import { SwipeableDrawer, List, Drawer, Divider, Typography } from "@material-ui/core"
@@ -106,7 +107,7 @@ export default function SidebarMenu(props) {
                 >
                     {props.children}
 					<Divider/>
-					<ThemeSwitch/>
+					<SettingsSwitch {...switchProfiles.darkTheme}/>
 					<Divider/>
 					<Typography className={classes.text} variant="overline">© Created by Tom</Typography>
 					<Typography className={classes.text} variant="caption">Version {VERSION}</Typography>

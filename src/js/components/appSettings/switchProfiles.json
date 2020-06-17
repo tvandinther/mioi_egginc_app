@@ -1,0 +1,46 @@
+{
+	"darkTheme": {
+		"store": "darkTheme",
+		"action": "setDarkTheme",
+		"label": "Dark Theme",
+		"metrics": {
+			"category": "Appearance",
+			"true": "Dark Theme Enabled",
+			"false": "Light Theme Enabled",
+			"label": null
+		}
+	},
+	"hideTooltips": {
+		"store": "hideTooltips",
+		"action": "hideTooltips",
+		"label": "Hide Tooltips",
+		"metrics": {
+			"category": "Appearance",
+			"true": "Tooltips Hidden",
+			"false": "Tooltips Shown",
+			"label": null
+		}
+	},
+	"detailedRewardsBar": {
+		"store": "detailedRewardsBar",
+		"action": "detailedRewardsBar",
+		"label": "Detailed Rewards Bar",
+		"metrics": {
+			"category": "Appearance",
+			"true": "Detailed Rewards Bar",
+			"false": "Simple Rewards Bar",
+			"label": null
+		}
+	},
+	"hourlyEggLayingRate": {
+		"store": "hourlyEggLayingRate",
+		"action": "hourlyEggLayingRate",
+		"label": "Show Laying Rate Per Hour",
+		"metrics": {
+			"category": "Units",
+			"true": "Hourly Egg Laying Rate",
+			"false": "Seconds Egg Laying Rate",
+			"label": null
+		}
+	}
+}

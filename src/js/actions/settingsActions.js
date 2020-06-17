@@ -50,3 +50,17 @@ export function hideTooltips(bool) {
 		payload: bool,
 	}
 }
+
+export function detailedRewardsBar(bool) {
+	return {
+		type: "DETAILED_REWARDS_BAR",
+		payload: bool,
+	}
+}
+
+export function hourlyEggLayingRate(bool) {
+	return {
+		type: "HOURLY_EGG_LAYING_RATE",
+		payload: bool,
+	}
+}

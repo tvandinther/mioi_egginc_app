@@ -2,11 +2,12 @@ import React from "react"
 import PlayerIDInput from "../components/appSettings/PlayerIDInput"
 import { Container, Card, Typography, Divider, Switch, List, ListItem, TextField, ListItemText, ListItemSecondaryAction } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 import ClearPlayerID from "../components/appSettings/ClearPlayerID"
-import ThemeSwitch from "../components/appSettings/ThemeSwitch"
 import Page from "../Page"
-import HideTooltipsSwitch from "../components/appSettings/HideTooltipsSwitch"
+import BackButton from "../components/BackButton"
+import switchProfiles from "../components/appSettings/switchProfiles.json"
+import SettingsSwitch from "../components/appSettings/SettingsSwitch"
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -51,8 +52,10 @@ export default function AppSettings(props) {
 			</Typography>
 			<Divider variant="middle"/>
 			<List>
-				<ThemeSwitch/>
-				<HideTooltipsSwitch/>
+				<SettingsSwitch {...switchProfiles.darkTheme}/>
+				<SettingsSwitch {...switchProfiles.hideTooltips}/>
+				<SettingsSwitch {...switchProfiles.detailedRewardsBar}/>
+				<SettingsSwitch {...switchProfiles.hourlyEggLayingRate}/>
 			</List>
 		</div>
 	)
@@ -61,6 +64,9 @@ export default function AppSettings(props) {
         <Page title="App Settings" shortTitle="Settings">
 			<Container>
 				<Card className={classes.card}>
+					<BackButton/>
+					<br/>
+					<br/>
 					<Appearance/>
 					<Divider/>
 					<PlayerData/>

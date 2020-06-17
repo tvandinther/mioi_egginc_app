@@ -5,6 +5,7 @@ import "react-step-progress-bar/styles.css"
 import { Typography, Paper, Divider } from "@material-ui/core"
 import { makeStyles, useTheme } from "@material-ui/core/styles"
 import HelpTooltip from "../../Decorator/HelpTooltip"
+import { useSelector } from "react-redux"
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -95,6 +96,7 @@ function Overlay(props) {
 export default function CoopExpiryEstimate(props) {
     const classes = useStyle()
 	const theme = useTheme()
+	const hourlyEggLayingRate = useSelector(store => store.settings.hourlyEggLayingRate)
 	const rewards = props.rewards
     let totalRate, eggsRemaining, timeLeft
     if (props.coop) {
@@ -158,7 +160,7 @@ export default function CoopExpiryEstimate(props) {
 			</div>
             {(progress > 50) && <Divider style={{clear: "both"}}/>}
             <Typography align="center" variant="body2" className={classes.tip}>
-                {progress > 50 ? `Tip: ${convertSymbol(eggsRemaining / timeLeft)}/s required to reach success threshold.` : null}
+                {progress > 50 ? `Tip: ${hourlyEggLayingRate ? convertSymbol(eggsRemaining / timeLeft * 3600) + "/hr" : convertSymbol(eggsRemaining / timeLeft) + "/s"} required to reach success threshold.` : null}
             </Typography>
         </Paper>
     )

@@ -1,9 +1,11 @@
 import React from "react"
 import { Paper, Typography, Table, TableHead, TableRow, TableCell, TableSortLabel, TableBody } from "@material-ui/core"
 import { convertSymbol, percentString } from "../../../tools/eggincTools"
+import { useSelector } from "react-redux"
 
 export default function CoopMembers(props) {
-    const style = {
+	const hourlyEggLayingRate = useSelector(store => store.settings.hourlyEggLayingRate)
+	const style = {
         overflowX: "auto",
         overflowY: "auto",
     }
@@ -35,7 +37,9 @@ export default function CoopMembers(props) {
                             <TableRow key={member.id}>
                                 <TableCell>{member.name}</TableCell>
                                 <TableCell numeric="true">{convertSymbol(member.eggs)}</TableCell>
-                                <TableCell numeric="true">{convertSymbol(member.rate) + "/s"}</TableCell>
+                                <TableCell numeric="true">
+									{hourlyEggLayingRate ? convertSymbol(member.rate * 3600) + "/hr" : convertSymbol(member.rate) + "/s"}
+								</TableCell>
                                 <TableCell numeric="true">{percentString(member.eggs / props.coop.eggs, 2)}</TableCell>
                             </TableRow>
                         ))}
