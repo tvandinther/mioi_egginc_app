@@ -4,7 +4,7 @@ import settingsActions from "../../actions"
 import { Switch, ListItem, ListItemText } from "@material-ui/core"
 import ReactGA from "react-ga"
 
-export default function detailedRewardsBarSwitch(props) {
+function SettingsSwitch(props, ref) {
 	const dispatch = useDispatch()
 	const { store: storePath, action, label, metrics } = props
 	const state = useSelector(store => store.settings[storePath])
@@ -19,9 +19,11 @@ export default function detailedRewardsBarSwitch(props) {
 	}
 
 	return (
-		<ListItem>
+		<ListItem innerRef={ref}>
 			<Switch checked={state} onChange={handleChange}/>
 			<ListItemText primary={label}/>
 		</ListItem>
 	)
 }
+
+export default React.forwardRef((props, ref) => SettingsSwitch(props, ref))

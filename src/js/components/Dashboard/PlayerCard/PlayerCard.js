@@ -29,13 +29,16 @@ const useStyle = makeStyles(theme => ({
 export default function PlayerCard(props) {
 	const classes = useStyle()
 	const playerData = useSelector(store => store.playerData)
-	const farm = useSelector(store => store.playerData.farmsList.find(farm => farm.farmType === 2))
-	const game = useSelector(store => store.playerData.game)
+	// const farm = useSelector(store => {
+	// 	if (store.playerData.fetched) store.playerData.farmsList.find(farm => farm.farmType === 2)
+	// })
+	// const game = useSelector(store => store.playerData.game)
+	// const farmStats = calculateFarmStats(farm, game)
 	const fetched = playerData.fetched
 	const fetching = playerData.fetching
 	const userId = playerData.userId
 	const giftCollected = fetched ? playerData.game.lastDailyGiftCollectedDay >= getDayIndex(new Date()) : undefined
-	const farmStats = calculateFarmStats(farm, game)
+	
 
 	const IDPrompt = () => (
 		<div>

@@ -23,7 +23,7 @@ export default function CoopSettings(props) {
 	const handleClose = () => {
 		setAnchorEl(null)
 	}
-	const X = React.forwardRef((props, ref) => <detailedRewardsBarSwitch ref={ref} {...props}/>)
+
 	return (
 		<div>
 			<IconButton color="inherit" className={classes.root} onClick={handleClick}>
@@ -35,11 +35,10 @@ export default function CoopSettings(props) {
 				open={Boolean(anchorEl)}
 				onClose={handleClose}
 			>
-				<div>
-					<SettingsSwitch {...switchProfiles.detailedRewardsBar}/>
-					<SettingsSwitch {...switchProfiles.hourlyEggLayingRate}/>
-				</div>
+				<SettingsSwitch {...switchProfiles.detailedRewardsBar}/>
+				<SettingsSwitch {...switchProfiles.hourlyEggLayingRate}/>
 			</Menu>
 		</div>
 	)
 }
+

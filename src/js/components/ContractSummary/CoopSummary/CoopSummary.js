@@ -18,6 +18,7 @@ const useStyle = makeStyles(theme => ({
 	root: {
 		display: "flex",
 		flexDirection: "column",
+		position: "relative",
 
 		"&>*": {
 			marginTop: 10,
