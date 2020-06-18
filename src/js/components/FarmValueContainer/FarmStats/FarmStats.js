@@ -45,11 +45,11 @@ export default function FarmStats(props) {
             <FarmValueStat farmValue={farmStats.farmValue}/>
             <Typography className={classes.stat}>Earnings Bonus: {eiTools.convertSymbol(farmStats.earningsBonus * 100)}%</Typography>
             <Typography className={classes.stat}>Egg Value: {eiTools.convertSymbol(farmStats.eggValue)}</Typography>
-            <Typography className={classes.stat}>Soul Egg Bonus: {eiTools.convertSymbol(farmStats.soulEggBonus * 100)}%</Typography>
+            {/* <Typography className={classes.stat}>Soul Egg Bonus: {eiTools.convertSymbol(farmStats.soulEggBonus * 100)}%</Typography> */}
             <Typography className={classes.stat}>Egg Laying Rate: {eiTools.convertSymbol(farmStats.layingRate)} eggs/min</Typography>
             <Typography className={classes.stat}>Int. Hatchery Rate: {eiTools.convertSymbol(farmStats.hatchRate)} min/hab</Typography>
             <Typography className={classes.stat}>Max Hab Capacity: {farmStats.maxHabCapacity.toLocaleString()}</Typography>
-			<Typography className={classes.stat}>Income per second: {eiTools.convertSymbol(farmStats.eggValue * farmStats.layingRate * farmStats.earningsBonus / 60)}</Typography>
+			<Typography className={classes.stat}>Income: {eiTools.convertSymbol(farmStats.income)}/s</Typography>
 			<NextEgg farmValue={farmStats.farmValue} currentEggType={farm.eggType}/>
         </HeadedCard>
     )

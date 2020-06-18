@@ -194,7 +194,7 @@ export function contractTimeSoloEstimate(parameters) {
 	const hatchCalm = 1 + (parameters.hatchCalm * 0.1)
 	//BREAKPOINT CALCULATION		
 	let a = parameters.hatchRate * hatchCalm * 4;
-	let b = parameters.layingRate / parameters.population;
+	let b = (parameters.layingRate / parameters.population);
 	let c = parameters.population;
 	let d = parameters.eggsLaid;
 	let y = parameters.target;

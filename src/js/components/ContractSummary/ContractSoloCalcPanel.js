@@ -17,7 +17,7 @@ export default function ContractSoloCalcPanel(props) {
 	return (
 		<ExpansionPanel style={props.style} onChange={(evt, expanded) => setExpanded(expanded)} expanded={expanded}>
 			<ExpansionPanelSummary>
-				<Typography>Solo Contract Calculator</Typography>
+				<Typography>Contract Calculator</Typography>
 			</ExpansionPanelSummary>
 			<ExpansionPanelDetails>
 				{expanded && <ContractSoloCalc contract={props.contract} coop={props.coop}/>}

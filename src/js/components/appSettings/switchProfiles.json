@@ -1,6 +1,6 @@
 {
 	"darkTheme": {
-		"store": "darkTheme",
+		"store": "settings.darkTheme",
 		"action": "setDarkTheme",
 		"label": "Dark Theme",
 		"metrics": {
@@ -11,7 +11,7 @@
 		}
 	},
 	"hideTooltips": {
-		"store": "hideTooltips",
+		"store": "settings.hideTooltips",
 		"action": "hideTooltips",
 		"label": "Hide Tooltips",
 		"metrics": {
@@ -22,7 +22,7 @@
 		}
 	},
 	"detailedRewardsBar": {
-		"store": "detailedRewardsBar",
+		"store": "settings.detailedRewardsBar",
 		"action": "detailedRewardsBar",
 		"label": "Detailed Rewards Bar",
 		"metrics": {
@@ -33,9 +33,20 @@
 		}
 	},
 	"hourlyEggLayingRate": {
-		"store": "hourlyEggLayingRate",
+		"store": "settings.hourlyEggLayingRate",
 		"action": "hourlyEggLayingRate",
 		"label": "Show Laying Rate Per Hour",
+		"metrics": {
+			"category": "Units",
+			"true": "Hourly Egg Laying Rate",
+			"false": "Seconds Egg Laying Rate",
+			"label": null
+		}
+	},
+	"groupCalc": {
+		"store": "contract.contractCalc.groupCalc",
+		"action": "groupCalc",
+		"label": "Group Calculation",
 		"metrics": {
 			"category": "Units",
 			"true": "Hourly Egg Laying Rate",

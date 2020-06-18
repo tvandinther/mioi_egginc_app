@@ -68,3 +68,10 @@ export function setContractCalcParameter(parameter, value) {
 		}
 	}
 }
+
+export function groupCalc(bool) {
+	return {
+		type: "GROUP_CALC",
+		payload: bool,
+	}
+}

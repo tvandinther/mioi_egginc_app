@@ -47,7 +47,10 @@ export default function reducer(state=initialState, action) {
             let coops = {}
             for (let contractId of contractIds) {
                 Object.assign(coopSearches, {[contractId]: defaultCoopSearch})
-                Object.assign(coops, {[contractId]: {fetched: false}})
+                Object.assign(coops, {[contractId]: {
+					fetched: false,
+					contractLink: contracts[contractId],
+				}})
             }
             return {...state, 
                 activeContracts: {
@@ -102,7 +105,8 @@ export default function reducer(state=initialState, action) {
                     [targetLocation]: {
                         ...state[targetLocation],
                         [action.meta.contractId]: {
-                            ...action.payload.data.data.eggInc.coop,
+							...state[targetLocation][action.meta.contractId],
+							...action.payload.data.data.eggInc.coop,
                             fetching: false,
                             fetched: true,
                         }
@@ -158,6 +162,15 @@ export default function reducer(state=initialState, action) {
 				contractCalc: {
 					...state.contractCalc,
 					[action.payload.parameter]: action.payload.value,
+				}
+			}
+		}
+		case "GROUP_CALC": {
+			return {
+				...state,
+				contractCalc: {
+					...state.contractCalc,
+					groupCalc: action.payload,
 				}
 			}
 		}

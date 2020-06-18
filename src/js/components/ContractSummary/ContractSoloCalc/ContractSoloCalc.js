@@ -10,6 +10,9 @@ import { calculateFarmStats, timeConvert, contractTimeSoloEstimate } from "../..
 import { useSelector } from "react-redux"
 import { SoloCalcResults } from "./SoloCalcResults"
 import ContractTargetInput from "./ContractTargetInput"
+import SettingsSwitch from "../../appSettings/SettingsSwitch"
+import switchProfiles from "../../appSettings/switchProfiles.json"
+import HelpTooltip from "../../Decorator/HelpTooltip"
 
 const useStyle = makeStyles(theme => ({
 	flex: {
@@ -67,8 +70,9 @@ export default function ContractSoloCalc(props) {
 
 	return (
 		<div className={classes.root}>
-			<SettingsSwitch/>
-			<Typography align="center" variant="subtitle1">Time remaining assuming solo progress using the variables below:</Typography>
+			<SettingsSwitch {...switchProfiles.groupCalc} style={{margin: "auto"}}>
+				<HelpTooltip helpText="Multiplies all values by the current number of members in your co-op during calculation (or max members if you are not in one)."/>
+			</SettingsSwitch>
 			<SoloCalcResults/>
 			<Divider/>
 			<div className={classes.flex}>

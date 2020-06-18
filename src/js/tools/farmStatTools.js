@@ -44,9 +44,14 @@ export default function calculateFarmStats(farm, game) {
         soulEggBonus: game.soulEggsD * (10 + (1 * playerResearch.epic["soul_eggs"])) / 100,
 		farmValue: updatedParameters.farmValue,
 		shippingCapacity: updatedParameters.shippingCapacity,
+		income: calculateIncome(updatedParameters),
 	}
 	if (process.env.NODE_ENV == "development") console.log("Farm Stats: ", farmStats)
     return farmStats
+}
+
+function calculateIncome(parameters) {
+	return (parameters.eggTypeValue * parameters.eggValue) * (Math.min(parameters.layingRate * parameters.population, parameters.shippingCapacity) / 60) * parameters.meBonus
 }
 
 function iterateResearch(playerResearch, parameters, farm) {

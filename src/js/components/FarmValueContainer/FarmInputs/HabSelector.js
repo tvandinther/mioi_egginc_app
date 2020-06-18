@@ -45,6 +45,7 @@ export default function EggSelector(props) {
 		dropdowns.push(
 			<ImageDropdown
 				key={i}
+				type="large"
 				initialValue={initialValues[i] || 0}
 				menuMap={[habMap]}
 				dispatchFunc={(value) => {return setHab(value, i)}}
