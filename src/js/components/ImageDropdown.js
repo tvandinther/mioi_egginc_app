@@ -8,10 +8,15 @@ const useStyle = makeStyles(theme => ({
         margin: "auto",
         maxWidth: 400,
         padding: 10,
-    },
-    selector: {
-        // width: "100%",
+	},
+	selector: {
 		overflow: "hidden",
+
+		".default&": {
+			width: "100%",
+		},
+		".large&": {
+		},
 
 		"& >div>img": {
 			transition: "transform ease 200ms",
@@ -23,47 +28,75 @@ const useStyle = makeStyles(theme => ({
 			},
 		},
 	},
-    selectorItem: {
-        display: "grid",
-		gridTemplateRows: "80px 1fr",
-		gridTemplateColumns: "100%",
-        gridGap: 5,
+	selectorItem: {
+		display: "grid",
+		gridGap: 5,
 		alignItems: "center",
-		justifyItems: "center",
-		justifyContent: "center",
-		width: 120,
-		flexGrow: 1,
-		// padding: "0px 24px",
-		overflow: "unset",
 
+		".default &": {
+			gridTemplateColumns: "auto 1fr",
+		},
+		".large &": {
+			gridTemplateRows: "80px 1fr",
+			gridTemplateColumns: "100%",
+			justifyItems: "center",
+			justifyContent: "center",
+			width: 120,
+			flexGrow: 1,
+			// padding: "0px 24px",
+			overflow: "unset",
+		},
 		"& > img": {
 			transition: "transform ease 200ms",
 		},
-
 		"&:hover": {
 			"& > img": {
 				transform: "scale(1.1)",
 			},
 		},
 	},
-	listRoot: {
-		display: "flex",
-		flexDirection: "row",
-		flexWrap: "wrap",
-		maxWidth: 600,
-	},
-    image: {
-        height: "100%",
+	image: {
 		width: "auto",
+
+		".default &": {
+			height: 36,
+		},
+		".large &": {
+			height: "100%",
+		},
 	},
 	text: {
+		userSelect: "none",
+	},
+	listRoot: {
+		".default&": {
+
+		},
+		".large&": {
+			display: "flex",
+			flexDirection: "row",
+			flexWrap: "wrap",
+			maxWidth: 600,
+		},
 	},
 	divider: {
-		flexBasis: "100%",
+		".default &": {
+
+		},
+		".large &": {
+			flexBasis: "100%",
+		},
 	},
 	listSubheader: {
-		flexBasis: "100%",
-	}
+		userSelect: "none",
+		
+		".default &": {
+			
+		},
+		".large &": {
+			flexBasis: "100%",
+		},
+	},
 }))
 
 export default function ImageDropdown(props) {
@@ -72,6 +105,7 @@ export default function ImageDropdown(props) {
 	const initialValue = props.initialValue
 	const setValue = props.dispatchFunc
 	const menuMap = props.menuMap
+	const formFactor = props.type || "default"
 	let [selected, setSelected] = useState(initialValue)
 	let [open, setOpen] = useState(false)
 	useEffect(() => setSelected(initialValue), [initialValue])
@@ -95,9 +129,50 @@ export default function ImageDropdown(props) {
 		}
 		setOpen(false)
 	}
+
+	const parseMenuMap = (map) => {
+		var elementArray = []
+		var index = 0
+		for (let section of map) {
+			if (section.title) {
+				elementArray.push(
+					<ListSubheader
+						key={index}
+						unselectable="true"
+						className={classes.listSubheader}
+					>
+						{section.title}
+					</ListSubheader>
+				)
+			}
+			index++
+			for (let item of section.items) {
+				let { title, imageSrc, value } = item
+				value = value == undefined ? index : value // if value is not supplied, the index is used instead
+				elementArray.push(
+					<MenuItem key={index} value={value} className={classes.selectorItem}>
+						<img src={imageSrc} className={classes.image}/>
+						<Typography className={classes.text}>{title}</Typography>
+					</MenuItem>
+				)
+				index++
+			}
+			elementArray.push(
+				<Divider
+					key={index}
+					unselectable="true"
+					className={classes.divider}
+				/>
+			)
+			index++
+		}
+		elementArray.pop() // remove the final divider
+		return elementArray
+	}
+
 	var menuItems
 	if (open) {
-		menuItems = parseMenuMap(menuMap, classes)
+		menuItems = parseMenuMap(menuMap)
 	}
 	else {
 		let newMap
@@ -108,7 +183,7 @@ export default function ImageDropdown(props) {
 				}
 			}
 		}
-		menuItems = parseMenuMap(newMap, classes)
+		menuItems = parseMenuMap(newMap)
 	}
 
 	return (
@@ -118,51 +193,11 @@ export default function ImageDropdown(props) {
 			onOpen={handleOpen} 
 			onChange={handleChange} 
 			onClose={handleClose}
-			className={classes.selector} 
-			classes={{select: classes.selectorItem}}
-			MenuProps={{classes: {list: classes.listRoot}}}
+			className={`${classes.selector} ${formFactor}`} 
+			classes={{select: `${classes.selectorItem} ${formFactor}`}}
+			MenuProps={{classes: {list: `${classes.listRoot} ${formFactor}`}}}
 		>
 			{menuItems}
 		</Select>
 	)
-}
-
-function parseMenuMap(menuMap, classes) {
-	var elementArray = []
-	var index = 0
-	for (let section of menuMap) {
-		if (section.title) {
-			elementArray.push(
-				<ListSubheader
-					key={index}
-					unselectable="true"
-					className={classes.listSubheader}
-				>
-					{section.title}
-				</ListSubheader>
-			)
-		}
-		index++
-		for (let item of section.items) {
-			let { title, imageSrc, value } = item
-			value = value == undefined ? index : value // if value is not supplied, the index is used instead
-			elementArray.push(
-				<MenuItem key={index} value={value} className={classes.selectorItem}>
-					<img src={imageSrc} className={classes.image}/>
-					<Typography className={classes.text}>{title}</Typography>
-				</MenuItem>
-			)
-			index++
-		}
-		elementArray.push(
-			<Divider
-				key={index}
-				unselectable="true"
-				className={classes.divider}
-			/>
-		)
-		index++
-	}
-	elementArray.pop() // remove the final divider
-	return elementArray
 }

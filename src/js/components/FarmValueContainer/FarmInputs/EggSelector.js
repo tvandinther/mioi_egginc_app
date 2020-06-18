@@ -42,6 +42,7 @@ export default function EggSelector(props) {
     return (
         <HeadedCard collapsable title="Farm Egg" className={classes.root}>
 			<ImageDropdown
+				type="large"
 				initialValue={initialValue || 1}
 				menuMap={[mainEggs, contractEggs]}
 				dispatchFunc={setEgg}

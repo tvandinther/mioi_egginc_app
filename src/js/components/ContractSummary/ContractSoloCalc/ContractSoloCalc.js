@@ -5,10 +5,11 @@ import ResearchInput from "../../FarmValueContainer/FarmInputs/ResearchInput"
 import Research from "../../../tools/research.json"
 import GenericStatInput from "./GenericStatInput"
 import { setContractCalcParameter } from "../../../actions/contractActions"
-import { Copyright } from "@material-ui/icons"
+import { Copyright, Settings } from "@material-ui/icons"
 import { calculateFarmStats, timeConvert, contractTimeSoloEstimate } from "../../../tools"
 import { useSelector } from "react-redux"
 import { SoloCalcResults } from "./SoloCalcResults"
+import ContractTargetInput from "./ContractTargetInput"
 
 const useStyle = makeStyles(theme => ({
 	flex: {
@@ -30,8 +31,7 @@ const useStyle = makeStyles(theme => ({
 
 export default function ContractSoloCalc(props) {
 	const classes = useStyle()
-	const contract = props.contract
-	const coop = props.coop
+	const { contract, coop } = props
 	const playerContractFarm = useSelector(store => {
 		if (store.playerData.fetched) {
 			return store.playerData.farmsList.find(item => item.contractId === contract.name)
@@ -67,12 +67,13 @@ export default function ContractSoloCalc(props) {
 
 	return (
 		<div className={classes.root}>
+			<SettingsSwitch/>
 			<Typography align="center" variant="subtitle1">Time remaining assuming solo progress using the variables below:</Typography>
 			<SoloCalcResults/>
 			<Divider/>
 			<div className={classes.flex}>
 				<Section title="Contract Target">
-					<GenericStatInput name="target" value={valueData.target}/>
+					<ContractTargetInput contract={contract}/>
 				</Section>
 				<Section title="Eggs Laid">
 					<GenericStatInput name="eggsLaid" value={valueData.eggsLaid}/>
@@ -93,7 +94,11 @@ export default function ContractSoloCalc(props) {
 					<GenericStatInput name="hatchRate" value={valueData.hatchRate}/>
 				</Section>
 				<Section>
-					<ResearchInput tier={Research.epic.tier} research={Research.epic.research.find(item => item.id === "int_hatch_calm")} dispatchAction={(value) => setContractCalcParameter("hatchCalm", value)}/>
+					<ResearchInput
+						tier={Research.epic.tier}
+						research={Research.epic.research.find(item => item.id === "int_hatch_calm")}
+						dispatchAction={(value) => setContractCalcParameter("hatchCalm", value)}
+					/>
 				</Section>
 			</div>
 		</div>
