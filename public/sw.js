@@ -1,5 +1,5 @@
 // TODO: increase `version` number to force cache update when publishing a new release
-const version = "1.0.13";
+const version = "1.0.14";
 
 const config = {
     cacheRemote: true,
@@ -7,12 +7,9 @@ const config = {
     preCachingItems: [
         'index.html',
         'offline.html',
-        'sw.js',
         'bundle.js'
     ],
     blacklistCacheItems: [
-        'index.html',
-        'service-worker.js'
     ],
     offlineImage: '<svg role="img" aria-labelledby="offline-title"' + ' viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">' + '<title id="offline-title">Offline</title>' + '<g fill="none" fill-rule="evenodd"><path fill="#aaa" d="M0 0h400v300H0z"/>' + '<text fill="#222" font-family="monospace" font-size="32" font-weight="bold">' + '<tspan x="136" y="156">offline</tspan></text></g></svg>',
     offlinePage: 'offline.html',

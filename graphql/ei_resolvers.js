@@ -28,3 +28,5 @@ module.exports = {
     playerData: getPlayerData,
     periodicals: getPeriodicals
 }
+
+// getCoop({contractName: "summer-solstice-2020", coopName: "backyard"}).then(x => console.log(x.members[0]))

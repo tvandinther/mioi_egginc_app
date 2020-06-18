@@ -85,6 +85,7 @@ export default function CoopSearch(props) {
 					label="Search a Co-op"
 					type="search"
 					error={error}
+					autoFocus={!loading && !coop.fetched && !coopSearchString}
 					onEnter={handleSubmit}
 					value={coopSearchString}
 					setValue={setReduxSearchString}

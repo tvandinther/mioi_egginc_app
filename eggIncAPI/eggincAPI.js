@@ -53,6 +53,12 @@ exports.getContract = async function(contractName, coopName) {
 				rate : obj.contributionRate,
 				soulPower : obj.soulPower,
 				boostTokens : obj.boostTokens,
+				platform: obj.platform == 1 ? "IOS" : "ANDROID",
+				active: obj.active,
+				timeCheatDetected: obj.timeCheatDetected,
+				pushId: obj.pushId,
+				banVotes: obj.banVotes,
+				rankChange: obj.rankChange
             }
         });
         return {

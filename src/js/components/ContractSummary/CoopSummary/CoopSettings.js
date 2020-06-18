@@ -8,7 +8,7 @@ import switchProfiles from "../../appSettings/switchProfiles.json"
 const useStyle = makeStyles(theme => ({
 	root: {
 		position: "absolute",
-		right: 24,
+		right: "min(1vw, 24px)",
 	}
 }))
 

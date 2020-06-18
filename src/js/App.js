@@ -20,6 +20,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import EntryPopup from "./components/EntryPopup";
 import Loading from "./components/Loading"
+import NoIndex from "./NoIndex";
 
 const history = createBrowserHistory()
 
@@ -94,6 +95,7 @@ function App(props) {
 		<div>
 			<CssBaseline/>
 			<Router history={history}>
+				<NoIndex/>
 				<SidebarMenu />
 				<div className={classes.toolbar}></div>
 				<EntryPopup/>

@@ -47,7 +47,8 @@ export default function CoopRewards(props) {
 								arrow
 								title={`${percentString(totalEggs / reward.goal, 0, true)} completed`} 
 								placement="top"
-								enterTouchDelay={400}
+								enterTouchDelay={300}
+								leaveTouchDelay={5000}
 							>
 								<div>
 									<img width={40} src={getRewardDetails(reward).path} style={stepStyle}></img>
@@ -71,7 +72,7 @@ export default function CoopRewards(props) {
 		const Wrapper = !props.detailed ? Tooltip : ({children}) => <div>{children}</div>
 
 		return (
-			<Wrapper arrow title={`${convertSymbol(eggsLaid)}/${convertSymbol(finalGoal)}`}>
+			<Wrapper arrow title={`${convertSymbol(eggsLaid)}/${convertSymbol(finalGoal)}`} enterTouchDelay={300} leaveTouchDelay={5000}>
 				<Paper elevation={4} className={classes.wrap}>
 					<ProgressBar 
 						height={20}

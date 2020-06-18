@@ -21,8 +21,8 @@ type Coop {
 type Member {
     "The name of the member"
     name: String
-    "The member's game ID"
-    id: String
+    # "The member's game ID"
+    # id: String
     "The total number of eggs the member has laid in the co-op"
     eggs: Float
     "The last reported egg laying rate of the member"
@@ -31,6 +31,18 @@ type Member {
     soulPower: Float
     "The amount of boost tokens the member has"
     boostTokens: Int
+	"Push ID"
+	pushId: String
+	"Ban Votes"
+	banVotes: Int
+	"Active"
+	active: Boolean
+	"Rank Change"
+	rankChange: Int
+	"Cheat Detected"
+	timeCheatDetected: Boolean
+	"Platform"
+	platform: String
 }
 
 type PlayerData {

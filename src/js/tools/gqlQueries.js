@@ -25,11 +25,11 @@ export const getCoop = `
 				public
                 members {
                     name
-                    id
                     eggs
 					rate
 					soulPower
 					boostTokens
+					active
                 }
             }
         }
