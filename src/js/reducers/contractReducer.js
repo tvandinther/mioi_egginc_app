@@ -19,7 +19,11 @@ const initialState = {
     coopSearch: {},
     coops: {},
 	playerCoops: {},
-	contractCalc: {},
+	contractCalc: {
+		groupCalc: false,
+		ignoreShippingCapacity: false,
+		ignoreHabCapacity: false,
+	},
 }
 
 
