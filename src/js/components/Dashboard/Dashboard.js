@@ -36,7 +36,8 @@ export default function Dashboard(props) {
 	const news = useSelector(store => store.app.news)
     const theme = useTheme()
     let [columnCount, setColumnCount] = useState(null)
-    const coopIds = playerData.fetched ? playerData.contracts.contractsList : null
+    let coopIds = null
+	if (playerData.fetched && playerData.contracts) coopIds = playerData.contracts.contractsList
 
 
     // function fetchPlayerCoops() {
@@ -48,7 +49,7 @@ export default function Dashboard(props) {
     // }
 
     useEffect(() => {
-        if (playerData.fetched && (Object.keys(playerCoops).length === 0 && playerCoops.constructor === Object)) {
+        if (playerData.fetched && coopIds && (Object.keys(playerCoops).length === 0 && playerCoops.constructor === Object)) {
             fetchPlayerCoops(coopIds, dispatch)
         }
     }, [playerData.userId]) 
@@ -68,7 +69,7 @@ export default function Dashboard(props) {
         <QuickLinkCard key="contractLink" priority={3} link="/contract" title="Contracts" body="Click to see all of the current contracts!"/>
     )
     // PLAYER CONTRACTS
-    if (activeContracts.fetched && playerData.fetched) {
+    if (activeContracts.fetched && coopIds) {
         coopIds.forEach((metaContract, index) => {
 			let contract = activeContracts.contracts[metaContract.contract.identifier]
 			if (contract !== undefined) dcm.addItem(

@@ -150,6 +150,7 @@ export default function reducer(state=initialState, action) {
                 coops: {
                     ...state.coops,
                     [action.payload.contractId]: {
+						...state.coops[action.payload.contractId],
                         ...action.payload.coop,
                         fetching: false,
                         fetched: true,

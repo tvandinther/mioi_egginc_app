@@ -48,9 +48,9 @@
 		"action": "groupCalc",
 		"label": "Group Calculation",
 		"metrics": {
-			"category": "Units",
-			"true": "Hourly Egg Laying Rate",
-			"false": "Seconds Egg Laying Rate",
+			"category": "Contract",
+			"true": "Group Calculation",
+			"false": "Solo Calculation",
 			"label": null
 		}
 	}

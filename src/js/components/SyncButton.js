@@ -33,12 +33,13 @@ export default function SyncButton(props) {
 	const playerData = useSelector(store => store.playerData)
 	const playerDataFetching = playerData.fetching
 	const newsFetching = useSelector(store => store.app.news.fetching)
-	const coopIds = playerData.fetched ? playerData.contracts.contractsList : null
+	let coopIds = null
+	if (playerData.fetched && playerData.contracts) coopIds = playerData.contracts.contractsList
 
 	const handleClick = evt => {
 		dispatch(getActiveContracts())
 		if (playerId) dispatch(validatePlayerId(playerId))
-		fetchPlayerCoops(coopIds, dispatch)
+		if (coopIds) fetchPlayerCoops(coopIds, dispatch)
 		dispatch(fetchNews(5))
 
 		ReactGA.event({

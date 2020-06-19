@@ -83,7 +83,8 @@ export function magnitudeGet(str) {
 }
 
 export function convertName(n) { //converting the format of unreadable number into the game's name format
-    if (isNaN(n)) {
+	if (typeof n === "undefined" || n === null) return "0"
+	if (isNaN(n)) {
         return 'Need More Info';
     }
     else if (levelOf(n) < 1){
@@ -98,7 +99,8 @@ export function convertName(n) { //converting the format of unreadable number in
 }
 
 export function convertSymbol(n) { //converting the format of unreadable number into the game's symbol format
-    if (n < 1000000) {
+	if (typeof n === "undefined" || n === null) return "0"
+	if (n < 1000000) {
         return n.toLocaleString();
     }
     else if (levelOf(n) < 1){

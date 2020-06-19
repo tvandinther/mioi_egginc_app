@@ -21,7 +21,6 @@ export default function CoopMembers(props) {
 	const hourlyEggLayingRate = useSelector(store => store.settings.hourlyEggLayingRate)
 	const classes = useStyle()
 	const members = props.coop.members
-	console.log(props.coop)
     const headCells = [
         {id: 0, numeric: false, disablePadding: false, label: "Name"},
         {id: 1, numeric: false, disablePadding: false, label: "Eggs Laid"},

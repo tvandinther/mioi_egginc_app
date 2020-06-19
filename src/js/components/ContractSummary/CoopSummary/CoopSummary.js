@@ -7,6 +7,7 @@ import CoopRewards from "./CoopRewards"
 import Loading from "../../Loading"
 import CoopExpiry from "./CoopExpiry"
 import CoopEstimate from "./CoopEstimate"
+import ShareCoop from "./ShareCoop"
 import CoopMembers from "./CoopMembers"
 import CoopExpiryEstimate from "./CoopExpiryEstimate"
 import HelpTooltip from "../../Decorator/HelpTooltip"
@@ -27,6 +28,7 @@ const useStyle = makeStyles(theme => ({
 	},
 	type: {
 		margin: 0,
+		position: "relative",
 	}
 }))
 
@@ -57,13 +59,12 @@ export default function CoopSummary(props) {
 	const coopRewardSet = (contract.goals[selectedLeague]) || contract.rewards
 
     if (coop && coop.fetched) {
-		
+		console.log(coop)
         return (
             <div style={props.style} className={classes.root}>
                 <Redirect to={`${currentRoute.url}/${coop.coop}`} />
                 <Route path={`${currentRoute.path}/:coopId`}>
-					<CoopSettings/>
-					<Typography className={classes.type} align="center" variant="h4">{coop.coop}</Typography>
+					<Typography className={classes.type} align="center" variant="h4">{coop.coop}<ShareCoop coop={coop}/><CoopSettings/></Typography>
 					<LabelToggle state={selectedLeague === "elite"} labels={["Standard", "Elite"]} onChange={handleLeagueChange} onClick={logTierChange}/>
 					<CoopRewards eggsLaid={coop.eggs} rewards={coopRewardSet}/>
 					<Typography variant="h5" align="center">
