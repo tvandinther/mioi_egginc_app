@@ -49,7 +49,7 @@ export default function reducer(state=initialState, action) {
                 ...state,
                 farm: {
                     ...state.farm,
-                    eggType: action.payload
+                    eggType: Number(action.payload)
                 }
             }
 		}

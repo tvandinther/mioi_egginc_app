@@ -92,8 +92,6 @@ exports.queryCoop = async function(contractName, coopName) {
 exports.getPlayerData = async function(identifier) {
     let message = new ei.EggIncFirstContactRequest();
     message.setUserId(identifier);
-    // message.setX02(0);
-    // message.setX03(1);
     return await ei_request('first_contact', message, ei.EggIncFirstContactResponse).then(response => response.backup);
 }
 

@@ -83,7 +83,7 @@ export default function CoopMembers(props) {
 								<b>{convertSymbol(props.coop.eggs)}</b>
 							</TableCell>
 							<TableCell numeric="true">
-								<b>{hourlyEggLayingRate ? convertSymbol(props.coop.totalRate) + "/hr" : convertSymbol(props.coop.totalRate) + "/s"}</b>
+								<b>{hourlyEggLayingRate ? convertSymbol(props.coop.totalRate * 3600) + "/hr" : convertSymbol(props.coop.totalRate) + "/s"}</b>
 							</TableCell>
 							<TableCell numeric="true">
 								<b>100%</b>

@@ -12,7 +12,7 @@ export default function calculateFarmStats(farm, game) {
     let initialParameters = {
         population: farm.numChickens,
         eggTypeValue: eggTypes[farm.eggType].value,
-        eggMultiplier: 1 + (0.5 * farm.eggType),
+        eggMultiplier: 1 + (0.5 * (farm.eggType - 1)),
         maxHabCapacity: farm.habsList.reduce((acc, habIndex) => acc + habs[habIndex].capacity, 0),
         layingRate: 2, // eggs per minute per chicken
         eggValue: 1, // base multiplier
@@ -23,11 +23,17 @@ export default function calculateFarmStats(farm, game) {
         habCapacity: 1, // base multiplier
         hatchRate: 0, // base value
         hatchCapacity: 1, // base multiplier
-        vehicleCapacityMultiplier: 1, // base multiplier
+		vehicleCapacityMultiplier: 1, // base multiplier
+		hoverVehicleCapacityMultiplier: 1,
         maxFleetSize: 4, // base value
         silos: farm.silosOwned,
         meBonus: mysticalBonusFormula(game.soulEggsD, game.eggsOfProphecy, playerResearch), // base value
-        accTricks: 1, // base value
+		accTricks: 1, // base value
+		hatchCalm: 1,
+		prophecyBonus: 1,
+		soulFood: 1,
+		trainLength: 5,
+		trainCapacityMultiplier: 1,
     }
 
     let updatedParameters = iterateResearch(playerResearch, initialParameters, farm) // mutates parameters
@@ -39,7 +45,7 @@ export default function calculateFarmStats(farm, game) {
 		earningsBonus: updatedParameters.meBonus,
         eggValue: updatedParameters.eggTypeValue * updatedParameters.eggValue,
         layingRate: updatedParameters.layingRate * updatedParameters.population,
-        hatchRate: updatedParameters.hatchRate,
+		hatchRate: updatedParameters.hatchRate,
         maxHabCapacity: updatedParameters.maxHabCapacity,
         soulEggBonus: game.soulEggsD * (10 + (1 * playerResearch.epic["soul_eggs"])) / 100,
 		farmValue: updatedParameters.farmValue,
@@ -65,7 +71,7 @@ function iterateResearch(playerResearch, parameters, farm) {
 
         for (let researchItem of tier.research) {
             if (!(researchItem.parameter instanceof Array)) researchItem.parameter = [researchItem.parameter]
-            let level = flattenedPlayerResearch[researchItem.id]
+            let level = flattenedPlayerResearch[researchItem.id] || 0
             let value = researchItem.factor * level
             if (researchItem.tag) { // special cases requiring conditional value alteration
                 switch (researchItem.tag) {
@@ -102,18 +108,20 @@ function iterateResearch(playerResearch, parameters, farm) {
         }
         for (let [key, value] of Object.entries(subParametersPower)) { // Combine the powers into the main object by multiplication
             newParameters[key] *= value
-        }
-    }
+		}
+	}
+	console.log(newParameters)
     return newParameters
 }
 
 function farmValueFormula(parameters) {
     //SUB CALCULATIONS
-    let eggsMin = parameters.population * parameters.layingRate;
-    let eggValue = (parameters.eggTypeValue * parameters.eggValue) * (1 + parameters.meBonus);
+    let eggsMin = parameters.population * parameters.layingRate
+    let eggValue = (parameters.eggTypeValue * parameters.eggValue) * (1 + parameters.meBonus)
     let eggsDelivered = Math.min(parameters.shippingCapacity, eggsMin)
-    let weightedPopulation = (Math.floor(eggsDelivered / parameters.layingRate) + (Math.ceil((eggsMin - eggsDelivered) / parameters.layingRate) * 0.2));
-    let subValue1 = weightedPopulation + Math.pow(parameters.maxHabCapacity - parameters.population, 0.6) + (180 * parameters.hatchRate * parameters.silos)
+    let weightedPopulation = (Math.ceil(eggsDelivered / parameters.layingRate) + (Math.ceil((eggsMin - eggsDelivered) / parameters.layingRate) * 0.2))
+	let subValue1 = weightedPopulation + Math.pow(parameters.maxHabCapacity - parameters.population, 0.6)
+	let s3 = (39.0266 * parameters.hatchRate * parameters.silos * parameters.maxRunningBonus) // coefficient was 180, 63 matches on some
     let subValue2 = parameters.accTricks  * parameters.eggMultiplier * parameters.layingRate / 2 * eggValue * 2000
 	//FINAL CALCULATION
 	if (isNaN(subValue1) || isNaN(subValue2)) {
@@ -123,9 +131,11 @@ function farmValueFormula(parameters) {
 			fatal: false,
 		})
 	}
-    console.assert(subValue1)
-    console.assert(subValue2)
-    return subValue1 * subValue2;
+    // console.assert(subValue1)
+	// console.assert(subValue2)
+	console.log(subValue1, subValue2, s3)
+	console.log((subValue1 + s3) * subValue2)
+    return (subValue1 + s3) * subValue2;
 }
 
 function mysticalBonusFormula(soulEggs, prophecyEggs, playerResearch) {
