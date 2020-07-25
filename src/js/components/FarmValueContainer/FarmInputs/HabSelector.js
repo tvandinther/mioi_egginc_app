@@ -54,7 +54,7 @@ export default function EggSelector(props) {
 	}
 
     return (
-        <HeadedCard title="Habs" collapsable className={classes.root}>
+        <HeadedCard cardID="hab_select" title="Habs" collapsable className={classes.root}>
 			{dropdowns}
         </HeadedCard>
     )

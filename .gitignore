@@ -2,3 +2,5 @@ node_modules
 proto
 log
 .vscode
+testIDs.txt
+posts

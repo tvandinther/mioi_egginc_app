@@ -74,7 +74,7 @@ export default function PlayerCard(props) {
 
 	const cardTitle = playerData.userName ? `Hello, ${playerData.userName}` : "Welcome"
     return (
-        <HeadedCard collapsable title={cardTitle}>
+        <HeadedCard cardID="player" collapsable title={cardTitle}>
 			{!fetched && <IDPrompt/>}
 			{fetching && fetched && <Loading/>}
 			{!fetching && userId && <PlayerDataDisplay/>}

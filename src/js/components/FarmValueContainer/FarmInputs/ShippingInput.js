@@ -31,7 +31,7 @@ export default function ShippingInput(props) {
 	}
 
 	return (
-		<HeadedCard collapsable title="Shipping" className={classes.root}>
+		<HeadedCard cardID="shipping_input" collapsable title="Shipping" className={classes.root}>
 			<TextMask
 				value={value}
 				classes={{input: classes.inputRoot}}

@@ -59,7 +59,7 @@ export default function PopulationInput(props) {
 	}
 
     return (
-        <HeadedCard collapsable title="Chicken Population" className={classes.root}>
+        <HeadedCard cardID="population_input" collapsable title="Chicken Population" className={classes.root}>
 			<Slider
 				key="slider"
 				value={Number(value) || 0}

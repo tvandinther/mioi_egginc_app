@@ -10,10 +10,11 @@ export default function ClearPlayerID(props) {
 	const dispatch = useDispatch()
 	const playerId = useSelector(store => store.settings.playerId)
 	const savedIds = useSelector(store => store.settings.savedIds)
+	const fetched = useSelector(store => store.playerData.fetched)
 	let [openConfirmation, setOpenConfirmation] = useState(false)
 
 	useEffect(() => {
-		if (playerId) dispatch(validatePlayerId(playerId))
+		if (playerId && !fetched) dispatch(validatePlayerId(playerId))
 	}, [playerId])
 
 	if (!playerId) return null

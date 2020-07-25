@@ -6,7 +6,7 @@ import { Typography } from "@material-ui/core"
 export default function QuickLinkCard(props) {
     return (
 		<NavLink to={props.link} style={{height: "fit-content"}}>
-			<HeadedCard hoverable title="Link">
+			<HeadedCard cardID={`link_${props.link}`} hoverable title="Link">
 				<Typography variant="h3" align="center">{props.title}</Typography>
 				<br/>
 				<Typography variant="body1">{props.body}</Typography>

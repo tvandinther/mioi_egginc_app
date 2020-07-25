@@ -81,7 +81,7 @@ export default function CoopCard(props) {
 	if (!title) title = <Loading/>
 
     return (
-		<HeadedCard hoverable collapsable title={`${contract.title}`} className={classes.root}>
+		<HeadedCard hoverable collapsable cardID={"contract_" + contract.name} title={`${contract.title}`} className={classes.root}>
 			<NavLink className={classes.card} to={link}>
 				<img key="image" className={classes.image} src={`/images/egg${contract.egg}.png`}/>
 				<Typography key="coop" style={{gridArea: "subtitle"}} align="center" variant="h4">{title}</Typography>

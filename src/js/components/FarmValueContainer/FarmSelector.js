@@ -80,7 +80,7 @@ export default function FarmSelector(props) {
         }
 
         return (
-            <HeadedCard collapsable style={props.style} title="Load Farm" className={classes.root}>
+            <HeadedCard cardID="farm_select" collapsable style={props.style} title="Load Farm" className={classes.root}>
                 <Select value={selected} onChange={evt => setSelected(evt.target.value)} className={classes.selector} classes={{select: classes.selectorItem}}>
                     {options}
                 </Select>

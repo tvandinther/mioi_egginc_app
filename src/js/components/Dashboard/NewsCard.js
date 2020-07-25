@@ -25,7 +25,7 @@ export default function NewsCard(props) {
 	const classes = useStyle()
 	
 	return (
-        <HeadedCard collapsable title="News">
+        <HeadedCard cardID={`news_${post.timePosted.toString(36)}`} collapsable title={`News: ${post.title}`}>
             <Typography variant="overline" align="right">
                 {new Date(post.timePosted * 1000).toLocaleString(undefined, {
                     dateStyle: "medium",

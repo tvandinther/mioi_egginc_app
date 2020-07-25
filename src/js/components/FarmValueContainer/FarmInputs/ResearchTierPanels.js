@@ -40,7 +40,7 @@ export default function ResearchTierPanels(props) {
 
     return (
         <div>
-            <HeadedCard title="Research" className={classes.header}>
+            <HeadedCard cardID="research_tiers" title="Research" className={classes.header}>
                 <Typography variant="subtitle1">Select a tier to change research</Typography>
             </HeadedCard>
             {expansionPanels}

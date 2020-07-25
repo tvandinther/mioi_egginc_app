@@ -4,6 +4,8 @@ import { makeStyles } from "@material-ui/core/styles"
 import { Card, Typography, IconButton } from "@material-ui/core"
 import ExpandLessIcon from "@material-ui/icons/ExpandLess"
 import ReactGA from "react-ga"
+import { useDispatch, useSelector } from "react-redux"
+import { setCollapsedCard } from "../actions/appActions"
 
 const useStyle = makeStyles(theme => ({
     card: {
@@ -42,11 +44,13 @@ const useStyle = makeStyles(theme => ({
 }))
 
 export default function DashboardCard(props) {
-    const classes = useStyle()
+	const classes = useStyle()
+	const dispatch = useDispatch()
 	const hoverable = props.hoverable || false
 	const collapsable = props.collapsable || false
+	const cardState = useSelector(store => store.app.cardStates[props.cardID]) || {}
 	let [raised, setRaised] = useState(false)
-	let [collapsed, setCollapsed] = useState(false)
+	let [collapsed, setCollapsed] = useState(cardState.collapsed || false)
 
 	const toggleRaised = hoverable ? () => {
         setRaised(!raised)
@@ -54,10 +58,11 @@ export default function DashboardCard(props) {
 	
 	const toggleCollapsed = collapsable ? () => {
 		setCollapsed(!collapsed)
+		dispatch(setCollapsedCard(!collapsed, props.cardID))
 		ReactGA.event({
 			category: "Interaction",
 			action: !collapsed ? "Card Collapsed" : "Card Expanded",
-			label: props.title,
+			label: props.cardID,
 		})
 	} : null
 

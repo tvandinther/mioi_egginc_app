@@ -45,7 +45,7 @@ export default function SiloSlider(props) {
 	}
 
     return (
-        <HeadedCard collapsable title="Silos" className={classes.root}>
+        <HeadedCard cardID="silo_slider" collapsable title="Silos" className={classes.root}>
 			<Typography variant="h4" align="center">{siloCount}</Typography>
 			<div style={{display: "grid", gridTemplateAreas: "silo"}}>
 				{siloImages}

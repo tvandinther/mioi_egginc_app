@@ -41,7 +41,7 @@ export default function FarmStats(props) {
     
     if (!farmStats) return null
     return (
-        <HeadedCard collapsable title="Farm Stats" style={props.style} className={classes.root}>
+        <HeadedCard cardID="farm_stats" collapsable title="Farm Stats" style={props.style} className={classes.root}>
             <FarmValueStat farmValue={farmStats.farmValue}/>
             <Typography className={classes.stat}>Earnings Bonus: {eiTools.convertSymbol(farmStats.earningsBonus * 100)}%</Typography>
             <Typography className={classes.stat}>Egg Value: {eiTools.convertSymbol(farmStats.eggValue)}</Typography>

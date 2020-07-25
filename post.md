@@ -1,3 +1,0 @@
-Thank you for testing the early access of this website. This is the new home of the *Egg, Inc.* tools which I have created on [mioi.io](https://mioi.io). There's sure to be many bugs or small user experience enhancements which I can make and if you are reading this you're here to help me fix those before I make this live and replace the old site.
-
-I've got you all in a group chat in discord and would love to hear your feedback (positive and negative) through there. Thanks for your help!

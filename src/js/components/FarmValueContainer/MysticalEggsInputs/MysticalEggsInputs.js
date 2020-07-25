@@ -21,7 +21,7 @@ export default function MysticalEggsInputs(props) {
 	const eggsOfProphecy = useSelector(store => store.farmValue.game.eggsOfProphecy)
 
     return (
-        <HeadedCard style={props.style} collapsable title="Mystical Eggs" className={classes.root}>
+        <HeadedCard cardID="mystical_eggs_inputs" style={props.style} collapsable title="Mystical Eggs" className={classes.root}>
             <SEInput value={soulEggs}/>
             <PEInput value={eggsOfProphecy}/>
         </HeadedCard>

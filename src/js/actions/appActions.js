@@ -14,3 +14,13 @@ export function fetchNews(limit) {
 		})
 	}
 }
+
+export function setCollapsedCard(collapsed, cardID) {
+	return {
+		type: "SET_COLLAPSED_CARD",
+		payload: {
+			collapsed: collapsed,
+			cardID: cardID,
+		}
+	}
+}
