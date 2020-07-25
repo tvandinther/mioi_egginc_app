@@ -14,14 +14,17 @@ export default function reducer(state=initialState, action) {
     switch(action.type) {
 		case "VALIDATE_GAMEID_FULFILLED": {
 			const data = action.payload.data.data.eggInc.playerData
-			return {
-				...state,
-				playerId: data.userId,
-				savedIds: {
-					...state.savedIds,
-					[data.userId]: data.userName,
+			if (data.userName) {
+				return {
+					...state,
+					playerId: data.userId,
+					savedIds: {
+						...state.savedIds,
+						[data.userId]: data.userName,
+					}
 				}
 			}
+			else return state
 		}
         case "SET_GAMEID": {
             return {

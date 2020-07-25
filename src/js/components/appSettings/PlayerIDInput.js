@@ -26,23 +26,24 @@ export default function PlayerIDInput(props) {
 	const classes = useStyle()
     const dispatch = useDispatch()
 	const playerId = useSelector(store => store.settings.playerId)
-	const playerName = useSelector(store => store.playerData.userName)
-	const fetchedPlayerId = useSelector(store => store.playerData.userId)
+	// const playerName = useSelector(store => store.playerData.userName)
+	// const fetchedPlayerId = useSelector(store => store.playerData.userId)
 	const fetching = useSelector(store => store.playerData.fetching)
-    const playerDataError = useSelector(store => store.playerData.error)
-    let [error, setError] = useState(playerId ? playerDataError && !fetching : false)
-    let [value, setValue] = useState("")
+	const playerDataError = useSelector(store => store.playerData.error)
+    let [error, setError] = useState(false)
+	let [value, setValue] = useState("")
+
+	useEffect(() => {
+		if (!fetching) setError(playerDataError)
+	}, [fetching])
+
+	useEffect(() => {
+		if (value == "") setError(false)
+	}, [value])
 
 	useEffect(() => {
 		if (fetching) setValue(playerId || "")
 	}, [playerId])
-
-	// useEffect(() => {
-	// 	if(fetchedPlayerId && fetchedPlayerId) {
-	// 		dispatch(addGameId(fetchedPlayerId, playerName))
-	// 		dispatch(setPlayerId(fetchedPlayerId))
-	// 	}
-	// }, [fetchedPlayerId])
 
     const handleChange = evt => {
         setValue(evt.target.value)
@@ -50,7 +51,6 @@ export default function PlayerIDInput(props) {
     }
     const handleSubmit = evt => {
         if (value !== "" && value !== playerId) {
-			dispatch(setPlayerId(value))
 			dispatch(validatePlayerId(value))
 			ReactGA.event({
 				category: "Player",
