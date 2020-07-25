@@ -110,7 +110,6 @@ function iterateResearch(playerResearch, parameters, farm) {
             newParameters[key] *= value
 		}
 	}
-	console.log(newParameters)
     return newParameters
 }
 
@@ -133,8 +132,8 @@ function farmValueFormula(parameters) {
 	}
     // console.assert(subValue1)
 	// console.assert(subValue2)
-	console.log(subValue1, subValue2, s3)
-	console.log((subValue1 + s3) * subValue2)
+	// console.log(subValue1, subValue2, s3)
+	// console.log((subValue1 + s3) * subValue2)
     return (subValue1 + s3) * subValue2;
 }
 

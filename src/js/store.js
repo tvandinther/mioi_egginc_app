@@ -11,22 +11,22 @@ import reducer from "./reducers"
 
 const persistConfig = {
 	key: "appSettings",
-	version: 0,
+	version: 1,
     storage,
 	whitelist: ['settings', 'app', 'playerData'], // Only persists stores under these names
 	migrate: createMigrate(migrations),
 }
 
 const migrations = {
-	0: (state) => {
+	1: (state) => {
 		return {
 			...state,
 			settings: {
 				...state.settings,
-			},
-			playerData: {
-				playerId: state.playerId,
-			},
+				savedIds: {
+					[state.settings.playerId]: state.playerData.userId
+				}
+			}
 		}
 	}
 }
