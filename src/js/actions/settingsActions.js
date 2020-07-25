@@ -1,13 +1,6 @@
 import axios from "axios"
 import * as queries from "../tools/gqlQueries"
 
-export function blah(bool) {
-    return {
-        type: "blah",
-        payload: bool
-    }
-}
-
 export function setPlayerId(playerId) {
     return {
         type: "SET_GAMEID",
@@ -31,9 +24,26 @@ export function validatePlayerId(playerId) {
     }
 }
 
-export function clearPlayerId() {
+export function addGameId(playerId, playerName) {
 	return {
-		type: "CLEAR_GAMEID",
+		type: "ADD_GAMEID",
+		payload: {
+			playerId: playerId,
+			playerName: playerName,
+		}
+	}
+}
+
+export function clearPlayerId(playerId) {
+	return {
+		type: "CLEAR_PLAYER_GAMEID",
+		payload: playerId,
+	}
+}
+
+export function clearAllPlayerId() {
+	return {
+		type: "CLEAR_ALL_GAMEID",
 	}
 }
 

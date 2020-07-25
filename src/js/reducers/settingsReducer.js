@@ -7,20 +7,53 @@ const initialState = {
 	hideTooltips: false,
 	detailedRewardsBar: false,
 	hourlyEggLayingRate: true,
+	savedIds: {},
 }
 
 export default function reducer(state=initialState, action) {
     switch(action.type) {
+		case "VALIDATE_GAMEID_FULFILLED": {
+			const data = action.payload.data.data.eggInc.playerData
+			return {
+				...state,
+				playerId: data.userId,
+				savedIds: {
+					...state.savedIds,
+					[data.userId]: data.userName,
+				}
+			}
+		}
         case "SET_GAMEID": {
             return {
                 ...state,
                 playerId: action.payload,
             }
 		}
-		case "CLEAR_GAMEID": {
+		case "ADD_GAMEID": {
+			return {
+				...state,
+				savedIds: {
+					...state.savedIds,
+					[action.payload.playerId]: action.payload.playerName
+				}
+			}
+		}
+		case "CLEAR_PLAYER_GAMEID": {
+			const newSavedIds = { ...state.savedIds }
+			delete newSavedIds[action.payload]
+			const objectSize = Object.keys(newSavedIds).length
+			const newPlayerId = objectSize > 0 ? Object.keys(newSavedIds)[Object.keys(newSavedIds).length - 1] : null // set to last entry or null if none
+			return {
+				...state,
+				playerId: newPlayerId,
+				savedIds: newSavedIds,
+			}
+		}
+		case "CLEAR_ALL_GAMEID": {
 			return {
 				...state,
 				playerId: null,
+				savedIds: {},
 			}
 		}
         case "SET_DARK_THEME": {

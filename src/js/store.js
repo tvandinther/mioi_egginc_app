@@ -2,15 +2,33 @@ import { applyMiddleware, createStore, compose } from "redux"
 
 import promise from "redux-promise-middleware"
 import logger from "redux-logger"
-import { persistStore, persistReducer } from "redux-persist"
+import { persistStore, persistReducer, createMigrate } from "redux-persist"
 import storage from "redux-persist/lib/storage"
 
 import reducer from "./reducers"
 
+// Number(VERSION.replace(/\D/g, ""))
+
 const persistConfig = {
-    key: "appSettings",
+	key: "appSettings",
+	version: 0,
     storage,
-    whitelist: ['settings', 'app', 'playerData'], // Only persists stores under these names
+	whitelist: ['settings', 'app', 'playerData'], // Only persists stores under these names
+	migrate: createMigrate(migrations),
+}
+
+const migrations = {
+	0: (state) => {
+		return {
+			...state,
+			settings: {
+				...state.settings,
+			},
+			playerData: {
+				playerId: state.playerId,
+			},
+		}
+	}
 }
 
 const persistedReducer = persistReducer(persistConfig, reducer)

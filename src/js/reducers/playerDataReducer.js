@@ -52,7 +52,8 @@ export default function reducer(state=initialState, action) {
 				fetching: false,
             }
 		}
-		case "CLEAR_GAMEID": {
+		case "CLEAR_ALL_GAMEID":
+		case "CLEAR_PLAYER_GAMEID": {
 			return {
 				error: false,
 				fetched: false,

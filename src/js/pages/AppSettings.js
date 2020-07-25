@@ -1,9 +1,8 @@
 import React from "react"
-import PlayerIDInput from "../components/appSettings/PlayerIDInput"
 import { Container, Card, Typography, Divider, Switch, List, ListItem, TextField, ListItemText, ListItemSecondaryAction } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { useSelector } from "react-redux"
-import ClearPlayerID from "../components/appSettings/ClearPlayerID"
+import PlayerDataForm from "../components/appSettings/PlayerDataForm"
 import Page from "../Page"
 import BackButton from "../components/BackButton"
 import switchProfiles from "../components/appSettings/switchProfiles.json"
@@ -20,31 +19,8 @@ const useStyle = makeStyles(theme => ({
 }))
 
 export default function AppSettings(props) {
-    const classes = useStyle()
-    const playerData = useSelector(store => store.playerData)
-
-	const PlayerData = () => (
-		<div>
-			<Typography variant="h5">
-				Player Data
-			</Typography>
-			<Divider variant="middle"/>
-			<List>
-				<ListItem>
-					<Typography>
-						{(playerData && playerData.userName) ? `Hello ${playerData.userName}!` : `Hello mystery user! Enter your Player ID to access personalised features.`}
-					</Typography>
-				</ListItem>
-				<ListItem>
-					<PlayerIDInput/>
-				</ListItem>
-				<ListItem>
-					<ClearPlayerID/>
-				</ListItem>
-			</List>
-		</div>
-	)
-
+	const classes = useStyle()
+	
 	const Appearance = () => (
 		<div>
 			<Typography variant="h5">
@@ -69,7 +45,7 @@ export default function AppSettings(props) {
 					<br/>
 					<Appearance/>
 					<Divider/>
-					<PlayerData/>
+					<PlayerDataForm/>
 				</Card>
 			</Container>
         </Page>

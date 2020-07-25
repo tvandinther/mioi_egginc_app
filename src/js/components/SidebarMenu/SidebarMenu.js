@@ -8,6 +8,7 @@ import * as UIActions from "../../actions/UIActions"
 
 import MenuButton from "../MenuButton"
 import SettingsSwitch from "../appSettings/SettingsSwitch"
+import PlayerIDSelect from "../appSettings/PlayerIDSelect"
 import switchProfiles from "../appSettings/switchProfiles.json"
 import SidebarMenuHeader from "./SidebarMenuHeader"
 import SidebarMenuItem from "./SidebarMenuItem"
@@ -107,6 +108,7 @@ export default function SidebarMenu(props) {
                 >
                     {props.children}
 					<Divider/>
+					<PlayerIDSelect/>
 					<SettingsSwitch {...switchProfiles.darkTheme}/>
 					<Divider/>
 					<Typography className={classes.text} variant="overline">© Created by Tom</Typography>

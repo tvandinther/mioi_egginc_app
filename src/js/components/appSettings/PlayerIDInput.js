@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { setPlayerId, validatePlayerId } from "../../actions/settingsActions"
+import { setPlayerId, validatePlayerId, addGameId, nameId } from "../../actions/settingsActions"
 import { TextField, Button, IconButton } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { useSelector, useDispatch } from "react-redux"
@@ -26,35 +26,39 @@ export default function PlayerIDInput(props) {
 	const classes = useStyle()
     const dispatch = useDispatch()
 	const playerId = useSelector(store => store.settings.playerId)
+	const playerName = useSelector(store => store.playerData.userName)
 	const fetchedPlayerId = useSelector(store => store.playerData.userId)
 	const fetching = useSelector(store => store.playerData.fetching)
     const playerDataError = useSelector(store => store.playerData.error)
     let [error, setError] = useState(playerId ? playerDataError && !fetching : false)
-    let [value, setValue] = useState(playerId || "")
+    let [value, setValue] = useState("")
 
 	useEffect(() => {
-		setValue(playerId || "")
+		if (fetching) setValue(playerId || "")
 	}, [playerId])
 
 	// useEffect(() => {
-	// 	dispatch(setPlayerId(fetchedPlayerId))
+	// 	if(fetchedPlayerId && fetchedPlayerId) {
+	// 		dispatch(addGameId(fetchedPlayerId, playerName))
+	// 		dispatch(setPlayerId(fetchedPlayerId))
+	// 	}
 	// }, [fetchedPlayerId])
 
-    const handleChange = event => {
-        setValue(event.target.value)
+    const handleChange = evt => {
+        setValue(evt.target.value)
         setError(false)
     }
-    const handleSubmit = event => {
+    const handleSubmit = evt => {
         if (value !== "" && value !== playerId) {
-			dispatch(validatePlayerId(value))
 			dispatch(setPlayerId(value))
+			dispatch(validatePlayerId(value))
 			ReactGA.event({
 				category: "Player",
 				action: "PlayerID Submitted",
 			})
         }
 	}
-	
+
 	const handleKeyUp = event => {
 		if (event.key === "Enter") {
 			handleSubmit()
