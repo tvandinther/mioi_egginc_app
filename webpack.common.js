@@ -3,10 +3,15 @@ const webpack = require("webpack");
 const pkg = require("./package.json")
 
 module.exports = {
-  entry: ["babel-polyfill", "./src/js/index.js"],
+  entry: ["babel-polyfill", "./src/js/index.tsx"],
   mode: "development",
   module: {
     rules: [
+      {
+        test: /\.tsx?/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
@@ -65,7 +70,7 @@ module.exports = {
   ],
   resolve: {
     descriptionFiles: ["package.json"],
-    extensions: ["*", ".js", ".jsx"]
+    extensions: ["*", ".js", ".jsx", ".ts", ".tsx"]
   },
   output: {
     path: path.join(__dirname, "public/"),
