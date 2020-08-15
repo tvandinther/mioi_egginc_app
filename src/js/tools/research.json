@@ -539,7 +539,7 @@
 			"factor": 2,
 			"baseCost": "300",
 			"costMultiplier": 1.3,
-			"maxLevel": 100,
+			"maxLevel": 150,
 			"id": "enlightened_chickens"
 		  }
 		]
@@ -776,7 +776,18 @@
 			"costMultiplier": null,
 			"maxLevel": 20,
 			"id": "int_hatch_calm"
-		  }
+		},
+		{
+			"name": "Epic Multiplier",
+			"description": "Increase max running chicken bonus by 2.0x",
+			"parameter": "maxRunningBonus",
+			"factorType": "sum",
+			"factor": 2.0,
+			"baseCost": null,
+			"costMultiplier": null,
+			"maxLevel": 20,
+			"id": "epic_multiplier"
+		}
 	  ]
 	}
   }

@@ -114,15 +114,18 @@ function iterateResearch(playerResearch, parameters, farm) {
 }
 
 function farmValueFormula(parameters) {
+	console.log(parameters)
     //SUB CALCULATIONS
     let eggsMin = parameters.population * parameters.layingRate
     let eggValue = (parameters.eggTypeValue * parameters.eggValue) * (1 + parameters.meBonus)
     let eggsDelivered = Math.min(parameters.shippingCapacity, eggsMin)
     let weightedPopulation = (Math.ceil(eggsDelivered / parameters.layingRate) + (Math.ceil((eggsMin - eggsDelivered) / parameters.layingRate) * 0.2))
-	let subValue1 = weightedPopulation + Math.pow(parameters.maxHabCapacity - parameters.population, 0.6)
-	let s3 = (39.0266 * parameters.hatchRate * parameters.silos * parameters.maxRunningBonus) // coefficient was 180, 63 matches on some
-    let subValue2 = parameters.accTricks  * parameters.eggMultiplier * parameters.layingRate / 2 * eggValue * 2000
+	
 	//FINAL CALCULATION
+	let subValue1 = weightedPopulation + Math.pow(parameters.maxHabCapacity - parameters.population, 0.6) + (180 * parameters.hatchRate * parameters.silos)
+	let subValue2 = parameters.accTricks * parameters.eggMultiplier * parameters.layingRate * eggValue * 1000
+	let subValue3 = Math.pow(parameters.maxRunningBonus, 0.25)
+
 	if (isNaN(subValue1) || isNaN(subValue2)) {
 		let valueString = isNaN(subValue1) ? "subValue1" : "subValue2"
 		ReactGA.exception({
@@ -130,11 +133,7 @@ function farmValueFormula(parameters) {
 			fatal: false,
 		})
 	}
-    // console.assert(subValue1)
-	// console.assert(subValue2)
-	// console.log(subValue1, subValue2, s3)
-	// console.log((subValue1 + s3) * subValue2)
-    return (subValue1 + s3) * subValue2;
+    return subValue1 * subValue2 * subValue3;
 }
 
 function mysticalBonusFormula(soulEggs, prophecyEggs, playerResearch) {
