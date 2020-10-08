@@ -6,6 +6,7 @@ import { getActiveContracts } from "../../actions/contractActions"
 import CoopRewards from "../ContractSummary/CoopSummary/CoopRewards"
 import CoopExpiryEstimate from "../ContractSummary/CoopSummary/CoopExpiryEstimate"
 import { NavLink } from "react-router-dom"
+import path from "path"
 import HeadedCard from "../HeadedCard"
 import ContractIcons from "../ContractSummary/ContractIcons"
 import Loading from "../Loading"
@@ -45,9 +46,7 @@ export default function CoopCard(props) {
     let loadingCoop
     if (coop) loadingCoop = coop.fetching
     
-    let link = "/contract/view"
-    if (contract) link += "/" + contract.name
-    if (coopId) link += "/" + coopId
+    let link = path.join("contract", "view", (contract ? contract.name : ""), (coopId ? coopId : ""))
     
     const loadingContent = [
 		<Loading style={{gridArea: "rewards / estimate / rewards / estimate"}} key="loading" />,

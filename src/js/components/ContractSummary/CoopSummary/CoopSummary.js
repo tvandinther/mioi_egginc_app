@@ -3,6 +3,7 @@ import { useSelector } from "react-redux"
 import { Route, useRouteMatch, Redirect, useParams } from "react-router-dom"
 import { Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
+import path from "path"
 import CoopRewards from "./CoopRewards"
 import Loading from "../../Loading"
 import CoopExpiry from "./CoopExpiry"
@@ -62,8 +63,8 @@ export default function CoopSummary(props) {
 		console.log(coop)
         return (
             <div style={props.style} className={classes.root}>
-                <Redirect to={`${currentRoute.url}/${coop.coop}`} />
-                <Route path={`${currentRoute.path}/:coopId`}>
+                <Redirect to={path.join(currentRoute.url, coop.coop)} />
+                <Route path={path.join(currentRoute.path, ":coopId")}>
 					<Typography className={classes.type} align="center" variant="h4">{coop.coop}<ShareCoop coop={coop}/><CoopSettings/></Typography>
 					<LabelToggle state={selectedLeague === "elite"} labels={["Standard", "Elite"]} onChange={handleLeagueChange} onClick={logTierChange}/>
 					<CoopRewards eggsLaid={coop.eggs} rewards={coopRewardSet}/>

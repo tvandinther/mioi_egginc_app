@@ -1,4 +1,5 @@
 import React from "react"
+import path from "path"
 import { conenct, connect } from "react-redux"
 import { Link } from "react-router-dom"
 import ContractCard from "./ContractCard/ContractCard"
@@ -46,7 +47,7 @@ function ContractList(props) {
         // Anything valid for more than 30 days from now is put to the bottom
         let order = getExpireETA(contract.validUntil) < 60 * 60 * 24 * 30 ? index : 100 + index
         return (
-            <Link style={{order: order}} className={classes.listItem} onClick={props.showContract} to={`${props.match.url}/view/${contract.name}`} key={index}>
+            <Link style={{order: order}} className={classes.listItem} onClick={props.showContract} to={path.join(props.match.url, "view", contract.name)} key={index}>
                 <ContractCard contract={contract} index={index} />
             </Link>
         )

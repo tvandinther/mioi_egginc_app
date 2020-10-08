@@ -12,7 +12,8 @@ export default function calculateFarmStats(farm, game) {
     let initialParameters = {
         population: farm.numChickens,
         eggTypeValue: eggTypes[farm.eggType].value,
-        eggMultiplier: 1 + (0.5 * (farm.eggType - 1)),
+		eggMultiplier: 1 + (0.5 * (farm.eggType - 1)),
+		// eggMultiplier: 1 + (1 / (farm.eggType)),
         maxHabCapacity: farm.habsList.reduce((acc, habIndex) => acc + habs[habIndex].capacity, 0),
         layingRate: 2, // eggs per minute per chicken
         eggValue: 1, // base multiplier

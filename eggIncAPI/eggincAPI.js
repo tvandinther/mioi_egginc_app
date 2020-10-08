@@ -94,8 +94,8 @@ exports.getPlayerData = async function(identifier) {
     message.setUserId(identifier);
     return await ei_request('first_contact', message, ei.EggIncFirstContactResponse).then(response => response.backup);
 }
-
-// exports.getPlayerData('114601960711341662698').then(x => {
+// 114601960711341662698
+// exports.getPlayerData('108379847168262090125').then(x => {
 //     console.log(x);
 // })
 
