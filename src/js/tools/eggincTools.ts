@@ -1,17 +1,18 @@
 import orders from "./orders.json"
 import calculateFarmStats from "./farmStatTools"
+import { ContractReward } from "../../types/contract"
 
-const validSymbols = orders.map(order => order.symbol)
+const validSymbols = orders.map((order: { symbol: string }) => order.symbol)
 
 export { calculateFarmStats }
 
-export function contractNameFormat(value) {
+export function contractNameFormat(value: string) {
     value = value.replace(" ", "-").toLowerCase()
     value = value.replace(/[^A-Za-z0-9\-]/, "")
     return value
 }
 
-export function getExpireETA(validUntil, string=false) {
+export function getExpireETA(validUntil: number, string=false) {
     let currentEpoch = Date.now() / 1000;
     let expire = validUntil - currentEpoch; // in seconds
     if (string === true) {
@@ -20,7 +21,7 @@ export function getExpireETA(validUntil, string=false) {
     return expire;
 }
 
-export function convertEpoch(epochTime) {
+export function convertEpoch(epochTime: number) {
     let d = Math.floor(epochTime / (3600*24));
     let h = Math.floor(epochTime % (3600*24) / 3600);
     let m = Math.floor(epochTime % 3600 / 60);
@@ -48,31 +49,31 @@ export function convertEpoch(epochTime) {
     }
 }
 
-export function timeConvert(time, base="ms") { 
+export function timeConvert(time: number, base="ms") { 
     //return String(Math.floor(time/24/60) + " days, " + Math.floor(time/60%24) + ' hours and ' + Math.ceil(time%60) + ' minutes');
     var units = {
-        year: 24*60*365,
-        month: 24*60*30,
-        week: 24*60*7,
-        day: 24*60,
-        hour: 60,
-        minute: 1
+        "year": 24*60*365,
+        "month": 24*60*30,
+        "week": 24*60*7,
+        "day": 24*60,
+        "hour": 60,
+        "minute": 1
     }
 	var result = []
 	if (base === "ms") {
 		time = time / 1000
 	}
-    for(var name in units) {
-      var p =  Math.floor(time / units[name]);
+    for (let [name, value] of Object.entries(units)) {
+      var p =  Math.floor(time / value);
       if(p == 1) result.push(' ' + p + ' ' + name);
       if(p >= 2) result.push(' ' + p + ' ' + name + 's');
-      time %= units[name]
+      time %= value;
     
     }
     return result;
 }
 
-export function magnitudeGet(str) {
+export function magnitudeGet(str: string) {
     var key = String(str.match(/([A-z]{1,2})$/g));
     for(var i = 0; i < orders.length; i++) {
         if(orders[i].symbol === key) {
@@ -82,7 +83,7 @@ export function magnitudeGet(str) {
     return 0;
 }
 
-export function convertName(n) { //converting the format of unreadable number into the game's name format
+export function convertName(n: number) { //converting the format of unreadable number into the game's name format
 	if (typeof n === "undefined" || n === null) return "0"
 	if (isNaN(n)) {
         return 'Need More Info';
@@ -98,7 +99,7 @@ export function convertName(n) { //converting the format of unreadable number in
     }
 }
 
-export function convertSymbol(n) { //converting the format of unreadable number into the game's symbol format
+export function convertSymbol(n: number) { //converting the format of unreadable number into the game's symbol format
 	if (typeof n === "undefined" || n === null) return "0"
 	if (n < 1000000) {
         return n.toLocaleString();
@@ -114,43 +115,43 @@ export function convertSymbol(n) { //converting the format of unreadable number 
     }
 }
 
-export function isValidSymbol(string) {	
+export function isValidSymbol(string: string) {	
 	return validSymbols.includes(string)
 }
 
-export function isSymbolFormat(string) {
+export function isSymbolFormat(string: string) {
 	const expression = RegExp(`^\\d{1,3}((\\.\\d{1,3})?(${ validSymbols.toString().replace(/,/g, '|')})?|\\.)?$`)
 	return expression.test(string)
 }
 
-export function convertSymbolToNumber(string) {
-	return  (string.replace(/\D*$/, '')) * Math.pow(10, (magnitudeGet(String(string.match(/\D*$/)))))
+export function convertSymbolToNumber(string: string) {
+	return  Number(string.replace(/\D*$/, '')) * Math.pow(10, (magnitudeGet(String(string.match(/\D*$/)))))
 }
 
-export function round(n, precision) {
+export function round(n: number, precision: number) {
     return Math.round(n * Math.pow(10, precision)) / Math.pow(10, precision);
 }
 
-export function percentString(n, precision, limit=false) {
+export function percentString(n: number, precision: number, limit=false) {
     let value = limit ? Math.min(Math.max(0, n), 1) : n
     return (value * 100).toFixed(precision) + '%';
 }
 
-function orderOf(n) {
+function orderOf(n: number) {
     return Math.floor(Math.log(n) / Math.LN10 + 0.000000001) / 3;
 }
 
-function levelOf(n) {
+function levelOf(n: number) {
     // Returns an integer representing its order of magnitude where 1 = million and 2 = billion etc.
     return Math.floor(orderOf(n) - 1);
 }
 
-function cutoffOf(n) {
+function cutoffOf(n: number) {
     // Returns the floor of n's "illion". E.g. 28 million returns 1 million, 794 billion returns 1 billion
     return Math.pow(10, Math.floor(orderOf(n)) * 3);
 }
 
-export function getRewardDetails(reward) {
+export function getRewardDetails(reward: ContractReward) {
     const imageRootSrc = "/images"
     let path = null
     let quantity = null
@@ -188,11 +189,11 @@ export function getRewardDetails(reward) {
     }
 }
 
-export function getImageSrc(id) {
+export function getImageSrc(id: string | number) {
 	return `/images/${id}.png`
 }
 
-export function contractTimeSoloEstimate(parameters) {
+export function contractTimeSoloEstimate(parameters: any) {
 	const hatchCalm = 1 + (parameters.hatchCalm * 0.1)
 	//BREAKPOINT CALCULATION		
 	let a = parameters.hatchRate * hatchCalm * 4;
@@ -245,12 +246,12 @@ export function contractTimeSoloEstimate(parameters) {
 		}
 	}
 		
-	function findEggsLaid(endBreakpoint, startBreakpoint, a, b, c) {
+	function findEggsLaid(endBreakpoint: number, startBreakpoint: number, a: number, b: number, c: number) {
 		let xRuntime = endBreakpoint - startBreakpoint;
 		return (a * b / 2) * Math.pow(xRuntime, 2) + b * c * xRuntime;
 	}
 		
-	function findTime(y, b, c, d) {
+	function findTime(y: number, b: number, c: number, d: number) {
 		return (y - d) / (b * (a * breakpoints[1] + c));
 	}
 

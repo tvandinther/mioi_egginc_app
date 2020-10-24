@@ -147,8 +147,8 @@ const darkTheme = createMuiTheme({
     }
 })
 
-export default function MyThemeProvider(props) {
-	const isDarkTheme = useSelector(store => store.settings.darkTheme)
+export default function MyThemeProvider(props: any) {
+	const isDarkTheme = useSelector(store => store.settings.darkTheme) // @ts-ignore
     return (
         <StylesProvider>
             <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>

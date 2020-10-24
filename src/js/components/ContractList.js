@@ -1,6 +1,6 @@
 import React from "react"
 import path from "path"
-import { conenct, connect } from "react-redux"
+import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import ContractCard from "./ContractCard/ContractCard"
 import { showContract } from "../actions/contractActions"
