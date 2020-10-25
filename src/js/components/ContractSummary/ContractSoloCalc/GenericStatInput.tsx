@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { Input } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
 import { setContractCalcParameter } from "../../../actions/contractActions"
 import TextMask from "../../TextMask"
+import useStyle from "./styles"
 
-const useStyle = makeStyles(theme => ({
-	input: {
-		textAlign: "right",
-		paddingRight: 24,
-	},
-}))
-
-export default function GenericStatInput(props) {
+export default function GenericStatInput(props: any) {
 	const classes = useStyle()
 	const initialValue = props.value || 0
 	const directive = props.directive || (() => {})
@@ -22,7 +15,7 @@ export default function GenericStatInput(props) {
 	// const playerContractFarm = useSelector(store => store.playerData.farmsList.find(item => item.contractId === contract.name))
 	let [value, setValue] = useState(data || initialValue)
 
-	const handleBlur = (evt, newValue) => {
+	const handleBlur = (evt: any, newValue: any) => {
 		dispatch(setContractCalcParameter(name, newValue))
 	}
 

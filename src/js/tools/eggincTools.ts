@@ -99,13 +99,13 @@ export function convertName(n: number) { //converting the format of unreadable n
     }
 }
 
-export function convertSymbol(n: number) { //converting the format of unreadable number into the game's symbol format
+export function convertSymbol(n: number): string { //converting the format of unreadable number into the game's symbol format
 	if (typeof n === "undefined" || n === null) return "0"
 	if (n < 1000000) {
         return n.toLocaleString();
     }
     else if (levelOf(n) < 1){
-        return Math.floor(n);
+        return String(Math.floor(n));
     }
     else if (levelOf(n) <= orders.length) {
         return Math.round((n / cutoffOf(n)) * 1000) / 1000 + (orders[levelOf(n)-1].symbol);
@@ -193,7 +193,7 @@ export function getImageSrc(id: string | number) {
 	return `/images/${id}.png`
 }
 
-export function contractTimeSoloEstimate(parameters: any) {
+export function contractTimeSoloEstimate(parameters: any): [number, {type: string, value: number} | null] {
 	const hatchCalm = 1 + (parameters.hatchCalm * 0.1)
 	//BREAKPOINT CALCULATION		
 	let a = parameters.hatchRate * hatchCalm * 4;

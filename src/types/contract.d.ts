@@ -25,3 +25,27 @@ export interface ContractReward {
 	subtype: string | undefined,
 	type: string,
 }
+
+export interface Coop {
+	contract: string,
+	contractLink: Contract,
+	coop: string,
+	eggs: number,
+	error: any,
+	fetched: boolean,
+	fetching: boolean,
+	league: string,
+	members: Member[],
+	public: boolean | null,
+	timeLeft: number,
+	totalRate: number,
+}
+
+export interface Member {
+	active: boolean,
+	boostTokens: number,
+	eggs: number,
+	name: string,
+	rate: number,
+	soulPower: number,
+}

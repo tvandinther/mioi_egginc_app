@@ -3,6 +3,17 @@ import { Select, ListSubheader, MenuItem, Divider, Typography } from "@material-
 import { makeStyles } from "@material-ui/core/styles"
 import { useDispatch } from "react-redux"
 
+export type MenuMapItem = {
+	title?: string,
+	items: Array<{
+		title: string,
+		imageSrc: string,
+		value: number,
+	}>
+}
+
+export type MenuMap = Array<MenuMapItem>
+
 const useStyle = makeStyles(theme => ({
     root: {
         margin: "auto",
@@ -99,7 +110,14 @@ const useStyle = makeStyles(theme => ({
 	},
 }))
 
-export default function ImageDropdown(props) {
+interface PropTypes {
+	initialValue: number,
+	dispatchFunc: Function,
+	menuMap: MenuMap
+	type?: "default" | "large"
+}
+
+export default function ImageDropdown(props: PropTypes) {
 	const classes = useStyle()
 	const dispatch = useDispatch()
 	const initialValue = props.initialValue
@@ -110,35 +128,36 @@ export default function ImageDropdown(props) {
 	let [open, setOpen] = useState(false)
 	useEffect(() => setSelected(initialValue), [initialValue])
 
-	const handleChange = evt => {
+	const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
 		let value = evt.target.value
 		if (value === undefined) {
 			return
 		}
-        setSelected(value)
+        setSelected(Number(value))
         dispatch(setValue(value))
     }
 
-	const handleOpen = evt => {
+	const handleOpen = (evt: React.ChangeEvent) => {
 		setOpen(true)
 	}
 
-	const handleClose = evt => {
+	const handleClose = (evt: React.ChangeEvent) => {
 		if (evt.target.getAttribute("unselectable") === "true") {
 			return
 		}
 		setOpen(false)
 	}
 
-	const parseMenuMap = (map) => {
+	const parseMenuMap = (map: MenuMap) => {
 		var elementArray = []
 		var index = 0
 		for (let section of map) {
 			if (section.title) {
 				elementArray.push(
+					//@ts-ignore
 					<ListSubheader
 						key={index}
-						unselectable="true"
+						unselectable="true" 
 						className={classes.listSubheader}
 					>
 						{section.title}
@@ -158,6 +177,7 @@ export default function ImageDropdown(props) {
 				index++
 			}
 			elementArray.push(
+				//@ts-ignore
 				<Divider
 					key={index}
 					unselectable="true"
@@ -175,7 +195,7 @@ export default function ImageDropdown(props) {
 		menuItems = parseMenuMap(menuMap)
 	}
 	else {
-		let newMap
+		let newMap: MenuMap = menuMap
 		for (let section of menuMap) {
 			for (let item of section.items) {
 				if (item.value == selected) {

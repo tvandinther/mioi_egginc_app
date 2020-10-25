@@ -1,26 +1,13 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, CSSProperties } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import ValidatedInput from "../ValidatedInput"
 import { updateContractCoopSearchString, getCoop, setPlayerCoopToCoop } from "../../actions/contractActions"
 import { contractNameFormat } from "../../tools/eggincTools"
-import { Typography, Button, CircularProgress } from "@material-ui/core"
-import { useTheme, makeStyles } from "@material-ui/core/styles"
+import { Button, CircularProgress } from "@material-ui/core"
 import ReactGA from "react-ga"
+import useStyle from "./styles"
 
-const useStyle = makeStyles(theme => ({
-    root: {
-        display: "grid",
-        margin: "5px",
-        gridTemplate: "1fr / 1fr 100px",
-        gridGap: "10px",
-    },
-    progress: {
-        position: "absolute",
-    }
-}))
-
-export default function CoopSearch(props) {
-	const { initialSearch, contractId } = props
+export default function CoopSearch({ style, initialSearch, contractId }: { style: CSSProperties, initialSearch: string, contractId: string }) {
 	const dispatch = useDispatch()
 	const classes = useStyle()
 	const search = useSelector(store => store.contract.coopSearch[contractId])
@@ -31,7 +18,7 @@ export default function CoopSearch(props) {
 	let [error, setError] = useState(search.searchFailed)
 	let [disableSearch, setDisableSearch] = useState(search.disabled)
 
-	const setReduxSearchString = (value) => {
+	const setReduxSearchString = (value: string) => {
 		setCoopSearchString(value)
 		if (!value) setDisableSearch(true)
 		else {
@@ -48,7 +35,7 @@ export default function CoopSearch(props) {
 			ReactGA.event({
 				category: "Contract",
 				action: "Co-op Searched",
-				label: props.contractId,
+				label: contractId,
 			})
 		}
 	}
@@ -65,11 +52,6 @@ export default function CoopSearch(props) {
 		setCoopSearchString(search.searchString)
 	}, [search.searchString])
 
-	// // Disables search button on a failed search term
-	// useEffect(() => {
-	//     if (search.failedSearches.includes(coopSearchString)) setError(true)
-	// }, [search])
-
 	useEffect(() => {
 		// Use preloaded player Co-op if search term matches
 		if (playerCoop && (coopSearchString === playerCoop.coop)) {
@@ -79,23 +61,23 @@ export default function CoopSearch(props) {
 	}, [playerCoop])
 
 	return (
-			<div style={props.style} className={classes.root}>
-				<ValidatedInput
-					pasteSubmit={false}
-					label="Search a Co-op"
-					type="search"
-					error={error}
-					autoFocus={!loading && !coop.fetched && !coopSearchString}
-					onEnter={handleSubmit}
-					value={coopSearchString}
-					setValue={setReduxSearchString}
-					validatorFunction={contractNameFormat}
-					inputProps={{"aria-label": "Search a Co-op"}}
-				/>
-				<Button onClick={handleSubmit} variant="outlined" disabled={loading || disableSearch}>
-					Search
-					{loading && <CircularProgress className={classes.progress}/>}
-				</Button>
-			</div>
+		<div style={style} className={classes.search}>
+			<ValidatedInput
+				pasteSubmit={false}
+				label="Search a Co-op"
+				type="search"
+				error={error}
+				autoFocus={!loading && !coop.fetched && !coopSearchString}
+				onEnter={handleSubmit}
+				value={coopSearchString}
+				setValue={setReduxSearchString}
+				validatorFunction={contractNameFormat}
+				inputProps={{"aria-label": "Search a Co-op"}}
+			/>
+			<Button onClick={handleSubmit} variant="outlined" disabled={loading || disableSearch}>
+				Search
+				{loading && <CircularProgress className={classes.progress}/>}
+			</Button>
+		</div>
 	)
 }
