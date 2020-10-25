@@ -4,16 +4,11 @@ import { makeStyles } from "@material-ui/core/styles"
 import ShareIcon from "@material-ui/icons/Share"
 import { copyToClipboard } from "../../../tools"
 import ReactGA from "react-ga"
+import useStyle from "./styles"
+import { Coop } from "../../../../types/contract"
 
-const useStyle = makeStyles(theme => ({
-	root: {
-		marginLeft: 8,
-	}
-}))
-
-export default function ShareCoop(props) {
+export default function ShareCoop({ coop }: { coop: Coop }) {
 	const classes = useStyle()
-	const { coop } = props
 	let [openSnackbar, setOpenSnackbar] = useState(false)
 	let [snackbarText, setSnackbarText] = useState("")
 
@@ -28,7 +23,7 @@ export default function ShareCoop(props) {
 		setTimeout(() => setOpenSnackbar(false), 3000)
 	}
 
-	const handleClick = async (evt) => {
+	const handleClick = async (evt: React.MouseEvent) => {
 		let shareType
 		if (navigator.share) {
 			await navigator.share(shareData)
@@ -50,7 +45,7 @@ export default function ShareCoop(props) {
 	}
 
 	return (
-		<IconButton color="inherit" className={classes.root} onClick={handleClick}>
+		<IconButton color="inherit" className={classes.share} onClick={handleClick}>
 			<ShareIcon/>
 			<Snackbar
 				anchorOrigin={{ vertical: "bottom", horizontal: "center" }}

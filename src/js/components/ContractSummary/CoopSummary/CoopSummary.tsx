@@ -1,13 +1,9 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, CSSProperties } from "react"
 import { useSelector } from "react-redux"
-import { Route, useRouteMatch, Redirect, useParams } from "react-router-dom"
+import { Route, useRouteMatch, Redirect } from "react-router-dom"
 import { Typography } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
 import path from "path"
 import CoopRewards from "./CoopRewards"
-import Loading from "../../Loading"
-import CoopExpiry from "./CoopExpiry"
-import CoopEstimate from "./CoopEstimate"
 import ShareCoop from "./ShareCoop"
 import CoopMembers from "./CoopMembers"
 import CoopExpiryEstimate from "./CoopExpiryEstimate"
@@ -15,37 +11,22 @@ import HelpTooltip from "../../Decorator/HelpTooltip"
 import LabelToggle from "../../controls/LabelToggle"
 import ReactGA from "react-ga"
 import CoopSettings from "./CoopSettings"
+import { Contract, ContractGoals } from "../../../../types/contract"
+import useStyle from "./styles"
+import { isContractGoals } from "../../../../types/typeGuards"
 
-const useStyle = makeStyles(theme => ({
-	root: {
-		display: "flex",
-		flexDirection: "column",
-		position: "relative",
-
-		"&>*": {
-			marginTop: 10,
-			marginBottom: 10,
-		}
-	},
-	type: {
-		margin: 0,
-		position: "relative",
-	}
-}))
-
-export default function CoopSummary(props) {
-	const contract = props.contract
+export default function CoopSummary({ style, contract }: { style: CSSProperties, contract: Contract }) {
 	const classes = useStyle()
     const currentRoute = useRouteMatch()
-	const coop = useSelector(store => store.contract.coops[props.contract.name])
+	const coop = useSelector(store => store.contract.coops[contract.name])
 	const [selectedLeague, setSelectedLeague] = useState("standard")
 
-	const handleLeagueChange = state => {
+	const handleLeagueChange = (state: boolean) => {
 		if (state === false) setSelectedLeague("standard")
 		else setSelectedLeague("elite")
 	}
 
-	const logTierChange = (evt, newState) => {
+	const logTierChange = (evt: React.ChangeEvent, newState: boolean) => {
 		ReactGA.event({
 			category: "Contract",
 			action: "Co-op Tier Changed",
@@ -57,12 +38,12 @@ export default function CoopSummary(props) {
 		if (coop.fetched && coop.league) setSelectedLeague(coop.league)
 	}, [(coop && coop.league)])
 
-	const coopRewardSet = (contract.goals[selectedLeague]) || contract.rewards
+	const coopRewardSet = isContractGoals(contract.goals) ? (contract.goals[selectedLeague as keyof ContractGoals]) : contract.rewards
 
     if (coop && coop.fetched) {
 		console.log(coop)
         return (
-            <div style={props.style} className={classes.root}>
+            <div style={style} className={classes.root}>
                 <Redirect to={path.join(currentRoute.url, coop.coop)} />
                 <Route path={path.join(currentRoute.path, ":coopId")}>
 					<Typography className={classes.type} align="center" variant="h4">{coop.coop}<ShareCoop coop={coop}/><CoopSettings/></Typography>

@@ -13,8 +13,8 @@ const useStyle = makeStyles(theme => ({
 }))
 
 interface PropTypes extends SwitchProfile {
-	style: CSSProperties,
-	children: JSX.Element,
+	style?: CSSProperties,
+	children?: JSX.Element,
 }
 
 export default function SettingsSwitch(props: PropTypes) {

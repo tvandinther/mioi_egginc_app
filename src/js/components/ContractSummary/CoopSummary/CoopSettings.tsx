@@ -3,7 +3,7 @@ import { IconButton, Menu, MenuItem } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import SettingsIcon from '@material-ui/icons/Settings'
 import SettingsSwitch from "../../appSettings/SettingsSwitch"
-import switchProfiles from "../../appSettings/switchProfiles.json"
+import switchProfiles from "../../appSettings/switchProfiles"
 
 const useStyle = makeStyles(theme => ({
 	root: {
@@ -13,11 +13,11 @@ const useStyle = makeStyles(theme => ({
 	}
 }))
 
-export default function CoopSettings(props) {
+export default function CoopSettings() {
 	const classes = useStyle()
-	let [anchorEl, setAnchorEl] = useState(null)
+	let [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
 
-	const handleClick = evt => {
+	const handleClick = (evt: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		setAnchorEl(evt.currentTarget)
 	}
 

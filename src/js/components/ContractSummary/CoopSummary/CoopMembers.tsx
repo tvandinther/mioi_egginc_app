@@ -5,6 +5,7 @@ import { convertSymbol, percentString } from "../../../tools/eggincTools"
 import { useSelector } from "react-redux"
 import Image from "../../Decorator/Image"
 import HelpTooltip from "../../Decorator/HelpTooltip"
+import { Coop, Member } from "../../../../types/contract"
 
 const useStyle = makeStyles(theme => ({
 	root: {
@@ -17,10 +18,10 @@ const useStyle = makeStyles(theme => ({
 	},
 }))
 
-export default function CoopMembers(props) {
+export default function CoopMembers({ coop }: { coop: Coop }) {
 	const hourlyEggLayingRate = useSelector(store => store.settings.hourlyEggLayingRate)
 	const classes = useStyle()
-	const members = props.coop.members
+	const members = coop.members
     const headCells = [
         {id: 0, numeric: false, disablePadding: false, label: "Name"},
         {id: 1, numeric: false, disablePadding: false, label: "Eggs Laid"},
@@ -29,11 +30,11 @@ export default function CoopMembers(props) {
 		{id: 4, numeric: false, disablePadding: false, label: "Earnings Bonus"},
 	]
 	
-	function sum(array, predicate) {
+	function sum(array: Array<any>, predicate: Function) {
 		return array.reduce((acc, n) => acc + predicate(n), 0)
 	}
 
-    if (props.coop && props.coop.fetched) {
+    if (coop && coop.fetched) {
         return (
             <Paper className={classes.root} onTouchStart={e => e.stopPropagation()}>
                 <Table size="small">
@@ -58,16 +59,16 @@ export default function CoopMembers(props) {
 									<Image inline itemId="b_icon_token" className={classes.tokenIcon}/>
 									{member.boostTokens}
 									</TableCell>
-                                <TableCell numeric="true">
+                                <TableCell>
 									{convertSymbol(member.eggs)}
 									</TableCell>
-                                <TableCell numeric="true">
+                                <TableCell>
 									{hourlyEggLayingRate ? convertSymbol(member.rate * 3600) + "/hr" : convertSymbol(member.rate) + "/s"}
 								</TableCell>
-                                <TableCell numeric="true">
-									{percentString(member.eggs / props.coop.eggs, 2)}
+                                <TableCell>
+									{percentString(member.eggs / coop.eggs, 2)}
 								</TableCell>
-								<TableCell numeric="true">
+								<TableCell>
 									{convertSymbol(Math.pow(10, member.soulPower) * 100)}%
 								</TableCell>
                             </TableRow>
@@ -77,19 +78,19 @@ export default function CoopMembers(props) {
 							<TableCell>
 								<b>Total</b>
 								<Image inline itemId="b_icon_token" className={classes.tokenIcon}/>
-								<b>{sum(members, (member) => member.boostTokens)}</b>
+								<b>{sum(members, (member: Member) => member.boostTokens)}</b>
 							</TableCell>
-							<TableCell numeric="true">
-								<b>{convertSymbol(props.coop.eggs)}</b>
+							<TableCell>
+								<b>{convertSymbol(coop.eggs)}</b>
 							</TableCell>
-							<TableCell numeric="true">
-								<b>{hourlyEggLayingRate ? convertSymbol(props.coop.totalRate * 3600) + "/hr" : convertSymbol(props.coop.totalRate) + "/s"}</b>
+							<TableCell>
+								<b>{hourlyEggLayingRate ? convertSymbol(coop.totalRate * 3600) + "/hr" : convertSymbol(coop.totalRate) + "/s"}</b>
 							</TableCell>
-							<TableCell numeric="true">
+							<TableCell>
 								<b>100%</b>
 							</TableCell>
-							<TableCell numeric="true">
-								<b>{convertSymbol(Math.pow(10, sum(members, (member) => member.soulPower) / members.length) * 100)}%</b>{"   "}<HelpTooltip helpText="This figure is an average."/>
+							<TableCell>
+								<b>{convertSymbol(Math.pow(10, sum(members, (member: Member) => member.soulPower) / members.length) * 100)}%</b>{"   "}<HelpTooltip helpText="This figure is an average."/>
 							</TableCell>
 						</TableRow>
                     </TableBody>

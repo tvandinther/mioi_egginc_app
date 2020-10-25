@@ -1,113 +1,46 @@
-import React from "react"
+import React, { CSSProperties } from "react"
 import { convertEpoch, convertSymbol } from "../../../tools/eggincTools"
+//@ts-ignore
 import { ProgressBar } from "react-step-progress-bar"
 import "react-step-progress-bar/styles.css"
 import { Typography, Paper, Divider } from "@material-ui/core"
-import { makeStyles, useTheme } from "@material-ui/core/styles"
+import { useTheme } from "@material-ui/core/styles"
 import HelpTooltip from "../../Decorator/HelpTooltip"
 import { useSelector } from "react-redux"
+import useStyle from "./styles"
+import { Contract, ContractReward, Coop } from "../../../../types/contract"
 
-const useStyle = makeStyles(theme => ({
-    root: {
-        backgroundColor: theme.palette.background.paper,
-        border: 1,
-        borderStyle: "none",
-        borderColor: theme.palette.grey[300],
-        borderRadius: 10,
-		margin: "10px 0px",
-		display: "block",
-	},
-	main: {
-		position: "relative",
-		borderRadius: "inherit",
-	},
-    divider: {
-		position: "absolute",
-		width: 2,
-		height: "100%",
-		left: "calc(50% - 1px)",
-        zIndex: 10,
-        backgroundColor: theme.palette.secondary.main,
-        boxShadow: theme.shadows[4],
-    },
-    progress: {
-		clear: "both",
-        height: 30,
-
-        "& div": {
-            borderRadius: "unset !important",
-
-            "& div": {
-                borderRadius: "unset !important",
-            }
-        }
-	},
-    estimate: {
-		textAlign: "left",
-		float: "left",
-		maxWidth: "45%",
-        marginLeft: 10,
-    },
-    expiry: {
-		textAlign: "right",
-		float: "right",
-		maxWidth: "45%",
-        marginRight: 10,
-	},
-	title: {
-		
-	},
-	value: {
-		
-	},
-    overlay: {
-		position: "absolute",
-		display: "flex",
-		alignItems: "center",
-		justifyContent: "center",
-		height: "100%",
-		width: "100%",
-        borderRadius: "inherit",
-        backgroundColor: theme.palette.background.offOverlay,
-        zIndex: 99,
-	},
-	tip: {
-		clear: "both",
-	}
-}))
-
-function Overlay(props) {
+function Overlay({ completed }: { completed: boolean | undefined }) {
     const classes = useStyle()
     const theme = useTheme()
-    if (props.completed === undefined) return null
+    if (completed === undefined) return null
     return (
         <div className={classes.overlay}>
             <Typography 
                 variant="h5" 
                 align="center"
                 style={{
-                    color: props.completed ? theme.palette.success.main : theme.palette.error.main,
+                    color: completed ? theme.palette.success.main : theme.palette.error.main,
                 }}
-            >{props.completed ? "Contract Completed!" : "Contract Failed!"}</Typography>
+            >{completed ? "Contract Completed!" : "Contract Failed!"}</Typography>
         </div> 
     )
 }
 
-export default function CoopExpiryEstimate(props) {
+export default function CoopExpiryEstimate({ contract, rewards, coop, data, style }: { contract: Contract, rewards: ContractReward[], coop: Coop, data?: any, style?: CSSProperties}) {
     const classes = useStyle()
 	const theme = useTheme()
 	const hourlyEggLayingRate = useSelector(store => store.settings.hourlyEggLayingRate)
-	const rewards = props.rewards
     let totalRate, eggsRemaining, timeLeft
-    if (props.coop) {
-        totalRate = props.coop.members.reduce((acc, member) => acc + member.rate, 0)
-        eggsRemaining = (rewards[rewards.length - 1].goal - props.coop.eggs)
-        timeLeft = props.coop.timeLeft
+    if (coop) {
+        totalRate = coop.members.reduce((acc, member) => acc + member.rate, 0)
+        eggsRemaining = (rewards[rewards.length - 1].goal - coop.eggs)
+        timeLeft = coop.timeLeft
     }
-    else if (props.data) {
-        totalRate = props.data.layingRate
-        eggsRemaining = (rewards[rewards.length - 1].goal - props.data.eggsLaid)
-        timeLeft =  props.data.timeLeft
+    else if (data) {
+        totalRate = data.layingRate
+        eggsRemaining = (rewards[rewards.length - 1].goal - data.eggsLaid)
+        timeLeft =  data.timeLeft
     }
     else {
         return null
@@ -121,7 +54,7 @@ export default function CoopExpiryEstimate(props) {
     let fill = theme.palette.warning.main
     if (progress > 65) fill = theme.palette.error.main
     else if (progress <= 50) fill = theme.palette.success.main
-    let completed
+    let completed = undefined
     if (eggsRemaining <= 0) {
         completed = true
         progress = 0
@@ -132,8 +65,8 @@ export default function CoopExpiryEstimate(props) {
 	}
 	const EPOCH_1_YEAR = 3600 * 24 * 365
     return (
-        <Paper style={props.style} className={classes.root}>
-			<div className={classes.main}>
+        <Paper style={style} className={classes.expiryEstimate}>
+			<div className={classes.mainExpiryEstimate}>
 				<Overlay completed={completed}/>
 				<Typography variant="body2" className={`${classes.estimate} ${classes.title}`}>
 						Completion Estimate <HelpTooltip small helpText="Time to complete final goal at current rate"/>

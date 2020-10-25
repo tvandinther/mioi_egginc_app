@@ -7,7 +7,7 @@ export interface Contract {
 	egg: number,
 	goals: ContractGoals | ContractReward[],
 	name: string,
-	rewards: ContractReward,
+	rewards: ContractReward[],
 	serveUntil: number,
 	title: string,
 	validUntil: number,
