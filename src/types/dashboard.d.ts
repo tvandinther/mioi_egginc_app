@@ -15,10 +15,10 @@ export default interface DashboardOptions {
 export type DashboardCardType = "player" | "news" | "coopSummary" | "quickLink"
 
 export interface DashboardCard {
-	show: boolean,
-	type?: DashboardCardType,
 	key: string,
-	priority: number,
+	show?: boolean,
+	type?: DashboardCardType,	
+	priority?: number,
 }
 
 export interface PlayerCardProps extends DashboardCard {
