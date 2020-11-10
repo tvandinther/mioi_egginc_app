@@ -3,15 +3,15 @@ export default interface AppRedux {
 		[key: string]: any,
 	},
 	news: {
-		posts: Post[],
+		posts: NewsPost[],
 		fetched: boolean,
 		fetching: boolean,
 	}
 }
 
-type PostBodyType = "markdown"
+export type PostBodyType = "markdown" // | "newType"
 
-export interface Post {
+export interface NewsPost {
 	author: string,
 	body: string,
 	bodyType: PostBodyType,

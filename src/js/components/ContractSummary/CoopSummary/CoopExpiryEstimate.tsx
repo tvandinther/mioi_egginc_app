@@ -27,7 +27,7 @@ function Overlay({ completed }: { completed: boolean | undefined }) {
     )
 }
 
-export default function CoopExpiryEstimate({ contract, rewards, coop, data, style }: { contract: Contract, rewards: ContractReward[], coop: Coop, data?: any, style?: CSSProperties}) {
+export default function CoopExpiryEstimate({ rewards, coop, data, style }: { rewards: ContractReward[], coop?: Coop, data?: any, style?: CSSProperties}) {
     const classes = useStyle()
 	const theme = useTheme()
 	const hourlyEggLayingRate = useSelector(store => store.settings.hourlyEggLayingRate)

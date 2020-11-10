@@ -41,7 +41,6 @@ export default function CoopSummary({ style, contract }: { style: CSSProperties,
 	const coopRewardSet = isContractGoals(contract.goals) ? (contract.goals[selectedLeague as keyof ContractGoals]) : contract.rewards
 
     if (coop && coop.fetched) {
-		console.log(coop)
         return (
             <div style={style} className={classes.root}>
                 <Redirect to={path.join(currentRoute.url, coop.coop)} />
@@ -55,7 +54,7 @@ export default function CoopSummary({ style, contract }: { style: CSSProperties,
 							helpText={"The completion pace shows the ratio between your estimated completion time and the remaining time. Aim to keep this under the red \'success threshold\' line."}
 						/>
 					</Typography>
-                    <CoopExpiryEstimate contract={contract} rewards={coopRewardSet} coop={coop}/>
+                    <CoopExpiryEstimate rewards={coopRewardSet} coop={coop}/>
                     <Typography align="center" variant="h5">Members ({coop.members.length}/{contract.coopSize})</Typography>
                     <CoopMembers coop={coop} />
                 </Route>

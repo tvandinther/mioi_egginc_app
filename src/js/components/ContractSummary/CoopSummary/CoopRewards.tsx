@@ -24,7 +24,7 @@ const useStyle = makeStyles(theme => ({
 	},
 }))
 
-export default function CoopRewards({ eggsLaid=0, rewards }: { eggsLaid?: number, rewards: ContractReward[] }) {
+export default function CoopRewards({ eggsLaid=0, rewards, style }: { eggsLaid?: number, rewards: ContractReward[], style?: CSSProperties }) {
 	const theme = useTheme()
 	const classes = useStyle()
 	const detailedRewardsBar = useSelector(store => store.settings.detailedRewardsBar)
@@ -98,7 +98,7 @@ export default function CoopRewards({ eggsLaid=0, rewards }: { eggsLaid?: number
 	}
 
     return (
-		<div className={classes.root}>
+		<div className={classes.root} style={style}>
 			{progressBars}
 		</div>
 	)

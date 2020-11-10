@@ -12,32 +12,17 @@ import DailyGiftCollection from "./DailyGiftCollection"
 import NextEgg from "../../FarmValueContainer/FarmStats/NextEgg"
 import { calculateFarmStats } from "../../../tools"
 import Image from "../../Decorator/Image"
+import { PlayerCardProps } from "../../../../types/dashboard"
+import useStyle from "./styles"
 
-const useStyle = makeStyles(theme => ({
-	root: {
-		"& > *": {
-			marginTop: 10,
-			marginBottom: 10,
-		},
-	},
-	meEggs: {
-		paddingTop: 8,
-		paddingBottom: 8,
-	},
-}))
-
-export default function PlayerCard(props) {
+export default function PlayerCard({playerData}: PlayerCardProps) {
 	const classes = useStyle()
-	const playerData = useSelector(store => store.playerData)
-	// const farm = useSelector(store => {
-	// 	if (store.playerData.fetched) store.playerData.farmsList.find(farm => farm.farmType === 2)
-	// })
-	// const game = useSelector(store => store.playerData.game)
+
 	// const farmStats = calculateFarmStats(farm, game)
 	const fetched = playerData.fetched
 	const fetching = playerData.fetching
 	const userId = playerData.userId
-	const giftCollected = fetched ? playerData.game.lastDailyGiftCollectedDay >= getDayIndex(new Date()) : undefined
+	const giftCollected = fetched ? playerData.game.lastDailyGiftCollectedDay >= getDayIndex(new Date()) : false
 	
 
 	const IDPrompt = () => (
@@ -65,7 +50,8 @@ export default function PlayerCard(props) {
 				<ImageLabel imageSrc={"/images/PROPHECY_EGGS.png"} label={convertSymbol(playerData.game.eggsOfProphecy)} height={80} />
 			</FlexContainer>
 			<Typography variant="caption">Latest game data: {new Date(playerData.approxTime * 1000).toLocaleString(undefined, {
-                    dateStyle: "medium",
+					//@ts-ignore // waiting for TypeScript to add dateStyle and timeStyle into type def
+					dateStyle: "medium",
                     timeStyle: "short",
                     hour12: true,
                 })}</Typography>

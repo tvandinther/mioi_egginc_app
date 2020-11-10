@@ -13,6 +13,17 @@ export interface Contract {
 	validUntil: number,
 }
 
+export interface MetaContract {
+	accepted: boolean,
+	contract: {
+		identifier: string,
+		lengthSeconds: number,
+	},
+	coopIdentifier: string | null,
+	league: number,
+	timeAccepted: number,
+}
+
 export interface ContractGoals {
 	standard: ContractReward[],
 	elite: ContractReward[],

@@ -1,9 +1,9 @@
 import React from "react"
-import HeadedCard from "../HeadedCard"
-import PlayerIDInput from "../appSettings/PlayerIDInput"
+import HeadedCard from "../../HeadedCard"
+import PlayerIDInput from "../../appSettings/PlayerIDInput"
 import { Typography } from "@material-ui/core"
 
-export default function PlayerIDPromptCard(props) {
+export default function PlayerIDPromptCard() {
 
 
     return (

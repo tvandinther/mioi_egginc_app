@@ -38,7 +38,7 @@ export default function ContractSummary({ match }: RouteComponentProps) {
 				<img style={{gridArea: "image", maxWidth: "100%", maxHeight: "100px", margin: "auto"}} src={`/images/egg${contract.egg}.png`}></img>
 				<Typography style={{gridArea: "title"}} variant="h4">{contract.title}</Typography>
 				<Typography style={{gridArea: "description"}} variant="subtitle1">{contract.description}</Typography>
-				<ContractIcons contract={contract} coop={coop}/>
+				<ContractIcons style={{gridArea: "icons"}} contract={contract} coop={coop}/>
 				{contract.coopAllow && <CoopSearch style={{gridArea: "search"}} initialSearch={coopId} {...contract.coopSearch} contractId={contractId}/>}
 				<CoopSummary style={{gridArea: "coop"}} contract={contract}/>
 				<ContractSoloCalcPanel style={{gridArea: "calc"}} contract={contract} coop={coop}/>
