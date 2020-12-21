@@ -1,5 +1,5 @@
 import React, { CSSProperties, useState } from "react"
-import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Typography } from "@material-ui/core"
+import { Accordion, AccordionSummary, AccordionDetails, Typography } from "@material-ui/core"
 import ContractSoloCalc from "./ContractSoloCalc"
 import ReactGA from "react-ga"
 import { Contract, Coop } from "../../../types/contract"
@@ -16,13 +16,13 @@ export default function ContractSoloCalcPanel({ style, contract, coop }: { style
 	}
 
 	return (
-		<ExpansionPanel style={style} onChange={(evt, expanded) => setExpanded(expanded)} expanded={expanded}>
-			<ExpansionPanelSummary>
+		<Accordion style={style} onChange={(evt, expanded) => setExpanded(expanded)} expanded={expanded}>
+			<AccordionSummary>
 				<Typography>Contract Calculator</Typography>
-			</ExpansionPanelSummary>
-			<ExpansionPanelDetails>
+			</AccordionSummary>
+			<AccordionDetails>
 				{expanded && <ContractSoloCalc contract={contract} coop={coop}/>}
-			</ExpansionPanelDetails>
-		</ExpansionPanel>
+			</AccordionDetails>
+		</Accordion>
 	)
 }

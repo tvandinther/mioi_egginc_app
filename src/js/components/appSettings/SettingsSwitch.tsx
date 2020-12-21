@@ -1,4 +1,4 @@
-import React from "react"
+import React, {PropsWithChildren} from "react"
 import { useDispatch, useSelector } from "react-redux"
 import actions from "../../actions"
 import { Switch, ListItem, ListItemText } from "@material-ui/core"
@@ -11,7 +11,7 @@ interface PropTypes extends SwitchProfile {
 	children?: JSX.Element,
 }
 
-export default function SettingsSwitch(props: PropTypes) {
+const SettingsSwitch = React.forwardRef((props: PropTypes, ref) => {
 	const classes = useStyle()
 	const dispatch = useDispatch()
 	const { store: storePath, action, label, metrics } = props
@@ -35,10 +35,12 @@ export default function SettingsSwitch(props: PropTypes) {
 	}
 
 	return (
-		<ListItem style={props.style} className={classes.settingsSwitchRoot}>
+		<ListItem innerRef={ref} style={props.style} className={classes.settingsSwitchRoot}>
 			<Switch checked={state} onChange={handleChange}/>
 			<ListItemText primary={label}/>
 			{props.children}
 		</ListItem>
 	)
-}
+})
+
+export default SettingsSwitch

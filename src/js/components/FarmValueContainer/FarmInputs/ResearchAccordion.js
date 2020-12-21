@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Typography, Divider, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Button } from "@material-ui/core"
+import { Typography, Divider, Accordion, AccordionSummary, AccordionDetails, Button } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { setResearch } from "../../../actions/farmValueActions.js"
 import ResearchInput from "./ResearchInput"
@@ -24,7 +24,7 @@ const useStyle = makeStyles(theme => ({
 	}
 }))
 
-export default function ResearchExpansionPanel(props) {
+export default function ResearchAccordion(props) {
 	const classes = useStyle()
 	const dispatch = useDispatch()
 	const panelRef = useRef(null)
@@ -94,14 +94,14 @@ export default function ResearchExpansionPanel(props) {
 	const tierMaxed = false
 
 	return (
-		<ExpansionPanel key={`panel${index}`} expanded={thisExpanded} onChange={handleChange}>
-			<ExpansionPanelSummary classes={{content: classes.summary}}>
+		<Accordion key={`panel${index}`} expanded={thisExpanded} onChange={handleChange}>
+			<AccordionSummary classes={{content: classes.summary}}>
 				<Typography variant="subtitle1">{tier.title}</Typography>
 				<Button variant="outlined" disabled={tierMaxed} onClick={handleMax}>{tierMaxed ? "Maxed" : "Max Tier"}</Button>
-			</ExpansionPanelSummary>
-			<ExpansionPanelDetails ref={panelRef} className={classes.panelDetails} classes={{root: classes.panelOverride}}>
+			</AccordionSummary>
+			<AccordionDetails ref={panelRef} className={classes.panelDetails} classes={{root: classes.panelOverride}}>
 				{researchInputs}
-			</ExpansionPanelDetails>
-		</ExpansionPanel>
+			</AccordionDetails>
+		</Accordion>
 	)
 }
