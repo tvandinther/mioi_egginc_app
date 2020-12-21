@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
-import { setPlayerId, validatePlayerId, addGameId, nameId } from "../../actions/settingsActions"
-import { TextField, Button, IconButton } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
+import { validatePlayerId } from "../../actions/settingsActions"
+import { TextField, IconButton } from "@material-ui/core"
+import useStyle from "./styles"
 import { useSelector, useDispatch } from "react-redux"
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import Loading from "../Loading"
@@ -10,24 +10,10 @@ import ReactGA from "react-ga"
 // MY ID FOR TESTING
 // 105311171997915647553
 
-const useStyle = makeStyles(theme => ({
-	root: {
-		display: "grid",
-		gridTemplateColumns: "1fr auto",
-		gridGap: 10,
-		alignItems: "center",
-		justifyItems: "center",
-	},
-}))
-
-
-
-export default function PlayerIDInput(props) {
+export default function PlayerIDInput() {
 	const classes = useStyle()
     const dispatch = useDispatch()
 	const playerId = useSelector(store => store.settings.playerId)
-	// const playerName = useSelector(store => store.playerData.userName)
-	// const fetchedPlayerId = useSelector(store => store.playerData.userId)
 	const fetching = useSelector(store => store.playerData.fetching)
 	const playerDataError = useSelector(store => store.playerData.error)
     let [error, setError] = useState(false)
@@ -45,11 +31,11 @@ export default function PlayerIDInput(props) {
 		if (fetching) setValue(playerId || "")
 	}, [playerId])
 
-    const handleChange = evt => {
-        setValue(evt.target.value)
+    const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+        setValue(evt.currentTarget.value)
         setError(false)
     }
-    const handleSubmit = evt => {
+    const handleSubmit = () => {
         if (value !== "" && value !== playerId) {
 			dispatch(validatePlayerId(value))
 			ReactGA.event({
@@ -59,14 +45,14 @@ export default function PlayerIDInput(props) {
         }
 	}
 
-	const handleKeyUp = event => {
+	const handleKeyUp = (event: React.KeyboardEvent) => {
 		if (event.key === "Enter") {
 			handleSubmit()
 		}
 	}
 
     return (
-		<div className={classes.root}>
+		<div className={classes.playIDInputRoot}>
 			<TextField 
 				value={value}
 				fullWidth

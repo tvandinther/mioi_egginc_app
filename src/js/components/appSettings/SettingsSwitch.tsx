@@ -1,19 +1,13 @@
-import React, { ChangeEvent, Children, CSSProperties } from "react"
+import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import actions from "../../actions"
 import { Switch, ListItem, ListItemText } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
+import useStyle from "./styles"
 import ReactGA from "react-ga"
 import { SwitchProfile } from "./switchProfiles"
 
-const useStyle = makeStyles(theme => ({
-	root: {
-		width: "max-content",
-	}
-}))
-
 interface PropTypes extends SwitchProfile {
-	style?: CSSProperties,
+	style?: React.CSSProperties,
 	children?: JSX.Element,
 }
 
@@ -31,7 +25,7 @@ export default function SettingsSwitch(props: PropTypes) {
 		return obj as unknown as boolean // Needs to be cleaned up
 	})
 
-	const handleChange = (evt: ChangeEvent<HTMLInputElement>, checked: boolean ) => {
+	const handleChange = (evt: React.ChangeEvent<HTMLInputElement>, checked: boolean ) => {
 		dispatch(actions[action](checked))
 		ReactGA.event({
 			category: metrics.category,
@@ -41,13 +35,10 @@ export default function SettingsSwitch(props: PropTypes) {
 	}
 
 	return (
-		// <ListItem style={props.style} className={classes.root} innerRef={ref}>
-		<ListItem style={props.style} className={classes.root}>
+		<ListItem style={props.style} className={classes.settingsSwitchRoot}>
 			<Switch checked={state} onChange={handleChange}/>
 			<ListItemText primary={label}/>
 			{props.children}
 		</ListItem>
 	)
 }
-
-// export default React.forwardRef<JSX.Element, PropTypes>((props, ref) => SettingsSwitch(props, ref))

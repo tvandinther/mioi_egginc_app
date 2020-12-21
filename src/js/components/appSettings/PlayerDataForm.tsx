@@ -1,5 +1,5 @@
 import React from "react"
-import { Typography, Divider, List, ListItem, ListItemText } from "@material-ui/core"
+import { Typography, Divider, List, ListItem } from "@material-ui/core"
 import ClearCurrentPlayerID from "./ClearCurrentPlayerID"
 import ClearAllPlayerID from "./ClearAllPlayerID"
 import PlayerIDSelect from "./PlayerIDSelect"

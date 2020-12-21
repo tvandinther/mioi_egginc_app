@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Button, Dialog, DialogContent, DialogTitle, DialogActions } from "@material-ui/core"
 import PlayerIDInput from "./PlayerIDInput"
 
-export default function AddPlayerID(props) {
+export default function AddPlayerID() {
 	let [openDialog, setOpenDialog] = useState(false)
 	
 

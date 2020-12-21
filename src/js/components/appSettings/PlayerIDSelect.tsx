@@ -1,20 +1,9 @@
 import React from "react"
 import { Select, ListItem, MenuItem, InputLabel, FormControl } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
 import { setPlayerId, validatePlayerId } from "../../actions/settingsActions"
 import { useSelector, useDispatch } from "react-redux"
 
-const useStyle = makeStyles(theme => ({
-	root: {
-		
-	},
-	select: {
-		
-	},
-}))
-
-export default function PlayerIDSelect(props) {
-	const classes = useStyle()
+export default function PlayerIDSelect() {
 	const savedIds = useSelector(store => store.settings.savedIds)
 	const selectedId = useSelector(store => store.settings.playerId)
 	const dispatch = useDispatch()
@@ -34,19 +23,18 @@ export default function PlayerIDSelect(props) {
 		)
 	})
 
-	const handleChange = evt => {
+	const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
 		dispatch(setPlayerId(evt.target.value))
 		dispatch(validatePlayerId(evt.target.value))
 	}
 
 	return (
-		<ListItem className={classes.root}>
+		<ListItem>
 			<FormControl>
 				<InputLabel>
 					Player Select
 				</InputLabel>
 				<Select
-					className={classes.select}
 					onChange={handleChange}
 					value={selectedId}
 					label="Player Select"
