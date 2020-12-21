@@ -31,7 +31,7 @@ export default function ClearPlayerID() {
 				Forget All Saved Players
 			</Button>
 			<ConfirmAction
-				content={`Are you sure you want to forget all saved players?`}
+				content={"Are you sure you want to forget all saved players?"}
 				open={openConfirmation}
 				confirm={handleSubmit}
 				decline={() => setOpenConfirmation(false)}

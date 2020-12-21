@@ -189,7 +189,7 @@ export function getRewardDetails(reward: ContractReward) {
     }
 }
 
-export function getImageSrc(id: string | number) {
+export function getImageSrc(id: string | number): string {
 	return `/images/${id}.png`
 }
 

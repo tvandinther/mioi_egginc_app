@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react"
-import { Dialog, DialogTitle, DialogContentText, DialogActions, Button, Container } from "@material-ui/core"
+import {Dialog, DialogTitle, DialogContentText, DialogActions, Button, Container} from "@material-ui/core"
 
-export default function ConfirmAction(props) {
+type PropTypes = {
+	open: boolean;
+	decline: () => void;
+	confirm: () => void;
+	content: string;
+}
+
+export default function ConfirmAction(props: PropTypes) {
 	let [openDialog, setOpenDialog] = useState(props.open)
 
 	useEffect(() => {
@@ -45,7 +52,6 @@ export default function ConfirmAction(props) {
 					</Button>
 				</DialogActions>
 			</Container>
-			
 		</Dialog>
 	)
 }

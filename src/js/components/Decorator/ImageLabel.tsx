@@ -12,10 +12,17 @@ const useStyle = makeStyles(theme => ({
 	}
 }))
 
-export default function ImageLabel(props) {
+type Props = {
+	imageSrc: string;
+	itemId?: string | number;
+	label: string;
+	height: number;
+}
+
+export default function ImageLabel(props: Props) {
 	const { imageSrc, itemId, label, height } = props
 
-	let src = imageSrc || getImageSrc(itemId)
+	let src = imageSrc ?? (itemId ? getImageSrc(itemId) : "")
 
 	return (
 		<div>
