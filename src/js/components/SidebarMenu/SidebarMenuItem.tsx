@@ -1,30 +1,24 @@
 import React from "react"
-import { NavLink } from "react-router-dom"
-import { makeStyles } from "@material-ui/core/styles"
 import { ListItem, ListItemText, ListItemIcon, SvgIcon } from "@material-ui/core"
 import Link from "../Link"
+import {SidebarItem} from "./sidebarMap";
+import useStyle from "./styles"
 
-const useStyle = makeStyles(theme => ({
-	active: {
-		"&> div": {
-			backgroundColor: theme.palette.secondary.light,
-		},
-	},
-	disabled: {
-		cursor: "initial",
-	}
-}))
+interface Props extends SidebarItem {
+	text?: string;
+	onClick?: () => void;
+}
 
-export default function SidebarMenuItem(props) {
+export default function SidebarMenuItem(props: Props) {
     const classes = useStyle()
-	const { icon, text, disabled, external, href, onClick } = props
+	const { icon, text, disabled, external, path, onClick } = props
 
 	const handleClick = () => {
 		if (disabled) {
 			return
 		}
 		else {
-			onClick()
+			if (onClick) onClick()
 		}
 	}
 
@@ -33,10 +27,9 @@ export default function SidebarMenuItem(props) {
 			onClick={handleClick}
 			external={external}
 			disabled={disabled}
-			to={href}
-			exact={props.href === "/"}
-			//className={!disabled || classes.disabled}
-			activeClassName={classes.active}
+			to={path}
+			exact={path === "/"}
+			activeClassName={classes.itemActive}
 		>
             <ListItem disabled={disabled || false} button>
                 <ListItemIcon>

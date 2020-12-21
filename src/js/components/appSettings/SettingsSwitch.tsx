@@ -6,12 +6,12 @@ import useStyle from "./styles"
 import ReactGA from "react-ga"
 import { SwitchProfile } from "./switchProfiles"
 
-interface PropTypes extends SwitchProfile {
-	style?: React.CSSProperties,
-	children?: JSX.Element,
+interface Props extends SwitchProfile {
+	style?: React.CSSProperties;
+	children?: JSX.Element;
 }
 
-const SettingsSwitch = React.forwardRef((props: PropTypes, ref) => {
+const SettingsSwitch = React.forwardRef((props: Props, ref) => {
 	const classes = useStyle()
 	const dispatch = useDispatch()
 	const { store: storePath, action, label, metrics } = props

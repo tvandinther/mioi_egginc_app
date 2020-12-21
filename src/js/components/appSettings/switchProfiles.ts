@@ -1,18 +1,18 @@
 import actions from "../../actions"
 
 export interface SwitchProfiles {
-	[key: string]: SwitchProfile,
+	[key: string]: SwitchProfile;
 }
 
 export interface SwitchProfile {
-	store: string,
-	action: keyof typeof actions,
-	label: string,
+	store: string;
+	action: keyof typeof actions;
+	label: string;
 	metrics: {
-		category: string,
-		true: string,
-		false: string,
-		label: string | undefined,
+		category: string;
+		true: string;
+		false: string;
+		label: string | undefined;
 	}
 }
 
