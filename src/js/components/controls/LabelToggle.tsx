@@ -51,20 +51,20 @@ const useStyle = makeStyles(theme => ({
 	}
 }))
 
-export default function LabelToggle(props) {
+export default function LabelToggle(props: { state: boolean; labels: string[]; onChange: StateChangeHandler; onClick: StateChangeHandler }) {
 	const classes = useStyle()
-	const leftRef = useRef()
-	const rightRef = useRef()
-	const selectorRef = useRef()
+	const leftRef = useRef<HTMLElement>(null)
+	const rightRef = useRef<HTMLElement>(null)
+	const selectorRef = useRef<HTMLDivElement>(null)
 	const { state, labels, onChange, onClick } = props
 	
 	const [toggleState, setToggleState] = useState(state)
 
-	let activeStyle = {
+	let activeStyle: React.CSSProperties = {
 		color: "rgba(0, 0, 0, 0.87)",
 	}
 
-	const getWidth = node => {
+	const getWidth = (node: HTMLElement) => {
 		return window.getComputedStyle(node).width
 	}
 
@@ -73,25 +73,31 @@ export default function LabelToggle(props) {
 	}, [state])
 
 	useEffect(() => {
-		if (typeof onChange === "function") onChange(toggleState)
-		let newWidth = toggleState ? getWidth(rightRef.current) : getWidth(leftRef.current)
-		selectorRef.current.style.width = newWidth
-		let transformString = `translateX(calc(${getWidth(selectorRef.current.parentNode)} - ${newWidth} - 2px))`
-		if (toggleState) selectorRef.current.style.transform = transformString
-		else selectorRef.current.style.transform = ""
+		let selectorNode = selectorRef.current
+		let leftNode = leftRef.current
+		let rightNode = rightRef.current
+
+		if (selectorNode && leftNode && rightNode) {
+			if (typeof onChange === "function") onChange(toggleState)
+			let newWidth = toggleState ? getWidth(rightNode) : getWidth(leftNode)
+			selectorNode.style.width = newWidth
+			let transformString = `translateX(calc(${getWidth(selectorNode.parentNode as HTMLElement)} - ${newWidth} - 2px))`
+			if (toggleState) selectorNode.style.transform = transformString
+			else selectorNode.style.transform = ""
+		}
 	}, [toggleState])
 
-	const handleClick = evt => {
+	const handleClick = (evt: React.MouseEvent) => {
 		setToggleState(!toggleState)
-		if (typeof onClick === "function") onClick(evt, !toggleState)
+		if (typeof onClick === "function") onClick(!toggleState)
 	}
 
 	return (
 		<ButtonBase className={classes.root} onClick={handleClick}>
-			<div ref={selectorRef} className={classes.selector}></div>
-			<span ref={leftRef} className={`${classes.label} ${classes.left}`} style={toggleState ? null : activeStyle}>{labels[0]}</span>
-			<span ref={rightRef} className={`${classes.label} ${classes.right}`} style={toggleState ? activeStyle : null}>{labels[1]}</span>
+			<div ref={selectorRef} className={classes.selector}/>
+			<span ref={leftRef} className={`${classes.label} ${classes.left}`} style={toggleState ? undefined : activeStyle}>{labels[0]}</span>
+			<span ref={rightRef} className={`${classes.label} ${classes.right}`} style={toggleState ? activeStyle : undefined}>{labels[1]}</span>
 		</ButtonBase>
-		
+
 	)
 }

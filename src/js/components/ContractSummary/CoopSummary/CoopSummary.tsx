@@ -21,12 +21,12 @@ export default function CoopSummary({ style, contract }: { style: CSSProperties,
 	const coop = useSelector(store => store.contract.coops[contract.name])
 	const [selectedLeague, setSelectedLeague] = useState("standard")
 
-	const handleLeagueChange = (state: boolean) => {
+	const handleLeagueChange: StateChangeHandler = (state: boolean) => {
 		if (state === false) setSelectedLeague("standard")
 		else setSelectedLeague("elite")
 	}
 
-	const logTierChange = (evt: React.ChangeEvent, newState: boolean) => {
+	const logTierChange: StateChangeHandler = (newState: boolean) => {
 		ReactGA.event({
 			category: "Contract",
 			action: "Co-op Tier Changed",

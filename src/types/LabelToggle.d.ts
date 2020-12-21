@@ -1,0 +1,1 @@
+type StateChangeHandler = (state: boolean) => void
