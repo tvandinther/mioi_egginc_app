@@ -3,7 +3,7 @@ import research from "../../../tools/research.json"
 import { Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import HeadedCard from "../../HeadedCard"
-import ResearchExpansionPanel from "./ResearchExpansionPanel"
+import ResearchAccordion from "./ResearchAccordion"
 
 const useStyle = makeStyles(theme => ({
     header: {
@@ -26,8 +26,8 @@ export default function ResearchTierPanels(props) {
 		else setMaxedEpic(true)
 	}
 
-	const expansionPanels = researchTiers.map((tier, index) => 
-		<ResearchExpansionPanel
+	const Accordions = researchTiers.map((tier, index) =>
+		<ResearchAccordion
 			key={index}
 			index={index}
 			tier={tier}
@@ -43,7 +43,7 @@ export default function ResearchTierPanels(props) {
             <HeadedCard cardID="research_tiers" title="Research" className={classes.header}>
                 <Typography variant="subtitle1">Select a tier to change research</Typography>
             </HeadedCard>
-            {expansionPanels}
+            {Accordions}
         </div>
     )
 }

@@ -5,7 +5,7 @@ import { useSelector } from "react-redux"
 import PlayerDataForm from "../components/appSettings/PlayerDataForm"
 import Page from "../Page"
 import BackButton from "../components/BackButton"
-import switchProfiles from "../components/appSettings/switchProfiles.json"
+import switchProfiles from "../components/appSettings/switchProfiles"
 import SettingsSwitch from "../components/appSettings/SettingsSwitch"
 
 const useStyle = makeStyles(theme => ({

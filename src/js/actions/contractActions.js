@@ -8,18 +8,6 @@ export function getActiveContracts() {
     }
 }
 
-export function showContract() {
-    return {
-        type: "SHOW_CONTRACT",
-    }
-}
-
-export function hideContract() {
-    return {
-        type: "HIDE_CONTRACT",
-    }
-}
-
 export function updateContractCoopSearchString(contractId, searchString) {
     return {
         type: "UPDATE_CONTRACT_COOP_SEARCH_STRING",
