@@ -1,6 +1,7 @@
 import orders from "./orders.json"
+import eggTypes from "./eggTypes.json"
 import calculateFarmStats from "./farmStatTools"
-import { ContractReward } from "../../types/contract"
+import {ContractReward} from "../../types/contract"
 
 const validSymbols = orders.map((order: { symbol: string }) => order.symbol)
 
@@ -190,18 +191,22 @@ export function getRewardDetails(reward: ContractReward) {
 }
 
 export function getImageSrc(id: string | number): string {
-	return `/images/${id}.png`
+    return `/images/${id}.png`
 }
 
-export function contractTimeSoloEstimate(parameters: any): [number, {type: string, value: number} | null] {
-	const hatchCalm = 1 + (parameters.hatchCalm * 0.1)
-	//BREAKPOINT CALCULATION		
-	let a = parameters.hatchRate * hatchCalm * 4;
-	let b = (parameters.layingRate / parameters.population);
-	let c = parameters.population;
-	let d = parameters.eggsLaid;
-	let y = parameters.target;
-	let qA = (a * b) / 2;
+export function getEggDetails(id: number) {
+    return eggTypes[id.toString() as keyof typeof eggTypes]
+}
+
+export function contractTimeSoloEstimate(parameters: any): [number, { type: string, value: number } | null] {
+    const hatchCalm = 1 + (parameters.hatchCalm * 0.1)
+    //BREAKPOINT CALCULATION
+    let a = parameters.hatchRate * hatchCalm * 4;
+    let b = (parameters.layingRate / parameters.population);
+    let c = parameters.population;
+    let d = parameters.eggsLaid;
+    let y = parameters.target;
+    let qA = (a * b) / 2;
 	let qB = b * c;		
 	let qC = d - y;
 	let determinant = Math.pow(qB, 2) - 4 * qA * qC
