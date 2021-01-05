@@ -1,7 +1,7 @@
-import React, { useState } from "react"
-import { Dialog, Button, Typography, Container } from "@material-ui/core"
+import React, {useState} from "react"
+import {Button, Container, Dialog, Typography} from "@material-ui/core"
 import ReactMarkdown from "react-markdown"
-import { makeStyles } from "@material-ui/core/styles"
+import {makeStyles} from "@material-ui/core/styles"
 import ReactGA from "react-ga"
 
 const useStyle = makeStyles(theme => ({
@@ -22,13 +22,13 @@ const useStyle = makeStyles(theme => ({
 	}
 }))
 
-export default function EntryPopup(props) {
+export default function EntryPopup() {
 	const classes = useStyle()
 	const searchParams = new URLSearchParams(window.location.search)
 	const redirected = searchParams.get('redirect')
 	let [open, setOpen] = useState(true)
 
-	const handleClick = event => {
+	const handleClick = () => {
 		setOpen(false)
 		window.history.replaceState({}, document.title, window.location.pathname)
 		ReactGA.event({

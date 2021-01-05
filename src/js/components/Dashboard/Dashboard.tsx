@@ -1,30 +1,27 @@
-import React, { useEffect, useState } from "react"
-import { useTheme } from "@material-ui/core/styles"
-import { Container } from "@material-ui/core"
+import React, {useEffect, useState} from "react"
+import {useTheme} from "@material-ui/core/styles"
+import {Container} from "@material-ui/core"
 import useStyle from "./styles"
 import DashboardOptions from "../../../types/dashboard"
 import PlayerCard from "./PlayerCard"
 import NewsCard from "./NewsCard"
 import CoopCard from "./CoopSummaryCard"
 import QuickLinkCard from "./QuickLinkCard"
-import PlayerIDPromptCard from "./PlayerIDPromptCard"
 
-export default function Dashboard({ options }: { options: DashboardOptions }) {
-    const classes = useStyle()
-    
-    const theme = useTheme()
-    let [columnCount, setColumnCount] = useState(1)
+export default function Dashboard({options}: { options: DashboardOptions }) {
+	const classes = useStyle()
+
+	const theme = useTheme()
+	let [columnCount, setColumnCount] = useState(1)
 
 	function flattenDashboardOptions(dashboardOptions: DashboardOptions) {
 		let cards: JSX.Element[] = []
-		if(dashboardOptions.cards.player) cards.push(
-			dashboardOptions.cards.player.playerData ? // TODO: Move this responsibility to the manager.
-				<PlayerCard {...dashboardOptions.cards.player}/>
-				: <PlayerIDPromptCard/>
-		)
-		if(dashboardOptions.cards.news) cards.push(<NewsCard {...dashboardOptions.cards.news}/>)
-		if(dashboardOptions.cards.contracts) dashboardOptions.cards.contracts.forEach(options => cards.push(<CoopCard {...options}/>))
-		if(dashboardOptions.cards.links) dashboardOptions.cards.links.forEach(options => cards.push(<QuickLinkCard {...options}/>))
+		if (dashboardOptions.cards.player) cards.push(<PlayerCard {...dashboardOptions.cards.player}/>)
+		if (dashboardOptions.cards.news) cards.push(<NewsCard {...dashboardOptions.cards.news}/>)
+		if (dashboardOptions.cards.contracts) dashboardOptions.cards.contracts.forEach(options => cards.push(
+			<CoopCard {...options}/>))
+		if (dashboardOptions.cards.links) dashboardOptions.cards.links.forEach(options => cards.push(
+			<QuickLinkCard {...options}/>))
 		return cards
 	}
 

@@ -1,25 +1,33 @@
-import React, { useState, useEffect } from "react"
-import { convertSymbol, convertSymbolToNumber, isSymbolFormat } from "../tools"
-import { FormHelperText } from "@material-ui/core"
+import React, {ChangeEvent, useEffect, useState} from "react"
+import {convertSymbol, convertSymbolToNumber, isSymbolFormat} from "../tools"
+import {FormHelperText} from "@material-ui/core"
 
-export default function TextMask(props) {
-	const { children, value, onChange, onBlur, helpText, ...inputprops } = props
+type Props = {
+	children: React.ElementType;
+	value: number;
+	onChange?: (evt: React.ChangeEvent, trueValue: number) => void;
+	onBlur: (evt: React.FocusEvent, trueValue: number) => void;
+	helpText?: string;
+	[x: string]: any;
+}
+
+export default function TextMask(props: Props) {
+	const {children, value, onChange, onBlur, helpText, ...inputProps} = props
 	const InputElement = children
 	let [maskedValue, setMaskedValue] = useState(convertSymbol(value))
 	let [trueValue, setTrueValue] = useState(value)
 	let [error, setError] = useState(false)
-	// let maskedValue = convertSymbol(value)
-	
+
 	useEffect(() => {
 		setError(false)
 		setMaskedValue(convertSymbol(value))
 	}, [value])
 
-	const handleBlur = event => {
+	const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
 		onBlur(event, trueValue)
 	}
 
-	const handleChange = event => {
+	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		let newMaskedValue = event.target.value
 		let newTrueValue = trueValue
 		let deleted = maskedValue.length > newMaskedValue.length
@@ -28,21 +36,17 @@ export default function TextMask(props) {
 			newTrueValue = convertSymbolToNumber(newMaskedValue)
 			setTrueValue(newTrueValue)
 			setMaskedValue(newMaskedValue)
-		}
-		else if (/^\d{1,4}(,\d{1,4})*,?$/.test(newMaskedValue)) { // Number condition
-			newTrueValue = newMaskedValue.replace(/\D/g, '')
+		} else if (/^\d{1,4}(,\d{1,4})*,?$/.test(newMaskedValue)) { // Number condition
+			newTrueValue = Number(newMaskedValue.replace(/\D/g, ''))
 			setTrueValue(newTrueValue)
 			setMaskedValue(Number(newTrueValue).toLocaleString())
-		}
-		else if (newMaskedValue === "") { // Blank condition
-			setTrueValue(newMaskedValue)
+		} else if (newMaskedValue === "") { // Blank condition
+			setTrueValue(Number(newMaskedValue))
 			setMaskedValue(newMaskedValue)
-		}
-		else if (deleted) { // Allow deletion with error
+		} else if (deleted) { // Allow deletion with error
 			setError(true)
 			setMaskedValue(newMaskedValue)
-		}
-		else { // Else prevent input
+		} else { // Else prevent input
 			setError(true)
 			return
 		}
@@ -52,7 +56,7 @@ export default function TextMask(props) {
 	return (
 		<div>
 			<InputElement
-				{...inputprops}
+				{...inputProps}
 				align="center"
 				value={maskedValue}
 				onChange={handleChange}

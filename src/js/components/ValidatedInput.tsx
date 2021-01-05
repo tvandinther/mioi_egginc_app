@@ -1,26 +1,39 @@
-import React, { useState, useEffect } from "react"
-import { TextField } from "@material-ui/core"
+import React from "react"
+import {TextField, TextFieldProps} from "@material-ui/core"
 
-export default function ValidatedInput(props) {
+export interface Props {
+    validatorFunction: (value: string) => string;
+    setValue: (value: string) => void;
+    pasteSubmit: boolean;
+    onEnter: () => void;
+    "aria-label"?: string;
+    error: boolean;
+    autoFocus: boolean;
+    type: string;
+    label: string;
+    value: string;
+}
 
-    const validate = (value) => {
+export default function ValidatedInput(props: Props & TextFieldProps) {
+
+    const validate = (value: string) => {
         if (typeof props.validatorFunction === "function") {
             value = props.validatorFunction(value)
         }
         return value
     }
 
-    const handleChange = (event) => {
-        let { value } = event.target
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        let {value} = event.target
         value = validate(value)
         props.setValue(value)
     }
 
-    const handlePaste = (event) => {
-        let { value, selectionStart, selectionEnd } = event.target
+    const handlePaste = (event: React.ClipboardEvent<HTMLInputElement>) => {
+        let {value, selectionStart, selectionEnd} = event.currentTarget
         let pastedValue = event.clipboardData.getData("text")
-        let pre = value.substring(0, selectionStart)
-        let post = value.substring(selectionEnd, value.length)
+        let pre = value.substring(0, selectionStart ?? undefined)
+        let post = value.substring(selectionEnd ?? 0, value.length)
         value = (pre + pastedValue + post).trim()
         value = validate(value)
         event.preventDefault()
@@ -28,7 +41,7 @@ export default function ValidatedInput(props) {
         if (props.pasteSubmit) props.onEnter()
     }
 
-    const handleKeyUp = (event) => {
+    const handleKeyUp = (event: React.KeyboardEvent) => {
         if (event.key === "Enter") {
             props.onEnter()
         }
