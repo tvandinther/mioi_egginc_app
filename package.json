@@ -9,7 +9,7 @@
     "@material-ui/core": "^4.9.11",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.53",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "base64-arraybuffer": "^0.2.0",
     "compress-images": "^1.7.8",
     "compression": "^1.7.4",
