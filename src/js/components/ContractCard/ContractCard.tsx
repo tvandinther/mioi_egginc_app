@@ -1,12 +1,12 @@
-import React, { useState } from "react"
+import React, {useState} from "react"
 import * as eiTools from "../../tools/eggincTools"
 import ContractCardProgressBar from "./ContractCardProgressBar"
 import ContractCardBody from "./ContractCardBody"
-import { Card } from "@material-ui/core"
+import {Card} from "@material-ui/core"
 import ContractCardHeader from "./ContractCardHeader"
 
 import useStyle from "./styles"
-import { Contract } from "../../../types/contract"
+import {Contract} from "../../../types/contract"
 
 export default function ContractCard(props: {contract: Contract, index: number}) {
     const classes = useStyle()
@@ -20,7 +20,8 @@ export default function ContractCard(props: {contract: Contract, index: number})
     const expireString = eiTools.getExpireETA(props.contract.validUntil, true)
     const progressBarHoverText =  expireString <= 0 ? "Expired!" : "Expires in " + expireString
     return (
-        <Card raised={raised} onMouseOver={toggleRaised} onMouseOut={toggleRaised} className={classes.root} id={props.contract.name}>
+        <Card data-testid="contract-card" raised={raised} onMouseOver={toggleRaised} onMouseOut={toggleRaised}
+              className={classes.root} id={props.contract.name}>
             <ContractCardHeader text={props.contract.title}/>
             <ContractCardProgressBar progress={barProgress} hoverText={progressBarHoverText}/>
             <ContractCardBody contract={props.contract}/>
