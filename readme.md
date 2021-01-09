@@ -39,4 +39,4 @@
 ## License
 [Mozilla Public License 2.0](https://choosealicense.com/licenses/mpl-2.0/)
 
-This repository is made public with for academic purposes and to reveal the source code behind the website. Commercial use is discouraged.
+This repository is made public for academic purposes and to reveal the source code behind the website. Commercial use is discouraged.
