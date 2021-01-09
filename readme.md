@@ -9,12 +9,12 @@
 - Add "Reporting Totals" state to contracts
 - Improve SoloContractCalc look
 - Farm stats window visual improvements
-- Implement TypeScript into WebPack
 - Add a new shipping input for farm value
 - Add a co-op listing page
 - Add a comment page to co-ops only viewable by members of that co-op
 - Populate the game guide
 - Create a full alias to translate game objects through API
+- ~~Implement TypeScript into WebPack~~
 - ~~Add accessibility texts~~
 - ~~Make SoloContractCalc target a populated drop-down~~
 - ~~Update SoloContractCalc to factor in different contract leagues (currently assumes elite)~~

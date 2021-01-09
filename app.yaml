@@ -1,4 +1,4 @@
-runtime: nodejs10
+runtime: nodejs12
 
 automatic_scaling:
   max_instances: 2

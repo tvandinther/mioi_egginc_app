@@ -1,0 +1,526 @@
+{
+  "timestamp": 1609777677,
+  "activeContracts": [
+    {
+      "name": "first-contract",
+      "serveUntil": 1669729087.4416971,
+      "validUntil": 1669714687.4416971,
+      "description": "We heard you are open to contract work! Help fill this order from the local pharmacy!",
+      "coopSize": null,
+      "goals": [
+        {
+          "subtype": null,
+          "difficulty": 10,
+          "goal": 100000,
+          "type": "GOLDEN_EGGS",
+          "quantity": 192
+        },
+        {
+          "type": "PIGGY_MULTIPLY",
+          "difficulty": 50,
+          "subtype": null,
+          "quantity": 2,
+          "goal": 500000000
+        }
+      ],
+      "coopAllow": false,
+      "boostTokenInterval": 60,
+      "title": "Your First Contract",
+      "duration": 14400,
+      "egg": 3,
+      "rewards": [
+        {
+          "quantity": 192,
+          "type": "GOLDEN_EGGS",
+          "goal": 100000,
+          "difficulty": 10,
+          "subtype": null
+        },
+        {
+          "quantity": 2,
+          "subtype": null,
+          "difficulty": 50,
+          "type": "PIGGY_MULTIPLY",
+          "goal": 500000000
+        }
+      ]
+    },
+    {
+      "boostTokenInterval": 60,
+      "description": "Is it possible to have a hangover from a year? Doctors are prescribing medical eggs to patients with mysterious headaches and nausea.",
+      "name": "2021-year-hangover",
+      "coopSize": 10,
+      "coopAllow": true,
+      "duration": 604800,
+      "goals": {
+        "standard": [
+          {
+            "subtype": "",
+            "type": "SOUL_EGGS",
+            "difficulty": 1000,
+            "goal": 30000000000000,
+            "quantity": 10000
+          },
+          {
+            "subtype": "",
+            "quantity": 25000,
+            "goal": 250000000000000,
+            "difficulty": 1000000,
+            "type": "GOLDEN_EGGS"
+          },
+          {
+            "goal": 2000000000000000,
+            "subtype": "",
+            "type": "PROPHECY_EGGS",
+            "quantity": 1,
+            "difficulty": 1000000000
+          }
+        ],
+        "elite": [
+          {
+            "difficulty": 50000000000,
+            "type": "PIGGY_BANK",
+            "subtype": "",
+            "goal": 30000000000000000,
+            "quantity": 150000
+          },
+          {
+            "goal": 400000000000000000,
+            "quantity": 1,
+            "difficulty": 10000000000000,
+            "type": "PROPHECY_EGGS",
+            "subtype": ""
+          },
+          {
+            "quantity": 100000,
+            "difficulty": 1000000000000000,
+            "type": "GOLDEN_EGGS",
+            "subtype": "",
+            "goal": 1500000000000000000
+          }
+        ]
+      },
+      "egg": 3,
+      "title": "2020 Hangover",
+      "validUntil": 1611591855.067259,
+      "serveUntil": 1612196655.067259,
+      "rewards": [
+        {
+          "difficulty": 50000000000,
+          "subtype": "",
+          "type": "PIGGY_BANK",
+          "quantity": 150000,
+          "goal": 30000000000000000
+        },
+        {
+          "subtype": "",
+          "quantity": 1,
+          "goal": 400000000000000000,
+          "difficulty": 10000000000000,
+          "type": "PROPHECY_EGGS"
+        },
+        {
+          "quantity": 100000,
+          "subtype": "",
+          "difficulty": 1000000000000000,
+          "type": "GOLDEN_EGGS",
+          "goal": 1500000000000000000
+        }
+      ]
+    },
+    {
+      "goals": {
+        "standard": [
+          {
+            "difficulty": 250,
+            "quantity": 1,
+            "type": "BOOST",
+            "goal": 15000000000000,
+            "subtype": "tachyon_prism_purple_big"
+          },
+          {
+            "difficulty": 25000,
+            "subtype": "jimbos_orange_big",
+            "type": "BOOST",
+            "goal": 100000000000000,
+            "quantity": 2
+          },
+          {
+            "subtype": "boost_beacon_blue_big",
+            "difficulty": 100000000,
+            "goal": 500000000000000,
+            "type": "BOOST",
+            "quantity": 2
+          }
+        ],
+        "elite": [
+          {
+            "type": "BOOST",
+            "quantity": 1,
+            "subtype": "tachyon_prism_orange",
+            "difficulty": 100000000000,
+            "goal": 5000000000000000
+          },
+          {
+            "subtype": "soul_beacon_orange",
+            "quantity": 2,
+            "difficulty": 10000000000000,
+            "type": "BOOST",
+            "goal": 60000000000000000
+          },
+          {
+            "quantity": 3,
+            "subtype": "boost_beacon_orange",
+            "type": "BOOST",
+            "goal": 250000000000000000,
+            "difficulty": 10000000000000000
+          }
+        ]
+      },
+      "duration": 345600,
+      "boostTokenInterval": 20,
+      "coopAllow": true,
+      "coopSize": 3,
+      "title": "Space Bots",
+      "description": "New tiny space robots have been developed to explore space, small enough to be launched with traditional fuels!",
+      "serveUntil": 1611334415.783838,
+      "name": "space-bots-2020",
+      "egg": 4,
+      "validUntil": 1610988815.783838,
+      "rewards": [
+        {
+          "type": "BOOST",
+          "goal": 5000000000000000,
+          "difficulty": 100000000000,
+          "subtype": "tachyon_prism_orange",
+          "quantity": 1
+        },
+        {
+          "difficulty": 10000000000000,
+          "type": "BOOST",
+          "subtype": "soul_beacon_orange",
+          "quantity": 2,
+          "goal": 60000000000000000
+        },
+        {
+          "quantity": 3,
+          "difficulty": 10000000000000000,
+          "goal": 250000000000000000,
+          "type": "BOOST",
+          "subtype": "boost_beacon_orange"
+        }
+      ]
+    },
+    {
+      "description": "Engineered foods based on Superfood eggs are in mass production for deep space travel. Ingredients needed!",
+      "coopSize": 20,
+      "coopAllow": true,
+      "goals": {
+        "standard": [
+          {
+            "difficulty": 50,
+            "subtype": "",
+            "quantity": 15000,
+            "type": "PIGGY_BANK",
+            "goal": 10000000000000
+          },
+          {
+            "goal": 150000000000000,
+            "difficulty": 5000,
+            "quantity": 1,
+            "subtype": "soul_beacon_orange",
+            "type": "BOOST"
+          },
+          {
+            "subtype": "",
+            "goal": 3000000000000000,
+            "quantity": 1,
+            "difficulty": 500000000,
+            "type": "PROPHECY_EGGS"
+          }
+        ],
+        "elite": [
+          {
+            "subtype": "",
+            "type": "PIGGY_BANK",
+            "goal": 25000000000000000,
+            "difficulty": 50000000000,
+            "quantity": 100000
+          },
+          {
+            "difficulty": 10000000000000,
+            "type": "PROPHECY_EGGS",
+            "subtype": "",
+            "quantity": 1,
+            "goal": 500000000000000000
+          },
+          {
+            "type": "GOLDEN_EGGS",
+            "difficulty": 1000000000000000,
+            "subtype": "",
+            "goal": 2000000000000000000,
+            "quantity": 100000
+          }
+        ]
+      },
+      "egg": 2,
+      "validUntil": 1610380648.326439,
+      "boostTokenInterval": 120,
+      "serveUntil": 1610899048.326439,
+      "duration": 518400,
+      "title": "Space Food 2.0",
+      "name": "deep-foods-2020",
+      "rewards": [
+        {
+          "subtype": "",
+          "type": "PIGGY_BANK",
+          "quantity": 100000,
+          "goal": 25000000000000000,
+          "difficulty": 50000000000
+        },
+        {
+          "type": "PROPHECY_EGGS",
+          "goal": 500000000000000000,
+          "difficulty": 10000000000000,
+          "subtype": "",
+          "quantity": 1
+        },
+        {
+          "goal": 2000000000000000000,
+          "quantity": 100000,
+          "subtype": "",
+          "difficulty": 1000000000000000,
+          "type": "GOLDEN_EGGS"
+        }
+      ]
+    },
+    {
+      "validUntil": 1610157842.897604,
+      "goals": {
+        "elite": [
+          {
+            "difficulty": 75000000000,
+            "type": "GOLDEN_EGGS",
+            "subtype": "",
+            "goal": 20000000000000000,
+            "quantity": 30000
+          },
+          {
+            "type": "PIGGY_LEVEL",
+            "quantity": 1,
+            "difficulty": 1000000000000,
+            "goal": 200000000000000000,
+            "subtype": ""
+          },
+          {
+            "subtype": "",
+            "difficulty": 100000000000000,
+            "quantity": 1,
+            "type": "PROPHECY_EGGS",
+            "goal": 500000000000000000
+          }
+        ],
+        "standard": [
+          {
+            "subtype": "",
+            "difficulty": 1000,
+            "goal": 30000000000000,
+            "quantity": 2500,
+            "type": "GOLDEN_EGGS"
+          },
+          {
+            "goal": 500000000000000,
+            "difficulty": 10000000,
+            "type": "PIGGY_LEVEL",
+            "quantity": 1,
+            "subtype": ""
+          },
+          {
+            "subtype": "",
+            "type": "PROPHECY_EGGS",
+            "goal": 4000000000000000,
+            "difficulty": 1000000000,
+            "quantity": 1
+          }
+        ]
+      },
+      "boostTokenInterval": 30,
+      "duration": 604800,
+      "egg": 2,
+      "name": "ny-2019",
+      "description": "It's that time of year, everyone is headed to the gym and getting on a strict diet of Superfood Eggs!",
+      "title": "LEGGACY: Resolutions",
+      "coopSize": 5,
+      "coopAllow": true,
+      "serveUntil": 1610762642.897604,
+      "rewards": [
+        {
+          "goal": 20000000000000000,
+          "quantity": 30000,
+          "subtype": "",
+          "type": "GOLDEN_EGGS",
+          "difficulty": 75000000000
+        },
+        {
+          "type": "PIGGY_LEVEL",
+          "goal": 200000000000000000,
+          "difficulty": 1000000000000,
+          "quantity": 1,
+          "subtype": ""
+        },
+        {
+          "difficulty": 100000000000000,
+          "type": "PROPHECY_EGGS",
+          "quantity": 1,
+          "goal": 500000000000000000,
+          "subtype": ""
+        }
+      ]
+    },
+    {
+      "boostTokenInterval": 30,
+      "duration": 604800,
+      "title": "Holidegg",
+      "goals": {
+        "standard": [
+          {
+            "type": "PIGGY_BANK",
+            "quantity": 25000,
+            "difficulty": 50,
+            "subtype": "",
+            "goal": 10000000000000
+          },
+          {
+            "subtype": "tachyon_prism_orange",
+            "goal": 150000000000000,
+            "difficulty": 10000,
+            "quantity": 2,
+            "type": "BOOST"
+          },
+          {
+            "subtype": "",
+            "difficulty": 100000000,
+            "type": "GOLDEN_EGGS",
+            "quantity": 25000,
+            "goal": 2000000000000000
+          }
+        ],
+        "elite": [
+          {
+            "quantity": 100000,
+            "difficulty": 50000000000,
+            "goal": 20000000000000000,
+            "subtype": "",
+            "type": "PIGGY_BANK"
+          },
+          {
+            "type": "GOLDEN_EGGS",
+            "quantity": 50000,
+            "goal": 250000000000000000,
+            "difficulty": 10000000000000,
+            "subtype": ""
+          },
+          {
+            "subtype": "tachyon_prism_orange_big",
+            "difficulty": 1000000000000000,
+            "goal": 800000000000000000,
+            "quantity": 4,
+            "type": "BOOST"
+          }
+        ]
+      },
+      "coopSize": 8,
+      "description": "Tasty holiday food and drink such as Egg Nog and Noodle Kugel are spiking demand for regular eggs!",
+      "serveUntil": 1610379064.504926,
+      "coopAllow": true,
+      "egg": 1,
+      "validUntil": 1609774264.504926,
+      "name": "holiday-eggs-2020",
+      "rewards": [
+        {
+          "subtype": "",
+          "difficulty": 50000000000,
+          "type": "PIGGY_BANK",
+          "goal": 20000000000000000,
+          "quantity": 100000
+        },
+        {
+          "difficulty": 10000000000000,
+          "quantity": 50000,
+          "type": "GOLDEN_EGGS",
+          "goal": 250000000000000000,
+          "subtype": ""
+        },
+        {
+          "goal": 800000000000000000,
+          "difficulty": 1000000000000000,
+          "subtype": "tachyon_prism_orange_big",
+          "type": "BOOST",
+          "quantity": 4
+        }
+      ]
+    },
+    {
+      "boostTokenInterval": 30,
+      "name": "thaw-2019",
+      "title": "LEGGACY: The Thaw",
+      "description": "(2019) Half the USA is frozen over from an Arctic Blast! Fusion egg reserves are depleted for home heaters and de-icers.",
+      "goals": {
+        "standard": [
+          {
+            "difficulty": 80000,
+            "goal": 2000000000000000,
+            "subtype": "epic_egg_laying",
+            "quantity": 2,
+            "type": "RESEARCH"
+          },
+          {
+            "type": "PROPHECY_EGGS",
+            "goal": 7000000000000000,
+            "subtype": "",
+            "difficulty": 1000000000,
+            "quantity": 1
+          }
+        ],
+        "elite": [
+          {
+            "quantity": 2,
+            "difficulty": 50000000000,
+            "subtype": "epic_egg_laying",
+            "type": "RESEARCH",
+            "goal": 30000000000000000
+          },
+          {
+            "subtype": "",
+            "quantity": 1,
+            "type": "PROPHECY_EGGS",
+            "difficulty": 10000000000000,
+            "goal": 200000000000000000
+          }
+        ]
+      },
+      "duration": 1209600,
+      "coopSize": null,
+      "serveUntil": 1610119906.404643,
+      "coopAllow": false,
+      "egg": 6,
+      "validUntil": 1608910306.404643,
+      "rewards": [
+        {
+          "quantity": 2,
+          "difficulty": 50000000000,
+          "type": "RESEARCH",
+          "subtype": "epic_egg_laying",
+          "goal": 30000000000000000
+        },
+        {
+          "quantity": 1,
+          "difficulty": 10000000000000,
+          "subtype": "",
+          "type": "PROPHECY_EGGS",
+          "goal": 200000000000000000
+        }
+      ]
+    }
+  ]
+}
