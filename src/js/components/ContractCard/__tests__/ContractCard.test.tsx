@@ -17,9 +17,9 @@ describe("<ContractCard />", () => {
         const {getByTestId} = render(<ContractCard contract={contract} index={0}/>)
 
         const card = getByTestId("contract-card")
-        let classesBeforeHover = card.classList.toString()
+        let classesBeforeHover = card.className
         fireEvent.mouseOver(card)
-        let classesAfterHover = card.classList.toString()
+        let classesAfterHover = card.className
 
         expect(classesBeforeHover == classesAfterHover).toBe(false)
     })
