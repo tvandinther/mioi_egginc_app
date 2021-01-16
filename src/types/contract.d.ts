@@ -1,16 +1,16 @@
 export interface Contract {
-	boostTokenInterval: number,
-	coopAllow: boolean,
-	coopSize: number,
-	description: string,
-	duration: number,
-	egg: number,
-	goals: ContractGoals | ContractReward[],
-	name: string,
-	rewards: ContractReward[],
-	serveUntil: number,
-	title: string,
-	validUntil: number,
+    boostTokenInterval: number,
+    coopAllow: boolean,
+    coopSize: number | null,
+    description: string,
+    duration: number,
+    egg: number,
+    goals: ContractGoals | ContractReward[],
+    name: string,
+    rewards: ContractReward[],
+    serveUntil: number,
+    title: string,
+    validUntil: number,
 }
 
 export interface MetaContract {
@@ -30,11 +30,11 @@ export interface ContractGoals {
 }
 
 export interface ContractReward {
-	difficulty: number,
-	goal: number,
-	quantity: number,
-	subtype: string | undefined,
-	type: string,
+    difficulty: number,
+    goal: number,
+    quantity: number,
+    subtype: string | undefined | null,
+    type: string,
 }
 
 export interface Coop {
