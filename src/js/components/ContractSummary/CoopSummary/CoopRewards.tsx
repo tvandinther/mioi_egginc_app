@@ -1,13 +1,12 @@
-import React, { CSSProperties } from "react"
-import { useTheme } from "@material-ui/core/styles"
+import React, {CSSProperties} from "react"
+import {makeStyles, useTheme} from "@material-ui/core/styles"
 import "react-step-progress-bar/styles.css"
 //@ts-ignore
-import { ProgressBar, Step } from "react-step-progress-bar"
-import { percentString, convertSymbol, getRewardDetails } from "../../../tools/eggincTools"
-import { Paper, Tooltip } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
-import { useSelector } from "react-redux"
-import { ContractReward } from "../../../../types/contract"
+import {ProgressBar, Step} from "react-step-progress-bar"
+import {convertSymbol, getRewardDetails, percentString} from "../../../tools/eggincTools"
+import {Paper, Tooltip} from "@material-ui/core"
+import {useSelector} from "react-redux"
+import {ContractReward} from "../../../../types/contract"
 
 const useStyle = makeStyles(theme => ({
 	root: {
@@ -72,11 +71,12 @@ export default function CoopRewards({ eggsLaid=0, rewards, style }: { eggsLaid?:
 		const Wrapper = !detailed ? Tooltip : ({ children }: { children: JSX.Element}) => <div>{children}</div>
 
 		return (
-			<Wrapper arrow title={`${convertSymbol(eggsLaid)}/${convertSymbol(finalGoal)}`} enterTouchDelay={300} leaveTouchDelay={5000}>
+			<Wrapper arrow data-testid="rewards-bar" title={`${convertSymbol(eggsLaid)}/${convertSymbol(finalGoal)}`}
+					 enterTouchDelay={300} leaveTouchDelay={5000}>
 				<Paper elevation={4} className={classes.wrap}>
-					<ProgressBar 
+					<ProgressBar
 						height={20}
-						percent={progress} 
+						percent={progress}
 						unfilledBackground={theme.palette.background.off}
 						filledBackground={fill}
 						stepPositions={rewards.map(reward => reward.goal / finalGoal * 100)}
