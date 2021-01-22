@@ -3,21 +3,26 @@ const ei = require('./egginc_pb');
 const b = require('base64-arraybuffer');
 
 const CLIENT_VERSION = 99
+const DEVICE_ID = "MIOI"
 const leagueThreshold = 11.0 // Soul power below this value is considered "standard"
 const ELITE = 0
 const STANDARD = 1
+const URL = "http://afx-2-dot-auxbrainhome.appspot.com"
+const LEGACY_URL = "http://www.auxbrain.com"
 
 var exports = module.exports = {};
 
 function ei_request(path, message, responsePB) {
     return new Promise((resolve, reject) => {
         let options = {
-            url : `http://www.auxbrain.com/ei/${path}`,
-            method : 'get'
+            url: `${URL}/ei/${path}`,
+            method: 'get'
         }
         if (message) {
+            const params = new URLSearchParams();
+            params.append("data", b.encode(message.serializeBinary()));
             options.method = 'post';
-            options.data = 'data=' + b.encode(message.serializeBinary())
+            options.data = params;
         }
         axios(options).then((response) => {
             let byteArray = b.decode(response.data);
@@ -31,11 +36,11 @@ function ei_request(path, message, responsePB) {
 
 exports.getContractAll = async function() {
     // return ei_request('get_contracts', null, ei.GetContractsResponse).then(contracts => contracts.contractsList);
-    return exports.getPeriodicals().then(periodicals => periodicals.contracts.contractsList)
+    return exports.getPeriodicals().then(periodicals => periodicals.contracts.contracts)
 }
 
 exports.getPeriodicals = async function() {
-    let message = new ei.GetPeriodicalsRequest();
+    let message = new ei.PeriodicalsRequest();
     message.setCurrentClientVersion(CLIENT_VERSION);
     return await ei_request('get_periodicals', message, ei.PeriodicalsResponse)
 }
@@ -45,20 +50,20 @@ exports.getContract = async function(contractName, coopName) {
     message.setContractIdentifier(contractName);
     message.setCoopIdentifier(coopName);
     return ei_request('coop_status', message, ei.ContractCoopStatusResponse).then(response => {
-        members = response.contributorsList.map(obj => {
+        members = response.contributors.map(obj => {
             return {
-                name : obj.userName,
-                id : obj.userId,
-                eggs : obj.contributionAmount,
-				rate : obj.contributionRate,
-				soulPower : obj.soulPower,
-				boostTokens : obj.boostTokens,
-				platform: obj.platform == 1 ? "IOS" : "ANDROID",
-				active: obj.active,
-				timeCheatDetected: obj.timeCheatDetected,
-				pushId: obj.pushId,
-				banVotes: obj.banVotes,
-				rankChange: obj.rankChange
+                name: obj.userName,
+                id: obj.userId,
+                eggs: obj.contributionAmount,
+                rate: obj.contributionRate,
+                soulPower: obj.soulPower,
+                boostTokens: obj.boostTokens,
+                platform: obj.platform == 1 ? "IOS" : "ANDROID",
+                active: obj.active,
+                timeCheatDetected: obj.timeCheatDetected,
+                pushId: obj.pushId,
+                banVotes: obj.banVotes,
+                rankChange: obj.rankChange
             }
         });
         return {
@@ -89,13 +94,17 @@ exports.queryCoop = async function(contractName, coopName) {
 	return await ei_request("query_coop", message, ei.QueryCoopResponse);
 }
 
-exports.getPlayerData = async function(identifier) {
-    let message = new ei.EggIncFirstContactRequest();
-    message.setUserId(identifier);
-    return await ei_request('first_contact', message, ei.EggIncFirstContactResponse).then(response => response.backup);
+exports.getPlayerData = async function (identifier) {
+    let message = new ei.FirstContactRequest();
+    identifier.startsWith("EI") ? message.setEiUserId(identifier) : message.setUserId(identifier);
+    message.setDeviceId(DEVICE_ID);
+    message.setClientVersion(CLIENT_VERSION);
+
+    return await ei_request('first_contact', message, ei.FirstContactResponse).then(response => response);
 }
 // 114601960711341662698
-// exports.getPlayerData('108379847168262090125').then(x => {
+// EI5573821022601216
+// exports.getPlayerData('EI5573821022601216').then(x => {
 //     console.log(x);
 // })
 
