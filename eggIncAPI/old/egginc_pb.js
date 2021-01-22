@@ -1,4 +1,4 @@
-// source: egginc.proto
+// source: ei.proto
 /**
  * @fileoverview
  * @enhanceable
