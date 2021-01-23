@@ -1,26 +1,24 @@
-const eggincAPI = require('../eggIncAPI');
+const eggincAPIForwarder = require("../eggIncAPI/eggincAPIForwarder")
 
-var getCoop = function(args) {
-    return eggincAPI.getContract(args.contractName, args.coopName);
+var getCoop = function (args) {
+    return eggincAPIForwarder.getContract(args.contractName, args.coopName);
 }
 
-var getPlayerData = function(args) {
-	return eggincAPI.getPlayerData(args.playerID);
-	// let data = eggincAPI.getPlayerData(args.playerID);
-	// return {
-	// 	...data,
-	// 	game: {
-	// 		...data.game,
-	// 		epicResearch: data.game.epicResearchList.reduce((obj, item) => {
-	// 			obj[item.id] = item.level
-	// 			return obj
-	// 		}, {})
-	// 	}
-	// }
+var getPlayerData = function (args) {
+    console.log(args)
+    const playerID = args.playerId;
+    if (playerID.startsWith("EI")) {
+        console.log(`Getting EI ID data for ${playerID}...`)
+        return eggincAPIForwarder.getPlayerData(playerID);
+    } else {
+        console.log(`Getting Legacy ID data for ${playerID}...`)
+        return eggincAPIForwarder.getPlayerDataLegacy(playerID);
+    }
 }
 
-var getPeriodicals = function(args) {
-    return eggincAPI.getPeriodicals();
+
+var getPeriodicals = function (args) {
+    return eggincAPIForwarder.getPeriodicals();
 }
 
 module.exports = {
@@ -28,5 +26,3 @@ module.exports = {
     playerData: getPlayerData,
     periodicals: getPeriodicals
 }
-
-// getCoop({contractName: "summer-solstice-2020", coopName: "backyard"}).then(x => console.log(x.members[0]))

@@ -48,19 +48,23 @@ type Member {
 type PlayerData {
     userId: String
     userName: String
-    version: Int
-	approxTime: Float
+    approxTime: Float
+
     stats: Stats
     game: Game
-    farmsList: [Simulation]
+    farms: [Farm]
     mission: Mission
     contracts: MyContracts
+
+    gameServicesId: String
+    deviceId: String
+    eiUserId: String
 }
 
 type Stats {
-    eggTotalsList: [Float]
-    numPrestiges: Int
-    numPiggyBreaks: Int
+    eggTotals: [Float]
+    prestigeCount: Int
+    piggyBreakCount: Int
     lostPiggyIncrements: Int
     boostsUsed: Int
     droneTakedowns: Int
@@ -70,17 +74,17 @@ type Stats {
 type Game {
     currentFarm: Int
     maxEggReached: Int
-	forceEliteContracts: Boolean
-    goldenEggsEarned: Int
-    goldenEggsSpent: Int
-    soulEggsD: Float
-    eggsOfProphecy: Int
+    forceEliteContracts: Boolean
+    goldenEggsEarned: Float
+    goldenEggsSpent: Float
+    soulEggs: Float
+    prophecyEggs: Int
     prestigeCashEarned: Float
     lifetimeCashEarned: Float
     piggyBank: Int
     piggyBankFullAlertShown: Boolean
     permitLevel: Int
-    epicResearchList: [ResearchItem]
+    epicResearch: [ResearchItem]
     hyperLoopStation: Boolean
     nextDailyGiftTime: Float
     lastDailyGiftCollectedDay: Int
@@ -90,7 +94,7 @@ type Game {
     achievementsList: [AchievementInfo]
     maxFarmSizeReachedList: [Float]
     eggMedalLevelList: [Int]
-    boostsList: [OwnedBoost]
+    boosts: [OwnedBoost]
 }
 
 type ResearchItem {
@@ -104,12 +108,12 @@ type AchievementInfo {
 }
 
 type OwnedBoost {
-    boostId: String
+    id: String
     count: Int
 }
 
-type Simulation {
-    eggType: Int
+type Farm {
+    egg: Int
     farmType: Int
     contractId: String
     cashEarned: Float
@@ -120,19 +124,19 @@ type Simulation {
     eggsLaid: Float
     eggsPaidFor: Float
     silosOwned: Int
-    habsList: [Int]
-    habPopulation: [Float]
+    habs: [Int]
+    habPopulations: [Float]
     hatcheryPopulation: Int
-    vehiclesList: [Int]
-    trainLengthList: [Int]
-    commonResearchList: [ResearchItem]
-    activeBoostsList: [ActiveBoost]
+    vehicles: [Int]
+    hyperloopCars: [Int]
+    commonResearch: [ResearchItem]
+    activeBoosts: [ActiveBoost]
     timeCheatsDetected: Float
     timeCheatDebt: Float
 }
 
 type ActiveBoost {
-    boostId: String
+    id: String
     timeRemaining: Float
     referenceValue: Float
 }
@@ -148,14 +152,22 @@ type MissionInfo {
     complete: Boolean
 }
 type MyContracts {
-    contractIdsSeenList: [String]
-    contractsList: [LocalContract]
-    archiveList: [LocalContract]
+    contractIdsSeen: [String]
+    contracts: [LocalContract]
+    archived: [LocalContract]
+    coopStatuses: [CoopStatus]
+}
+
+type CoopStatus {
+    contractId: String
+    coopId: String
+    totalAmount: Float
+    secondsRemaining: Float
 }
 
 type LocalContract {
     contract: Contract
-    coopIdentifier: String
+    coopId: String
     accepted: Boolean
     timeAccepted: Float
     cancelled: Boolean
@@ -170,7 +182,7 @@ type LocalContract {
 }
 
 type Contract {
-    identifier: String
+    id: String
     name: String
     description: String
     egg: Int

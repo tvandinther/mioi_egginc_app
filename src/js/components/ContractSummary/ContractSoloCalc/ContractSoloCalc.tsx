@@ -1,25 +1,25 @@
 import React from "react"
-import { Typography, Divider } from "@material-ui/core"
+import {Divider, Typography} from "@material-ui/core"
 import ResearchInput from "../../FarmValueContainer/FarmInputs/ResearchInput"
 import Research from "../../../tools/research.json"
 import GenericStatInput from "./GenericStatInput"
-import { setContractCalcParameter } from "../../../actions/contractActions"
-import { calculateFarmStats } from "../../../tools"
-import { useSelector } from "react-redux"
-import { SoloCalcResults } from "./SoloCalcResults"
+import {setContractCalcParameter} from "../../../actions/contractActions"
+import {calculateFarmStats} from "../../../tools"
+import {useSelector} from "react-redux"
+import {SoloCalcResults} from "./SoloCalcResults"
 import ContractTargetInput from "./ContractTargetInput"
 import SettingsSwitch from "../../appSettings/SettingsSwitch"
 import switchProfiles from "../../appSettings/switchProfiles"
 import HelpTooltip from "../../Decorator/HelpTooltip"
 import useStyle from "./styles"
-import { Contract, Coop } from "../../../../types/contract"
-import { isContractGoals } from "../../../../types/typeGuards"
+import {Contract, Coop} from "../../../../types/contract"
+import {isContractGoals} from "../../../../types/typeGuards"
 
-export default function ContractSoloCalc({ contract, coop }: { contract: Contract, coop: Coop }) {
+export default function ContractSoloCalc({contract, coop}: { contract: Contract, coop: Coop }) {
 	const classes = useStyle()
 	const playerContractFarm = useSelector(store => {
 		if (store.playerData.fetched) {
-			return store.playerData.farmsList.find(item => item.contractId === contract.name)
+			return store.playerData.farms.find(item => item.contractId === contract.name)
 		}
 	})
 	const playerGameData = useSelector(store => {

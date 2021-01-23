@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react"
-import { useSelector, useDispatch } from "react-redux"
-import { NativeSelect, Select, MenuItem, Button, Card, Typography } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
-import { setFarm } from "../../actions/farmValueActions"
+import React, {useState} from "react"
+import {useDispatch, useSelector} from "react-redux"
+import {Button, MenuItem, Select, Typography} from "@material-ui/core"
+import {makeStyles} from "@material-ui/core/styles"
+import {setFarm} from "../../actions/farmValueActions"
 import ReactGA from "react-ga"
 import HeadedCard from "../HeadedCard"
 
@@ -41,7 +41,7 @@ export default function FarmSelector(props) {
     let [selected, setSelected] = useState(0)
     
     const handleFarmLoad = () => {
-        let selectedFarm = playerData.farmsList[selected]
+        let selectedFarm = playerData.farms[selected]
 		dispatch(setFarm(selectedFarm, playerData.game))
 		ReactGA.event({
 			category: "Farm Value",
@@ -57,7 +57,7 @@ export default function FarmSelector(props) {
     // }, [playerData.fetched])
 
     if (playerData.fetched) {
-        const playerFarms = playerData.farmsList
+        const playerFarms = playerData.farms
         const options = []
         for (let index in playerFarms) {
             let farm = playerFarms[index]

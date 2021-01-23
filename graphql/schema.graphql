@@ -17,7 +17,7 @@ type EggIncQuery {
     "Returns a co-op data for a given contract"
     coop(coopName: String!, contractName: String!): Coop
     "Returns player data"
-    playerData(playerID: String!): PlayerData
+    playerData(playerId: String!): PlayerData
     "Returns current periodicals"
     periodicals: Periodicals
 }

@@ -14,14 +14,14 @@ export interface Contract {
 }
 
 export interface MetaContract {
-	accepted: boolean,
-	contract: {
-		identifier: string,
-		lengthSeconds: number,
-	},
-	coopIdentifier: string | null,
-	league: number,
-	timeAccepted: number,
+    accepted: boolean,
+    contract: {
+        id: string,
+        lengthSeconds: number,
+    },
+    coopId: string | null,
+    league: number,
+    timeAccepted: number,
 }
 
 export interface ContractGoals {

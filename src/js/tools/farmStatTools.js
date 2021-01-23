@@ -11,10 +11,10 @@ export default function calculateFarmStats(farm, game) {
 
     let initialParameters = {
         population: farm.numChickens,
-        eggTypeValue: eggTypes[farm.eggType].value,
-		eggMultiplier: 1 + (0.5 * (farm.eggType - 1)),
-		// eggMultiplier: 1 + (1 / (farm.eggType)),
-        maxHabCapacity: farm.habsList.reduce((acc, habIndex) => acc + habs[habIndex].capacity, 0),
+        eggTypeValue: eggTypes[farm.eggType] ? eggTypes[farm.eggType].value : 0, // temp fix
+        eggMultiplier: 1 + (0.5 * (farm.eggType - 1)),
+        // eggMultiplier: 1 + (1 / (farm.eggType)),
+        maxHabCapacity: farm.habs.reduce((acc, habIndex) => acc + habs[habIndex].capacity, 0),
         layingRate: 2, // eggs per minute per chicken
         eggValue: 1, // base multiplier
         hatchRefill: 1, // base multiplier
@@ -24,17 +24,17 @@ export default function calculateFarmStats(farm, game) {
         habCapacity: 1, // base multiplier
         hatchRate: 0, // base value
         hatchCapacity: 1, // base multiplier
-		vehicleCapacityMultiplier: 1, // base multiplier
-		hoverVehicleCapacityMultiplier: 1,
+        vehicleCapacityMultiplier: 1, // base multiplier
+        hoverVehicleCapacityMultiplier: 1,
         maxFleetSize: 4, // base value
         silos: farm.silosOwned,
-        meBonus: mysticalBonusFormula(game.soulEggsD, game.eggsOfProphecy, playerResearch), // base value
-		accTricks: 1, // base value
-		hatchCalm: 1,
-		prophecyBonus: 1,
-		soulFood: 1,
-		trainLength: 5,
-		trainCapacityMultiplier: 1,
+        meBonus: mysticalBonusFormula(game.soulEggs, game.prophecyEggs, playerResearch), // base value
+        accTricks: 1, // base value
+        hatchCalm: 1,
+        prophecyBonus: 1,
+        soulFood: 1,
+        trainLength: 5,
+        trainCapacityMultiplier: 1,
     }
 
     let updatedParameters = iterateResearch(playerResearch, initialParameters, farm) // mutates parameters
@@ -43,16 +43,16 @@ export default function calculateFarmStats(farm, game) {
     updatedParameters.farmValue = farmValueFormula(updatedParameters)
 
 	const farmStats = {
-		earningsBonus: updatedParameters.meBonus,
+        earningsBonus: updatedParameters.meBonus,
         eggValue: updatedParameters.eggTypeValue * updatedParameters.eggValue,
         layingRate: updatedParameters.layingRate * updatedParameters.population,
-		hatchRate: updatedParameters.hatchRate,
+        hatchRate: updatedParameters.hatchRate,
         maxHabCapacity: updatedParameters.maxHabCapacity,
-        soulEggBonus: game.soulEggsD * (10 + (1 * playerResearch.epic["soul_eggs"])) / 100,
-		farmValue: updatedParameters.farmValue,
-		shippingCapacity: updatedParameters.shippingCapacity,
-		income: calculateIncome(updatedParameters),
-	}
+        soulEggBonus: game.soulEggs * (10 + (1 * playerResearch.epic["soul_eggs"])) / 100,
+        farmValue: updatedParameters.farmValue,
+        shippingCapacity: updatedParameters.shippingCapacity,
+        income: calculateIncome(updatedParameters),
+    }
 	if (process.env.NODE_ENV == "development") console.log("Farm Stats: ", farmStats)
     return farmStats
 }
@@ -77,8 +77,8 @@ function iterateResearch(playerResearch, parameters, farm) {
             if (researchItem.tag) { // special cases requiring conditional value alteration
                 switch (researchItem.tag) {
                     case "portalHab": { // some research improves the capacity of portal habs specifically
-                        let count = farm.habsList.reduce((acc, habIndex) => habs[habIndex].tag === "portalHab" ? acc + 1 : acc, 0)
-                        value = (count / farm.habsList.length) * value
+                        let count = farm.habs.reduce((acc, habIndex) => habs[habIndex].tag === "portalHab" ? acc + 1 : acc, 0)
+                        value = (count / farm.habs.length) * value
                     }
                     break
                 }

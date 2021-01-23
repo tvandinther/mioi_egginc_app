@@ -74,17 +74,17 @@ exports.addcontract = async function(id, contract) {
     }
     let docRef = firestore.collection('egginc-contracts').doc(id); // Use contract ID as unique attribute for doc ID
     await docRef.set({
-        boostTokenInterval : contract.minutesPerToken,
-        coopAllow : contract.coopAllowed,// == 1 ? true : false,
-        coopSize : contract.maxCoopSize ? contract.maxCoopSize : null,
-        description : contract.description,
-        duration : contract.lengthSeconds,
-        egg : contract.egg,
-        name : contract.identifier,
-        serveUntil : contract.expirationTime + contract.lengthSeconds,
-        title : contract.name,
-        validUntil : contract.expirationTime,
-        goals : goals,
+        boostTokenInterval: contract.minutesPerToken,
+        coopAllow: contract.coopAllowed,// == 1 ? true : false,
+        coopSize: contract.maxCoopSize ? contract.maxCoopSize : null,
+        description: contract.description,
+        duration: contract.lengthSeconds,
+        egg: contract.egg,
+        name: contract.id,
+        serveUntil: contract.expirationTime + contract.lengthSeconds,
+        title: contract.name,
+        validUntil: contract.expirationTime,
+        goals: goals,
     }, { merge : false }).then( () => {
         docRef.set({
             serveUntil : contract.expirationTime + contract.lengthSeconds

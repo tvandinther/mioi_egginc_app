@@ -17,10 +17,10 @@ export default function reducer(state=initialState, action) {
 			if (data.userName) {
 				return {
 					...state,
-					playerId: data.userId,
+					playerId: data.eiUserId,
 					savedIds: {
 						...state.savedIds,
-						[data.userId]: data.userName,
+						[data.eiUserId]: data.userName,
 					}
 				}
 			}

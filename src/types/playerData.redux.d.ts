@@ -1,27 +1,26 @@
-import { Contract } from "./contract";
-
 export default interface PlayerDataRedux {
 	approxTime: number,
 	contracts: {
-		contractsList: PlayerDataContract[]
+		contracts: PlayerDataContract[]
 	},
 	error: boolean,
-	farmsList: any[],
+	farms: any[],
 	fetched: boolean,
 	fetching: boolean,
 	game: any,
 	stats: any,
-	userId: string,
+	gameServicesId: string,
+	eiUserId: string,
 	userName: string,
 }
 
 export interface PlayerDataContract {
 	accepted: boolean,
 	contract: {
-		identifier: string,
+		id: string,
 		lengthSeconds: number,
 	},
-	coopIdentifier: string | null,
+	coopId: string | null,
 	league: number,
 	timeAccepted: number,
 }

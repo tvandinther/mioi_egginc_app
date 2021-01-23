@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react"
-import { Card } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
+import React from "react"
+import {makeStyles} from "@material-ui/core/styles"
 import SEInput from "./SEInput"
 import PEInput from "./PEInput"
 import HeadedCard from "../../HeadedCard"
-import { useSelector } from "react-redux"
+import {useSelector} from "react-redux"
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -16,14 +15,15 @@ const useStyle = makeStyles(theme => ({
 }))
 
 export default function MysticalEggsInputs(props) {
-	const classes = useStyle()
-	const soulEggs = useSelector(store => store.farmValue.game.soulEggsD)
-	const eggsOfProphecy = useSelector(store => store.farmValue.game.eggsOfProphecy)
+    const classes = useStyle()
+    const soulEggs = useSelector(store => store.farmValue.game.soulEggs)
+    const prophecyEggs = useSelector(store => store.farmValue.game.prophecyEggs)
 
     return (
-        <HeadedCard cardID="mystical_eggs_inputs" style={props.style} collapsable title="Mystical Eggs" className={classes.root}>
+        <HeadedCard cardID="mystical_eggs_inputs" style={props.style} collapsable title="Mystical Eggs"
+                    className={classes.root}>
             <SEInput value={soulEggs}/>
-            <PEInput value={eggsOfProphecy}/>
+            <PEInput value={prophecyEggs}/>
         </HeadedCard>
     )
 }

@@ -1,15 +1,15 @@
 import React from "react"
 import habs from "../../../tools/habs.json"
-import { makeStyles } from "@material-ui/core/styles"
-import { setHab } from "../../../actions/farmValueActions"
-import { useSelector } from "react-redux"
+import {makeStyles} from "@material-ui/core/styles"
+import {setHab} from "../../../actions/farmValueActions"
+import {useSelector} from "react-redux"
 import HeadedCard from "../../HeadedCard"
 import ImageDropdown from "../../ImageDropdown"
 
 const useStyle = makeStyles(theme => ({
-    root: {
-        margin: "auto",
-        maxWidth: 800,
+	root: {
+		margin: "auto",
+		maxWidth: 800,
 		padding: 10,
 		display: "flex",
 		flexWrap: "wrap",
@@ -24,8 +24,8 @@ const useStyle = makeStyles(theme => ({
 }))
 
 export default function EggSelector(props) {
-    const classes = useStyle()
-    const initialValues = useSelector(store => store.farmValue.farm.habsList)
+	const classes = useStyle()
+	const initialValues = useSelector(store => store.farmValue.farm.habs)
 
 	let habMap = {
 		items: []

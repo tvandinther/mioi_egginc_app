@@ -76,6 +76,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "start": "node server.js",
+    "dev-frontend": "webpack-dev-server --config webpack.dev.js",
     "local": "concurrently \"webpack-dev-server --config webpack.dev.js\" \"node server\"",
     "build": "webpack --config webpack.prod.js",
     "compress-images": "node ./scripts/image-compress"

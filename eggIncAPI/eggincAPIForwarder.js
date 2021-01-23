@@ -16,7 +16,7 @@ exports.getPeriodicals = async function () {
     return await axios.get(`${URL}/get_periodicals`).then(response => response.data)
 }
 
-exports.getContract = async function (contractName, coopName) {
+exports.getContract = function (contractName, coopName) {
     const params = new URLSearchParams();
     params.append("contractId", contractName);
     params.append("coopId", coopName);
@@ -59,21 +59,15 @@ exports.getContract = async function (contractName, coopName) {
 }
 
 exports.getPlayerData = function (identifier) {
-    console.log(identifier);
-    return axios.post(`${URL}/get_backup`, identifier, {
-        headers: {
-            "Content-Type": "text/plain"
-        }
-    }).then(response => response.data);
+    const params = new URLSearchParams()
+    params.append("id", identifier)
+    return axios.post(`${URL}/get_backup`, params).then(response => response.data);
 }
 
 exports.getPlayerDataLegacy = function (identifier) {
-    console.log(identifier);
-    return axios.post(`${URL}/get_backup_legacy`, identifier, {
-        headers: {
-            "Content-Type": "text/plain"
-        }
-    }).then(response => response.data);
+    const params = new URLSearchParams()
+    params.append("id", identifier)
+    return axios.post(`${URL}/get_backup_legacy`, params).then(response => response.data);
 }
 
 // 114601960711341662698
