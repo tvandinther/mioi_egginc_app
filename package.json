@@ -1,6 +1,6 @@
 {
   "name": "egginc_app",
-  "version": "1.0.20",
+  "version": "1.0.30",
   "description": "",
   "main": "index.js",
   "dependencies": {
