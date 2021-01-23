@@ -113,7 +113,7 @@ type OwnedBoost {
 }
 
 type Farm {
-    egg: Int
+    eggType: Int
     farmType: Int
     contractId: String
     cashEarned: Float
