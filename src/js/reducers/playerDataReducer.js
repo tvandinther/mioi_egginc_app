@@ -13,8 +13,9 @@ export default function reducer(state=initialState, action) {
 		}
         case "VALIDATE_GAMEID_FULFILLED": {
 			let data = action.payload.data.data.eggInc.playerData
-			
-            if (data.userName) {
+
+			if (data.farms.length > 0) {
+				if (data.userName == "") data.userName = "unknown"
 				let newfarms = []
 				for (let farm of data.farms) {
 					newfarms.push({
