@@ -5,13 +5,10 @@ var getCoop = function (args) {
 }
 
 var getPlayerData = function (args) {
-    console.log(args)
     const playerID = args.playerId;
     if (playerID.startsWith("EI")) {
-        console.log(`Getting EI ID data for ${playerID}...`)
         return eggincAPIForwarder.getPlayerData(playerID);
     } else {
-        console.log(`Getting Legacy ID data for ${playerID}...`)
         return eggincAPIForwarder.getPlayerDataLegacy(playerID);
     }
 }

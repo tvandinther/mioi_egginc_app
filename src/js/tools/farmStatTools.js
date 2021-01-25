@@ -115,7 +115,6 @@ function iterateResearch(playerResearch, parameters, farm) {
 }
 
 function farmValueFormula(parameters) {
-	console.log(parameters)
     //SUB CALCULATIONS
     let eggsMin = parameters.population * parameters.layingRate
     let eggValue = (parameters.eggTypeValue * parameters.eggValue) * (1 + parameters.meBonus)

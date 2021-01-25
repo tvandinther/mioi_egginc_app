@@ -22,7 +22,6 @@ exports.getContract = function (contractName, coopName) {
     params.append("coopId", coopName);
     return axios.post(`${URL}/get_coop_status`, params).then(response => {
         const data = response.data;
-        console.log(data);
         members = data.contributors.map(obj => {
             return {
                 name: obj.userName,
