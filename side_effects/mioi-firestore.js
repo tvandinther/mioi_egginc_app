@@ -52,21 +52,23 @@ rewardTypes = {
   };
 
 exports.addcontract = async function(id, contract) {
-    let rewards = contract.goalsList
-    let tieredRewards = contract.goalSetsList
+    let rewards = contract.goals
+    let tieredRewards = contract.goalSets
+
     function aliasGoals(goals) {
         return goals.map(reward => ({
-            difficulty : reward.targetSoulEggs,
-            goal : reward.targetAmount,
-            quantity : reward.rewardAmount,
-            subtype : reward.rewardSubType == 'subtype' ? null : reward.rewardSubType,
-            type : rewardTypes[reward.rewardType],
+            difficulty: reward.targetSoulEggs,
+            goal: reward.targetAmount,
+            quantity: reward.rewardAmount,
+            subtype: reward.rewardSubType == 'subtype' ? null : reward.rewardSubType,
+            type: rewardTypes[reward.rewardType],
         }))
     }
+
     if (tieredRewards.length == 2) {
         goals = {
-            standard : aliasGoals(tieredRewards[1].goalsList),
-            elite : aliasGoals(tieredRewards[0].goalsList),
+            standard: aliasGoals(tieredRewards[1].goals),
+            elite: aliasGoals(tieredRewards[0].goals),
         }
     }
     else {
