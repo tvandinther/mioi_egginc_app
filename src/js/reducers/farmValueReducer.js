@@ -98,7 +98,7 @@ export default function reducer(state=initialState, action) {
 					farm: {
 						...state.farm,
 						commonResearch: {
-							...state.farm.commonResearchMap,
+							...state.farm.commonResearch,
 							...action.payload.research,
 						}
 					}
@@ -110,7 +110,7 @@ export default function reducer(state=initialState, action) {
 					game: {
 						...state.game,
 						epicResearch: {
-							...state.game.epicResearchMap,
+							...state.game.epicResearch,
 							...action.payload.research,
 						}
 					}

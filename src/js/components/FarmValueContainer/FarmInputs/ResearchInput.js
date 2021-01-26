@@ -41,8 +41,8 @@ const useStyle = makeStyles(theme => ({
 	inputOverride: {
 		textAlign: "center",
 	},
-    slider: {
-        gridArea: "slider",
+	slider: {
+		gridArea: "slider",
 		maxWidth: 500,
 		marginRight: 6,
 	},
@@ -84,7 +84,7 @@ export default function ResearchInput(props) {
 	// I'm having an issue where I want local state to update slider and input together and have the redux 
 	// dispatch occur after local state has been updated (but not trigger a re-render).
 
-    const handleBlur = (evt) => {
+	const handleBlur = (evt) => {
 		let newValue = Number(evt.target.value) || 0
         if (newValue < 0) {
             newValue = 0
