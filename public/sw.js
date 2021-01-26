@@ -1,4 +1,4 @@
-const version = "1.0.31";
+const version = "1.0.32";
 
 const config = {
     cacheRemote: true,
