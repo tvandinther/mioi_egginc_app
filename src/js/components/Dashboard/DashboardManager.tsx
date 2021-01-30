@@ -39,12 +39,12 @@ export default function DashboardManager() {
 
 	let dashboardOptions: DashboardOptions = {
 		cards: {
-			player: {
-				show: true,
-				key: "player-card",
-				priority: 0,
-				playerData: playerData,
-			},
+			// player: {
+			// 	show: true,
+			// 	key: "player-card",
+			// 	priority: 0,
+			// 	playerData: playerData,
+			// },
 			news: {
 				show: true,
 				key: "news-post",
