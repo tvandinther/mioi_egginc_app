@@ -42,11 +42,10 @@ exports.init = function() {
 
         eggincAPIForwarder.getContractAll().then(contracts => {
             contracts.forEach(contract => {
-                let id = contract.id;
-                mioidb.checkFor('contract', id).then(exists => {
+                mioidb.checkFor('contract', contract).then(exists => {
                     if (!exists) {
-                        console.info(`Adding contract "${id}" to database...`);
-                        mioidb.addcontract(id, contract).then(() => {
+                        console.info(`Adding contract "${contract.id}" to database...`);
+                        mioidb.addcontract(contract.id, contract).then(() => {
                             console.info(`Completed adding new contract to database`)
                             console.info(`Updating contract cache...`);
                             getActiveContracts();
@@ -56,8 +55,9 @@ exports.init = function() {
             });
             console.log(`Contract check complete!`);
         })
-    }
-    else {
+    } else {
         // console.log(`Will invoke again after ${Math.ceil(global.getActiveContractsLastExecuted + timeout - now)} seconds`);
     }
 }
+
+exports.init()

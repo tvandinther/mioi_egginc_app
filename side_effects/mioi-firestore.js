@@ -132,12 +132,16 @@ exports.setAuthKey = function(authKey, currentUser, permissions) {
     }).then(docRef => docRef);
 }
 
-exports.checkFor = function(type, id) {
+exports.checkFor = function (type, contract) {
     paths = {
-        'contract' : 'egginc-contracts'
+        'contract': 'egginc-contracts'
     }
-    return firestore.collection(paths[type]).doc(id).get().then(docRef => {
-        return docRef.exists ? true : false;
+    return firestore.collection(paths[type]).doc(contract.id).get().then(docRef => {
+        if (docRef.exists) {
+            let validUntil = docRef.get('validUntil');
+            return validUntil == contract.expirationTime;
+        }
+        return false;
     })
 }
 
