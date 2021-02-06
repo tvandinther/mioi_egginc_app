@@ -9,19 +9,23 @@ export function setPlayerId(playerId) {
 }
 
 export function validatePlayerId(playerId) {
-    return {
-        type: "VALIDATE_GAMEID",
-        meta: {
-            playerId: playerId,
-        },
-        payload: axios.post("/api", {
-            operation: "getUser",
-            query: queries.getPlayerData,
-            variables: {
-                playerId: playerId,
-            },
-        })
-    }
+	return {
+		type: "",
+		payload: null
+	}
+	return {
+		type: "VALIDATE_GAMEID",
+		meta: {
+			playerId: playerId,
+		},
+		payload: axios.post("/api", {
+			operation: "getUser",
+			query: queries.getPlayerData,
+			variables: {
+				playerId: playerId,
+			},
+		})
+	}
 }
 
 export function addGameId(playerId, playerName) {

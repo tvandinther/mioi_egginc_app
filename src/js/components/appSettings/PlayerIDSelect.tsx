@@ -1,12 +1,14 @@
 import React from "react"
-import { Select, ListItem, MenuItem, InputLabel, FormControl } from "@material-ui/core"
-import { setPlayerId, validatePlayerId } from "../../actions/settingsActions"
-import { useSelector, useDispatch } from "react-redux"
+import {FormControl, InputLabel, ListItem, MenuItem, Select} from "@material-ui/core"
+import {setPlayerId, validatePlayerId} from "../../actions/settingsActions"
+import {useDispatch, useSelector} from "react-redux"
 
 export default function PlayerIDSelect() {
 	const savedIds = useSelector(store => store.settings.savedIds)
 	const selectedId = useSelector(store => store.settings.playerId)
 	const dispatch = useDispatch()
+
+	return null
 
 	if (Object.keys(savedIds).length < 2) {
 		return null
@@ -14,7 +16,7 @@ export default function PlayerIDSelect() {
 
 	const menuItems = Object.entries(savedIds).sort((a, b) => a[1].toUpperCase() > b[1].toUpperCase() ? 1 : -1).map(([playerId, playerName]) => {
 		return (
-			<MenuItem 
+			<MenuItem
 				value={playerId}
 				key={playerId}
 			>

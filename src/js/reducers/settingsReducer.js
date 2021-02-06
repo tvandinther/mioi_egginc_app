@@ -14,17 +14,17 @@ export default function reducer(state=initialState, action) {
     switch(action.type) {
 		case "VALIDATE_GAMEID_FULFILLED": {
 			const data = action.payload.data.data.eggInc.playerData
-			if (data.userName) {
+			if (data.farms.length > 0) {
+				if (data.userName == "") data.userName = "unknown"
 				return {
 					...state,
-					playerId: data.userId,
+					playerId: data.eiUserId,
 					savedIds: {
 						...state.savedIds,
-						[data.userId]: data.userName,
+						[data.eiUserId]: data.userName,
 					}
 				}
-			}
-			else return state
+			} else return state
 		}
         case "SET_GAMEID": {
             return {

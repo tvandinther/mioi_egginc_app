@@ -6,3 +6,6 @@ posts
 
 .vscode/
 .idea/
+
+bundle.js
+*.bundle.js

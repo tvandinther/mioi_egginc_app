@@ -39,23 +39,24 @@ export const getCoop = `
 export const getPlayerData = `
     query getPlayerData($playerId: String!) {
         eggInc {
-            playerData(playerID: $playerId) {
-                userId
+            playerData(playerId: $playerId) {
+                gameServicesId
+                eiUserId
 				userName
 				approxTime
                 game {
-					soulEggsD
+					soulEggs
 					maxEggReached
 					hyperLoopStation
 					forceEliteContracts
-                    eggsOfProphecy
-                    epicResearchList {
+                    prophecyEggs
+                    epicResearch {
                         id
                         level
                     }
                     piggyBank
-                    boostsList {
-                        boostId
+                    boosts {
+                        id
                         count
 					}
 					nextDailyGiftTime
@@ -69,18 +70,18 @@ export const getPlayerData = `
 					}
                 }
                 contracts {
-                    contractsList {
+                    contracts {
                         contract {
-                            identifier
+                            id
                             lengthSeconds
 						}
 						league
                         accepted
                         timeAccepted
-                        coopIdentifier
+                        coopId
                     }
                 }
-                farmsList {
+                farms {
                     eggType
                     farmType
                     contractId
@@ -88,28 +89,28 @@ export const getPlayerData = `
                     eggsLaid
                     eggsPaidFor
                     silosOwned
-                    habsList
-                    habPopulation
-                    commonResearchList {
+                    habs
+                    habPopulations
+                    commonResearch {
                         id
                         level
                     }
-                    vehiclesList
-                    trainLengthList
-                    activeBoostsList {
-                        boostId
+                    vehicles
+                    hyperloopCars
+                    activeBoosts {
+                        id
                         timeRemaining
                         referenceValue
                     }
                 }
                 stats {
-                    eggTotalsList
-                    numPrestiges
+                    eggTotals
+                    prestigeCount
                     lostPiggyIncrements
                     droneTakedowns
                     droneTakedownsElite
                     boostsUsed
-                    numPiggyBreaks
+                    piggyBreakCount
                 }
             }
         }

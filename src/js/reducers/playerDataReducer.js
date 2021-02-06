@@ -13,13 +13,14 @@ export default function reducer(state=initialState, action) {
 		}
         case "VALIDATE_GAMEID_FULFILLED": {
 			let data = action.payload.data.data.eggInc.playerData
-			
-            if (data.userName) {
-				let newFarmsList = []
-				for (let farm of data.farmsList) {
-					newFarmsList.push({
+
+			if (data.farms.length > 0) {
+				if (data.userName == "") data.userName = "unknown"
+				let newfarms = []
+				for (let farm of data.farms) {
+					newfarms.push({
 						...farm,
-						commonResearch: farm.commonResearchList.reduce((obj, research) => {
+						commonResearch: farm.commonResearch.reduce((obj, research) => {
 							obj[research.id] = research.level
 							return obj
 						}, {})
@@ -27,21 +28,21 @@ export default function reducer(state=initialState, action) {
 				}
 
 				let epicResearch = {}
-				data.game.epicResearchList.forEach(research => {
+				data.game.epicResearch.forEach(research => {
 					epicResearch[research.id] = research.level
 				})
 
-                return {
+				return {
 					...data,
 					game: {
 						...data.game,
 						epicResearch: epicResearch,
 					},
-					farmsList: newFarmsList,
-                    error: false,
+					farms: newfarms,
+					error: false,
 					fetched: true,
 					fetching: false,
-                }
+				}
             }
         }
         case "VALIDATE_GAMEID_REJECTED": {

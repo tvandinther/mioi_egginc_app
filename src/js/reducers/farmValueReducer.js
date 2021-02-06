@@ -1,5 +1,5 @@
 import blankFarm from "../tools/blankFarm"
-import { calculateFarmStats } from "../tools/eggincTools"
+import {calculateFarmStats} from "../tools/eggincTools"
 
 const initialState = {
 	...blankFarm,
@@ -12,7 +12,7 @@ export default function reducer(state=initialState, action) {
 			let data = action.payload.data.data.eggInc.playerData
 			if (data.userName) {
 				let epicResearch = {}
-				data.game.epicResearchList.forEach(research => {
+				data.game.epicResearch.forEach(research => {
 					epicResearch[research.id] = research.level
 				})
 				return {
@@ -33,8 +33,8 @@ export default function reducer(state=initialState, action) {
 		}
 		case "SET_MYSTICAL_EGG": {
 			let targetDict = {
-				"SOUL_EGGS": "soulEggsD",
-				"PROPHECY_EGGS": "eggsOfProphecy"
+				"SOUL_EGGS": "soulEggs",
+				"PROPHECY_EGGS": "prophecyEggs"
 			}
 			return {
 				...state,
@@ -54,15 +54,15 @@ export default function reducer(state=initialState, action) {
             }
 		}
 		case "SET_HAB": {
-			let habsList = [...state.farm.habsList]
-			habsList[action.payload.slot] = action.payload.hab
-            return {
-                ...state,
-                farm: {
-                    ...state.farm,
-                    habsList: habsList,
-                }
-            }
+			let habs = [...state.farm.habs]
+			habs[action.payload.slot] = action.payload.hab
+			return {
+				...state,
+				farm: {
+					...state.farm,
+					habs: habs,
+				}
+			}
 		}
 		case "SET_EGGS_SHIPPED": {
 			return {

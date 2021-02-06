@@ -52,21 +52,23 @@ rewardTypes = {
   };
 
 exports.addcontract = async function(id, contract) {
-    let rewards = contract.goalsList
-    let tieredRewards = contract.goalSetsList
+    let rewards = contract.goals
+    let tieredRewards = contract.goalSets
+
     function aliasGoals(goals) {
         return goals.map(reward => ({
-            difficulty : reward.targetSoulEggs,
-            goal : reward.targetAmount,
-            quantity : reward.rewardAmount,
-            subtype : reward.rewardSubType == 'subtype' ? null : reward.rewardSubType,
-            type : rewardTypes[reward.rewardType],
+            difficulty: reward.targetSoulEggs,
+            goal: reward.targetAmount,
+            quantity: reward.rewardAmount,
+            subtype: reward.rewardSubType == 'subtype' ? null : reward.rewardSubType,
+            type: rewardTypes[reward.rewardType],
         }))
     }
+
     if (tieredRewards.length == 2) {
         goals = {
-            standard : aliasGoals(tieredRewards[1].goalsList),
-            elite : aliasGoals(tieredRewards[0].goalsList),
+            standard: aliasGoals(tieredRewards[1].goals),
+            elite: aliasGoals(tieredRewards[0].goals),
         }
     }
     else {
@@ -74,17 +76,17 @@ exports.addcontract = async function(id, contract) {
     }
     let docRef = firestore.collection('egginc-contracts').doc(id); // Use contract ID as unique attribute for doc ID
     await docRef.set({
-        boostTokenInterval : contract.minutesPerToken,
-        coopAllow : contract.coopAllowed,// == 1 ? true : false,
-        coopSize : contract.maxCoopSize ? contract.maxCoopSize : null,
-        description : contract.description,
-        duration : contract.lengthSeconds,
-        egg : contract.egg,
-        name : contract.identifier,
-        serveUntil : contract.expirationTime + contract.lengthSeconds,
-        title : contract.name,
-        validUntil : contract.expirationTime,
-        goals : goals,
+        boostTokenInterval: contract.minutesPerToken,
+        coopAllow: contract.coopAllowed,// == 1 ? true : false,
+        coopSize: contract.maxCoopSize ? contract.maxCoopSize : null,
+        description: contract.description,
+        duration: contract.lengthSeconds,
+        egg: contract.egg,
+        name: contract.id,
+        serveUntil: contract.expirationTime + contract.lengthSeconds,
+        title: contract.name,
+        validUntil: contract.expirationTime,
+        goals: goals,
     }, { merge : false }).then( () => {
         docRef.set({
             serveUntil : contract.expirationTime + contract.lengthSeconds
@@ -130,12 +132,16 @@ exports.setAuthKey = function(authKey, currentUser, permissions) {
     }).then(docRef => docRef);
 }
 
-exports.checkFor = function(type, id) {
+exports.checkFor = function (type, contract) {
     paths = {
-        'contract' : 'egginc-contracts'
+        'contract': 'egginc-contracts'
     }
-    return firestore.collection(paths[type]).doc(id).get().then(docRef => {
-        return docRef.exists ? true : false;
+    return firestore.collection(paths[type]).doc(contract.id).get().then(docRef => {
+        if (docRef.exists) {
+            let validUntil = docRef.get('validUntil');
+            return validUntil == contract.expirationTime;
+        }
+        return false;
     })
 }
 

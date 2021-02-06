@@ -1,38 +1,36 @@
-import React, { useState, useEffect, CSSProperties } from "react"
-import { Card, Typography } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
-import { useSelector } from "react-redux"
-import { getActiveContracts } from "../../../actions/contractActions"
+import React from "react"
+import {Typography} from "@material-ui/core"
+import {useSelector} from "react-redux"
 import CoopRewards from "../../ContractSummary/CoopSummary/CoopRewards"
 import CoopExpiryEstimate from "../../ContractSummary/CoopSummary/CoopExpiryEstimate"
-import { NavLink } from "react-router-dom"
+import {NavLink} from "react-router-dom"
 import path from "path"
 import HeadedCard from "../../HeadedCard"
 import ContractIcons from "../../ContractSummary/ContractIcons"
 import Loading from "../../Loading"
 import calculateFarmStats from "../../../tools/farmStatTools"
-import { CoopSummaryCardProps } from "../../../../types/dashboard"
+import {CoopSummaryCardProps} from "../../../../types/dashboard"
 import useStyle from "./styles"
-import { isContractGoals } from "../../../../types/typeGuards"
-import { ContractGoals } from "../../../../types/contract"
+import {isContractGoals} from "../../../../types/typeGuards"
+import {ContractGoals} from "../../../../types/contract"
 
 export default function CoopCard(props: CoopSummaryCardProps) {
-    const classes = useStyle()
-    const contract = props.contract
-    const metaContract = props.metaContract
-    const coopId = metaContract.coopIdentifier
-    const coop = useSelector(store => store.contract.playerCoops[contract.name])
-	const playerContractFarm = useSelector(store => store.playerData.farmsList.find(item => item.contractId === contract.name))
+	const classes = useStyle()
+	const contract = props.contract
+	const metaContract = props.metaContract
+	const coopId = metaContract.coopId
+	const coop = useSelector(store => store.contract.playerCoops[contract.name])
+	const playerContractFarm = useSelector(store => store.playerData.farms.find(item => item.contractId === contract.name))
 	const playerGameData = useSelector(store => store.playerData.game)
 	const league = ["elite", "standard"][metaContract.league]
 	const coopRewardSet = isContractGoals(contract.goals) ? (contract.goals[league as keyof ContractGoals]) : contract.rewards
 
-    let loadingCoop
-    if (coop) loadingCoop = coop.fetching
-    
-    let link = path.join("contract", "view", (contract ? contract.name : ""), (coopId ? coopId : ""))
-    
-    const loadingContent = [
+	let loadingCoop
+	if (coop) loadingCoop = coop.fetching
+
+	let link = path.join("contract", "view", (contract ? contract.name : ""), (coopId ? coopId : ""))
+
+	const loadingContent = [
 		<Loading style={{gridArea: "rewards / estimate / rewards / estimate"}} key="loading" />,
 	]
 	

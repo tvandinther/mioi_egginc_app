@@ -37,7 +37,6 @@ export default function ContractList(props: RouteComponentProps) {
         validUntil: (a: Contract, b: Contract) => a.validUntil - b.validUntil,
         title: (a: Contract, b: Contract) => a.title > b.title ? -1 : 1,
         duration: (a: Contract, b: Contract) => a.duration - b.duration,
-        coopSize: (a: Contract, b: Contract) => a.coopSize > b.coopSize,
     }
     const contractList = Object.values(activeContracts.contracts)
     const sortedContracts = contractList.sort(sortFunctions["validUntil"])

@@ -1,8 +1,8 @@
-import { applyMiddleware, createStore, compose } from "redux"
+import {applyMiddleware, compose, createStore} from "redux"
 
 import promise from "redux-promise-middleware"
 import logger from "redux-logger"
-import { persistStore, persistReducer, createMigrate } from "redux-persist"
+import {createMigrate, persistReducer, persistStore} from "redux-persist"
 import storage from "redux-persist/lib/storage"
 
 import reducer from "./reducers"
@@ -26,6 +26,17 @@ const migrations = {
 				savedIds: {
 					[state.settings.playerId]: state.playerData.userId
 				}
+			}
+		}
+	},
+
+	2: (state) => {
+		return {
+			...state,
+			settings: {
+				...state.settings,
+				savedIds: {},
+				playerId: null
 			}
 		}
 	}

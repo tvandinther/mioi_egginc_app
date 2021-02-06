@@ -34,7 +34,7 @@ export default function SyncButton() {
 	const playerDataFetching = playerData.fetching
 	const newsFetching = useSelector(store => store.app.news.fetching)
 	let coopIds: any = null
-	if (playerData.fetched && playerData.contracts) coopIds = playerData.contracts.contractsList
+	if (playerData.fetched && playerData.contracts) coopIds = playerData.contracts.contracts
 
 	const handleClick = () => {
 		dispatch(getActiveContracts())

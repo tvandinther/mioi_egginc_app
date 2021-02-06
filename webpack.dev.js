@@ -12,7 +12,11 @@ module.exports = merge(common, {
         publicPath: "/",
         hotOnly: true,
         proxy: {
-            '/api': 'http://localhost:8080/api'
+            '/api': {
+                target: 'http://localhost:8080',
+                secure: false,
+                changeOrigin: true
+            }
         }
     },
     plugins: [new webpack.HotModuleReplacementPlugin()],
