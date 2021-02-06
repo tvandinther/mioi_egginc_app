@@ -1,4 +1,4 @@
-const eggincAPIForwarder = require("../eggIncAPI/eggincAPIForwarder")
+const eggincAPIForwarder = require("../eggIncAPI")
 
 var getCoop = function (args) {
     return eggincAPIForwarder.getContract(args.contractName, args.coopName);

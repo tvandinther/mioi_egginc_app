@@ -1,5 +1,5 @@
-const eggIncAPI = require("./eggincAPI")
+const eggIncAPIForwarder = require("./eggincAPIForwarder")
 
 module.exports = {
-    ...eggIncAPI,
+    ...eggIncAPIForwarder,
 }
