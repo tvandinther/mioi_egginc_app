@@ -11,7 +11,7 @@ export function SoloCalcResults() {
 	const coop = useSelector(store => store.contract.coops[contractId])
 	const groupCalc = useSelector(store => store.contract.contractCalc.groupCalc)
 	const memberCount = coop.fetched ? coop.members.length : coop.contractLink.coopSize
-	let groupParameters = parameters
+	let groupParameters = { ...parameters }
 	if (groupCalc) { // TO DO: Create validation for group parameters
 		//@ts-ignore
 		groupParameters.hatchRate *= memberCount

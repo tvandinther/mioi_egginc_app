@@ -206,33 +206,53 @@ export function contractTimeSoloEstimate(parameters: any): [number, { type: stri
     let c = parameters.population;
     let d = parameters.eggsLaid;
     let y = parameters.target;
-    let qA = (a * b) / 2;
-	let qB = b * c;		
-	let qC = d - y;
-	let determinant = Math.pow(qB, 2) - 4 * qA * qC
-	let numerator = determinant < 0 ? 0 : -1 * qB + Math.sqrt(determinant)		
-	let denominator = 2 * qA;		
-	let xToTarget =  numerator / denominator;		
-	let breakpoints = [0]		
-	let xMaxPopulation = (parameters.maxPopulation - c) / a;		
-	let xMaxShippingRate = ((parameters.shippingRate / b) - c) / a;		
-	breakpoints.push(xToTarget, xMaxPopulation, xMaxShippingRate);		
+
+    let timeToTarget, timeToMaxPopulation, timeToMaxShippingRate;
+    let breakpoints = [0];
+
+    if (parameters.hatchRate == 0) {
+        timeToTarget = parameters.target / parameters.layingRate;
+        if (parameters.population > parameters.maxPopulation) {
+            timeToMaxPopulation = 0;
+            breakpoints.push(timeToMaxPopulation);
+        }
+        if (parameters.layingRate > parameters.shippingRate) {
+            timeToMaxShippingRate = 0
+            breakpoints.push(timeToMaxShippingRate);
+        }
+    }
+    else {
+        // Quadratic Formula
+        let qA = (a * b) / 2;
+        let qB = b * c;
+        let qC = d - y;
+        let determinant = Math.pow(qB, 2) - 4 * qA * qC
+        let numerator = determinant < 0 ? 0 : -1 * qB + Math.sqrt(determinant)
+        let denominator = 2 * qA;
+        timeToTarget =  numerator / denominator;
+        timeToMaxPopulation = (parameters.maxPopulation - c) / a;
+        timeToMaxShippingRate = ((parameters.shippingRate / b) - c) / a;
+        breakpoints.push(timeToMaxPopulation, timeToMaxShippingRate);
+    }
+
+	breakpoints.push(timeToTarget);
+    breakpoints = breakpoints.filter(value => value >= 0)
 	breakpoints.sort((a, b) => a - b );
 	//WHATIFS		
-	let maxFarmPopulation = (a * xToTarget) + c;		
-	let maxFarmShipping = ((a * xToTarget) + c) * b;		
+	let maxFarmPopulation = (a * timeToTarget) + c;
+	let maxFarmShipping = ((a * timeToTarget) + c) * b;
 	//CALCULATE TIME		
-	let time = 0;		
-	time =+ breakpoints[1]		
-	
-	let warning = null
+	let time = 0;
+    let warning = null;
+
+	time =+ breakpoints[1]
 
 	for (let i = 1; i < breakpoints.length; i++) {		
-		if (breakpoints[i] == xToTarget) {		
+		if (breakpoints[i] == timeToTarget) {
 			break;		
 		}		
-		else if (breakpoints[i] == xMaxPopulation) {		
-			d += findEggsLaid(breakpoints[i], breakpoints[i - 1], a, b, c);		
+		else if (breakpoints[i] == timeToMaxPopulation) {
+			d += findEggsLaid(breakpoints[i], breakpoints[i - 1], a * b, parameters.layingRate);
 			time += findTime(y, b, c, d);
 			warning = {
 				type: "maxPopulation",
@@ -240,8 +260,8 @@ export function contractTimeSoloEstimate(parameters: any): [number, { type: stri
 			}
 			break;
 		}		
-		else if (breakpoints[i] == xMaxShippingRate) {
-			d += findEggsLaid(breakpoints[i], breakpoints[i - 1], a, b, c);
+		else if (breakpoints[i] == timeToMaxShippingRate) {
+			d += findEggsLaid(breakpoints[i], breakpoints[i - 1], a * b, parameters.layingRate);
 			time += findTime(y, b, c, d);
 			warning = {
 				type: "shippingRate",
@@ -250,15 +270,17 @@ export function contractTimeSoloEstimate(parameters: any): [number, { type: stri
 			break;
 		}
 	}
-		
-	function findEggsLaid(endBreakpoint: number, startBreakpoint: number, a: number, b: number, c: number) {
+
+	// Displacement formula: s = ut + ½at^2
+	function findEggsLaid(endBreakpoint: number, startBreakpoint: number, newEggsPerMin: number, layingRate: number) {
 		let xRuntime = endBreakpoint - startBreakpoint;
-		return (a * b / 2) * Math.pow(xRuntime, 2) + b * c * xRuntime;
+		return (newEggsPerMin / 2) * Math.pow(xRuntime, 2) + layingRate * xRuntime;
 	}
 		
 	function findTime(y: number, b: number, c: number, d: number) {
 		return (y - d) / (b * (a * breakpoints[1] + c));
 	}
 
+	console.log(time)
 	return [time, warning];
 }

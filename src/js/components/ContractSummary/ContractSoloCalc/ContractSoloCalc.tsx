@@ -30,10 +30,15 @@ export default function ContractSoloCalc({contract, coop}: { contract: Contract,
 
 	const farmStats = (playerContractFarm && playerGameData) ? calculateFarmStats(playerContractFarm, playerGameData) : null
 
-	function Section({ title, children }: { title?: string, children: JSX.Element }) {
+	function Section({ title, subtitle, children }: { title?: string, subtitle?: string, children: JSX.Element }) {
 		return (
 			<div className={classes.section}>
-				<Typography align="center" variant="h6">{title}</Typography>
+				<Typography align="center" variant="h6">
+					{title}
+				</Typography>
+				<Typography align="center" variant="subtitle2">
+					{subtitle}
+				</Typography>
 				{children}
 			</div>
 		)
@@ -71,13 +76,13 @@ export default function ContractSoloCalc({contract, coop}: { contract: Contract,
 				<Section title="Max Hab Capacity">
 					<GenericStatInput name="maxPopulation" value={valueData.maxPopulation}/>
 				</Section>
-				<Section title="Shipping Capacity">
+				<Section title="Shipping Capacity" subtitle="Eggs/Min">
 					<GenericStatInput name="shippingRate" value={valueData.shippingRate}/>
 				</Section>
-				<Section title="Egg Laying Rate">
+				<Section title="Egg Laying Rate" subtitle="Eggs/Min">
 					<GenericStatInput name="layingRate" value={valueData.layingRate}/>
 				</Section>
-				<Section title="Int. Hatchery Rate">
+				<Section title="Int. Hatchery Rate" subtitle="Min/Hab">
 					<GenericStatInput name="hatchRate" value={valueData.hatchRate}/>
 				</Section>
 				<Section>
