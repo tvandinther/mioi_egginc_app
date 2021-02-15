@@ -12,24 +12,24 @@ export default function PlayerData() {
 
 	const playerName = savedIds[playerId]
 
-	return (
-		<div>
-			<Typography variant="h5">
-				Player Data
-			</Typography>
-			<Divider variant="middle"/>
-			<Typography>
-				Player data services are currently unavailable.
-				<br/>
-				<br/>
-				The MIOI Egg, Inc. Companion app is a 3rd party service that relies on unofficial streams of data from
-				Auxbrain. MIOI has currently suspended some services as a temporary measure to cooperate with data
-				migration efforts as a result of the Artifacts update. The ability to fetch information with your player
-				ID will eventually resume in the coming weeks. In the meantime, continue to look up contract co-ops as
-				you always have as this feature continues to operate uninterrupted.
-			</Typography>
-		</div>
-	)
+	// return (
+	// 	<div>
+	// 		<Typography variant="h5">
+	// 			Player Data
+	// 		</Typography>
+	// 		<Divider variant="middle"/>
+	// 		<Typography>
+	// 			Player data services are currently unavailable.
+	// 			<br/>
+	// 			<br/>
+	// 			The MIOI Egg, Inc. Companion app is a 3rd party service that relies on unofficial streams of data from
+	// 			Auxbrain. MIOI has currently suspended some services as a temporary measure to cooperate with data
+	// 			migration efforts as a result of the Artifacts update. The ability to fetch information with your player
+	// 			ID will eventually resume in the coming weeks. In the meantime, continue to look up contract co-ops as
+	// 			you always have as this feature continues to operate uninterrupted.
+	// 		</Typography>
+	// 	</div>
+	// )
 
 	return (
 		<div>

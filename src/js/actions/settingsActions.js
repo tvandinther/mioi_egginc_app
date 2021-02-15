@@ -10,10 +10,6 @@ export function setPlayerId(playerId) {
 
 export function validatePlayerId(playerId) {
 	return {
-		type: "",
-		payload: null
-	}
-	return {
 		type: "VALIDATE_GAMEID",
 		meta: {
 			playerId: playerId,

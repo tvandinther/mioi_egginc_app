@@ -8,8 +8,6 @@ export default function PlayerIDSelect() {
 	const selectedId = useSelector(store => store.settings.playerId)
 	const dispatch = useDispatch()
 
-	return null
-
 	if (Object.keys(savedIds).length < 2) {
 		return null
 	}
