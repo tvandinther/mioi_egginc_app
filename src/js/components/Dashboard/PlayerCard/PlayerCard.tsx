@@ -9,6 +9,7 @@ import ImageLabel from "../../Decorator/ImageLabel"
 import DailyGiftCollection from "./DailyGiftCollection"
 import {PlayerCardProps} from "../../../../types/dashboard"
 import useStyle from "./styles"
+import {Alert} from "@material-ui/lab";
 
 export default function PlayerCard({playerData}: PlayerCardProps) {
 	const classes = useStyle()
@@ -57,7 +58,19 @@ export default function PlayerCard({playerData}: PlayerCardProps) {
 	)
 
 	const cardTitle = playerData.userName ? `Hello, ${playerData.userName}` : "Welcome"
-    return (
+
+	// @ts-ignore
+	if (!PLAYER_DATA_ENABLED) {
+		return (
+			<HeadedCard cardID="player" collapsable title="Welcome">
+				<Alert severity="info">
+					Player data service is currently down. We apologise for the inconvenience.
+				</Alert>
+			</HeadedCard>
+		)
+	}
+
+	return (
         <HeadedCard cardID="player" collapsable title={cardTitle}>
 			{!fetched && <IDPrompt/>}
 			{fetching && fetched && <Loading/>}

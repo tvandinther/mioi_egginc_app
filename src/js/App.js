@@ -80,10 +80,9 @@ function App(props) {
 	}, [])
 
 	useEffect(() => {dispatch(getActiveContracts())}, [])
-	useEffect(() => {
-		if (playerId) dispatch(validatePlayerId(playerId))
-	}, [])
+	useEffect(() => { if (playerId) dispatch(validatePlayerId(playerId)) }, [])
 	useEffect(() => {dispatch(fetchNews(5))}, [])
+	useEffect( () => { if (!PLAYER_DATA_ENABLED) dispatch(validatePlayerId(null)) }, [])
 
 	const Home = lazy(() => import(/* webpackChunkName: "home" */ "./pages/Home"))
 	const ContractApp = lazy(() => import(/* webpackChunkName: "contract" */ "./pages/ContractApp"))

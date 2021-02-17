@@ -39,12 +39,6 @@ export default function DashboardManager() {
 
 	let dashboardOptions: DashboardOptions = {
 		cards: {
-			player: {
-				show: true,
-				key: "player-card",
-				priority: 0,
-				playerData: playerData,
-			},
 			links: [
 				{
 					show: true,
@@ -57,6 +51,13 @@ export default function DashboardManager() {
 			],
 			contracts: contractCards,
 		}
+	}
+
+	dashboardOptions.cards.player = {
+		show: true,
+		key: "player-card",
+		priority: 0,
+		playerData: playerData,
 	}
 
 	if (newsPosts?.[0]) dashboardOptions.cards.news = {

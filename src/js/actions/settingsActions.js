@@ -9,6 +9,13 @@ export function setPlayerId(playerId) {
 }
 
 export function validatePlayerId(playerId) {
+	if (!PLAYER_DATA_ENABLED) {
+		return {
+			type: "DISABLE_PLAYER_ID",
+			payload: null
+		}
+	}
+
 	return {
 		type: "VALIDATE_GAMEID",
 		meta: {

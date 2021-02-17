@@ -65,7 +65,8 @@ module.exports = {
   plugins: [
 	  new webpack.DefinePlugin({
 		  VERSION: JSON.stringify(pkg.version),
-		  TRACKING_ID: JSON.stringify("UA-120158257-2")
+		  TRACKING_ID: JSON.stringify("UA-120158257-2"),
+          PLAYER_DATA_ENABLED: false
 	  })
   ],
   resolve: {
