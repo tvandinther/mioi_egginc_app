@@ -1,6 +1,7 @@
 const initialState = {
     error: false,
     fetched: false,
+	fetching: false,
 }
 
 export default function reducer(state=initialState, action) {
@@ -55,6 +56,13 @@ export default function reducer(state=initialState, action) {
 		}
 		case "CLEAR_ALL_GAMEID":
 		case "CLEAR_PLAYER_GAMEID": {
+			return {
+				error: false,
+				fetched: false,
+				fetching: false,
+			}
+		}
+		case "DISABLE_PLAYER_ID": {
 			return {
 				error: false,
 				fetched: false,

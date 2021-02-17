@@ -9,14 +9,6 @@ import reducer from "./reducers"
 
 // Number(VERSION.replace(/\D/g, ""))
 
-const persistConfig = {
-	key: "appSettings",
-	version: 1,
-    storage,
-	whitelist: ['settings', 'app', 'playerData'], // Only persists stores under these names
-	migrate: createMigrate(migrations),
-}
-
 const migrations = {
 	1: (state) => {
 		return {
@@ -40,6 +32,14 @@ const migrations = {
 			}
 		}
 	}
+}
+
+const persistConfig = {
+	key: "appSettings",
+	version: 2,
+	storage,
+	whitelist: ['settings', 'app', 'playerData'], // Only persists stores under these names
+	migrate: createMigrate(migrations),
 }
 
 const persistedReducer = persistReducer(persistConfig, reducer)

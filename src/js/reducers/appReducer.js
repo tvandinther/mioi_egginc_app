@@ -1,6 +1,8 @@
 const initialState = {
 	news: {
 		fetched: false,
+		fetching: false,
+		error: false,
 	},
 	cardStates: {}
 }
@@ -18,13 +20,27 @@ export default function reducer(state=initialState, action) {
 		}
 		case "FETCH_NEWS_FULFILLED": {
 			let data = action.payload.data.data.mioi.fetchNews
+			if (data) {
+				return {
+					...state,
+					news: {
+						posts: data,
+						fetched: true,
+						fetching: false,
+						error: false,
+					},
+				}
+			}
+		}
+		case "FETCH_NEWS_REJECTED": {
 			return {
 				...state,
 				news: {
-					posts: data,
-					fetched: true,
+					...state.news,
+					fetched: false,
 					fetching: false,
-				},
+					error: true,
+				}
 			}
 		}
 		case "SET_COLLAPSED_CARD": {
